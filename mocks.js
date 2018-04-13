@@ -7,16 +7,15 @@ const mocks = [
             BrokerServiceExternalBasicStreamedSF: {
                 BasicHttpBinding_IBrokerServiceExternalBasicStreamed: {
                     UploadFileStreamedBasic : function(args) {
-                        console.log('UploadFileStreamedBasic!', args);
                         return {
                             LastChanged : "LastChanged",
                             ParentReceiptId: "ParentReceiptId"
                         };
                     },
                     DownloadFileStreamedBasic : function(args) {
-                        console.log('UploadFileStreamedBasic!', args);
-                        let n = args.a * args.b;
-                        return { mulres : n };
+                        return {
+                            mockResponse : "This is a mock"
+                        };
                     }
                 }
             }
@@ -30,17 +29,13 @@ const mocks = [
             ForsendelsesServiceV9: {
                 ForsendelsesServiceV9: {
                     sendForsendelseMedId : function(args) {
-                        console.log('UploadFileStreamedBasic!', args);
                         return {
-                            LastChanged : "LastChanged",
-                            ParentReceiptId: "ParentReceiptId"
+                            mockResponse : "This is a mock"
                         };
                     },
                     sendForsendelse : function(args) {
-                        console.log('UploadFileStreamedBasic!', args);
                         return {
-                            LastChanged : "LastChanged",
-                            ParentReceiptId: "ParentReceiptId"
+                            mockResponse : "This is a mock"
                         };
                     }
                 }
