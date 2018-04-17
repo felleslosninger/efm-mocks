@@ -7,6 +7,24 @@ const PORT = 8001;
 
 let app = express();
 
+let restString = restMocks.map((item) => item.routes)
+    .reduce((accumulator, current) => accumulator.concat(current))
+    .map((item) => `${item.method} http://localhost:${PORT}${item.path}`);
+
+let soapString = mocks
+    .map((item) => `http://localhost:${PORT}${item.pathName}?wsdl`);
+
+app.get('/', (req, res) => {
+    res.send(`<html style="font-family: Comic Sans MS;"><body>
+                <h1>MOVE Mocks<h1>
+                <h3>REST Mocks:<h3>
+                <ul> ${ restString.map((url) => `<li>${url}</li>`).join('') }</ul>
+                <h3>SOAP Mocks:<h3>
+                <ul> ${ soapString.map((url) => `<li><a href="${url}">${url}</a></li>`).join('') }</ul>
+            </body>
+            </html>`)
+});
+
 // Set up REST mocks:
 restMocks.forEach((mock) => {
     mock.routes
@@ -42,18 +60,13 @@ Promise.all(mocks.map((mock) => fetch(mock.wsdlUrl) ))
 
 console.log(`Mocks running on http://localhost:${PORT}`);
 
-let restString = restMocks.map((item) => item.routes)
-    .reduce((accumulator, current) => accumulator.concat(current))
-    .map((item) => `${item.method} http://localhost:${PORT}${item.path}`).join('\n');
 
-let soapString = mocks
-    .map((item) => `http://localhost:${PORT}${item.pathName}?wsdl`).join('\n');
 
 console.log('REST mocks: \n');
-console.log(restString);
+console.log(restString.join('\n'));
 console.log("\n");
 console.log('SOAP mocks: \n');
-console.log(soapString);
+console.log(soapString.join('\n'));
 
 
 
