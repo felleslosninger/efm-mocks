@@ -1,19 +1,41 @@
+const hentNyeForsendelser = require('./testdata/hentNyeForsendelser')
 const mocks = [
     {
         name: "KS SvarInn",
         routes: [
             {
                 path: '/svarinn/mottaker/hentForsendelsefil',
-                method: 'POST',
+                method: 'GET',
                 responseFunction: (req, res) => {
-                    res.send('hentForsendelsefil');
+                    // need stream?
+                    res.download(__dirname + '/testdata/liten.pdf')
                 }
             },
             {
                 path: '/svarinn/mottaker/hentNyeForsendelser',
                 method: 'GET',
                 responseFunction: (req, res) => {
-                    res.send('hentNyeForsendelser');
+                    res.send(JSON.stringify(hentNyeForsendelser(100)));
+                }
+            },
+            {
+                path: '/svarinn/kvitterMottak/forsendelse/:forsendelseid',
+                method: 'POST',
+                responseFunction: (req, res) => {
+                    console.log( req.params.forsendelseid);
+                    res.send('Ok');
+                }
+            }
+        ]
+    },
+    {
+        name: "DPI",
+        routes: [
+            {
+                path: '/dpi/*',
+                method: 'GET',
+                responseFunction: (req, res) => {
+                    res.send('DPI OK');
                 }
             }
         ]
