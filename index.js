@@ -3,16 +3,18 @@ let restMocks = require('./RestMocks');
 let soap = require('soap');
 const express = require('express');
 const fetch = require('node-fetch');
-const PORT = 8001;
-
+process.env.PORT = process.env.PORT || 8001;
 let app = express();
+
+
+console.log("LKRNVKRJNKVJN", process.env.PORT);
 
 let restString = restMocks.map((item) => item.routes)
     .reduce((accumulator, current) => accumulator.concat(current))
-    .map((item) => `${item.method} http://localhost:${PORT}${item.path}`);
+    .map((item) => `${item.method} http://localhost:${process.env.PORT}${item.path}`);
 
 let soapString = mocks
-    .map((item) => `http://localhost:${PORT}${item.pathName}?wsdl`);
+    .map((item) => `http://localhost:${process.env.PORT}${item.pathName}?wsdl`);
 
 app.get('/', (req, res) => {
     res.send(`<html style="font-family: Comic Sans MS;"><body>
@@ -50,7 +52,7 @@ Promise.all(mocks.map((mock) => fetch(mock.wsdlUrl) ))
                 });
 
                 // Set up the listeners:
-                app.listen(PORT, () => {
+                app.listen(process.env.PORT, () => {
                     mocks.forEach((mock) => {
                         soap.listen(app, mock.pathName, mock.service, mock.wsdl);
                     })
@@ -58,10 +60,7 @@ Promise.all(mocks.map((mock) => fetch(mock.wsdlUrl) ))
         });
 });
 
-console.log(`Mocks running on http://localhost:${PORT}`);
-
-
-
+console.log(`Mocks running on http://localhost:${process.env.PORT}`);
 console.log('REST mocks: \n');
 console.log(restString.join('\n'));
 console.log("\n");

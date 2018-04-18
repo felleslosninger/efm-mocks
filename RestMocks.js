@@ -1,21 +1,23 @@
 const hentNyeForsendelser = require('./testdata/hentNyeForsendelser')
+const config = require('./config');
+
 const mocks = [
     {
         name: "KS SvarInn",
         routes: [
             {
-                path: '/svarinn/mottaker/hentForsendelsefil',
+                path: '/svarinn/mottaker/hentForsendelsefil/:forsendelseid',
                 method: 'GET',
                 responseFunction: (req, res) => {
                     // need stream?
-                    res.download(__dirname + '/testdata/liten.pdf')
+                    res.download(`${__dirname}/testdata/${config.hentForsendelsefil}`)
                 }
             },
             {
                 path: '/svarinn/mottaker/hentNyeForsendelser',
                 method: 'GET',
                 responseFunction: (req, res) => {
-                    res.send(JSON.stringify(hentNyeForsendelser(100)));
+                    res.send(JSON.stringify(hentNyeForsendelser()));
                 }
             },
             {
