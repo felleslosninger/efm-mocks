@@ -82,6 +82,28 @@ const mocks = [
             }
         }
     }
+    // ,
+    // {
+    //     name: "DPI",
+    //     pathName: '/dpi/*',
+    //     wsdlUrl: 'https://svarut.ks.no/tjenester/forsendelseservice/ForsendelsesServiceV9?wsdl',
+    //     service: {
+    //         ForsendelsesServiceV9: {
+    //             ForsendelsesServiceV9: {
+    //                 sendForsendelseMedId : function(args) {
+    //                     return {
+    //                         mockResponse : "This is a mock"
+    //                     };
+    //                 },
+    //                 sendForsendelse : function(args) {
+    //                     return {
+    //                         mockResponse : "This is a mock"
+    //                     };
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
 ];
 
 module.exports = mocks;
