@@ -6,10 +6,13 @@
   "dependencies": {
     "body-parser": "^1.18.2",
     "express": "^4.16.3",
+    "express-xml-bodyparser": "^0.3.0",
     "node-fetch": "^2.1.2",
     "soap": "^0.24.0",
     "strong-soap": "^1.6.2",
-    "ws.js": "^2.0.23"
+    "uid": "0.0.2",
+    "ws.js": "^2.0.23",
+    "xml2js": "^0.4.19"
   },
   "devDependencies": {},
   "scripts": {

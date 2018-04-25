@@ -1,13 +1,19 @@
-let mocks = require('./mocks');
-let restMocks = require('./RestMocks');
-let soap = require('soap');
+const mocks = require('./mocks');
+const restMocks = require('./RestMocks');
+const soap = require('soap');
 const express = require('express');
 const fetch = require('node-fetch');
+const bodyParser = require('body-parser');
+const xmlparser = require('express-xml-bodyparser');
+
+
 process.env.PORT = process.env.PORT || 8001;
+
 let app = express();
 
+//app.use(bodyParser.urlencoded({ extended: false }));
+app.use(xmlparser());
 
-console.log("LKRNVKRJNKVJN", process.env.PORT);
 
 let restString = restMocks.map((item) => item.routes)
     .reduce((accumulator, current) => accumulator.concat(current))
@@ -17,14 +23,17 @@ let soapString = mocks
     .map((item) => `http://localhost:${process.env.PORT}${item.pathName}?wsdl`);
 
 app.get('/', (req, res) => {
-    res.send(`<html style="font-family: Comic Sans MS;"><body>
-                <h1>MOVE Mocks<h1>
-                <h3>REST Mocks:<h3>
-                <ul> ${ restString.map((url) => `<li>${url}</li>`).join('') }</ul>
-                <h3>SOAP Mocks:<h3>
-                <ul> ${ soapString.map((url) => `<li><a href="${url}">${url}</a></li>`).join('') }</ul>
-            </body>
-            </html>`)
+    res.send(`
+            <html style="font-family: Comic Sans MS;">
+                <body>
+                    <h1>MOVE Mocks<h1>
+                        <h3>REST Mocks:<h3>
+                            <ul> ${ restString.map((url) => `<li>${url}</li>`).join('') }</ul>
+                        <h3>SOAP Mocks:<h3>
+                            <ul> ${ soapString.map((url) => `<li><a href="${url}">${url}</a></li>`).join('') }</ul>
+                </body>
+            </html>
+`)
 });
 
 // Set up REST mocks:
