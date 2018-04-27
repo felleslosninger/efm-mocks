@@ -5,14 +5,59 @@ const express = require('express');
 const fetch = require('node-fetch');
 const bodyParser = require('body-parser');
 const xmlparser = require('express-xml-bodyparser');
-
-
+var multer  = require('multer')
+var upload = multer()
+const formidable = require('express-formidable');
+var getRawBody = require('raw-body')
 process.env.PORT = process.env.PORT || 8001;
-
 let app = express();
+var contentType = require('content-type')
+// app.use(function (req, res, next) {
+//     getRawBody(req, {
+//         length: req.headers['content-length'],
+//         limit: '1mb',
+//         encoding: contentType.parse(req).parameters.charset
+//     }, function (err, string) {
+//         if (err) return next(err)
+//       // console.log(string);
+//         req.text = string
+//         next()
+//     })
+// })
 
-//app.use(bodyParser.urlencoded({ extended: false }));
-app.use(xmlparser());
+app.use(bodyParser.raw({ type: 'application/soap+xml;' }))
+
+
+app.use(function(req, res, next) {
+
+
+
+    //var regexp = /^(text\/xml|application\/([\w!#\$%&\*`\-\.\^~]+\+)?xml)$/i;
+
+    var contentType = req.headers['content-type'] || ''
+        , mime = contentType.split(';')[0];
+        // console.log(contentType);
+        // console.log(mime);
+
+    // if (mime != 'application/soap+xml') {
+    //     return next();
+    // }
+
+    var data = '';
+    req.setEncoding('utf8');
+    req.on('data', function(chunk) {
+
+        // console.log("NEW CHUNK");
+        //
+        // console.log(chunk);
+        // console.log("END OF CHUNK");
+        data += chunk;
+    });
+    req.on('end', function() {
+        req.rawBody = data;
+        next();
+    });
+});
 
 
 let restString = restMocks.map((item) => item.routes)
