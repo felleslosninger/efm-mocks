@@ -39,7 +39,7 @@ describe('/POST dpv', () => {
     });
 });
 
-describe('/POST dpv', () => {
+describe('/POST dpv-receipt', () => {
     const xml = receiptRequest(sendersReference);
     it('It should receive a receipt.', (done) => {
         chai.request(server)

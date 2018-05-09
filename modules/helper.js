@@ -25,7 +25,6 @@ function recursiveKeySearch(key, data) {
     // We know we have an general object to work with now.
     // Now we need to iterate keys
     for (let dataKey in data) {
-        console.log(dataKey);
         if (key === dataKey) {
             // we found a match
             results.push(data[key]);

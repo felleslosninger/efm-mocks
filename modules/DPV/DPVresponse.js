@@ -22,7 +22,6 @@ const getResponse = (sendersReference, receiptId, reportee, created, expires) =>
             ${created} - OK - Correspondence Saved Successfully            
             </b:ReceiptHistory>
             <!--  DATE NOW Apr 19 2018  9:01AM - OK - Correspondence Saved Successfully  -->
-            <!--  ReceiptId er det vi lagrer i kø.  -->
             <b:ReceiptId>${receiptId}</b:ReceiptId>
             <b:ReceiptStatusCode>OK</b:ReceiptStatusCode>
             <b:ReceiptText>Correspondence Saved Successfully</b:ReceiptText>

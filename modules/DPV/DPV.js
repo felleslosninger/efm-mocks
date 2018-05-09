@@ -1,49 +1,72 @@
-const xml2js = require('xml2js');
 const uid = require("uid");
 const recursiveKeySearch = require("../helper").recursiveKeySearch;
 const getResponse = require('./DPVresponse');
 const cache = require('../../cache');
 const getReceiptResponse = require("../../test/ReceiptResponse").getReceiptResponse;
 const moment = require("moment");
-let builder = new xml2js.Builder();
-let parseString = require('xml2js').parseString;
+let url = require('url');
+const chalk = require('chalk');
 
 function receiveDPV(req, res) {
+
     if (req){
-        let serviceCode = recursiveKeySearch('ns1:servicecode', req.body)[0][0];
-        let sendersRererence  = recursiveKeySearch('ns:externalshipmentreference', req.body)[0][0];
-        let reportee = recursiveKeySearch('ns1:reportee', req.body)[0][0];
-        let receiptId = uid(36);
+        let soapAction = getSoapAction(req.body);
+        if (soapAction === 'InsertCorrespondenceV2') {
+            getDPVrequest(req, res)
+        } else if (soapAction === 'GetCorrespondenceStatusDetailsV2') {
+            getDPVreceipt(req, res)
+        }
 
-        let created = new moment().format();
-        let expires = new moment().add(5, 'minutes').format();
-
-        cache.set(sendersRererence, {
-            sendersReference: sendersRererence,
-            reportee: reportee,
-            created: created,
-            expires: expires,
-            receiptId: receiptId
-        });
-
-        res.set('Content-Type', 'text/xml');
-        res.send(getResponse(sendersRererence, receiptId, reportee, created, expires));
     }
 }
 
-function DPVreceipt(req, res){
+function getDPVrequest(req, res){
 
-    let elementName = 'ns1:sendersreference';
+    let sendersRererence = recursiveKeySearch('externalshipmentreference', req.body)[0][0];
+
+    console.log(chalk.blue('POST /dpv SOAP-action: InsertCorrespondenceV2 ') + ' Returning message for external shipment ref:' + chalk.yellow(sendersRererence));
+
+    let reportee = recursiveKeySearch('ns10:reportee', req.body)[0][0];
+    let receiptId = uid(36);
+
+    let created = new moment().format();
+    let expires = new moment().add(5, 'minutes').format();
+
+    cache.set(sendersRererence, {
+        sendersReference: sendersRererence,
+        reportee: reportee,
+        created: created,
+        expires: expires,
+        receiptId: receiptId
+    });
+
+    let resXML = getResponse(sendersRererence, receiptId, reportee, created, expires);
+    res.set('Content-Type', 'application/soap+xml');
+    res.send(resXML);
+}
+
+function getDPVreceipt(req, res){
+
+    let elementName = 'ns3:sendersreference';
 
     if (process.env.NODE_ENV === 'test'){
         elementName = 'b:SendersReference';
     }
 
     let sendersRef = recursiveKeySearch(elementName, req.body)[0][0];
-
     let queItem = cache.get(sendersRef);
-
-    res.set('Content-Type', 'text/xml');
-    res.send(getReceiptResponse(sendersRef, queItem.reportee, queItem.created, queItem.expires));
+    console.log(chalk.blue('POST /dpv SOAP-action: GetCorrespondenceStatusDetailsV2 ') + ' Returning message for receipt ref:' + chalk.yellow(sendersRef));
+    res.set('Content-Type', 'application/soap+xml');
+    res.send(getReceiptResponse(sendersRef, queItem.reportee, queItem.receiptId, queItem.created, queItem.expires));
 }
-module.exports = { receiveDPV, DPVreceipt };
+
+
+function getSoapAction(body){
+    let soapAction = recursiveKeySearch("wsa:action", body)[0][0];
+    let q = url.parse(soapAction, true);
+    let paths = q.pathname.split('/');
+    return paths[paths.length -1 ];
+
+}
+
+module.exports = { receiveDPV };
