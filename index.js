@@ -7,6 +7,8 @@ const bodyParser = require('body-parser');
 const xmlparser = require('express-xml-bodyparser');
 
 const chalk = require('chalk');
+const getBasicWSDL = require("./modules/DPO/BasicWsdl").getBasicWSDL;
+const getBasicStreamedWsdl = require("./modules/DPO/BasicStreamedWsdl").getBasicStreamedWsdl;
 process.env.PORT = process.env.PORT || 8001;
 
 let app = express();
@@ -20,19 +22,27 @@ let restString = restMocks.map((item) => item.routes)
 let soapString = mocks
     .map((item) => `http://localhost:${process.env.PORT}${item.pathName}?wsdl`);
 
-app.get('/', (req, res) => {
-    res.send(`
-            <html style="font-family: Comic Sans MS;">
-                <body>
-                    <h1>MOVE Mocks<h1>
-                        <h3>REST Mocks:<h3>
-                            <ul> ${ restString.map((url) => `<li>${url}</li>`).join('') }</ul>
-                        <h3>SOAP Mocks:<h3>
-                            <ul> ${ soapString.map((url) => `<li><a href="${url}">${url}</a></li>`).join('') }</ul>
-                </body>
-            </html>
-`)
-});
+// app.get('/', (req, res) => {
+//     res.set('Content-type', 'text/xml');
+//
+//     if (req.query.part === 'BrokerServiceExternalBasicStreamed.wsdl') {
+//         res.send(getBasicStreamedWsdl());
+//     } else {
+//         res.send(getBasicWSDL());
+//     }
+//
+// //     res.send(`
+// //             <html style="font-family: Comic Sans MS;">
+// //                 <body>
+// //                     <h1>MOVE Mocks<h1>
+// //                         <h3>REST Mocks:<h3>
+// //                             <ul> ${ restString.map((url) => `<li>${url}</li>`).join('') }</ul>
+// //                         <h3>SOAP Mocks:<h3>
+// //                             <ul> ${ soapString.map((url) => `<li><a href="${url}">${url}</a></li>`).join('') }</ul>
+// //                 </body>
+// //             </html>
+// // `)
+// });
 
 // Set up REST mocks:
 restMocks.forEach((mock) => {
@@ -57,6 +67,18 @@ Promise.all(mocks.map((mock) => fetch(mock.wsdlUrl) ))
                 wsdls.forEach((wsdl, idx) => {
                     mocks[idx].wsdl = wsdl;
                 });
+
+                app.all('*', function (req, res, next) {
+                    console.log(req.method);
+                    console.log('Incoming request on url:');
+
+                    //console.log(req.headers);
+
+                    let fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+                    console.log(fullUrl);
+                    next();
+                });
+
 
                 // Set up the listeners:
                 app.listen(process.env.PORT, () => {

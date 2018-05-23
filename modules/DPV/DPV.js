@@ -9,7 +9,7 @@ const chalk = require('chalk');
 
 function receiveDPV(req, res) {
 
-    if (req){
+    if (req) {
         let soapAction = getSoapAction(req.body);
         if (soapAction === 'InsertCorrespondenceV2') {
             getDPVrequest(req, res)
@@ -20,7 +20,7 @@ function receiveDPV(req, res) {
     }
 }
 
-function getDPVrequest(req, res){
+function getDPVrequest(req, res) {
 
     let sendersRererence = recursiveKeySearch('externalshipmentreference', req.body)[0][0];
 
@@ -45,7 +45,7 @@ function getDPVrequest(req, res){
     res.send(resXML);
 }
 
-function getDPVreceipt(req, res){
+function getDPVreceipt(req, res) {
 
     let elementName = 'ns3:sendersreference';
 
@@ -61,12 +61,11 @@ function getDPVreceipt(req, res){
 }
 
 
-function getSoapAction(body){
+function getSoapAction(body) {
     let soapAction = recursiveKeySearch("wsa:action", body)[0][0];
     let q = url.parse(soapAction, true);
     let paths = q.pathname.split('/');
     return paths[paths.length -1 ];
-
 }
 
-module.exports = { receiveDPV };
+module.exports = { receiveDPV, getSoapAction };

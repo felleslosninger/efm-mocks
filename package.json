@@ -9,6 +9,7 @@
     "express": "^4.16.3",
     "express-xml-bodyparser": "^0.3.0",
     "moment": "^2.22.1",
+    "morgan": "^1.9.0",
     "node-fetch": "^2.1.2",
     "soap": "^0.24.0",
     "strong-soap": "^1.6.2",
