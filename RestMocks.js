@@ -1,56 +1,50 @@
 const hentNyeForsendelser = require('./testdata/hentNyeForsendelser')
 const config = require('./config');
+const retrieveForsendelseIdByEksternRefResponse = require("./modules/DPF/retrieveForsendelseIdByEksternRef").retrieveForsendelseIdByEksternRefResponse;
+// const getBrokerServiceExternalBasicWSDL = require("./modules/DPF/BrokerServiceExternalBasicWSDL").getBrokerServiceExternalBasicWSDL;
 const UploadFileStreamedBasic = require("./modules/DPO/responses").UploadFileStreamedBasic;
 const DownloadFileStreamedBasic = require("./modules/DPO/responses").DownloadFileStreamedBasic;
 const InitiateBrokerServiceBasic = require("./modules/DPO/responses").InitiateBrokerServiceBasic;
 const GetAvailableFilesBasic = require("./modules/DPO/responses").GetAvailableFilesBasic;
 const getBasicWSDL = require("./modules/DPO/BasicWsdl").getBasicWSDL;
 const getBasicStreamedWsdl = require("./modules/DPO/BasicStreamedWsdl").getBasicStreamedWsdl;
-const getBrokerServiceExternalBasicStreamedWSDL = require("./modules/DPO/DPO").getBrokerServiceExternalBasicStreamedWSDL;
 const BrokerServiceExternalBasic = require("./modules/DPO/DPO").BrokerServiceExternalBasic;
-const { receiveDPO, getBrokerServiceExternalBasicWSDL } = require("./modules/DPO/DPO");
+const { getBrokerServiceExternalBasicWSDL } = require("./modules/DPO/DPO");
 const { receiveDPV }  = require("./modules/DPV/DPV");
 
 const mocks = [
-    // {
-    //     name: 'DPO',
-    //     routes: [
-    //         {
-    //             path: '/ServiceEngineExternal/BrokerServiceExternalBasic.svc',
-    //                 method: 'POST',
-    //                 responseFunction: (req,res) => {
-    //                     getBrokerServiceExternalBasicWSDL(req,res);
-    //             }
-    //         },
-    //         {
-    //             path: '/ServiceEngineExternal/BrokerServiceExternalBasic.svc',
-    //             method: 'POST',
-    //             responseFunction: (req,res) => {
-    //                 getBrokerServiceExternalBasicWSDL(req,res);
-    //             }
-    //         },
-    //         // {
-    //         //     path: '/*',
-    //         //     method: 'GET',
-    //         //     responseFunction: (req, res) => {
-    //         //         console.log('GOT GET REQ:');
-    //         //         let fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
-    //         //         console.log(fullUrl);
-    //         //     }
-    //         // },
-    //         // {
-    //         //     path: '/*',
-    //         //     method: 'POST',
-    //         //     responseFunction: (req, res) => {
-    //         //         console.log('GOT POST REQ:');
-    //         //         let fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
-    //         //         console.log(fullUrl);
-    //         //     }
-    //         // }
-    //     ]
-    // }
+    {
+        name: 'DPF',
+        routes: [
+            {
+                path: '/dpf/ServiceEngineExternal/BrokerServiceExternalBasic.svc?wsdl',
+                method: 'GET',
+                responseFunction: (req, res) => {
+                    console.log('GET');
+                    let fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+                    console.log(fullUrl);
+                    // res.send(getBrokerServiceExternalBasicWSDL);
+                }
+            },
+            {
+                path: '/dpf*',
+                method: 'POST',
+                responseFunction: (req, res) => {
+                    console.log('POST');
+                    console.log(req.headers);
+                    console.log(req.rawBody);
+                    console.log(JSON.stringify(req.body, null, 2));
+                    let fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+                    console.log(fullUrl);
+                    retrieveForsendelseIdByEksternRefResponse(req, res);
+
+                    res.send('bladdaow');
 
 
+                }
+            }
+        ]
+    },
     {
         name: "KS SvarInn",
         routes: [
@@ -73,7 +67,6 @@ const mocks = [
                 path: '/svarinn/kvitterMottak/forsendelse/:forsendelseid',
                 method: 'POST',
                 responseFunction: (req, res) => {
-                    console.log( req.params.forsendelseid);
                     res.send('Ok');
                 }
             }
@@ -93,7 +86,7 @@ const mocks = [
         name: 'DPO',
         routes: [
             {
-                path: '/',
+                path: '/dpo',
                     method: 'GET',
                     responseFunction: (req,res) => {
 
@@ -109,7 +102,23 @@ const mocks = [
                 }
             },
             {
-                path: '/ServiceEngineExternal/BrokerServiceExternalBasicStreamed.svc',
+                path: '/dpo/ServiceEngineExternal/BrokerServiceExternalBasic.svc',
+                method: 'GET',
+                responseFunction: (req, res) => {
+                    res.set('Content-type', 'text/xml');
+                    res.send(getBasicWSDL());
+                }
+            },
+            {
+                path: '/dpo/ServiceEngineExternal/BrokerServiceExternalBasicStreamed.svc',
+                method: 'GET',
+                responseFunction: (req, res) => {
+                    res.set('Content-type', 'text/xml');
+                    res.send(getBasicStreamedWsdl());
+                }
+            },
+            {
+                path: '/dpo/ServiceEngineExternal/BrokerServiceExternalBasicStreamed.svc',
                 method: 'GET',
                 responseFunction: (req,res) => {
                     if (!req.query.part){
@@ -123,9 +132,8 @@ const mocks = [
                     }
                 }
             },
-
             {
-                path: '/ServiceEngineExternal/BrokerServiceExternalBasic.svc',
+                path: '/dpo/ServiceEngineExternal/BrokerServiceExternalBasic.svc',
                 method: 'GET',
                 responseFunction: (req,res) => {
                     if (!req.query.part){
@@ -140,7 +148,7 @@ const mocks = [
                 }
             },
             {
-                path: '/ServiceEngineExternal/BrokerServiceExternalBasic.svc',
+                path: '/dpo/ServiceEngineExternal/BrokerServiceExternalBasic.svc',
                 method: 'POST',
                 responseFunction: (req,res) => {
                     res.header('Content-type', 'text/xml');
@@ -152,7 +160,7 @@ const mocks = [
                 }
             },
             {
-              path: '/ServiceEngineExternal/BrokerServiceExternalBasicStreamed.svc',
+              path: '/dpo/ServiceEngineExternal/BrokerServiceExternalBasicStreamed.svc',
                 method: 'POST',
                 responseFunction: (req, res) => {
                     res.header('Content-type', 'text/xml');
