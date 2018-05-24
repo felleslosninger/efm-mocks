@@ -4,17 +4,14 @@ retrieveForsendelseIdByEksternRefResponse = function (req, res) {
     console.log('Got the external ref:', externRef);
 
     return `<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:ser="http://www.ks.no/svarut/servicesV9">
-   <soap:Header/>
-   <soap:Body>
-      <ser:retrieveForsendelseIdByEksternRefResponse>
-         <!--Zero or more repetitions:-->
-         <return><!--Svarut ID. Generert av MOCK.--></return>
-      </ser:retrieveForsendelseIdByEksternRefResponse>
-   </soap:Body>
-</soap:Envelope>`
-
-
-
+               <soap:Header/>
+               <soap:Body>
+                  <ser:retrieveForsendelseIdByEksternRefResponse>
+                     <!--Zero or more repetitions:-->
+                     <return>42<!--Svarut ID. Generert av MOCK.--></return>
+                  </ser:retrieveForsendelseIdByEksternRefResponse>
+               </soap:Body>
+            </soap:Envelope>`;
 };
 
 module.exports = { retrieveForsendelseIdByEksternRefResponse };

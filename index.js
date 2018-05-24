@@ -1,5 +1,5 @@
-const mocks = require('./mocks');
-const restMocks = require('./RestMocks');
+const mocks = require('./src/mocks');
+const restMocks = require('./src/RestMocks');
 const soap = require('soap');
 const express = require('express');
 const fetch = require('node-fetch');
@@ -7,8 +7,8 @@ const bodyParser = require('body-parser');
 const xmlparser = require('express-xml-bodyparser');
 
 const chalk = require('chalk');
-const getBasicWSDL = require("./modules/DPO/BasicWsdl").getBasicWSDL;
-const getBasicStreamedWsdl = require("./modules/DPO/BasicStreamedWsdl").getBasicStreamedWsdl;
+const getBasicWSDL = require("./src/modules/DPO/BasicWsdl").getBasicWSDL;
+const getBasicStreamedWsdl = require("./src/modules/DPO/BasicStreamedWsdl").getBasicStreamedWsdl;
 process.env.PORT = process.env.PORT || 8001;
 
 const morgan = require('morgan')
@@ -63,18 +63,6 @@ Promise.all(mocks.map((mock) => fetch(mock.wsdlUrl) ))
                 wsdls.forEach((wsdl, idx) => {
                     mocks[idx].wsdl = wsdl;
                 });
-
-                // app.all('*', function (req, res, next) {
-                //     console.log(req.method);
-                //     console.log('Incoming request on url:');
-                //
-                //     //console.log(req.headers);
-                //
-                //     let fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
-                //     console.log(fullUrl);
-                //     next();
-                // });
-
 
                 // Set up the listeners:
                 app.listen(process.env.PORT, () => {

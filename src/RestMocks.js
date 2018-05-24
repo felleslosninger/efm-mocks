@@ -1,7 +1,9 @@
 const hentNyeForsendelser = require('./testdata/hentNyeForsendelser')
 const config = require('./config');
+const PutMessage = require("./modules/DPF/soapResponses").PutMessage;
+const sendforsendelsemedid = require("./modules/DPF/soapResponses").sendforsendelsemedid;
+const retrieveforsendelsestatus = require("./modules/DPF/soapResponses").retrieveforsendelsestatus;
 const retrieveForsendelseIdByEksternRefResponse = require("./modules/DPF/retrieveForsendelseIdByEksternRef").retrieveForsendelseIdByEksternRefResponse;
-// const getBrokerServiceExternalBasicWSDL = require("./modules/DPF/BrokerServiceExternalBasicWSDL").getBrokerServiceExternalBasicWSDL;
 const UploadFileStreamedBasic = require("./modules/DPO/responses").UploadFileStreamedBasic;
 const DownloadFileStreamedBasic = require("./modules/DPO/responses").DownloadFileStreamedBasic;
 const InitiateBrokerServiceBasic = require("./modules/DPO/responses").InitiateBrokerServiceBasic;
@@ -17,30 +19,46 @@ const mocks = [
         name: 'DPF',
         routes: [
             {
-                path: '/dpf/ServiceEngineExternal/BrokerServiceExternalBasic.svc?wsdl',
+                path: '/dpf*',
                 method: 'GET',
                 responseFunction: (req, res) => {
-                    console.log('GET');
-                    let fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
-                    console.log(fullUrl);
-                    // res.send(getBrokerServiceExternalBasicWSDL);
+                    res.send('ok');
                 }
             },
             {
                 path: '/dpf*',
                 method: 'POST',
                 responseFunction: (req, res) => {
-                    console.log('POST');
-                    console.log(req.headers);
-                    console.log(req.rawBody);
-                    console.log(JSON.stringify(req.body, null, 2));
-                    let fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
-                    console.log(fullUrl);
-                    retrieveForsendelseIdByEksternRefResponse(req, res);
 
-                    res.send('bladdaow');
+                    res.set('Content-type', 'application/soap+xml');
 
+                    if (req.body["soapenv:envelope"]["soapenv:body"][0]["ns2:retrieveforsendelseidbyeksternref"]){
+                        res.send(retrieveForsendelseIdByEksternRefResponse(req, res));
+                    } else if (req.body["soapenv:envelope"]["soapenv:body"][0]["ns2:retrieveforsendelsestatus"]) {
+                        res.send(retrieveforsendelsestatus());
+                    }
+                    else if (req.body["soapenv:envelope"]["soapenv:body"][0]["ns2:sendforsendelsemedid"]){
+                        res.send(sendforsendelsemedid());
+                    }
+                }
+            }
+        ]
+    },
+    {
+        name: 'Noark',
+        routes: [
+            {
+                path: '/noark*',
+                method: 'POST',
+                responseFunction: (req, res) => {
 
+                    res.set('Content-type', 'text/xml');
+
+                    if (req.headers && req.headers.soapaction === "\"http://www.arkivverket.no/Noark/Exchange/IEDUImport/PutMessage\"") {
+                        res.send(PutMessage());
+                    } else {
+                        res.send('ding!')
+                    }
                 }
             }
         ]
