@@ -1,0 +1,100 @@
+{
+"infoRecord": {
+"identifier": "910229028",
+"organizationName": "Sømådalen og Bessaker Revisjon",
+"entityType": {
+"name": "KOMM",
+"acronym": null
+},
+"postadresse": null
+},
+"serviceRecord": {
+"serviceIdentifier": "DPF",
+"organisationNumber": "910229028",
+"pemCertificate": "-----BEGIN CERTIFICATE-----\nMIIDXTCCAkWgAwIBAgIEeVv+BTANBgkqhkiG9w0BAQsFADBeMQswCQYDVQQGEwJO\nTzESMBAGA1UECBMJSG9yZGFsYW5kMQ8wDQYDVQQHEwZCZXJnZW4xCzAJBgNVBAoT\nAktzMQswCQYDVQQLEwJLUzEQMA4GA1UEAxMHVW5rbm93bjAgFw0xNTAxMDkxMjE2\nMzlaGA8yMjg4MTAyMzEyMTYzOVowXjELMAkGA1UEBhMCTk8xEjAQBgNVBAgTCUhv\ncmRhbGFuZDEPMA0GA1UEBxMGQmVyZ2VuMQswCQYDVQQKEwJLczELMAkGA1UECxMC\nS1MxEDAOBgNVBAMTB1Vua25vd24wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEK\nAoIBAQCWnlFO1G4U/Mpy859GFz/Pc8CBGbcjCzg8ogVJ3se1w0l5Y6pPmClLs4Un\nZYfH6TmBz9jFAClLlOlpv7xben23XVOp3lYSVtAGL729tPfwwVaF9krhwb2MGU2J\nrUp/GDumnmlyiS9LO4kV+cEt9R2m8vU0f+1OI8DlpAZssn9CX7kaktZYNWA/liwb\nnjw6WDcB1kCEW+xdqDB8HDQUpvP0GuLwnX9WqaaCJpUiMQyr8Svc/oahp5Yuq+uu\n+zlmorWEkL0DrRXwgQ55iuEJXxfv5kdqpZ4jHeSnD+4f4vJEYKBQ2C8ZnX9vQZ71\nPHHYtxHuAsQ6DgUs3kJ6m1r26/11AgMBAAGjITAfMB0GA1UdDgQWBBQ4EHRF1Dpg\nlmNubssVq7WnFN5QYjANBgkqhkiG9w0BAQsFAAOCAQEAOliHWL6sU2T95YFegQGu\nzcIbo1phQ6oOheTTvzwg1z9K8h2c7HzvrDaD8VaCoV8Bm560BGptf/d+coos9+PD\nEXO4Np7xpfE5zuJpgwwl8SOP3chkPTGGS10455o2LjXsf4AzTdxk+NsbETAanu1p\n4za5+HfCzvIbHkI5FTp/ioDvj6vwCRuubBqVtYJXGgWEe9BAAok1CJTj/E+57s8H\nLpGIWxRkDFk0d5fpsCAJtUSbA8ppCcf6Nj476jRzCb4ADCfGAPmA8AKoc8gSrNBV\nJqKRYxd5MxHjzCbkV+9YCbdlU7Jp7AQRuBC6EicXlYmguNA9jmzz+D44r/wNZbuA\nSw==\n-----END CERTIFICATE-----\n\n",
+"endPointURL": "https://test.svarut.ks.no/tjenester/forsendelseservice/ForsendelsesServiceV6",
+"serviceCode": null,
+"serviceEditionCode": null,
+"orgnrPostkasse": null,
+"postkasseAdresse": null,
+"epostAdresse": "",
+"mobilnummer": "",
+"fysiskPost": false,
+"kanVarsles": false,
+"postAddress": {
+"name": "",
+"street": "",
+"postalCode": "",
+"postalArea": "",
+"country": ""
+},
+"returnAddress": {
+"name": "",
+"street": "",
+"postalCode": "",
+"postalArea": "",
+"country": ""
+},
+"dpeCapabilities": []
+},
+"serviceRecords": [
+{
+"serviceIdentifier": "DPF",
+"organisationNumber": "910229028",
+"pemCertificate": "-----BEGIN CERTIFICATE-----\nMIIDXTCCAkWgAwIBAgIEeVv+BTANBgkqhkiG9w0BAQsFADBeMQswCQYDVQQGEwJO\nTzESMBAGA1UECBMJSG9yZGFsYW5kMQ8wDQYDVQQHEwZCZXJnZW4xCzAJBgNVBAoT\nAktzMQswCQYDVQQLEwJLUzEQMA4GA1UEAxMHVW5rbm93bjAgFw0xNTAxMDkxMjE2\nMzlaGA8yMjg4MTAyMzEyMTYzOVowXjELMAkGA1UEBhMCTk8xEjAQBgNVBAgTCUhv\ncmRhbGFuZDEPMA0GA1UEBxMGQmVyZ2VuMQswCQYDVQQKEwJLczELMAkGA1UECxMC\nS1MxEDAOBgNVBAMTB1Vua25vd24wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEK\nAoIBAQCWnlFO1G4U/Mpy859GFz/Pc8CBGbcjCzg8ogVJ3se1w0l5Y6pPmClLs4Un\nZYfH6TmBz9jFAClLlOlpv7xben23XVOp3lYSVtAGL729tPfwwVaF9krhwb2MGU2J\nrUp/GDumnmlyiS9LO4kV+cEt9R2m8vU0f+1OI8DlpAZssn9CX7kaktZYNWA/liwb\nnjw6WDcB1kCEW+xdqDB8HDQUpvP0GuLwnX9WqaaCJpUiMQyr8Svc/oahp5Yuq+uu\n+zlmorWEkL0DrRXwgQ55iuEJXxfv5kdqpZ4jHeSnD+4f4vJEYKBQ2C8ZnX9vQZ71\nPHHYtxHuAsQ6DgUs3kJ6m1r26/11AgMBAAGjITAfMB0GA1UdDgQWBBQ4EHRF1Dpg\nlmNubssVq7WnFN5QYjANBgkqhkiG9w0BAQsFAAOCAQEAOliHWL6sU2T95YFegQGu\nzcIbo1phQ6oOheTTvzwg1z9K8h2c7HzvrDaD8VaCoV8Bm560BGptf/d+coos9+PD\nEXO4Np7xpfE5zuJpgwwl8SOP3chkPTGGS10455o2LjXsf4AzTdxk+NsbETAanu1p\n4za5+HfCzvIbHkI5FTp/ioDvj6vwCRuubBqVtYJXGgWEe9BAAok1CJTj/E+57s8H\nLpGIWxRkDFk0d5fpsCAJtUSbA8ppCcf6Nj476jRzCb4ADCfGAPmA8AKoc8gSrNBV\nJqKRYxd5MxHjzCbkV+9YCbdlU7Jp7AQRuBC6EicXlYmguNA9jmzz+D44r/wNZbuA\nSw==\n-----END CERTIFICATE-----\n\n",
+"endPointURL": "https://test.svarut.ks.no/tjenester/forsendelseservice/ForsendelsesServiceV6",
+"serviceCode": null,
+"serviceEditionCode": null,
+"orgnrPostkasse": null,
+"postkasseAdresse": null,
+"epostAdresse": "",
+"mobilnummer": "",
+"fysiskPost": false,
+"kanVarsles": false,
+"postAddress": {
+"name": "",
+"street": "",
+"postalCode": "",
+"postalArea": "",
+"country": ""
+},
+"returnAddress": {
+"name": "",
+"street": "",
+"postalCode": "",
+"postalArea": "",
+"country": ""
+},
+"dpeCapabilities": []
+},
+{
+"serviceIdentifier": "DPV",
+"organisationNumber": "910229028",
+"pemCertificate": null,
+"endPointURL": "https://tt02.altinn.no/ServiceEngineExternal/CorrespondenceAgencyExternal.svc",
+"serviceCode": null,
+"serviceEditionCode": null,
+"orgnrPostkasse": null,
+"postkasseAdresse": null,
+"epostAdresse": "",
+"mobilnummer": "",
+"fysiskPost": false,
+"kanVarsles": false,
+"postAddress": {
+"name": "",
+"street": "",
+"postalCode": "",
+"postalArea": "",
+"country": ""
+},
+"returnAddress": {
+"name": "",
+"street": "",
+"postalCode": "",
+"postalArea": "",
+"country": ""
+},
+"dpeCapabilities": []
+}
+]
+}

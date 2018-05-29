@@ -36,7 +36,7 @@ const mocks = [
                         res.send(retrieveforsendelsestatus());
                     }
                     else if (req.body["soapenv:envelope"]["soapenv:body"][0]["ns2:sendforsendelsemedid"]) {
-                        global.message = global.message + 1;
+                        global.messageCount = global.messageCount + 1;
                         res.send(sendforsendelsemedid());
                     }
                 }
@@ -51,7 +51,6 @@ const mocks = [
                 method: 'GET',
                 path: '/messageCount',
                 responseFunction: (req, res) => {
-                    global.messageCount = global.messageCount + 1;
                     res.send({
                         count: global.messageCount
                     });
@@ -209,6 +208,7 @@ const mocks = [
                     if (req.headers.soapaction === "\"http://www.altinn.no/services/ServiceEngine/Broker/2015/06/IBrokerServiceExternalBasicStreamed/DownloadFileStreamedBasic\"") {
                         res.send(DownloadFileStreamedBasic());
                     } else if (req.headers.soapaction === "\"http://www.altinn.no/services/ServiceEngine/Broker/2015/06/IBrokerServiceExternalBasicStreamed/UploadFileStreamedBasic\""){
+                        global.messageCount = global.messageCount + 1;
                         res.send(UploadFileStreamedBasic())
                     }
                 }

@@ -26,7 +26,7 @@ function getDPVrequest(req, res) {
 
     console.log(chalk.blue('POST /dpv SOAP-action: InsertCorrespondenceV2 ') + ' Returning message for external shipment ref:' + chalk.yellow(sendersRererence));
 
-    let reportee = recursiveKeySearch('ns10:reportee', req.body)[0][0];
+    let reportee = recursiveKeySearch('ns2:reportee', req.body)[0][0];
     let receiptId = uid(36);
 
     let created = new moment().format();
@@ -39,6 +39,8 @@ function getDPVrequest(req, res) {
         expires: expires,
         receiptId: receiptId
     });
+
+    global.messageCount = global.messageCount + 1;
 
     let resXML = getResponse(sendersRererence, receiptId, reportee, created, expires);
     res.set('Content-Type', 'application/soap+xml');
