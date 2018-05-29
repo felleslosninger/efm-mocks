@@ -26,7 +26,8 @@ function sendforsendelsemedid(){
 
 
 function PutMessage(){
-    return `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:typ="http://www.arkivverket.no/Noark/Exchange/types">
+
+    let message = `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:typ="http://www.arkivverket.no/Noark/Exchange/types">
               <soapenv:Header/>
               <soapenv:Body>
                  <typ:PutMessageResponse>
@@ -36,6 +37,8 @@ function PutMessage(){
                  </typ:PutMessageResponse>
               </soapenv:Body>
             </soapenv:Envelope>`;
+
+    return message;
 }
 
 module.exports = { retrieveforsendelsestatus, sendforsendelsemedid, PutMessage };

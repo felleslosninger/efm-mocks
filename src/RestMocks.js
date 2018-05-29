@@ -1,18 +1,15 @@
 const hentNyeForsendelser = require('./testdata/hentNyeForsendelser')
-const config = require('./config');
-const PutMessage = require("./modules/DPF/soapResponses").PutMessage;
-const sendforsendelsemedid = require("./modules/DPF/soapResponses").sendforsendelsemedid;
-const retrieveforsendelsestatus = require("./modules/DPF/soapResponses").retrieveforsendelsestatus;
+const { PutMessage, sendforsendelsemedid, retrieveforsendelsestatus } = require("./modules/DPF/soapResponses");
 const retrieveForsendelseIdByEksternRefResponse = require("./modules/DPF/retrieveForsendelseIdByEksternRef").retrieveForsendelseIdByEksternRefResponse;
-const UploadFileStreamedBasic = require("./modules/DPO/responses").UploadFileStreamedBasic;
-const DownloadFileStreamedBasic = require("./modules/DPO/responses").DownloadFileStreamedBasic;
-const InitiateBrokerServiceBasic = require("./modules/DPO/responses").InitiateBrokerServiceBasic;
-const GetAvailableFilesBasic = require("./modules/DPO/responses").GetAvailableFilesBasic;
+const { GetAvailableFilesBasic, InitiateBrokerServiceBasic, DownloadFileStreamedBasic, UploadFileStreamedBasic } = require("./modules/DPO/responses");
 const getBasicWSDL = require("./modules/DPO/BasicWsdl").getBasicWSDL;
 const getBasicStreamedWsdl = require("./modules/DPO/BasicStreamedWsdl").getBasicStreamedWsdl;
 const BrokerServiceExternalBasic = require("./modules/DPO/DPO").BrokerServiceExternalBasic;
 const { getBrokerServiceExternalBasicWSDL } = require("./modules/DPO/DPO");
 const { receiveDPV }  = require("./modules/DPV/DPV");
+const config = require('./config');
+
+global.messageCount = 0;
 
 const mocks = [
     {
@@ -32,17 +29,44 @@ const mocks = [
 
                     res.set('Content-type', 'application/soap+xml');
 
-                    if (req.body["soapenv:envelope"]["soapenv:body"][0]["ns2:retrieveforsendelseidbyeksternref"]){
+                    if (req.body["soapenv:envelope"]["soapenv:body"][0]["ns2:retrieveforsendelseidbyeksternref"]) {
                         res.send(retrieveForsendelseIdByEksternRefResponse(req, res));
                     } else if (req.body["soapenv:envelope"]["soapenv:body"][0]["ns2:retrieveforsendelsestatus"]) {
+
                         res.send(retrieveforsendelsestatus());
                     }
-                    else if (req.body["soapenv:envelope"]["soapenv:body"][0]["ns2:sendforsendelsemedid"]){
+                    else if (req.body["soapenv:envelope"]["soapenv:body"][0]["ns2:sendforsendelsemedid"]) {
+                        global.message = global.message + 1;
                         res.send(sendforsendelsemedid());
                     }
                 }
             }
         ]
+    },
+    {
+        name: 'messageCount',
+
+        routes: [
+            {
+                method: 'GET',
+                path: '/messageCount',
+                responseFunction: (req, res) => {
+                    global.messageCount = global.messageCount + 1;
+                    res.send({
+                        count: global.messageCount
+                    });
+                }
+            },
+            {
+                method: 'POST',
+                path: '/clearCount',
+                responseFunction: (req, res) => {
+                    global.messageCount = 0;
+                    res.send('OK');
+                }
+            }
+        ],
+
     },
     {
         name: 'Noark',
@@ -189,6 +213,18 @@ const mocks = [
                     }
                 }
             },
+        ]
+    },
+    {
+        name: "SvarInn",
+        routes: [
+            {
+                path: '/mottaker/hentNyeForsendelser',
+                method: 'GET',
+                responseFunction: (req, res) => {
+                    res.send([]);
+                }
+            }
         ]
     },
     {

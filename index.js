@@ -3,19 +3,15 @@ const restMocks = require('./src/RestMocks');
 const soap = require('soap');
 const express = require('express');
 const fetch = require('node-fetch');
-const bodyParser = require('body-parser');
 const xmlparser = require('express-xml-bodyparser');
 
-const chalk = require('chalk');
-const getBasicWSDL = require("./src/modules/DPO/BasicWsdl").getBasicWSDL;
-const getBasicStreamedWsdl = require("./src/modules/DPO/BasicStreamedWsdl").getBasicStreamedWsdl;
 process.env.PORT = process.env.PORT || 8001;
 
 const morgan = require('morgan')
 
 let app = express();
 
-app.use(morgan('combined'))
+app.use(morgan('combined'));
 
 app.use(xmlparser());
 
@@ -37,8 +33,9 @@ app.get('/', (req, res) => {
                             <ul> ${ soapString.map((url) => `<li><a href="${url}">${url}</a></li>`).join('') }</ul>
                 </body>
             </html>
-`);
+    `);
 });
+
 
 // Set up REST mocks:
 restMocks.forEach((mock) => {

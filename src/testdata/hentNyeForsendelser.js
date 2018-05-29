@@ -78,7 +78,7 @@ let sample = function(port){
         "eksternRef": "en ref fra avsender",
         "downloadUrl": `http://localhost:${port}/svarinn/mottaker/hentForsendelsefil/AAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA`
     };
-}
+};
 
 
 const hentNyeForsendelser = () => {
