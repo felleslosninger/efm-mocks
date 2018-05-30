@@ -4,7 +4,7 @@ const getResponse = require('./DPVresponse');
 const cache = require('../../cache');
 const getReceiptResponse = require("../../test/ReceiptResponse").getReceiptResponse;
 const moment = require("moment");
-let url = require('url');
+const url = require('url');
 const chalk = require('chalk');
 
 function receiveDPV(req, res) {

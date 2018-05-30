@@ -193,6 +193,7 @@ const mocks = [
                 method: 'POST',
                 responseFunction: (req,res) => {
                     res.header('Content-type', 'text/xml');
+                    console.log('ding!');
                     if (req.headers.soapaction === "\"http://www.altinn.no/services/ServiceEngine/Broker/2015/06/IBrokerServiceExternalBasic/GetAvailableFilesBasic\"") {
                         res.send(GetAvailableFilesBasic())
                     } else if (req.headers.soapaction === "\"http://www.altinn.no/services/ServiceEngine/Broker/2015/06/IBrokerServiceExternalBasic/InitiateBrokerServiceBasic\"") {
