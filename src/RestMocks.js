@@ -9,6 +9,8 @@ const { getBrokerServiceExternalBasicWSDL } = require("./modules/DPO/DPO");
 const { receiveDPV }  = require("./modules/DPV/DPV");
 const config = require('./config');
 
+const uid = require("uid");
+
 global.messageCount = 0;
 
 const mocks = [
@@ -195,9 +197,9 @@ const mocks = [
                     res.header('Content-type', 'text/xml');
                     console.log('ding!');
                     if (req.headers.soapaction === "\"http://www.altinn.no/services/ServiceEngine/Broker/2015/06/IBrokerServiceExternalBasic/GetAvailableFilesBasic\"") {
-                        res.send(GetAvailableFilesBasic())
+                        GetAvailableFilesBasic(req, res);
                     } else if (req.headers.soapaction === "\"http://www.altinn.no/services/ServiceEngine/Broker/2015/06/IBrokerServiceExternalBasic/InitiateBrokerServiceBasic\"") {
-                        res.send(InitiateBrokerServiceBasic())
+                        res.send(InitiateBrokerServiceBasic(req.body))
                     }
                 }
             },
@@ -207,13 +209,15 @@ const mocks = [
                 responseFunction: (req, res) => {
                     res.header('Content-type', 'text/xml');
                     if (req.headers.soapaction === "\"http://www.altinn.no/services/ServiceEngine/Broker/2015/06/IBrokerServiceExternalBasicStreamed/DownloadFileStreamedBasic\"") {
-                        res.send(DownloadFileStreamedBasic());
+                        DownloadFileStreamedBasic(req, res);
                     } else if (req.headers.soapaction === "\"http://www.altinn.no/services/ServiceEngine/Broker/2015/06/IBrokerServiceExternalBasicStreamed/UploadFileStreamedBasic\""){
                         global.messageCount = global.messageCount + 1;
-                        res.send(UploadFileStreamedBasic())
+                        //res.send(
+                            UploadFileStreamedBasic(req, res)
+                        //)
                     }
                 }
-            },
+            }
         ]
     },
     {

@@ -4,16 +4,118 @@ const soap = require('soap');
 const express = require('express');
 const fetch = require('node-fetch');
 const xmlparser = require('express-xml-bodyparser');
+const bodyParser = require('body-parser');
+const uid = require("uid");
+
+
 
 process.env.PORT = process.env.PORT || 8001;
 
-const morgan = require('morgan')
+const morgan = require('morgan');
+
 
 let app = express();
 
 app.use(morgan('combined'));
 
-app.use(xmlparser());
+// app.use(xmlparser({
+//     stripPrefix: true,
+//     normalizeTags: true
+// }));
+
+//app.use(bodyParser.raw({ type: 'application/soap+xml;' }))
+
+// app.use(function(req, res, next) {
+//
+//     //var regexp = /^(text\/xml|application\/([\w!#\$%&\*`\-\.\^~]+\+)?xml)$/i;
+//
+//     var contentType = req.headers['content-type'] || ''
+//         , mime = contentType.split(';')[0];
+//     // console.log(contentType);
+//     // console.log(mime);
+//
+//     // if (mime != 'application/soap+xml') {
+//     //     return next();
+//     // }
+//
+//     //var data = '';
+//     //let data = new Buffer();
+//     let data = [];
+//     // req.setEncoding('utf8');
+//     req.on('data', function(chunk) {
+//
+//         // console.log("NEW CHUNK");
+//         //
+//         // console.log(chunk);
+//         // console.log("END OF CHUNK");
+//         //data += chunk;
+//         data.push(chunk)
+//
+//         // if (req.headers.soapaction) {
+//         //     if (req.headers.soapaction === "\"http://www.altinn.no/services/ServiceEngine/Broker/2015/06/IBrokerServiceExternalBasicStreamed/UploadFileStreamedBasic\""){
+//         //         let chunktString = chunk.toString()
+//         //         console.log(chunktString);
+//         //         //        let fs = require('fs');
+//         //
+//         //                 console.log(data);
+//         //
+//         //
+//         //                 //let file = chunk.slice(2563, chunk.length - 45);
+//         //
+//         //                 //console.log(file);
+//         //
+//         //                 var fs = require('fs');
+//         //
+//         //                 var wstream = fs.createWriteStream('myOutput53.txt', { encoding: 'binary' });
+//         //
+//         //
+//         //                 // creates random Buffer of 100 bytes
+//         //
+//         //                 wstream.write(chunk, 2563, chunk.length - 45);
+//         //                 // create another Buffer of 100 bytes and write
+//         //                 wstream.end();
+//         //
+//         //
+//         //                 // fs.writeFile(`newfile7.txt`, file, function(err) {
+//         //                 //     if(err) {
+//         //                 //         console.log(err);
+//         //                 //     } else {
+//         //                 //         console.log("The file was saved!");
+//         //                 //     }
+//         //                 // });
+//         //     }
+//         // }
+//
+//     });
+//
+//
+//     req.on('end', function() {
+//
+//         req.rawBody = Buffer.concat(data).toString();
+//
+//         //req.bodyBuffer = Buffer.concat(data);
+//
+//         // if (req.headers.soapaction) {
+//         //     if (req.headers.soapaction === "\"http://www.altinn.no/services/ServiceEngine/Broker/2015/06/IBrokerServiceExternalBasicStreamed/UploadFileStreamedBasic\""){
+//         //         let fs = require('fs');
+//         //
+//         //         console.log(data);
+//         //
+//         //         fs.writeFile(`${uid()}.txt`, Buffer.concat(data), 'binary', function(err) {
+//         //             if(err) {
+//         //                 console.log(err);
+//         //             } else {
+//         //                 console.log("The file was saved!");
+//         //             }
+//         //         });
+//         //     }
+//         // }
+//
+//
+//
+//         next();
+//     });
+// });
 
 let restString = restMocks.map((item) => item.routes)
     .reduce((accumulator, current) => accumulator.concat(current))
