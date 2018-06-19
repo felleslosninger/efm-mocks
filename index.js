@@ -4,8 +4,14 @@ const soap = require('soap');
 const express = require('express');
 const fetch = require('node-fetch');
 const xmlparser = require('express-xml-bodyparser');
+const cache = require('./src/cache');
+const { normalize, stripPrefix }  = require('xml2js/lib/processors.js');
+const dpfMessageCache = require('./src/modules/DPF/dpfMessageCache');
+const dpoMessageCache = require('./src/modules/DPO/dpoMessageCache');
+
 
 process.env.PORT = process.env.PORT || 8001;
+
 
 const morgan = require('morgan')
 
@@ -13,7 +19,9 @@ let app = express();
 
 app.use(morgan('combined'));
 
-app.use(xmlparser());
+app.use(xmlparser({
+    tagNameProcessors: [ stripPrefix, normalize ]
+}));
 
 let restString = restMocks.map((item) => item.routes)
     .reduce((accumulator, current) => accumulator.concat(current))
@@ -22,14 +30,38 @@ let restString = restMocks.map((item) => item.routes)
 let soapString = mocks
     .map((item) => `http://localhost:${process.env.PORT}${item.pathName}?wsdl`);
 
+
+app.get('/messages/dpv', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify([...cache]));
+});
+
+app.get('/messages/dpf', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify([...dpfMessageCache]));
+});
+
+app.get('/messages/dpo', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify([...dpoMessageCache]));
+});
+
 app.get('/', (req, res) => {
     res.send(`
-            <html style="font-family: Comic Sans MS;">
+            <html style="font-family: Arial, Helvetica Neue, Helvetica, sans-serif;">
                 <body>
                     <h1>MOVE Mocks<h1>
-                        <h3>REST Mocks:<h3>
+                    
+                    <h3>Innkommende meldinger:</h3>
+                    <ul>
+                        <li><a href="/messages/dpv">DPV</a></li>
+                        <li><a href="/messages/dpo">DPO</a></li>
+                        <li><a href="/messages/dpf">DPF</a></li>
+                    </ul>
+                    
+                        <h3>Endepunkt:</h3>
                             <ul> ${ restString.map((url) => `<li>${url}</li>`).join('') }</ul>
-                        <h3>SOAP Mocks:<h3>
+                        <h3>SOAP Mocks:</h3>
                             <ul> ${ soapString.map((url) => `<li><a href="${url}">${url}</a></li>`).join('') }</ul>
                 </body>
             </html>

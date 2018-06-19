@@ -1,10 +1,9 @@
 ## MoveMocks
 
 MoveMocks lar deg kjøre et integrasjonspunkt uten avtaler med medlingsformidlerene.
-Foreløbig støttes folgende:
+Foreløbig støttes følgende:
 
-* DPO (Kun mottak)
-* DPE
+* DPO
 * DPF
 * DPV
 
@@ -61,6 +60,12 @@ difi.move.noarkSystem.endpointURL=http://localhost:8001/noark
 2. ``` cd mocks && npm i && node index.js```
 
 3. Mocken er nå klar til å ta imot meldinger fra Integrasjonspunktet.
+
+Meldinger som mocken har mottat kan ses på:
+
+* [DPV](http://localhost:8001/messages/dpv)
+* [DPO](http://localhost:8001/messages/dpo)
+* [DPF](http://localhost:8001/messages/dpf)
 
 #### jMeter
 

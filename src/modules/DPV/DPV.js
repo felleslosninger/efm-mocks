@@ -8,7 +8,6 @@ let url = require('url');
 const chalk = require('chalk');
 
 function receiveDPV(req, res) {
-
     if (req) {
         let soapAction = getSoapAction(req.body);
         if (soapAction === 'InsertCorrespondenceV2') {
@@ -16,7 +15,6 @@ function receiveDPV(req, res) {
         } else if (soapAction === 'GetCorrespondenceStatusDetailsV2') {
             getDPVreceipt(req, res)
         }
-
     }
 }
 
@@ -26,7 +24,7 @@ function getDPVrequest(req, res) {
 
     console.log(chalk.blue('POST /dpv SOAP-action: InsertCorrespondenceV2 ') + ' Returning message for external shipment ref:' + chalk.yellow(sendersRererence));
 
-    let reportee = recursiveKeySearch('ns2:reportee', req.body)[0][0];
+    let reportee = recursiveKeySearch('reportee', req.body)[0][0];
     let receiptId = uid(36);
 
     let created = new moment().format();
@@ -49,10 +47,10 @@ function getDPVrequest(req, res) {
 
 function getDPVreceipt(req, res) {
 
-    let elementName = 'ns3:sendersreference';
+    let elementName = 'sendersreference';
 
     if (process.env.NODE_ENV === 'test'){
-        elementName = 'b:SendersReference';
+        elementName = 'sendersreference';
     }
 
     let sendersRef = recursiveKeySearch(elementName, req.body)[0][0];
@@ -64,7 +62,7 @@ function getDPVreceipt(req, res) {
 
 
 function getSoapAction(body) {
-    let soapAction = recursiveKeySearch("wsa:action", body)[0][0];
+    let soapAction = recursiveKeySearch("action", body)[0][0];
     let q = url.parse(soapAction, true);
     let paths = q.pathname.split('/');
     return paths[paths.length -1 ];

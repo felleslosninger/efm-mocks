@@ -1,3 +1,4 @@
+const { recursiveKeySearch } = require("./helper");
 const hentNyeForsendelser = require('./testdata/hentNyeForsendelser')
 const { PutMessage, sendforsendelsemedid, retrieveforsendelsestatus } = require("./modules/DPF/soapResponses");
 const retrieveForsendelseIdByEksternRefResponse = require("./modules/DPF/retrieveForsendelseIdByEksternRef").retrieveForsendelseIdByEksternRefResponse;
@@ -8,6 +9,9 @@ const BrokerServiceExternalBasic = require("./modules/DPO/DPO").BrokerServiceExt
 const { getBrokerServiceExternalBasicWSDL } = require("./modules/DPO/DPO");
 const { receiveDPV }  = require("./modules/DPV/DPV");
 const config = require('./config');
+const dpoMessageCache = require('./modules/DPO/dpoMessageCache');
+
+const dpfMessageCache  = require('./modules/DPF/dpfMessageCache');
 
 global.messageCount = 0;
 
@@ -29,14 +33,23 @@ const mocks = [
 
                     res.set('Content-type', 'application/soap+xml');
 
-                    if (req.body["soapenv:envelope"]["soapenv:body"][0]["ns2:retrieveforsendelseidbyeksternref"]) {
+                    if (req.body["envelope"]["body"][0]["retrieveforsendelseidbyeksternref"]) {
                         res.send(retrieveForsendelseIdByEksternRefResponse(req, res));
-                    } else if (req.body["soapenv:envelope"]["soapenv:body"][0]["ns2:retrieveforsendelsestatus"]) {
+                    } else if (req.body["envelope"]["body"][0]["retrieveforsendelsestatus"]) {
 
                         res.send(retrieveforsendelsestatus());
                     }
-                    else if (req.body["soapenv:envelope"]["soapenv:body"][0]["ns2:sendforsendelsemedid"]) {
+                    else if (req.body["envelope"]["body"][0]["sendforsendelsemedid"]) {
                         global.messageCount = global.messageCount + 1;
+
+                        let forsendelsesid = recursiveKeySearch('forsendelsesid', req.body)[0][0];
+
+                        let body = JSON.parse(JSON.stringify(req.body));
+
+                        body["envelope"]["body"][0]["sendforsendelsemedid"][0]["forsendelse"][0]["dokumenter"][0]['data'] = "FJERNET";
+
+                        dpfMessageCache.set(forsendelsesid, JSON.stringify(body));
+
                         res.send(sendforsendelsemedid());
                     }
                 }
@@ -196,6 +209,8 @@ const mocks = [
                     if (req.headers.soapaction === "\"http://www.altinn.no/services/ServiceEngine/Broker/2015/06/IBrokerServiceExternalBasic/GetAvailableFilesBasic\"") {
                         res.send(GetAvailableFilesBasic())
                     } else if (req.headers.soapaction === "\"http://www.altinn.no/services/ServiceEngine/Broker/2015/06/IBrokerServiceExternalBasic/InitiateBrokerServiceBasic\"") {
+                        let sendersreference = recursiveKeySearch('sendersreference', req.body)[0][0];
+                        dpoMessageCache.set(sendersreference, JSON.stringify(req.body))
                         res.send(InitiateBrokerServiceBasic())
                     }
                 }
