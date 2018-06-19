@@ -11,17 +11,25 @@ Foreløbig støttes følgende:
 
 #### Wiremock
 
-Wiremock simulerer Service Registry, og er nødvendig for at Integrasjonspunktet skal kunne slå opp addressen til mottakende meldingsformiddler.
+Wiremock simulerer Service Registry, og er nødvendig for at Integrasjonspunktet skal kunne slå opp addressen til mottakende meldingsformiddler (som i dette tilfelle er mocken).
 
 I ```Wiremock/__files/identifier```, må det ligge ligge en config fil for organisasjonen man ønsker å sende til, og filen må inneholde nødvendig konfigurasjon for meldingsformiddleren man ønsker å bruke.
 
 Se ```Wiremock/__files/identifier``` for eksempler på alle de støttede meldinsformiddlerene.
 
+For å starte wiremock:   
+```cd Wiremock/```  
+```java -jar wiremock-standalone-2.10.1.jar --port 8090```
+
+Det er valgfritt å angi port. Hvis ingen port er angitt, brukes 8080.
 
 #### Integrasjonspunkt
 
 Integrasjonspunktet må konfigureres til å bruke Wiremock istedenfor SR, og til å bruke mocken for de forskjellige meldingstypene.
 Følgende konfigurasjon må settes opp i den gjeldende .properties filen:
+
+Angi urlen til Wiremock:
+```difi.move.serviceregistryEndpoint=http://localhost:8090```
 
 ##### DPI
 
