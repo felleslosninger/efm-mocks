@@ -176,6 +176,47 @@ function DownloadFileStreamedBasic(req, res) {
 // </soapenv:Body>
 // </soapenv:Envelope>
 
+
+
+function move(oldPath, newPath, callback) {
+
+    fs.rename(oldPath, newPath, function (err) {
+        if (err) {
+            if (err.code === 'EXDEV') {
+                copy();
+            } else {
+                callback(err);
+            }
+            return;
+        }
+        callback();
+    });
+
+    function copy() {
+        var readStream = fs.createReadStream(oldPath);
+        var writeStream = fs.createWriteStream(newPath);
+
+        readStream.on('error', callback);
+        writeStream.on('error', callback);
+
+        readStream.on('close', function () {
+            fs.unlink(oldPath, callback);
+        });
+
+        readStream.pipe(writeStream);
+    }
+}
+
+function makeid() {
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for (var i = 0; i < 5; i++)
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
+}
+
 function UploadFileStreamedBasic(req, res) {
 
     console.log(req);
@@ -199,65 +240,64 @@ function UploadFileStreamedBasic(req, res) {
 
         var util = require('util')
 
-        // fs.rename(files[null].path, 'isthistheone.zip',
-        //     function (err) { throw err; });
-
-
-        console.log(util.inspect(files));
+        move(files[null].path, `${__dirname}/uploads/${makeid()}.zip`, (err) => {
+            console.log(err);
+            console.log('what');
+        });
 
         //files[0].write()
 
-        parseXml(xml, (err, parsed) => {
-            console.log(parsed);
-
-            console.log("The file was saved!");
-
-            let reportee = parsed["envelope"]["header"][0]["reportee"][0]["_"];
-
-            let messages = db.get(reportee);
-
-
-            if (messages){
-                messages.push({
-                    xmlHeader: xml,
-                    file: files[null].path,
-                    fileReference: uid(),
-                    receiptId: uid()
-                });
-            } else {
-                db.set(reportee, [
-                    {
-                        xmlHeader: xml,
-                        file: files[null].path,
-                        fileReference: uid(),
-                        receiptId: uid()
-                    }
-                ]);
-            }
-
-            res.send(`<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.altinn.no/services/ServiceEngine/Broker/2015/06">
-                       <soapenv:Header/>
-                       <soapenv:Body>
-                          <ns:ReceiptExternalStreamedBE>
-                             <!--Optional:-->
-                             <ns:LastChanged>?</ns:LastChanged>
-                             <!--Optional:-->
-                             <ns:ParentReceiptId>?</ns:ParentReceiptId>
-                             <!--Optional:-->
-                             <ns:ReceiptHistory>?</ns:ReceiptHistory>
-                             <!--Optional:-->
-                             <ns:ReceiptId>?</ns:ReceiptId>
-                             <!--Optional:-->
-                             <ns:ReceiptStatusCode>?</ns:ReceiptStatusCode>
-                             <!--Optional:-->
-                             <ns:ReceiptText>?</ns:ReceiptText>
-                             <!--Optional:-->
-                             <ns:ReceiptTypeName>?</ns:ReceiptTypeName>
-                          </ns:ReceiptExternalStreamedBE>
-                       </soapenv:Body>
-                    </soapenv:Envelope>`)
-
-        });
+        // parseXml(xml, (err, parsed) => {
+        //     console.log(parsed);
+        //
+        //     console.log("The file was saved!");
+        //
+        //     let reportee = parsed["envelope"]["header"][0]["reportee"][0]["_"];
+        //
+        //     let messages = db.get(reportee);
+        //
+        //
+        //     if (messages){
+        //         messages.push({
+        //             xmlHeader: xml,
+        //             file: files[null].path,
+        //             fileReference: uid(),
+        //             receiptId: uid()
+        //         });
+        //     } else {
+        //         db.set(reportee, [
+        //             {
+        //                 xmlHeader: xml,
+        //                 file: files[null].path,
+        //                 fileReference: uid(),
+        //                 receiptId: uid()
+        //             }
+        //         ]);
+        //     }
+        //
+        //     res.send(`<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.altinn.no/services/ServiceEngine/Broker/2015/06">
+        //                <soapenv:Header/>
+        //                <soapenv:Body>
+        //                   <ns:ReceiptExternalStreamedBE>
+        //                      <!--Optional:-->
+        //                      <ns:LastChanged>?</ns:LastChanged>
+        //                      <!--Optional:-->
+        //                      <ns:ParentReceiptId>?</ns:ParentReceiptId>
+        //                      <!--Optional:-->
+        //                      <ns:ReceiptHistory>?</ns:ReceiptHistory>
+        //                      <!--Optional:-->
+        //                      <ns:ReceiptId>?</ns:ReceiptId>
+        //                      <!--Optional:-->
+        //                      <ns:ReceiptStatusCode>?</ns:ReceiptStatusCode>
+        //                      <!--Optional:-->
+        //                      <ns:ReceiptText>?</ns:ReceiptText>
+        //                      <!--Optional:-->
+        //                      <ns:ReceiptTypeName>?</ns:ReceiptTypeName>
+        //                   </ns:ReceiptExternalStreamedBE>
+        //                </soapenv:Body>
+        //             </soapenv:Envelope>`)
+        //
+        // });
 
         console.log("The file was saved!");
 

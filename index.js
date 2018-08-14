@@ -23,7 +23,7 @@ app.use(morgan('combined'));
 //     normalizeTags: true
 // }));
 
-//app.use(bodyParser.raw({ type: 'application/soap+xml;' }))
+app.use(bodyParser.raw())
 
 // app.use(function(req, res, next) {
 //
