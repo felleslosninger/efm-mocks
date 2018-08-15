@@ -1,48 +1,48 @@
 const { db } = require("../../db");
-
-
 const { parseString } = require('xml2js');
-const uid = require("uid");
-const multiparty = require("../multiparty");
-let fs = require('fs');
-
+const move = require("../helper").move;
+const makeid = require("../helper").makeid;
+const formidable = require('formidable')
 const stripPrefix = require('xml2js').processors.stripPrefix;
-
+const extract = require('extract-zip')
+const fs = require('fs');
+const uid = require("uid");
+const recursiveKeySearch = require("../helper").recursiveKeySearch;
 
 function GetAvailableFilesBasic(req, res) {
 
+    console.log('ding');
 
-    // let reportee = req.body["s:envelope"]["s:body"]
-    //     [0]["ns2:getavailablefilesbasic"][0]
-    //     ["ns2:searchparameters"][0]["reportee"][0]
+    parseString(req.rawBody,
+        {
+            normalizeTags: true,
+            tagNameProcessors: [ stripPrefix ]
+        },
+        (err, js) => {
+            if(err) throw err;
+            let reportee = js.envelope.body[0]['getavailablefilesbasic'][0]['searchparameters'][0]["reportee"][0];
 
+            let files = db.get(reportee)
 
-    // parseString(req.rawBody, { tagNameProcessors: [ stripPrefix ] }, function(err, js) {
-    //     if(err) throw err;
-    //     cons`ole.dir(js, { depth: null });
-    // });
+            let response = `<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+                          <s:Body>
+                            <GetAvailableFilesBasicResponse xmlns="http://www.altinn.no/services/ServiceEngine/Broker/2015/06">
+                              <GetAvailableFilesBasicResult xmlns:a="http://schemas.altinn.no/services/ServiceEngine/Broker/2015/06" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+                                ${  files ? files.map((file) =>
+                `<BrokerServiceAvailableFile>
+                                            <FileReference>${file.fileReference}</FileReference>
+                                            <ReceiptID>${file.receiptId}</ReceiptID>
+                                        </BrokerServiceAvailableFile>`
+            ).join('') : ''
+                }
+                                </GetAvailableFilesBasicResult>
+                            </GetAvailableFilesBasicResponse>
+                          </s:Body>
+                    </s:Envelope>`;
 
+            console.log(response);
 
-    parseString(req.rawBody, { normalizeTags: true, tagNameProcessors: [ stripPrefix ] }, function(err, js) {
-        if(err) throw err;
-        let reportee = js.envelope.body[0]['getavailablefilesbasic'][0]['searchparameters'][0]["reportee"][0];
-
-        let files = db.get(reportee)
-        res.send(`<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
-                      <s:Body>
-                        <GetAvailableFilesBasicResponse xmlns="http://www.altinn.no/services/ServiceEngine/Broker/2015/06">
-                          <GetAvailableFilesBasicResult xmlns:a="http://schemas.altinn.no/services/ServiceEngine/Broker/2015/06" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
-                            ${  files ? files.map((file) => 
-                                    `<BrokerServiceAvailableFile>
-                                        <FileReference>${file.fileReference}</FileReference>
-                                        <ReceiptID>${file.receiptId}</ReceiptID>
-                                    </BrokerServiceAvailableFile>`
-                                    ).join('') : ''
-                            }
-                            </GetAvailableFilesBasicResult>
-                        </GetAvailableFilesBasicResponse>
-                      </s:Body>
-                </s:Envelope>`);
+            res.send(response);
     });
 }
 
@@ -75,10 +75,6 @@ function DownloadFileStreamedBasic(req, res) {
 
     //fs.readFile("nyzip.zip", "utf8", function(err, data) {
 
-
-
-
-
     parseXml(xml, (err, parsed) => {
 
 
@@ -91,18 +87,6 @@ function DownloadFileStreamedBasic(req, res) {
         let file = files.filter((item) => {
             return item.fileReference === fileReference;
         });
-
-
-        // console.log(file);
-        //
-        // console.log(reportee);
-
-        // res.set({
-        //     'Content-Type': `multipart/related; type="application/xop+xml";start="<http://tempuri.org/0>";boundary="uuid:6444b74d-eade-4c93-a057-2aacf780696e+id=92282";start-info="text/xml"`
-        // });
-
-        //res.write(`<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/"><s:Body><DownloadFileStreamedBasicResponse xmlns="http://www.altinn.no/services/ServiceEngine/Broker/2015/06"><DownloadFileStreamedBasicResult><xop:Include href="cid:http://tempuri.org/1/636634546764523783" xmlns:xop="http://www.w3.org/2004/08/xop/include"/></DownloadFileStreamedBasicResult></DownloadFileStreamedBasicResponse></s:Body></s:Envelope>`)
-
 
         let SNAPSHOT_BOUNDARY = "uuid:6444b74d-eade-4c93-a057-2aacf780696e+id=92282";
 
@@ -178,72 +162,85 @@ function DownloadFileStreamedBasic(req, res) {
 
 
 
-function move(oldPath, newPath, callback) {
-
-    fs.rename(oldPath, newPath, function (err) {
-        if (err) {
-            if (err.code === 'EXDEV') {
-                copy();
-            } else {
-                callback(err);
-            }
-            return;
-        }
-        callback();
-    });
-
-    function copy() {
-        var readStream = fs.createReadStream(oldPath);
-        var writeStream = fs.createWriteStream(newPath);
-
-        readStream.on('error', callback);
-        writeStream.on('error', callback);
-
-        readStream.on('close', function () {
-            fs.unlink(oldPath, callback);
-        });
-
-        readStream.pipe(writeStream);
-    }
-}
-
-function makeid() {
-    var text = "";
-    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-    for (var i = 0; i < 5; i++)
-        text += possible.charAt(Math.floor(Math.random() * possible.length));
-
-    return text;
-}
-
 function UploadFileStreamedBasic(req, res) {
 
-    console.log(req);
+    const form = new formidable.IncomingForm();
 
     // let splitted = req.rawBody.split("\r\n");
-    // let file = splitted[11];
+    //
+    // console.log(splitted);
+    //
+    // // let file = splitted[11];
     // let xml = splitted[5];
 
+    let fileName = makeid();
 
-    var formidable = require('formidable')
+    let filePath = `${__dirname}/uploads/${fileName}.zip`;
+    let outputPath = `${__dirname}/uploads/${fileName}`;
 
-    var form = new formidable.IncomingForm();
+    form.parse(req, (err, fields, files) => {
+        move(files[null].path, filePath, (err) => {
 
-    form.parse(req, function(err, fields, files) {
-        // res.writeHead(200, {'content-type': 'text/plain'});
-        // res.write('received upload:\n\n');
-        // res.end(util.inspect({fields: fields, files: files}));
+            extract(filePath, { dir: outputPath }, (err) => {
+                // handle err
+console.log('ding');
+                if (!err) {
+                    fs.readFile(`${outputPath}/recipients.xml`, (err, data) => {
+                        parseString(data,
+                            {
+                                normalizeTags: true,
+                                tagNameProcessors: [ stripPrefix ]
+                            },
+                            (err, result) => {
+                                if (!err){
+                                    console.log(result);
+                                    let recipient = recursiveKeySearch('partynumber', result)[0][0];
+                                        let messages = db.get(recipient);
+                                        if (messages){
+                                            messages.push({
+                                                xmlHeader: data,
+                                                file: filePath,
+                                                fileReference: uid(),
+                                                receiptId: uid()
+                                            });
+                                        } else {
+                                            db.set(recipient, [
+                                                {
+                                                    xmlHeader: data,
+                                                    file: filePath,
+                                                    fileReference: uid(),
+                                                    receiptId: uid()
+                                                }
+                                            ]);
+                                        }
+                                    console.log(recipient);
+                                    console.log('Done');
+                                } else {
+                                    console.log(err);
+                                }
 
-        console.log(fields);
-        console.log(files);
+                        });
+                    });
+                } else {
+                    console.log(err);
+                }
 
-        var util = require('util')
-
-        move(files[null].path, `${__dirname}/uploads/${makeid()}.zip`, (err) => {
-            console.log(err);
-            console.log('what');
+            });
+            res.send('OK');
         });
+
+
+        // var XmlStream = require('xml-stream');
+        //
+        // req.setEncoding('utf8');
+        // var xml = new XmlStream(req);
+        // xml.on('updateElement: envelope', function(element) {
+        //     // DO some processing on the tag
+        //     console.log('Got some envelope!');
+        // });
+        // xml.on('end', function() {
+        //     res.end();
+        // });
 
         //files[0].write()
 
@@ -299,26 +296,7 @@ function UploadFileStreamedBasic(req, res) {
         //
         // });
 
-        console.log("The file was saved!");
-
-
     });
-
-
-    //var form = new multiparty.Form();
-    //let boundary = splitted[0];
-
-    //let fs = require('fs');
-    // fs.writeFile(`${uid()}.txt`, file, 'ascii', (err) => {
-    //     if(err) {
-    //         return console.log(err);
-    //     }
-
-
-    //const fileType = require('file-type');
-
-
-    //});
 
 }
 

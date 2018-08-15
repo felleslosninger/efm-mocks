@@ -1,3 +1,5 @@
+let fs = require('fs');
+
 function recursiveKeySearch(key, data) {
     // not shown - perhaps validate key as non-zero length string
 
@@ -37,4 +39,57 @@ function recursiveKeySearch(key, data) {
     return results;
 }
 
-module.exports = { recursiveKeySearch  };
+const getRawBody = (req, res, next) => {
+
+        var data = '';
+        req.setEncoding('utf8');
+        req.on('data', function(chunk) {
+            data += chunk;
+        });
+        req.on('end', function() {
+            req.rawBody = data;
+            next();
+        });
+};
+
+function makeid() {
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for (var i = 0; i < 5; i++)
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
+}
+
+function move(oldPath, newPath, callback) {
+
+    fs.rename(oldPath, newPath, function (err) {
+        if (err) {
+            if (err.code === 'EXDEV') {
+                copy();
+            } else {
+                callback(err);
+            }
+            return;
+        }
+        callback();
+    });
+
+    function copy() {
+        var readStream = fs.createReadStream(oldPath);
+        var writeStream = fs.createWriteStream(newPath);
+
+        readStream.on('error', callback);
+        writeStream.on('error', callback);
+
+        readStream.on('close', function () {
+            fs.unlink(oldPath, callback);
+        });
+
+        readStream.pipe(writeStream);
+    }
+}
+
+
+module.exports = { recursiveKeySearch, getRawBody, makeid, move };

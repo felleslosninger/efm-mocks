@@ -146,7 +146,12 @@ restMocks.forEach((mock) => {
             if (item.method === 'GET'){
                 app.get(item.path, item.responseFunction)
             } else if (item.method === 'POST') {
-                app.post(item.path, item.responseFunction)
+
+                if (item.middleware){
+                    app.post(item.path, item.middleware, item.responseFunction);
+                } else {
+                    app.post(item.path, item.responseFunction);
+                }
             }
     });
 });

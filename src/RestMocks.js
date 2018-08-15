@@ -1,3 +1,4 @@
+const { getRawBody } = require('./modules/helper');
 const hentNyeForsendelser = require('./testdata/hentNyeForsendelser')
 const { PutMessage, sendforsendelsemedid, retrieveforsendelsestatus } = require("./modules/DPF/soapResponses");
 const retrieveForsendelseIdByEksternRefResponse = require("./modules/DPF/retrieveForsendelseIdByEksternRef").retrieveForsendelseIdByEksternRefResponse;
@@ -130,9 +131,8 @@ const mocks = [
         routes: [
             {
                 path: '/dpo',
-                    method: 'GET',
-                    responseFunction: (req,res) => {
-
+                method: 'GET',
+                responseFunction: (req,res) => {
                     if (!req.query.part){
                         getBrokerServiceExternalBasicWSDL(req,res)
                     } else if (req.query.part === 'BrokerServiceExternalBasicStreamed.wsdl'){
@@ -193,6 +193,7 @@ const mocks = [
             {
                 path: '/dpo/ServiceEngineExternal/BrokerServiceExternalBasic.svc',
                 method: 'POST',
+                middleware: getRawBody,
                 responseFunction: (req,res) => {
                     res.header('Content-type', 'text/xml');
                     console.log('ding!');
@@ -204,8 +205,15 @@ const mocks = [
                 }
             },
             {
-              path: '/dpo/ServiceEngineExternal/BrokerServiceExternalBasicStreamed.svc',
+                path: '/dpo/ServiceEngineExternal/BrokerServiceExternalBasicStreamed.svc',
                 method: 'POST',
+                middleware: (req, res, next) => {
+                    if (req.headers.soapaction === "\"http://www.altinn.no/services/ServiceEngine/Broker/2015/06/IBrokerServiceExternalBasicStreamed/DownloadFileStreamedBasic\"") {
+                        getRawBody(req, res, next)
+                    } else if (req.headers.soapaction === "\"http://www.altinn.no/services/ServiceEngine/Broker/2015/06/IBrokerServiceExternalBasicStreamed/UploadFileStreamedBasic\""){
+                        next();
+                    }
+                },
                 responseFunction: (req, res) => {
                     res.header('Content-type', 'text/xml');
                     if (req.headers.soapaction === "\"http://www.altinn.no/services/ServiceEngine/Broker/2015/06/IBrokerServiceExternalBasicStreamed/DownloadFileStreamedBasic\"") {
