@@ -29,12 +29,12 @@ function GetAvailableFilesBasic(req, res) {
                             <GetAvailableFilesBasicResponse xmlns="http://www.altinn.no/services/ServiceEngine/Broker/2015/06">
                               <GetAvailableFilesBasicResult xmlns:a="http://schemas.altinn.no/services/ServiceEngine/Broker/2015/06" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
                                 ${  files ? files.map((file) =>
-                `<BrokerServiceAvailableFile>
-                                            <FileReference>${file.fileReference}</FileReference>
-                                            <ReceiptID>${file.receiptId}</ReceiptID>
-                                        </BrokerServiceAvailableFile>`
-            ).join('') : ''
-                }
+                                    `<BrokerServiceAvailableFile>
+                                        <FileReference>${file.fileReference}</FileReference>
+                                        <ReceiptID>${file.receiptId}</ReceiptID>
+                                    </BrokerServiceAvailableFile>`
+                                    ).join('') : ''
+                                }
                                 </GetAvailableFilesBasicResult>
                             </GetAvailableFilesBasicResponse>
                           </s:Body>
@@ -103,8 +103,8 @@ function DownloadFileStreamedBasic(req, res) {
 
 
         function writeResponse() {
-            var buffer = new Buffer(0);
-            var readStream = fs.createReadStream(file[0].file);
+            let buffer = new Buffer(0);
+            let readStream = fs.createReadStream(file[0].file);
 
             readStream.on('error', function (err) {
                 if (err) {
@@ -116,7 +116,7 @@ function DownloadFileStreamedBasic(req, res) {
                 buffer = Buffer.concat([buffer, chunk]);
             });
 
-            readStream.on('end', function () {
+            readStream.on('end', () => {
                 res.write('\n\n --' + SNAPSHOT_BOUNDARY + '\n');
                 res.write('Content-ID: <http://tempuri.org/1/636634546764523783> \n');
                 res.write('Content-Transfer-Encoding: binary \n');
@@ -183,7 +183,7 @@ function UploadFileStreamedBasic(req, res) {
 
             extract(filePath, { dir: outputPath }, (err) => {
                 // handle err
-console.log('ding');
+                console.log('ding');
                 if (!err) {
                     fs.readFile(`${outputPath}/recipients.xml`, (err, data) => {
                         parseString(data,
@@ -196,25 +196,48 @@ console.log('ding');
                                     console.log(result);
                                     let recipient = recursiveKeySearch('partynumber', result)[0][0];
                                         let messages = db.get(recipient);
+
+                                        let receiptId = uid();
+
+                                        let file = {
+                                            xmlHeader: data,
+                                            file: filePath,
+                                            fileReference: fileName,
+                                            receiptId: receiptId
+                                        };
+
                                         if (messages){
-                                            messages.push({
-                                                xmlHeader: data,
-                                                file: filePath,
-                                                fileReference: uid(),
-                                                receiptId: uid()
-                                            });
+                                            messages.push(file);
                                         } else {
-                                            db.set(recipient, [
-                                                {
-                                                    xmlHeader: data,
-                                                    file: filePath,
-                                                    fileReference: uid(),
-                                                    receiptId: uid()
-                                                }
-                                            ]);
+                                            db.set(recipient, [ file ]);
                                         }
                                     console.log(recipient);
                                     console.log('Done');
+
+
+                                        res.send(`<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.altinn.no/services/ServiceEngine/Broker/2015/06">
+                                                   <soapenv:Header/>
+                                                   <soapenv:Body>
+                                                      <ns:ReceiptExternalStreamedBE>
+                                                         <!--Optional:-->
+                                                         <ns:LastChanged>?</ns:LastChanged>
+                                                         <!--Optional:-->
+                                                         <ns:ParentReceiptId>?</ns:ParentReceiptId>
+                                                         <!--Optional:-->
+                                                         <ns:ReceiptHistory>?</ns:ReceiptHistory>
+                                                         <!--Optional:-->
+                                                         <ns:ReceiptId>${receiptId}</ns:ReceiptId>
+                                                         <!--Optional:-->
+                                                         <ns:ReceiptStatusCode>?</ns:ReceiptStatusCode>
+                                                         <!--Optional:-->
+                                                         <ns:ReceiptText>?</ns:ReceiptText>
+                                                         <!--Optional:-->
+                                                         <ns:ReceiptTypeName>?</ns:ReceiptTypeName>
+                                                      </ns:ReceiptExternalStreamedBE>
+                                                   </soapenv:Body>
+                                                </soapenv:Envelope>`)
+
+
                                 } else {
                                     console.log(err);
                                 }
@@ -224,9 +247,7 @@ console.log('ding');
                 } else {
                     console.log(err);
                 }
-
             });
-            res.send('OK');
         });
 
 
