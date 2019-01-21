@@ -1,3 +1,5 @@
+
+
 const mocks = require('./src/mocks');
 const restMocks = require('./src/RestMocks');
 const soap = require('soap');
@@ -6,12 +8,14 @@ const fetch = require('node-fetch');
 const xmlparser = require('express-xml-bodyparser');
 const bodyParser = require('body-parser');
 const uid = require("uid");
+const morgan = require('morgan');
+const db = require("./src/db").db;
 
 
 
 process.env.PORT = process.env.PORT || 8001;
 
-const morgan = require('morgan');
+
 
 
 let app = express();
@@ -125,6 +129,7 @@ let soapString = mocks
     .map((item) => `http://localhost:${process.env.PORT}${item.pathName}?wsdl`);
 
 app.get('/', (req, res) => {
+    console.log(db);
     res.send(`
             <html style="font-family: Comic Sans MS;">
                 <body>
@@ -133,6 +138,9 @@ app.get('/', (req, res) => {
                             <ul> ${ restString.map((url) => `<li>${url}</li>`).join('') }</ul>
                         <h3>SOAP Mocks:<h3>
                             <ul> ${ soapString.map((url) => `<li><a href="${url}">${url}</a></li>`).join('') }</ul>
+                             
+                        <h3>Received messages</h3>
+                        <ul> ${ [...db].map(([key, value]) => `Receiver: ${key}. File info: ${JSON.stringify(value, null, 2)}` ) }</ul>
                 </body>
             </html>
     `);

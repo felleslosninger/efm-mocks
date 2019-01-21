@@ -11,6 +11,7 @@ const { receiveDPV }  = require("./modules/DPV/DPV");
 const config = require('./config');
 
 const uid = require("uid");
+const chalk = require("chalk");
 
 global.messageCount = 0;
 
@@ -136,9 +137,11 @@ const mocks = [
                     if (!req.query.part){
                         getBrokerServiceExternalBasicWSDL(req,res)
                     } else if (req.query.part === 'BrokerServiceExternalBasicStreamed.wsdl'){
+                        console.log(chalk.blue('BrokerServiceExternalBasicStreamed.wsdl'));
                         res.set('Content-type', 'text/xml');
                         res.send(getBasicStreamedWsdl());
                     } else if (req.query.part === 'BrokerServiceExternalBasic.wsdl') {
+                        console.log(chalk.blue('BrokerServiceExternalBasic.wsdl'));
                         res.set('Content-type', 'text/xml');
                         res.send(getBasicWSDL());
                     }
@@ -148,6 +151,7 @@ const mocks = [
                 path: '/dpo/ServiceEngineExternal/BrokerServiceExternalBasic.svc',
                 method: 'GET',
                 responseFunction: (req, res) => {
+
                     res.set('Content-type', 'text/xml');
                     res.send(getBasicWSDL());
                 }
@@ -196,7 +200,6 @@ const mocks = [
                 middleware: getRawBody,
                 responseFunction: (req,res) => {
                     res.header('Content-type', 'text/xml');
-                    console.log('ding!');
                     if (req.headers.soapaction === "\"http://www.altinn.no/services/ServiceEngine/Broker/2015/06/IBrokerServiceExternalBasic/GetAvailableFilesBasic\"") {
                         GetAvailableFilesBasic(req, res);
                     } else if (req.headers.soapaction === "\"http://www.altinn.no/services/ServiceEngine/Broker/2015/06/IBrokerServiceExternalBasic/InitiateBrokerServiceBasic\"") {
@@ -211,18 +214,21 @@ const mocks = [
                     if (req.headers.soapaction === "\"http://www.altinn.no/services/ServiceEngine/Broker/2015/06/IBrokerServiceExternalBasicStreamed/DownloadFileStreamedBasic\"") {
                         getRawBody(req, res, next)
                     } else if (req.headers.soapaction === "\"http://www.altinn.no/services/ServiceEngine/Broker/2015/06/IBrokerServiceExternalBasicStreamed/UploadFileStreamedBasic\""){
+                        // getRawBody(req, res, next)
                         next();
                     }
                 },
                 responseFunction: (req, res) => {
                     res.header('Content-type', 'text/xml');
                     if (req.headers.soapaction === "\"http://www.altinn.no/services/ServiceEngine/Broker/2015/06/IBrokerServiceExternalBasicStreamed/DownloadFileStreamedBasic\"") {
+
+                        console.log(chalk.blue('\n\nDownloadFileStreamedBasic\n\n'));
+
                         DownloadFileStreamedBasic(req, res);
                     } else if (req.headers.soapaction === "\"http://www.altinn.no/services/ServiceEngine/Broker/2015/06/IBrokerServiceExternalBasicStreamed/UploadFileStreamedBasic\""){
+                        console.log(chalk.blue('\n\nUploadFileStreamedBasic\n\n'));
                         global.messageCount = global.messageCount + 1;
-                        //res.send(
-                            UploadFileStreamedBasic(req, res)
-                        //)
+                        UploadFileStreamedBasic(req, res)
                     }
                 }
             }
