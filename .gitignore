@@ -1,3 +1,18 @@
 .idea/**/**
 node_modules/
 .DS_Store
+
+move-sakarkiv-mock/.idea/**/**git a
+
+# exclude everything
+mocks/src/modules/DPF/uploads/*
+mocks/src/modules/DPO/uploads/*
+move-sakarkiv-mock/upload/*
+
+
+# exception to the rule
+!src/modules/DPF/uploads/.gitkeep
+!src/modules/DPO/uploads/.gitkeep
+!move-sakarkiv-mock/upload/.gitkeep
+
+
