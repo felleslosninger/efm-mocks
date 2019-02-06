@@ -19,6 +19,7 @@
   "scripts": {
     "client": "cd client && npm run start",
     "server": "nodemon index.js",
+    "start": "node index.js",
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
   },
   "devDependencies": {

@@ -2,98 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="93b79b1f-9870-4718-ad5e-698bb0ddd617" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../jmeter.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/RestMocks.js" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/RestMocks.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/cache.js" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/cache.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/db.js" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/db.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/helper.js" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/helper.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/mocks.js" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/mocks.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPF/BrokerServiceExternalBasicWSDL.js" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPF/BrokerServiceExternalBasicWSDL.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPF/dpfDB.js" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPF/dpfDB.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPF/retrieveForsendelseIdByEksternRef.js" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPF/retrieveForsendelseIdByEksternRef.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPF/sendForsendelseMedId.js" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPF/sendForsendelseMedId.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPF/server.pem" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPF/server.pem" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPF/soapResponses.js" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPF/soapResponses.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/BasicStreamedWsdl.js" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/BasicStreamedWsdl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/BasicWsdl.js" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/BasicWsdl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/DPO.js" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/DPO.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/responses.js" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/responses.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/4JHwv.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/4JHwv.zip" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/4JHwv/content.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/4JHwv/content.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/4JHwv/manifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/4JHwv/manifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/4JHwv/recipients.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/4JHwv/recipients.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/4tTux.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/4tTux.zip" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/4tTux/content.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/4tTux/content.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/4tTux/manifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/4tTux/manifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/4tTux/recipients.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/4tTux/recipients.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/AdMX1.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/AdMX1.zip" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/AdMX1/content.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/AdMX1/content.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/AdMX1/manifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/AdMX1/manifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/AdMX1/recipients.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/AdMX1/recipients.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/BGNhL.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/BGNhL.zip" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/BGNhL/content.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/BGNhL/content.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/BGNhL/manifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/BGNhL/manifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/BGNhL/recipients.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/BGNhL/recipients.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/CcxU3.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/CcxU3.zip" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/CcxU3/content.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/CcxU3/content.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/CcxU3/manifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/CcxU3/manifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/CcxU3/recipients.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/CcxU3/recipients.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/S1UJ9.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/S1UJ9.zip" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/S1UJ9/content.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/S1UJ9/content.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/S1UJ9/manifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/S1UJ9/manifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/S1UJ9/recipients.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/S1UJ9/recipients.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/UUaU5.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/UUaU5.zip" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/UUaU5/content.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/UUaU5/content.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/UUaU5/manifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/UUaU5/manifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/UUaU5/recipients.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/UUaU5/recipients.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/cGYkz.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/cGYkz.zip" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/cGYkz/content.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/cGYkz/content.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/cGYkz/manifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/cGYkz/manifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/cGYkz/recipients.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/cGYkz/recipients.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/cdGYB.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/cdGYB.zip" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/cdGYB/content.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/cdGYB/content.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/cdGYB/manifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/cdGYB/manifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/cdGYB/recipients.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/cdGYB/recipients.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/gBeAi.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/gBeAi.zip" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/gBeAi/content.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/gBeAi/content.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/gBeAi/manifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/gBeAi/manifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/gBeAi/recipients.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/gBeAi/recipients.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/hhb57.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/hhb57.zip" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/hhb57/content.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/hhb57/content.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/hhb57/manifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/hhb57/manifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/hhb57/recipients.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/hhb57/recipients.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/nb6yl.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/nb6yl.zip" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/nb6yl/content.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/nb6yl/content.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/nb6yl/manifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/nb6yl/manifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/nb6yl/recipients.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/nb6yl/recipients.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/rn5kx.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/rn5kx.zip" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/rn5kx/content.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/rn5kx/content.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/rn5kx/manifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/rn5kx/manifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/rn5kx/recipients.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/rn5kx/recipients.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/w6Cbb.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/w6Cbb.zip" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/w6Cbb/content.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/w6Cbb/content.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/w6Cbb/manifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/w6Cbb/manifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/w6Cbb/recipients.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/w6Cbb/recipients.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/wz3sq.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/wz3sq.zip" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/wz3sq/content.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/wz3sq/content.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/wz3sq/manifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/wz3sq/manifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/wz3sq/recipients.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/wz3sq/recipients.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPV/DPV.js" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPV/DPV.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/DPV/DPVresponse.js" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPV/DPVresponse.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/modules/helper.js" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/helper.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/test/DPV.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/test/DPV.test.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/test/DPVRequest.js" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/test/DPVRequest.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/test/ReceiptRequest.js" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/test/ReceiptRequest.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/test/ReceiptResponse.js" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/test/ReceiptResponse.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/test/incoming/incoming.dpo.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/test/incoming/incoming.dpo.test.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/testdata/hentNyeForsendelser.js" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/testdata/hentNyeForsendelser.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/testdata/liten.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/testdata/liten.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mocks/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -217,7 +128,7 @@
             <entry file="file://$PROJECT_DIR$/package.json">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="450">
-                  <caret line="30" selection-start-line="30" selection-end-line="30" />
+                  <caret line="31" selection-start-line="31" selection-end-line="31" />
                 </state>
               </provider>
             </entry>
@@ -483,16 +394,16 @@
     </list>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="2560" height="1440" extended-state="6" />
+    <frame x="0" y="0" width="1920" height="1200" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20214456" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.27103302" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Event Log" order="0" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="1" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="2" visible="true" weight="0.24424647" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="2" visible="true" weight="0.29719964" />
       <window_info anchor="bottom" id="Docker" order="3" show_stripe_button="false" />
       <window_info anchor="bottom" id="Network" order="4" />
       <window_info anchor="bottom" id="Message" order="5" />
@@ -509,7 +420,7 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="5" weight="0.25" />
       <window_info anchor="right" id="Run" order="6" weight="0.33518666" />
       <window_info anchor="right" id="Google Cloud Storage" order="7" />
-      <window_info anchor="right" id="Debug" order="8" visible="true" weight="0.4197776" />
+      <window_info anchor="right" id="Debug" order="8" visible="true" weight="0.5628328" />
       <window_info anchor="right" id="PlantUML" order="9" />
       <window_info anchor="right" id="Maven" order="10" />
     </layout>
@@ -862,7 +773,7 @@
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="450">
-          <caret line="30" selection-start-line="30" selection-end-line="30" />
+          <caret line="31" selection-start-line="31" selection-end-line="31" />
         </state>
       </provider>
     </entry>
