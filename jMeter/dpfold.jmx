@@ -16,7 +16,7 @@
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
-          <intProp name="LoopController.loops">-1</intProp>
+          <stringProp name="LoopController.loops">1</stringProp>
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">1</stringProp>
         <stringProp name="ThreadGroup.ramp_time">1</stringProp>
@@ -52,7 +52,7 @@
           </collectionProp>
         </Arguments>
         <hashTree/>
-        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Set starting queue count." enabled="false">
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Set starting queue count." enabled="true">
           <stringProp name="scriptLanguage">groovy</stringProp>
           <stringProp name="parameters"></stringProp>
           <stringProp name="filename"></stringProp>
@@ -86,7 +86,7 @@ log.info(&quot;\n\n&quot;);
           <boolProp name="displaySystemProperties">false</boolProp>
         </DebugSampler>
         <hashTree/>
-        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
@@ -122,7 +122,7 @@ log.info(&quot;\n\n&quot;);
           <stringProp name="filename"></stringProp>
         </ResultCollector>
         <hashTree/>
-        <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="Sett opp liste for holde conversationIds." enabled="false">
+        <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="Sett opp liste for holde conversationIds." enabled="true">
           <stringProp name="BeanShellSampler.query">bsh.shared.conversationIds=new ArrayList();
 bsh.shared.conversationIdsSuccessfull=new ArrayList();</stringProp>
           <stringProp name="BeanShellSampler.filename"></stringProp>
@@ -137,7 +137,7 @@ bsh.shared.conversationIdsSuccessfull=new ArrayList();</stringProp>
           <boolProp name="LoopController.continue_forever">false</boolProp>
           <stringProp name="LoopController.loops">1</stringProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.num_threads">2</stringProp>
         <stringProp name="ThreadGroup.ramp_time">5</stringProp>
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
         <stringProp name="ThreadGroup.duration"></stringProp>
@@ -149,17 +149,27 @@ bsh.shared.conversationIdsSuccessfull=new ArrayList();</stringProp>
           <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="BeanShell Sampler" enabled="true">
             <stringProp name="BeanShellSampler.query">
 String currentId = UUID.randomUUID().toString();
-
+//String currentId = &quot;STRINGTHING!!&quot;;
+//
 vars.put(&quot;currentId&quot;,  currentId);
 bsh.shared.conversationIds.add(currentId);
-
-log.info(&quot;\n\n\n\n\n&quot;);
-log.info(&quot;Does this happen?????&quot;);
-log.info(&quot;\n\n\n\n\n&quot;);
-
 log.info(bsh.shared.conversationIds.size().toString());
-
+//
+//
+//log.info(&quot;\n\n\n\n\n&quot;)
+//
+//log.info(&quot;blaaaah&quot;)
+//
+//log.info(&quot;WHAT WAS THAT????&quot;)
+//
 log.info(bsh.shared.conversationIds.toString());
+////log.info(vars.get(&quot;currentId&quot;))
+//
+//log.info(&quot;\n\n\n\n\n&quot;)
+////
+//
+//
+//bsh.shared.conversationIds.add(currentId);
 
 </stringProp>
             <stringProp name="BeanShellSampler.filename"></stringProp>
@@ -186,8 +196,8 @@ log.info(bsh.shared.conversationIds.toString());
                     &lt;email&gt;test@test.no&lt;/email&gt;&#xd;
                 &lt;/sender&gt;&#xd;
                 &lt;receiver&gt;&#xd;
-                    &lt;orgnr&gt;910229028&lt;/orgnr&gt;&#xd;
-                    &lt;name&gt;NORDFOLD OG HENNINGSVÆR&lt;/name&gt;&#xd;
+                    &lt;orgnr&gt;919859962&lt;/orgnr&gt;&#xd;
+                    &lt;name&gt;Kørra Digital&lt;/name&gt;&#xd;
                     &lt;email&gt;best@voldsoffererstatning.no&lt;/email&gt;&#xd;
                 &lt;/receiver&gt;&#xd;
             &lt;/envelope&gt;&#xd;
@@ -372,7 +382,7 @@ log.info(&quot;\n\n\n\n\n&quot;);</stringProp>
           <hashTree/>
         </hashTree>
       </hashTree>
-      <PostThreadGroup guiclass="PostThreadGroupGui" testclass="PostThreadGroup" testname="Sjekk at køen blir tom." enabled="false">
+      <PostThreadGroup guiclass="PostThreadGroupGui" testclass="PostThreadGroup" testname="Sjekk at køen blir tom." enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -466,7 +476,7 @@ bsh.shared.maxValue=bsh.shared.conversationIds.size();
         <hashTree>
           <CounterConfig guiclass="CounterConfigGui" testclass="CounterConfig" testname="Counter" enabled="true">
             <stringProp name="CounterConfig.start">0</stringProp>
-            <stringProp name="CounterConfig.end">${__BeanShell(bsh.shared.loopCount)}</stringProp>
+            <stringProp name="CounterConfig.end">${__BeanShell(bsh.shared.loopCount) - 1}</stringProp>
             <stringProp name="CounterConfig.incr">1</stringProp>
             <stringProp name="CounterConfig.name">loopCounter</stringProp>
             <stringProp name="CounterConfig.format"></stringProp>

@@ -1,0 +1,35 @@
+.ValidationForm{
+
+  min-width: 315px;
+  input.valid {
+    border-bottom: 1px solid #00C851;
+    box-shadow: 0 1px 0 0 #00C851;
+  }
+
+  input.error{
+    border-bottom: 1px solid red;
+    box-shadow: 0 1px 0 0 red;
+  }
+
+  input.warning {
+    border-bottom: 1px solid #F7D85A;
+    box-shadow: 0 1px 0 0 #F7D85A;
+  }
+
+
+  &.form-error {
+    input {
+      border-bottom: 1px solid red !important;
+      box-shadow: 0 1px 0 0 red !important;
+    }
+  }
+
+  .invalid-feedback{
+    display: block;
+  }
+
+
+  .invalid-feedback.warning{
+    color: black;
+  }
+}
