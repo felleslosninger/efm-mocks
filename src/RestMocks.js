@@ -1,17 +1,17 @@
 const { getRawBody } = require('./modules/helper');
-const hentNyeForsendelser = require('./testdata/hentNyeForsendelser')
-const { PutMessage, sendforsendelsemedid, retrieveforsendelsestatus } = require("./modules/DPF/soapResponses");
+const { PutMessage, retrieveforsendelsestatus } = require("./modules/DPF/soapResponses");
 const retrieveForsendelseIdByEksternRefResponse = require("./modules/DPF/retrieveForsendelseIdByEksternRef").retrieveForsendelseIdByEksternRefResponse;
 const { GetAvailableFilesBasic, InitiateBrokerServiceBasic, DownloadFileStreamedBasic, UploadFileStreamedBasic } = require("./modules/DPO/responses");
 const getBasicWSDL = require("./modules/DPO/BasicWsdl").getBasicWSDL;
 const getBasicStreamedWsdl = require("./modules/DPO/BasicStreamedWsdl").getBasicStreamedWsdl;
-const BrokerServiceExternalBasic = require("./modules/DPO/DPO").BrokerServiceExternalBasic;
 const { getBrokerServiceExternalBasicWSDL } = require("./modules/DPO/DPO");
 const { receiveDPV }  = require("./modules/DPV/DPV");
 const config = require('./config');
-
-const uid = require("uid");
 const chalk = require("chalk");
+const hentForsendelsefil = require("./modules/DPF/soapResponses").hentForsendelsefil;
+const hentNyeForsendelser = require("./modules/DPF/soapResponses").hentNyeForsendelser;
+const sendForsendelseMedId = require("./modules/DPF/sendForsendelseMedId").sendForsendelseMedId;
+const parseXml = require("./modules/DPO/responses").parseXml;
 
 global.messageCount = 0;
 
@@ -27,29 +27,43 @@ const mocks = [
                 }
             },
             {
+                path: '/svarinn/mottaker/hentNyeForsendelser',
+                method: 'GET',
+                responseFunction: (req, res) => {
+                    hentNyeForsendelser(req, res);
+                }
+            },
+            {
+                path: "/tjenester/svarinn/forsendelse/:forsendelsesId",
+                method: 'GET',
+                responseFunction: (req, res) => {
+                    hentForsendelsefil(req, res);
+                }
+            },
+            {
                 path: '/dpf*',
                 method: 'POST',
+                middleware: getRawBody,
                 responseFunction: (req, res) => {
-
                     res.set('Content-type', 'application/soap+xml');
-
-                    if (req.body["soapenv:envelope"]["soapenv:body"][0]["ns2:retrieveforsendelseidbyeksternref"]) {
-                        res.send(retrieveForsendelseIdByEksternRefResponse(req, res));
-                    } else if (req.body["soapenv:envelope"]["soapenv:body"][0]["ns2:retrieveforsendelsestatus"]) {
-
-                        res.send(retrieveforsendelsestatus());
-                    }
-                    else if (req.body["soapenv:envelope"]["soapenv:body"][0]["ns2:sendforsendelsemedid"]) {
-                        global.messageCount = global.messageCount + 1;
-                        res.send(sendforsendelsemedid());
-                    }
+                    parseXml(req.rawBody, (err, parsed) => {
+                        if (parsed.envelope.body[0]["sendforsendelsemedid"]){
+                            sendForsendelseMedId(req, res, parsed);
+                        } else if (parsed.envelope.body["0"].retrieveforsendelseidbyeksternref){
+                            console.log("Checking for FIKS messages");
+                            retrieveForsendelseIdByEksternRefResponse(req, res, parsed)
+                        } else if(parsed.envelope.body["0"].retrieveforsendelsestatus) {
+                            retrieveforsendelsestatus(req, res, parsed);
+                        } else {
+                            console.log("its something else");
+                        }
+                    });
                 }
             }
         ]
     },
     {
         name: 'messageCount',
-
         routes: [
             {
                 method: 'GET',
@@ -101,13 +115,13 @@ const mocks = [
                     res.download(`${__dirname}/testdata/${config.hentForsendelsefil}`)
                 }
             },
-            {
-                path: '/svarinn/mottaker/hentNyeForsendelser',
-                method: 'GET',
-                responseFunction: (req, res) => {
-                    res.send(JSON.stringify(hentNyeForsendelser()));
-                }
-            },
+            // {
+            //     path: '/svarinn/mottaker/hentNyeForsendelser',
+            //     method: 'GET',
+            //     responseFunction: (req, res) => {
+            //         res.send(JSON.stringify(hentNyeForsendelser()));
+            //     }
+            // },
             {
                 path: '/svarinn/kvitterMottak/forsendelse/:forsendelseid',
                 method: 'POST',
@@ -230,18 +244,6 @@ const mocks = [
                         global.messageCount = global.messageCount + 1;
                         UploadFileStreamedBasic(req, res)
                     }
-                }
-            }
-        ]
-    },
-    {
-        name: "SvarInn",
-        routes: [
-            {
-                path: '/mottaker/hentNyeForsendelser',
-                method: 'GET',
-                responseFunction: (req, res) => {
-                    res.send([]);
                 }
             }
         ]

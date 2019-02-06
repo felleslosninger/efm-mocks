@@ -10,116 +10,14 @@ const bodyParser = require('body-parser');
 const uid = require("uid");
 const morgan = require('morgan');
 const db = require("./src/db").db;
-
-
+const dpfDB= require("./src/modules/DPF/dpfDB").dpfDB;
 
 process.env.PORT = process.env.PORT || 8001;
-
-
-
 
 let app = express();
 
 app.use(morgan('combined'));
 
-// app.use(xmlparser({
-//     stripPrefix: true,
-//     normalizeTags: true
-// }));
-
-app.use(bodyParser.raw())
-
-// app.use(function(req, res, next) {
-//
-//     //var regexp = /^(text\/xml|application\/([\w!#\$%&\*`\-\.\^~]+\+)?xml)$/i;
-//
-//     var contentType = req.headers['content-type'] || ''
-//         , mime = contentType.split(';')[0];
-//     // console.log(contentType);
-//     // console.log(mime);
-//
-//     // if (mime != 'application/soap+xml') {
-//     //     return next();
-//     // }
-//
-//     //var data = '';
-//     //let data = new Buffer();
-//     let data = [];
-//     // req.setEncoding('utf8');
-//     req.on('data', function(chunk) {
-//
-//         // console.log("NEW CHUNK");
-//         //
-//         // console.log(chunk);
-//         // console.log("END OF CHUNK");
-//         //data += chunk;
-//         data.push(chunk)
-//
-//         // if (req.headers.soapaction) {
-//         //     if (req.headers.soapaction === "\"http://www.altinn.no/services/ServiceEngine/Broker/2015/06/IBrokerServiceExternalBasicStreamed/UploadFileStreamedBasic\""){
-//         //         let chunktString = chunk.toString()
-//         //         console.log(chunktString);
-//         //         //        let fs = require('fs');
-//         //
-//         //                 console.log(data);
-//         //
-//         //
-//         //                 //let file = chunk.slice(2563, chunk.length - 45);
-//         //
-//         //                 //console.log(file);
-//         //
-//         //                 var fs = require('fs');
-//         //
-//         //                 var wstream = fs.createWriteStream('myOutput53.txt', { encoding: 'binary' });
-//         //
-//         //
-//         //                 // creates random Buffer of 100 bytes
-//         //
-//         //                 wstream.write(chunk, 2563, chunk.length - 45);
-//         //                 // create another Buffer of 100 bytes and write
-//         //                 wstream.end();
-//         //
-//         //
-//         //                 // fs.writeFile(`newfile7.txt`, file, function(err) {
-//         //                 //     if(err) {
-//         //                 //         console.log(err);
-//         //                 //     } else {
-//         //                 //         console.log("The file was saved!");
-//         //                 //     }
-//         //                 // });
-//         //     }
-//         // }
-//
-//     });
-//
-//
-//     req.on('end', function() {
-//
-//         req.rawBody = Buffer.concat(data).toString();
-//
-//         //req.bodyBuffer = Buffer.concat(data);
-//
-//         // if (req.headers.soapaction) {
-//         //     if (req.headers.soapaction === "\"http://www.altinn.no/services/ServiceEngine/Broker/2015/06/IBrokerServiceExternalBasicStreamed/UploadFileStreamedBasic\""){
-//         //         let fs = require('fs');
-//         //
-//         //         console.log(data);
-//         //
-//         //         fs.writeFile(`${uid()}.txt`, Buffer.concat(data), 'binary', function(err) {
-//         //             if(err) {
-//         //                 console.log(err);
-//         //             } else {
-//         //                 console.log("The file was saved!");
-//         //             }
-//         //         });
-//         //     }
-//         // }
-//
-//
-//
-//         next();
-//     });
-// });
 
 let restString = restMocks.map((item) => item.routes)
     .reduce((accumulator, current) => accumulator.concat(current))
@@ -129,22 +27,30 @@ let soapString = mocks
     .map((item) => `http://localhost:${process.env.PORT}${item.pathName}?wsdl`);
 
 app.get('/', (req, res) => {
-    console.log(db);
     res.send(`
             <html style="font-family: Comic Sans MS;">
                 <body>
                     <h1>MOVE Mocks<h1>
-                        <h3>REST Mocks:<h3>
+                        <h3>Mocks:<h3>
                             <ul> ${ restString.map((url) => `<li>${url}</li>`).join('') }</ul>
-                        <h3>SOAP Mocks:<h3>
+                        <h3>WSDLs:<h3>
                             <ul> ${ soapString.map((url) => `<li><a href="${url}">${url}</a></li>`).join('') }</ul>
                              
-                        <h3>Received messages</h3>
-                        <ul> ${ [...db].map(([key, value]) => `Receiver: ${key}. File info: ${JSON.stringify(value, null, 2)}` ) }</ul>
+                        <h3>Received DPO messages</h3>
+                        <ul> ${ [...db].map(([key, value]) => `<li>Receiver: ${key} </li>` ).join('') }</ul>
+                       
+                       
+                       <h3>Received DPF messages</h3>
+                        <ul> ${[...dpfDB].map(([key, value]) => {
+                        return `<li>Receiver: ${key}</li>`;    
+                        } ).join('') }</ul>
+                       
                 </body>
             </html>
     `);
 });
+
+//File info: ${JSON.stringify(value, null, 2)}
 
 
 // Set up REST mocks:

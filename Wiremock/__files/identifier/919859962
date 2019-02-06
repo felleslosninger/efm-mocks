@@ -12,7 +12,7 @@
 },
 "serviceRecord": {
 "serviceIdentifier": "DPF",
-"organisationNumber": "910229028",
+"organisationNumber": "919859962",
 "pemCertificate": "-----BEGIN CERTIFICATE-----
                    MIIC5zCCAc+gAwIBAgIBATANBgkqhkiG9w0BAQsFADAhMRIwEAYDVQQDDAlsb2Nh
                    bGhvc3QxCzAJBgNVBAYTAk5PMB4XDTE5MDEyOTExMzgyMFoXDTIwMDEyOTExMzgy
@@ -59,7 +59,7 @@
 "serviceRecords": [
 {
 "serviceIdentifier": "DPF",
-"organisationNumber": "910229028",
+"organisationNumber": "919859962",
 "pemCertificate": "-----BEGIN CERTIFICATE-----
                    MIIC5zCCAc+gAwIBAgIBATANBgkqhkiG9w0BAQsFADAhMRIwEAYDVQQDDAlsb2Nh
                    bGhvc3QxCzAJBgNVBAYTAk5PMB4XDTE5MDEyOTExMzgyMFoXDTIwMDEyOTExMzgy
@@ -105,7 +105,7 @@
 },
 {
 "serviceIdentifier": "DPV",
-"organisationNumber": "910229028",
+"organisationNumber": "919859962",
 "pemCertificate": null,
 "endPointURL": "https://tt02.altinn.no/ServiceEngineExternal/CorrespondenceAgencyExternal.svc",
 "serviceCode": null,

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns2:StandardBusinessDocument xmlns:ns2="http://www.unece.org/cefact/namespaces/StandardBusinessDocumentHeader">
+   <ns2:StandardBusinessDocumentHeader>
+      <ns2:HeaderVersion>1.0</ns2:HeaderVersion>
+      <ns2:Sender>
+         <ns2:Identifier Authority="9908:991825827">9908:991825827</ns2:Identifier>
+      </ns2:Sender>
+      <ns2:Receiver>
+         <ns2:Identifier Authority="9908:991825827">9908:991825827</ns2:Identifier>
+      </ns2:Receiver>
+      <ns2:DocumentIdentification>
+         <ns2:Standard>urn:no:difi:meldingsutveksling:1.0</ns2:Standard>
+         <ns2:TypeVersion>1.0</ns2:TypeVersion>
+         <ns2:InstanceIdentifier>4d18f2e1-78fa-4a86-93b4-f754c03d0ae6</ns2:InstanceIdentifier>
+         <ns2:Type>nextmove</ns2:Type>
+         <ns2:CreationDateAndTime>2019-01-22T12:19:23.773+01:00</ns2:CreationDateAndTime>
+      </ns2:DocumentIdentification>
+      <ns2:BusinessScope>
+         <ns2:Scope>
+            <ns2:Type>CONVERSATION_ID</ns2:Type>
+            <ns2:InstanceIdentifier>c77a4576-1860-4888-aa3f-74400ec0d5d0</ns2:InstanceIdentifier>
+            <ns2:Identifier>urn:no:difi:meldingsutveksling:1.0</ns2:Identifier>
+         </ns2:Scope>
+         <ns2:Scope>
+            <ns2:Type>JOURNALPOST_ID</ns2:Type>
+            <ns2:InstanceIdentifier></ns2:InstanceIdentifier>
+            <ns2:Identifier>urn:no:difi:meldingsutveksling:1.0</ns2:Identifier>
+         </ns2:Scope>
+      </ns2:BusinessScope>
+   </ns2:StandardBusinessDocumentHeader>
+   <ns1:payload xmlns:ns1="urn:no:difi:meldingsutveksling:1.0" xmlns:ns5="http://www.arkivverket.no/standarder/noark5/arkivmelding">
+      <ns1:Content>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</ns1:Content>
+      <ns1:conversation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dpoConversationResource">
+         <conversationId>c77a4576-1860-4888-aa3f-74400ec0d5d0</conversationId>
+         <serviceIdentifier>DPO</serviceIdentifier>
+         <senderId>991825827</senderId>
+         <senderName>DIREKTORATET FOR FORVALTNING OG IKT</senderName>
+         <receiverId>991825827</receiverId>
+         <receiverName>DIREKTORATET FOR FORVALTNING OG IKT</receiverName>
+         <lastUpdate>2019-01-22T12:19:23.257</lastUpdate>
+         <direction>OUTGOING</direction>
+         <hasArkivmelding>false</hasArkivmelding>
+         <jpId>e89af16c-5746-11e8-9c2d-fa7ae01bbebc</jpId>
+      </ns1:conversation>
+   </ns1:payload>
+</ns2:StandardBusinessDocument>
