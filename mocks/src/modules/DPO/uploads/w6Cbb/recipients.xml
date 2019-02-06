@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ns0:BrokerServiceRecipientList xmlns:ns0="http://schema.altinn.no/services/ServiceEngine/Broker/2015/06">
-   <ns0:Recipient>
-      <ns0:PartyNumber>991825827</ns0:PartyNumber>
-   </ns0:Recipient>
-</ns0:BrokerServiceRecipientList>

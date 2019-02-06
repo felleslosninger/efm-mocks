@@ -1,0 +1,30 @@
+{
+  "name": "mocks",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "morgan": "^1.9.1",
+    "npm-run-all": "^4.1.3",
+    "soap": "^0.24.0",
+    "sqlite3": "^4.0.2",
+    "uuid": "^3.3.2",
+    "ws.js": "^2.0.23",
+    "xml": "^1.0.1",
+    "xml2js": "^0.4.19"
+  },
+  "scripts": {
+    "client": "cd client && npm run start",
+    "server": "nodemon index.js",
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
+  },
+  "devDependencies": {
+    "concurrently": "^3.6.0",
+    "nodemon": "^1.17.5"
+  },
+  "author": "",
+  "license": "ISC"
+}

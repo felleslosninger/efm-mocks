@@ -1,0 +1,873 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="93b79b1f-9870-4718-ad5e-698bb0ddd617" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jmeter.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/RestMocks.js" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/RestMocks.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/cache.js" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/cache.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/db.js" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/db.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/helper.js" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/helper.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/mocks.js" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/mocks.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPF/BrokerServiceExternalBasicWSDL.js" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPF/BrokerServiceExternalBasicWSDL.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPF/dpfDB.js" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPF/dpfDB.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPF/retrieveForsendelseIdByEksternRef.js" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPF/retrieveForsendelseIdByEksternRef.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPF/sendForsendelseMedId.js" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPF/sendForsendelseMedId.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPF/server.pem" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPF/server.pem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPF/soapResponses.js" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPF/soapResponses.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/BasicStreamedWsdl.js" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/BasicStreamedWsdl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/BasicWsdl.js" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/BasicWsdl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/DPO.js" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/DPO.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/responses.js" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/responses.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/4JHwv.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/4JHwv.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/4JHwv/content.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/4JHwv/content.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/4JHwv/manifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/4JHwv/manifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/4JHwv/recipients.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/4JHwv/recipients.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/4tTux.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/4tTux.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/4tTux/content.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/4tTux/content.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/4tTux/manifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/4tTux/manifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/4tTux/recipients.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/4tTux/recipients.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/AdMX1.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/AdMX1.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/AdMX1/content.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/AdMX1/content.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/AdMX1/manifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/AdMX1/manifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/AdMX1/recipients.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/AdMX1/recipients.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/BGNhL.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/BGNhL.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/BGNhL/content.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/BGNhL/content.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/BGNhL/manifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/BGNhL/manifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/BGNhL/recipients.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/BGNhL/recipients.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/CcxU3.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/CcxU3.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/CcxU3/content.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/CcxU3/content.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/CcxU3/manifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/CcxU3/manifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/CcxU3/recipients.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/CcxU3/recipients.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/S1UJ9.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/S1UJ9.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/S1UJ9/content.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/S1UJ9/content.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/S1UJ9/manifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/S1UJ9/manifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/S1UJ9/recipients.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/S1UJ9/recipients.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/UUaU5.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/UUaU5.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/UUaU5/content.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/UUaU5/content.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/UUaU5/manifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/UUaU5/manifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/UUaU5/recipients.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/UUaU5/recipients.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/cGYkz.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/cGYkz.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/cGYkz/content.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/cGYkz/content.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/cGYkz/manifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/cGYkz/manifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/cGYkz/recipients.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/cGYkz/recipients.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/cdGYB.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/cdGYB.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/cdGYB/content.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/cdGYB/content.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/cdGYB/manifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/cdGYB/manifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/cdGYB/recipients.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/cdGYB/recipients.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/gBeAi.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/gBeAi.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/gBeAi/content.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/gBeAi/content.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/gBeAi/manifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/gBeAi/manifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/gBeAi/recipients.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/gBeAi/recipients.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/hhb57.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/hhb57.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/hhb57/content.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/hhb57/content.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/hhb57/manifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/hhb57/manifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/hhb57/recipients.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/hhb57/recipients.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/nb6yl.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/nb6yl.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/nb6yl/content.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/nb6yl/content.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/nb6yl/manifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/nb6yl/manifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/nb6yl/recipients.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/nb6yl/recipients.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/rn5kx.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/rn5kx.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/rn5kx/content.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/rn5kx/content.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/rn5kx/manifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/rn5kx/manifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/rn5kx/recipients.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/rn5kx/recipients.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/w6Cbb.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/w6Cbb.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/w6Cbb/content.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/w6Cbb/content.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/w6Cbb/manifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/w6Cbb/manifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/w6Cbb/recipients.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/w6Cbb/recipients.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/wz3sq.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/wz3sq.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/wz3sq/content.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/wz3sq/content.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/wz3sq/manifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/wz3sq/manifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPO/uploads/wz3sq/recipients.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPO/uploads/wz3sq/recipients.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPV/DPV.js" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPV/DPV.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/DPV/DPVresponse.js" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/DPV/DPVresponse.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/modules/helper.js" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/modules/helper.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/test/DPV.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/test/DPV.test.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/test/DPVRequest.js" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/test/DPVRequest.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/test/ReceiptRequest.js" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/test/ReceiptRequest.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/test/ReceiptResponse.js" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/test/ReceiptResponse.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/test/incoming/incoming.dpo.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/test/incoming/incoming.dpo.test.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/testdata/hentNyeForsendelser.js" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/testdata/hentNyeForsendelser.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/testdata/liten.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/../mocks/src/testdata/liten.pdf" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <splitter split-orientation="horizontal" split-proportion="0.77858293">
+      <split-first>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/index.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="480">
+                  <caret line="32" column="7" selection-start-line="32" selection-start-column="7" selection-end-line="32" selection-end-column="7" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/client/src/pages/NewMessage/NewMessageModal/MessageForm.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="388">
+                  <caret line="311" column="53" selection-start-line="311" selection-start-column="53" selection-end-line="311" selection-end-column="53" />
+                  <folding>
+                    <element signature="e#0#26#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/client/src/components/Form/TextInputWithGenerate.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="105">
+                  <caret line="9" column="19" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="27" />
+                  <folding>
+                    <element signature="e#0#26#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/client/package.json">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="315">
+                  <caret line="21" column="4" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="4" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/client/src/messages/payload.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="105">
+                  <caret line="7" column="4" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/client/src/messages/envelope.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="225">
+                  <caret line="15" column="53" selection-start-line="15" selection-start-column="53" selection-end-line="15" selection-end-column="53" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/client/src/messages/file.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state>
+                  <caret column="9" selection-start-column="9" selection-end-column="9" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/client/src/App.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="300">
+                  <caret line="31" column="62" selection-start-line="31" selection-start-column="62" selection-end-line="31" selection-end-column="62" />
+                  <folding>
+                    <element signature="e#0#41#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/client/src/pages/Dashboard/Dashboard.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="2310">
+                  <caret line="162" column="29" selection-start-line="162" selection-start-column="29" selection-end-line="162" selection-end-column="29" />
+                  <folding>
+                    <element signature="e#0#26#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/client/src/index.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state>
+                  <folding>
+                    <element signature="e#0#26#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/package.json">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="450">
+                  <caret line="30" selection-start-line="30" selection-end-line="30" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/uploads/.gitkeep">
+              <provider selected="true" editor-type-id="text-editor" />
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>FormValidator</find>
+      <find>Sakarkiv</find>
+      <find>amOrgnr</find>
+      <find>inpputFunctions</find>
+      <find>Form</find>
+      <find>state.err</find>
+      <find>console</find>
+      <find>saTittel</find>
+      <find>getFile</find>
+      <find>Referanse</find>
+      <find>innhold</find>
+      <find>generateConversationId</find>
+      <find>form-control form-control-dark w-100</find>
+      <find>Spinner</find>
+      <find>MDSpinner</find>
+      <find>timestamp</find>
+      <find>sent</find>
+      <find>getData</find>
+      <find>mocks</find>
+      <find>soap</find>
+      <find>mine</find>
+      <find>axios</find>
+      <find>GetCanReceiveMessage</find>
+      <find>toggleNewMessage</find>
+      <find>sendMessage</find>
+      <find>lkretnkrtjnehkjn</find>
+      <find>saar</find>
+      <find>eklrngerkjn</find>
+      <find>envelope(</find>
+      <find>ny me</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>className</replace>
+    </replaceStrings>
+    <dirStrings>
+      <dir>$PROJECT_DIR$/src</dir>
+      <dir>$PROJECT_DIR$/client/src/pages/NewMessage</dir>
+      <dir>$PROJECT_DIR$/client/src</dir>
+      <dir>$PROJECT_DIR$</dir>
+    </dirStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/bestedusender.js" />
+        <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch.xml" />
+        <option value="$PROJECT_DIR$/mocks.js" />
+        <option value="$PROJECT_DIR$/client/package.json" />
+        <option value="$PROJECT_DIR$/client/src/App.scss" />
+        <option value="$PROJECT_DIR$/client/src/components/sidebar/sidebar.js" />
+        <option value="$PROJECT_DIR$/client/src/components/sidebar/sidebar.scss" />
+        <option value="$PROJECT_DIR$/client/src/pages/dashboard/dashboard.scss" />
+        <option value="$PROJECT_DIR$/client/src/pages/dashboard/dashboard.js" />
+        <option value="$PROJECT_DIR$/client/src/components/Sidebar/Sidebar.scss" />
+        <option value="$PROJECT_DIR$/client/src/components/Navbar/Navbar.scss" />
+        <option value="$PROJECT_DIR$/client/src/pages/NewMessage/NewMessage.js" />
+        <option value="$PROJECT_DIR$/client/src/pages/NewMessage/NewMessageModal.js" />
+        <option value="$PROJECT_DIR$/client/src/pages/NewMessage/NewMessageModal/NewMessageModal.scss" />
+        <option value="$PROJECT_DIR$/client/src/pages/NewMessage/NewMessageModal/NewMessageModal.js" />
+        <option value="$PROJECT_DIR$/client/src/App.js" />
+        <option value="$PROJECT_DIR$/config.json" />
+        <option value="$PROJECT_DIR$/client/src/modules/config.json" />
+        <option value="$PROJECT_DIR$/client/src/components/Form/FormValidator.js" />
+        <option value="$PROJECT_DIR$/client/src/modules/config.js" />
+        <option value="$PROJECT_DIR$/client/src/components/Form/TextInput.jsx" />
+        <option value="$PROJECT_DIR$/client/src/pages/NewMessage/NewMessageModal/MessageForm.scss" />
+        <option value="$PROJECT_DIR$/client/src/messages/file.js" />
+        <option value="$PROJECT_DIR$/client/src/components/Form/Form.jsx" />
+        <option value="$PROJECT_DIR$/teststring.js" />
+        <option value="$PROJECT_DIR$/client/src/messages/payload.js" />
+        <option value="$PROJECT_DIR$/functions/package.json" />
+        <option value="$PROJECT_DIR$/firebase.json" />
+        <option value="$PROJECT_DIR$/client/.gitignore" />
+        <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/src/components/Form/TextInputWithGenerate.js" />
+        <option value="$PROJECT_DIR$/src/pages/NewMessage/NewMessageModal/MessageForm.js" />
+        <option value="$PROJECT_DIR$/functions/index.js" />
+        <option value="$PROJECT_DIR$/src/App.js" />
+        <option value="$PROJECT_DIR$/client/src/components/Navbar/Navbar.js" />
+        <option value="$PROJECT_DIR$/src/bestedusender.js" />
+        <option value="$PROJECT_DIR$/package.json" />
+        <option value="$PROJECT_DIR$/client/src/components/Sidebar/Sidebar.js" />
+        <option value="$PROJECT_DIR$/client/src/pages/Dashboard/Dashboard.js" />
+        <option value="$PROJECT_DIR$/client/src/messages/envelope.js" />
+        <option value="$PROJECT_DIR$/client/src/components/Form/TextInputWithGenerate.js" />
+        <option value="$PROJECT_DIR$/index.js" />
+        <option value="$PROJECT_DIR$/client/src/pages/NewMessage/NewMessageModal/MessageForm.js" />
+      </list>
+    </option>
+  </component>
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
+  </component>
+  <component name="ProjectFrameBounds" fullScreen="true">
+    <option name="x" value="37" />
+    <option name="y" value="23" />
+    <option name="width" value="2523" />
+    <option name="height" value="1417" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="PackagesPane" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="move-sakarkiv-mock" type="b2602c69:ProjectViewProjectNode" />
+              <item name="move-sakarkiv-mock" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="move-sakarkiv-mock" type="b2602c69:ProjectViewProjectNode" />
+              <item name="move-sakarkiv-mock" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="move-sakarkiv-mock" type="b2602c69:ProjectViewProjectNode" />
+              <item name="move-sakarkiv-mock" type="462c0819:PsiDirectoryNode" />
+              <item name="uploads" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="move-sakarkiv-mock" type="b2602c69:ProjectViewProjectNode" />
+              <item name="move-sakarkiv-mock" type="462c0819:PsiDirectoryNode" />
+              <item name="wsdl" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="SearchEverywhereHistoryKey" value="TEXT&#9;FILE&#9;file:///Users/adam.haeger/Projects/difi/move-sakarkiv-mock/client/src/components/Form/TextInput.jsx&#10;form&#9;FILE&#9;file:///Users/adam.haeger/Projects/difi/move-sakarkiv-mock/client/src/components/Form/Form.jsx&#10;config&#9;FILE&#9;file:///Users/adam.haeger/Projects/difi/move-sakarkiv-mock/client/src/modules/config.js&#10;message&#9;FILE&#9;file:///Users/adam.haeger/Projects/difi/move-sakarkiv-mock/client/src/pages/NewMessage/NewMessageModal/MessageForm.js&#10;app&#9;FILE&#9;file:///Users/adam.haeger/Projects/difi/move-sakarkiv-mock/client/src/App.js" />
+    <property name="com.intellij.ide.scratch.LRUPopupBuilder$2/Languages" value="XML" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="/usr/local/bin/node" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="restartRequiresConfirmation" value="false" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/client/src/components" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/functions" />
+      <recent name="$PROJECT_DIR$/client/src/modules" />
+      <recent name="$PROJECT_DIR$/client/src/pages/NewMessage/NewMessageModal" />
+      <recent name="$PROJECT_DIR$/client" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Node.js.Server">
+    <configuration name="&lt;template&gt;" type="TestNG" default="true" selected="false">
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+    </configuration>
+    <configuration name="&lt;template&gt;" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" default="true" selected="false">
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+    </configuration>
+    <configuration default="true" type="Applet">
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FirebaseFunctions" type="ChromiumRemoteDebugType" factoryName="Chromium Remote" port="9229">
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Server" type="NodeJSConfigurationType" path-to-js-file="index.js" working-dir="$PROJECT_DIR$">
+      <method v="2" />
+    </configuration>
+    <configuration name="Server" type="js.build_tools.npm">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="dev" />
+      </scripts>
+      <arguments value="--inspect-brk=63579" />
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="start" type="js.build_tools.npm">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="dev" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2">
+        <option name="NpmBeforeRunTask" enabled="true">
+          <package-json value="$PROJECT_DIR$/package.json" />
+          <command value="run" />
+          <scripts>
+            <script value="dev" />
+          </scripts>
+          <node-interpreter value="project" />
+          <envs />
+        </option>
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Attach to Node.js/Chrome.FirebaseFunctions" />
+      <item itemvalue="Node.js.Server" />
+      <item itemvalue="npm.start" />
+      <item itemvalue="npm.Server" />
+    </list>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="0" width="2560" height="1440" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20214456" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Designer" order="2" />
+      <window_info id="Favorites" order="3" side_tool="true" />
+      <window_info anchor="bottom" id="Event Log" order="0" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="1" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="2" visible="true" weight="0.24424647" />
+      <window_info anchor="bottom" id="Docker" order="3" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Network" order="4" />
+      <window_info anchor="bottom" id="Message" order="5" />
+      <window_info anchor="bottom" id="Find" order="6" />
+      <window_info anchor="bottom" id="Cvs" order="7" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="8" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="9" />
+      <window_info anchor="bottom" id="Database Changes" order="10" show_stripe_button="false" />
+      <window_info anchor="right" id="Palette&#9;" order="0" />
+      <window_info anchor="right" id="Maven Projects" order="1" />
+      <window_info anchor="right" id="Database" order="2" />
+      <window_info anchor="right" id="Commander" order="3" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="4" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="5" weight="0.25" />
+      <window_info anchor="right" id="Run" order="6" weight="0.33518666" />
+      <window_info anchor="right" id="Google Cloud Storage" order="7" />
+      <window_info anchor="right" id="Debug" order="8" visible="true" weight="0.4197776" />
+      <window_info anchor="right" id="PlantUML" order="9" />
+      <window_info anchor="right" id="Maven" order="10" />
+    </layout>
+    <layout-to-restore>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16845451" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Designer" order="2" />
+      <window_info id="Favorites" order="3" side_tool="true" />
+      <window_info anchor="bottom" id="Event Log" order="0" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="1" />
+      <window_info anchor="bottom" id="Terminal" order="2" weight="0.26488096" />
+      <window_info anchor="bottom" id="Docker" order="3" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Network" order="4" />
+      <window_info anchor="bottom" id="Message" order="5" />
+      <window_info anchor="bottom" id="Find" order="6" />
+      <window_info anchor="bottom" id="Cvs" order="7" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="8" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="9" />
+      <window_info anchor="bottom" id="Database Changes" order="10" show_stripe_button="false" />
+      <window_info anchor="right" id="Palette&#9;" order="0" />
+      <window_info anchor="right" id="Maven Projects" order="1" />
+      <window_info anchor="right" id="Database" order="2" />
+      <window_info anchor="right" id="Commander" order="3" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="4" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="5" weight="0.25" />
+      <window_info anchor="right" id="Run" order="6" weight="0.33055225" />
+      <window_info anchor="right" id="Google Cloud Storage" order="7" />
+      <window_info anchor="right" id="Debug" order="8" weight="0.3686734" />
+    </layout-to-restore>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$" />
+    </ignored-roots>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/functions/src/mocks.js</url>
+          <line>22</line>
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/functions/src/bestedusender.js</url>
+          <line>8</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/functions/src/bestedusender.js</url>
+          <line>33</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/functions/src/bestedusender.js</url>
+          <line>36</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/functions/src/bestedusender.js</url>
+          <line>17</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/functions/src/bestedusender.js</url>
+          <line>38</line>
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/functions/src/bestedusender.js</url>
+          <line>39</line>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/functions/src/mocks.js</url>
+          <line>13</line>
+          <option name="timeStamp" value="20" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/functions/index.js</url>
+          <line>8</line>
+          <option name="timeStamp" value="26" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/mocks.js</url>
+          <line>22</line>
+          <option name="timeStamp" value="33" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/mocks.js</url>
+          <line>13</line>
+          <option name="timeStamp" value="34" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/index.js</url>
+          <line>26</line>
+          <option name="timeStamp" value="53" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/index.js</url>
+          <line>33</line>
+          <option name="timeStamp" value="54" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/index.js</url>
+          <line>35</line>
+          <option name="timeStamp" value="55" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/index.js</url>
+          <line>100</line>
+          <option name="timeStamp" value="56" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/index.js</url>
+          <line>123</line>
+          <option name="timeStamp" value="57" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="debuggerHistoryManager">
+    <expressions id="evaluateExpression">
+      <expression>
+        <expression-string>parsed.envelope.body[&quot;0&quot;].putmessagerequest[&quot;0&quot;].envelope[&quot;0&quot;].receiver[&quot;0&quot;].orgnr[&quot;0&quot;]</expression-string>
+        <language-id>JavaScript</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>parsed.envelope.body[&quot;0&quot;].putmessagerequest[&quot;0&quot;].envelope[&quot;0&quot;].receiver[&quot;0&quot;].name[&quot;0&quot;]</expression-string>
+        <language-id>JavaScript</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>parsed.envelope.body[&quot;0&quot;].putmessagerequest[&quot;0&quot;].envelope[&quot;0&quot;].sender[&quot;0&quot;].ref[&quot;0&quot;]</expression-string>
+        <language-id>JavaScript</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>parsed.envelope.body[&quot;0&quot;].putmessagerequest[&quot;0&quot;].envelope[&quot;0&quot;].sender[&quot;0&quot;].orgnr[&quot;0&quot;]</expression-string>
+        <language-id>JavaScript</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>parsed.envelope.body[&quot;0&quot;].putmessagerequest[&quot;0&quot;].envelope[&quot;0&quot;].sender[&quot;0&quot;].name[&quot;0&quot;]</expression-string>
+        <language-id>JavaScript</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>parsedPayload.appreceipt</expression-string>
+        <language-id>JavaScript</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>parsed.envelope.body[&quot;0&quot;].putmessagerequest[&quot;0&quot;].envelope[&quot;0&quot;].sender[&quot;0&quot;]</expression-string>
+        <language-id>JavaScript</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>parsed.envelope.body[&quot;0&quot;].putmessagerequest[&quot;0&quot;].envelope[&quot;0&quot;].receiver[&quot;0&quot;]</expression-string>
+        <language-id>JavaScript</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>parsed.envelope.body[&quot;0&quot;].putmessagerequest[&quot;0&quot;].envelope[&quot;0&quot;].receiver</expression-string>
+        <language-id>JavaScript</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>parsedPayload.melding.journpost[&quot;0&quot;].dokument[&quot;0&quot;].fil[&quot;0&quot;].base64[&quot;0&quot;]</expression-string>
+        <language-id>JavaScript</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/client/node_modules/react-modal/package.json" />
+    <entry file="file://$PROJECT_DIR$/client/node_modules/react-modal/dist/react-modal.js" />
+    <entry file="file://$PROJECT_DIR$/src/components/Form/Form.css" />
+    <entry file="file://$PROJECT_DIR$/src/pages/NewMessage/NewMessageModal/NewMessageModal.js" />
+    <entry file="file://$PROJECT_DIR$/src/modules/config.js" />
+    <entry file="file://$PROJECT_DIR$/client/node_modules/react/cjs/react.development.js" />
+    <entry file="file://$PROJECT_DIR$/src/pages/NewMessage/NewMessage.js" />
+    <entry file="file://$PROJECT_DIR$/src/pages/NewMessage/NewMessageModal/MessageForm.scss" />
+    <entry file="file://$PROJECT_DIR$/src/components/Form/Form.jsx" />
+    <entry file="file://$PROJECT_DIR$/src/components/Form/FormValidator.js" />
+    <entry file="file://$PROJECT_DIR$/src/pages/Dashboard/Dashboard.js" />
+    <entry file="file://$PROJECT_DIR$/src/components/Form/TextInput.jsx" />
+    <entry file="file://$PROJECT_DIR$/src/messages/file.js" />
+    <entry file="file://$PROJECT_DIR$/src/messages/payload.js" />
+    <entry file="file://$PROJECT_DIR$/functions/src/mocks.js" />
+    <entry file="file://$PROJECT_DIR$/functions/src/bestedusender.js" />
+    <entry file="file://$PROJECT_DIR$/teststring.js" />
+    <entry file="file://$PROJECT_DIR$/client/.gitignore" />
+    <entry file="file://$PROJECT_DIR$/package-lock.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore" />
+    <entry file="file://$PROJECT_DIR$/src/components/Form/TextInputWithGenerate.js" />
+    <entry file="file://$PROJECT_DIR$/.firebaserc" />
+    <entry file="file://$PROJECT_DIR$/functions/package.json" />
+    <entry file="file://$PROJECT_DIR$/src/messages/envelope.js" />
+    <entry file="file://$PROJECT_DIR$/src/pages/NewMessage/NewMessageModal/MessageForm.js" />
+    <entry file="file://$PROJECT_DIR$/src/App.js" />
+    <entry file="file://$PROJECT_DIR$/src/App.scss" />
+    <entry file="file://$PROJECT_DIR$/functions/index.js" />
+    <entry file="file://$PROJECT_DIR$/firebase.json" />
+    <entry file="file://$PROJECT_DIR$/client/src/pages/NewMessage/NewMessageModal/NewMessageModal.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/Navbar/Navbar.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="10" column="94" selection-start-line="10" selection-start-column="94" selection-end-line="10" selection-end-column="94" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/express/lib/router/index.js" />
+    <entry file="file://$PROJECT_DIR$/wsdl/p360.wsdl">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/App.test.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/bestedusender.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="600">
+          <caret line="40" column="6" selection-start-line="40" selection-start-column="6" selection-end-line="40" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/Sidebar/Sidebar.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="277">
+          <caret line="42" column="25" selection-start-line="42" selection-start-column="25" selection-end-line="42" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/pages/NewMessage/NewMessage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="1" selection-start-line="14" selection-start-column="1" selection-end-line="14" selection-end-column="1" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/mocks.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="570">
+          <caret line="38" column="13" selection-start-line="37" selection-start-column="17" selection-end-line="38" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jmeter.log" />
+    <entry file="file://$PROJECT_DIR$/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="32" column="7" selection-start-line="32" selection-start-column="7" selection-end-line="32" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/Form/TextInputWithGenerate.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="9" column="19" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="4" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/messages/payload.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="4" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/messages/envelope.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="53" selection-start-line="15" selection-start-column="53" selection-end-line="15" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/messages/file.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="9" selection-start-column="9" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/App.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="31" column="62" selection-start-line="31" selection-start-column="62" selection-end-line="31" selection-end-column="62" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/pages/Dashboard/Dashboard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2310">
+          <caret line="162" column="29" selection-start-line="162" selection-start-column="29" selection-end-line="162" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/pages/NewMessage/NewMessageModal/MessageForm.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="388">
+          <caret line="311" column="53" selection-start-line="311" selection-start-column="53" selection-end-line="311" selection-end-column="53" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="30" selection-start-line="30" selection-end-line="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/uploads/.gitkeep">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+  </component>
+</project>

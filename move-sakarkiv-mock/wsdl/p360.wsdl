@@ -1,0 +1,124 @@
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="http://www.arkivverket.no/Noark/Exchange" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" name="EDUImportService" targetNamespace="http://www.arkivverket.no/Noark/Exchange">
+	<wsp:Policy wsu:Id="BasicHttpBinding_IEDUImport_policy">
+		<wsp:ExactlyOne>
+			<wsp:All>
+				<http:NtlmAuthentication xmlns:http="http://schemas.microsoft.com/ws/06/2004/policy/http"/>
+			</wsp:All>
+		</wsp:ExactlyOne>
+	</wsp:Policy>
+	<wsdl:types>
+		<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.arkivverket.no/Noark/Exchange/types" elementFormDefault="qualified" targetNamespace="http://www.arkivverket.no/Noark/Exchange/types">
+			<xs:element name="GetCanReceiveMessageRequest" type="tns:GetCanReceiveMessageRequestType"/>
+			<xs:complexType name="GetCanReceiveMessageRequestType">
+				<xs:sequence>
+					<xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="receiver" type="tns:AddressType"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="AddressType">
+				<xs:sequence>
+					<xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="orgnr" type="xs:string"/>
+					<xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="name" type="xs:string"/>
+					<xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="email" type="xs:string"/>
+					<xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="ref" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="GetCanReceiveMessageResponse" type="tns:GetCanReceiveMessageResponseType"/>
+			<xs:complexType name="GetCanReceiveMessageResponseType">
+				<xs:sequence>
+					<xs:element minOccurs="1" maxOccurs="1" form="unqualified" name="result" type="xs:boolean"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="PutMessageRequest" type="tns:PutMessageRequestType"/>
+			<xs:complexType name="PutMessageRequestType">
+				<xs:sequence>
+					<xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="envelope" type="tns:EnvelopeType"/>
+					<xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="payload" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="EnvelopeType">
+				<xs:sequence>
+					<xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="sender" type="tns:AddressType"/>
+					<xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="receiver" type="tns:AddressType"/>
+				</xs:sequence>
+				<xs:attribute name="contentNamespace" type="xs:string"/>
+				<xs:attribute name="conversationId" type="xs:string"/>
+			</xs:complexType>
+			<xs:element name="PutMessageResponse" type="tns:PutMessageResponseType"/>
+			<xs:complexType name="PutMessageResponseType">
+				<xs:sequence>
+					<xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="result" type="tns:AppReceiptType"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="AppReceiptType">
+				<xs:sequence>
+					<xs:element minOccurs="0" maxOccurs="unbounded" form="unqualified" name="message" type="tns:StatusMessageType"/>
+				</xs:sequence>
+				<xs:attribute name="type" use="required">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:enumeration value="OK"/>
+							<xs:enumeration value="NOTSUPPORTED"/>
+							<xs:enumeration value="WARNING"/>
+							<xs:enumeration value="ERROR"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:attribute>
+			</xs:complexType>
+			<xs:complexType name="StatusMessageType">
+				<xs:sequence>
+					<xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="text" type="xs:string"/>
+				</xs:sequence>
+				<xs:attribute name="code" type="xs:string"/>
+			</xs:complexType>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="GetCanReceiveMessageRequest">
+		<wsdl:part xmlns:q1="http://www.arkivverket.no/Noark/Exchange/types" name="GetCanReceiveMessageRequest" element="q1:GetCanReceiveMessageRequest"/>
+	</wsdl:message>
+	<wsdl:message name="GetCanReceiveMessageResponse">
+		<wsdl:part xmlns:q2="http://www.arkivverket.no/Noark/Exchange/types" name="GetCanReceiveMessageResponse" element="q2:GetCanReceiveMessageResponse"/>
+	</wsdl:message>
+	<wsdl:message name="PutMessageRequest">
+		<wsdl:part xmlns:q3="http://www.arkivverket.no/Noark/Exchange/types" name="PutMessageRequest" element="q3:PutMessageRequest"/>
+	</wsdl:message>
+	<wsdl:message name="PutMessageResponse">
+		<wsdl:part xmlns:q4="http://www.arkivverket.no/Noark/Exchange/types" name="PutMessageResponse" element="q4:PutMessageResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IEDUImport">
+		<wsdl:operation name="GetCanReceiveMessage">
+			<wsdl:input wsaw:Action="http://www.arkivverket.no/Noark/Exchange/IEDUImport/GetCanReceiveMessage" name="GetCanReceiveMessageRequest" message="tns:GetCanReceiveMessageRequest"/>
+			<wsdl:output wsaw:Action="http://www.arkivverket.no/Noark/Exchange/IEDUImport/GetCanReceiveMessageResponse" name="GetCanReceiveMessageResponse" message="tns:GetCanReceiveMessageResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="PutMessage">
+			<wsdl:input wsaw:Action="http://www.arkivverket.no/Noark/Exchange/IEDUImport/PutMessage" name="PutMessageRequest" message="tns:PutMessageRequest"/>
+			<wsdl:output wsaw:Action="http://www.arkivverket.no/Noark/Exchange/IEDUImport/PutMessageResponse" name="PutMessageResponse" message="tns:PutMessageResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="BasicHttpBinding_IEDUImport" type="tns:IEDUImport">
+		<wsp:PolicyReference URI="#BasicHttpBinding_IEDUImport_policy"/>
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="GetCanReceiveMessage">
+			<soap:operation soapAction="http://www.arkivverket.no/Noark/Exchange/IEDUImport/GetCanReceiveMessage" style="document"/>
+			<wsdl:input name="GetCanReceiveMessageRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="GetCanReceiveMessageResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="PutMessage">
+			<soap:operation soapAction="http://www.arkivverket.no/Noark/Exchange/IEDUImport/PutMessage" style="document"/>
+			<wsdl:input name="PutMessageRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="PutMessageResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="EDUImportService">
+		<wsdl:port name="BasicHttpBinding_IEDUImport" binding="tns:BasicHttpBinding_IEDUImport">
+			<soap:address location="http://localhost:8001/p360"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
