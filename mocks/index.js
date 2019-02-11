@@ -56,24 +56,25 @@ app.get('/', (req, res) => {
                 
                 
                 
-                          <h3>Received DPF messages</h3>
-                        
-                
-                
+              <h3>Received DPO messages</h3>
+                          
                 <table class="table table-striped">
                   <thead>
                     <tr>
+                      <th scope="col">Receiver</th>
+                      <th scope="col">File reference</th>
+                      <th scope="col">Receipt ID</th>
                       <th scope="col">#</th>
-                      <th scope="col">First</th>
-                      <th scope="col">Last</th>
-                      <th scope="col">Handle</th>
                     </tr>
                   </thead>
                   <tbody>
                   
                   ${[...db].map(([key, value]) => {
-                        return `<tr>Receiver: ${key}  ${JSON.stringify(value, null, 2)} </tr>`; } ).join('') }
-                
+                        return `<tr> 
+                                    <td>${key}</td>
+                                    <td>${value.fileReference}</td>
+                                    <td>${value.receiptId}</td>
+                            `; } ).join('') }
                   </tbody>
                 </table>
                 
