@@ -8,7 +8,7 @@ const bodyParser = require('body-parser');
 const { parseString } = require('xml2js');
 const sqlite3 = require('sqlite3');
 const stripPrefix = require('xml2js').processors.stripPrefix;
-const db = new sqlite3.Database(':memory:');
+// const db = new sqlite3.Database(':memory:');
 
 process.env.PORT = process.env.PORT || 8002;
 //
@@ -67,6 +67,7 @@ let dpfDB = new Map();
 app.get('/api/messages', (req, res) => {
     res.send(JSON.stringify([...dpfDB]));
 });
+
 
 app.post('/p360',
     getRawBody,

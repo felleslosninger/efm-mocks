@@ -1,5 +1,3 @@
-
-
 const mocks = require('./src/mocks');
 const restMocks = require('./src/RestMocks');
 const soap = require('soap');
@@ -10,7 +8,9 @@ const bodyParser = require('body-parser');
 const uid = require("uid");
 const morgan = require('morgan');
 const db = require("./src/db").db;
-const dpfDB= require("./src/modules/DPF/dpfDB").dpfDB;
+let dpfDB= require("./src/modules/DPF/dpfDB").dpfDB;
+
+// const dpoDB = require("./modudpfDB").dpfDB;
 
 process.env.PORT = process.env.PORT || 8001;
 
@@ -28,26 +28,96 @@ let soapString = mocks
 
 app.get('/', (req, res) => {
     res.send(`
-            <html style="font-family: Comic Sans MS;">
+            <html>
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
                 <body>
-                    <h1>MOVE Mocks<h1>
-                        <h3>Mocks:<h3>
-                            <ul> ${ restString.map((url) => `<li>${url}</li>`).join('') }</ul>
-                        <h3>WSDLs:<h3>
-                            <ul> ${ soapString.map((url) => `<li><a href="${url}">${url}</a></li>`).join('') }</ul>
-                             
-                        <h3>Received DPO messages</h3>
-                        <ul> ${ [...db].map(([key, value]) => `<li>Receiver: ${key} </li>` ).join('') }</ul>
-                       
-                       
-                       <h3>Received DPF messages</h3>
-                        <ul> ${[...dpfDB].map(([key, value]) => {
-                        return `<li>Receiver: ${key}</li>`;    
-                        } ).join('') }</ul>
-                       
+                
+                <div class="container">
+                <div class="">
+                
+                <h3>Received DPF messages</h3>
+                                        
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">First</th>
+                      <th scope="col">Last</th>
+                      <th scope="col">Handle</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  
+                  ${[...dpfDB].map(([key, value]) => {
+                        return `<tr>Receiver: ${key}  ${value} </tr>`; } ).join('') }
+                
+                  </tbody>
+                </table>
+                
+                
+                
+                          <h3>Received DPF messages</h3>
+                        
+                
+                
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">First</th>
+                      <th scope="col">Last</th>
+                      <th scope="col">Handle</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  
+                  ${[...db].map(([key, value]) => {
+                        return `<tr>Receiver: ${key}  ${JSON.stringify(value, null, 2)} </tr>`; } ).join('') }
+                
+                  </tbody>
+                </table>
+                
+              
+                       </div>
+                       </div>
                 </body>
             </html>
     `);
+});
+
+//
+// <h3>Received DPO messages</h3>
+// < ul
+// className = "list-group" >
+//
+//     ${[...db].map(([key, value]) => `<li class="list-group-item">Receiver: ${key} < /li>` ).join('') }
+//
+// </ul>
+//
+// <
+// h1 > MOVE
+// Mocks < h1 >
+// < h3 > Mocks
+// :</h3>
+// <
+// ul
+// className = "list-group" > ${ restString.map((url) => `<li class="list-group-item">${url} < /li>`).join('') }</u
+// l >
+// < h3 > WSDLs
+// :</h3>
+// <
+// ul
+// className = "list-group" > ${ soapString.map((url) => `<li class="list-group-item"><a href="${url}">${url}</a></li>`).join('') }</ul>
+//
+
+app.delete('/api/messages/dpf', (req, res) => {
+    dpfDB = new Map();
+    res.sendStatus(200)
+});
+
+app.delete('/api/messages/dpo', (req, res) => {
+    dpfDB = new Map();
+    res.sendStatus(200)
 });
 
 //File info: ${JSON.stringify(value, null, 2)}

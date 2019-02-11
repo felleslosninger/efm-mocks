@@ -141,10 +141,10 @@ log.info(bsh.shared.currentConvoID);</stringProp>
                &lt;orgnr&gt;910229028&lt;/orgnr&gt;&#xd;
                &lt;name&gt;Fylkesmannen i Sogn og Fjordane&lt;/name&gt;&#xd;
                &lt;email&gt;fmsfpost@fylkesmannen.no&lt;/email&gt;&#xd;
-               &lt;ref&gt;2014/2703&lt;/ref&gt;&#xd;
+               &lt;ref&gt;8e486d5b-48c8-4485-96a7-8fa61690a221&lt;/ref&gt;&#xd;
             &lt;/sender&gt;&#xd;
             &lt;receiver&gt;&#xd;
-               &lt;orgnr&gt;910229028&lt;/orgnr&gt;&#xd;
+               &lt;orgnr&gt;991825827&lt;/orgnr&gt;&#xd;
                &lt;name&gt;Fylkesmannen i Sogn og Fjordane&lt;/name&gt;&#xd;
                &lt;email&gt;fmsfpost@fylkesmannen.no&lt;/email&gt;&#xd;
                &lt;ref /&gt;&#xd;
