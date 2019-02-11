@@ -53,9 +53,7 @@ app.get('/', (req, res) => {
                 
                   </tbody>
                 </table>
-                
-                
-                
+               
               <h3>Received DPO messages</h3>
                           
                 <table class="table table-striped">
