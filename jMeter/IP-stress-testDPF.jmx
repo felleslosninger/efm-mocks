@@ -186,7 +186,7 @@ log.info(bsh.shared.conversationIds.toString());
                     &lt;email&gt;test@test.no&lt;/email&gt;&#xd;
                 &lt;/sender&gt;&#xd;
                 &lt;receiver&gt;&#xd;
-                    &lt;orgnr&gt;910229028&lt;/orgnr&gt;&#xd;
+                    &lt;orgnr&gt;991825827&lt;/orgnr&gt;&#xd;
                     &lt;name&gt;NORDFOLD OG HENNINGSVÆR&lt;/name&gt;&#xd;
                     &lt;email&gt;best@voldsoffererstatning.no&lt;/email&gt;&#xd;
                 &lt;/receiver&gt;&#xd;

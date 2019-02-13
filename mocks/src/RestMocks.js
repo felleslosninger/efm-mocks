@@ -55,7 +55,7 @@ const mocks = [
                         } else if(parsed.envelope.body["0"].retrieveforsendelsestatus) {
                             retrieveforsendelsestatus(req, res, parsed);
                         } else {
-                            console.log("its something else");
+                            // res.send
                         }
                     });
                 }

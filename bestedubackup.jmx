@@ -51,13 +51,13 @@
             </elementProp>
             <elementProp name="threadCount" elementType="Argument">
               <stringProp name="Argument.name">threadCount</stringProp>
-              <stringProp name="Argument.value">1</stringProp>
+              <stringProp name="Argument.value">2</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
               <stringProp name="Argument.desc">How many iterations we should run.</stringProp>
             </elementProp>
             <elementProp name="testFile" elementType="Argument">
               <stringProp name="Argument.name">testFile</stringProp>
-              <stringProp name="Argument.value">/Users/adam.haeger/Projects/mocks/jMeter/5MB.pdf</stringProp>
+              <stringProp name="Argument.value">/Users/adam.haeger/Projects/mocks/jMeter/72.pdf</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
               <stringProp name="Argument.desc">Full system path to the file you wish to send.</stringProp>
             </elementProp>
@@ -96,20 +96,20 @@ for (int i = 0; i &lt; Integer.parseInt(vars.get(&quot;threadCount&quot;)); i++)
         <stringProp name="ThreadGroup.delay"></stringProp>
       </ThreadGroup>
       <hashTree>
+        <CounterConfig guiclass="CounterConfigGui" testclass="CounterConfig" testname="Counter" enabled="true">
+          <stringProp name="CounterConfig.start">0</stringProp>
+          <stringProp name="CounterConfig.end">${__BeanShell(bsh.shared.conversationIds.size()-1,)}</stringProp>
+          <stringProp name="CounterConfig.incr">1</stringProp>
+          <stringProp name="CounterConfig.name">counter</stringProp>
+          <stringProp name="CounterConfig.format"></stringProp>
+          <boolProp name="CounterConfig.per_user">false</boolProp>
+        </CounterConfig>
+        <hashTree/>
         <WhileController guiclass="WhileControllerGui" testclass="WhileController" testname="While Controller" enabled="true">
           <stringProp name="WhileController.condition">${__BeanShell(Integer.parseInt(vars.get(&quot;counter&quot;)) &lt; bsh.shared.conversationIds.size()-1,)}
 </stringProp>
         </WhileController>
         <hashTree>
-          <CounterConfig guiclass="CounterConfigGui" testclass="CounterConfig" testname="Counter" enabled="true">
-            <stringProp name="CounterConfig.start">0</stringProp>
-            <stringProp name="CounterConfig.end">${__BeanShell(bsh.shared.conversationIds.size()-1,)}</stringProp>
-            <stringProp name="CounterConfig.incr">1</stringProp>
-            <stringProp name="CounterConfig.name">counter</stringProp>
-            <stringProp name="CounterConfig.format"></stringProp>
-            <boolProp name="CounterConfig.per_user">false</boolProp>
-          </CounterConfig>
-          <hashTree/>
           <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="BeanShell Sampler" enabled="true">
             <stringProp name="BeanShellSampler.query">
 log.info(&quot;What Count???&quot;);
@@ -144,7 +144,7 @@ log.info(bsh.shared.currentConvoID);</stringProp>
                &lt;ref&gt;8e486d5b-48c8-4485-96a7-8fa61690a221&lt;/ref&gt;&#xd;
             &lt;/sender&gt;&#xd;
             &lt;receiver&gt;&#xd;
-               &lt;orgnr&gt;991825827&lt;/orgnr&gt;&#xd;
+               &lt;orgnr&gt;910229028&lt;/orgnr&gt;&#xd;
                &lt;name&gt;Fylkesmannen i Sogn og Fjordane&lt;/name&gt;&#xd;
                &lt;email&gt;fmsfpost@fylkesmannen.no&lt;/email&gt;&#xd;
                &lt;ref /&gt;&#xd;

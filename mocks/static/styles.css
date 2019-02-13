@@ -1,0 +1,37 @@
+body {
+    background-color: #336699;
+    font-family: 'Open Sans', sans-serif;
+}
+
+/* Navbar */
+.elma-navbar {
+    background-color: white;
+}
+.elma-navbar img {
+    width: 125px;
+}
+.elma-navbar .navbar-right {
+    background-color: white;
+    align-items: center;
+}
+.elma-logo {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+.logo-text {
+    margin-top: 14px;
+    color: black;
+}
+/* End navbar */
+
+.main-container {
+    background-color: white;
+    margin-top: 100px;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.delete-button {
+    float: right;
+}

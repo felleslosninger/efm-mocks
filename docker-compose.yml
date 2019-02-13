@@ -3,16 +3,12 @@ services:
   mocks:
     build: ./mocks
     command: npm run start
-#    volumes:
-#      - ./mocks:/user/src/app
     ports:
       - 8001:8001
 
   sa-mock:
     build: ./move-sakarkiv-mock
     command: npm run start
-#    volumes:
-#      - ./move-sakarkiv-mock:/user/src/app
     ports:
       - 8002:8002
 
@@ -20,6 +16,4 @@ services:
     build: ./Wiremock
     ports:
       - 8090:8090
-#    volumes:
-#      - ./Wiremock/__files:/opt/wiremock/__files
-#      - ./Wiremock/mappings:/opt/wiremock/mappings
+

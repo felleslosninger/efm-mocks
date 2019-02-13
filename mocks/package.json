@@ -16,7 +16,9 @@
     "multiparty": "^4.1.4",
     "node-fetch": "^2.1.2",
     "node-rsa": "^1.0.3",
+    "nodemon": "^1.18.10",
     "parse-multipart": "^1.0.4",
+    "rimraf": "^2.6.3",
     "soap": "^0.24.0",
     "strong-soap": "^1.6.2",
     "uid": "0.0.2",
@@ -30,6 +32,7 @@
     "mocha": "^5.1.1"
   },
   "scripts": {
+    "dev": "nodemon --inspect index.js",
     "test": "mocha",
     "start": "node index.js"
   },

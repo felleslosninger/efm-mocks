@@ -12,7 +12,7 @@
 },
 "serviceRecord": {
 "serviceIdentifier": "DPF",
-"organisationNumber": "919859962",
+"organisationNumber": "910229028",
 "pemCertificate": "-----BEGIN CERTIFICATE-----
                    MIIC5zCCAc+gAwIBAgIBATANBgkqhkiG9w0BAQsFADAhMRIwEAYDVQQDDAlsb2Nh
                    bGhvc3QxCzAJBgNVBAYTAk5PMB4XDTE5MDEyOTExMzgyMFoXDTIwMDEyOTExMzgy
@@ -31,7 +31,7 @@
                    En9GACueWth6P+f06naaVHRCC98fuvVvt37jLm6D5gcf6IYHyTbcsxtqTR5mOEgh
                    bMaJspBqHd5sfyM9YD8Ss3UPY0+g3jlhNJAs
                    -----END CERTIFICATE-----",
-"endPointURL": "http://localhost:8001/dpf",
+"endPointURL": "https://test.svarut.ks.no/tjenester/forsendelseservice/ForsendelsesServiceV6",
 "serviceCode": null,
 "serviceEditionCode": null,
 "orgnrPostkasse": null,
@@ -59,7 +59,7 @@
 "serviceRecords": [
 {
 "serviceIdentifier": "DPF",
-"organisationNumber": "919859962",
+"organisationNumber": "910229028",
 "pemCertificate": "-----BEGIN CERTIFICATE-----
                    MIIC5zCCAc+gAwIBAgIBATANBgkqhkiG9w0BAQsFADAhMRIwEAYDVQQDDAlsb2Nh
                    bGhvc3QxCzAJBgNVBAYTAk5PMB4XDTE5MDEyOTExMzgyMFoXDTIwMDEyOTExMzgy
@@ -78,7 +78,7 @@
                    En9GACueWth6P+f06naaVHRCC98fuvVvt37jLm6D5gcf6IYHyTbcsxtqTR5mOEgh
                    bMaJspBqHd5sfyM9YD8Ss3UPY0+g3jlhNJAs
                    -----END CERTIFICATE-----",
-"endPointURL": "http://localhost:8001/dpf",
+"endPointURL": "https://test.svarut.ks.no/tjenester/forsendelseservice/ForsendelsesServiceV6",
 "serviceCode": null,
 "serviceEditionCode": null,
 "orgnrPostkasse": null,
@@ -105,7 +105,7 @@
 },
 {
 "serviceIdentifier": "DPV",
-"organisationNumber": "919859962",
+"organisationNumber": "910229028",
 "pemCertificate": null,
 "endPointURL": "https://tt02.altinn.no/ServiceEngineExternal/CorrespondenceAgencyExternal.svc",
 "serviceCode": null,
