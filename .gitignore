@@ -11,8 +11,8 @@ move-sakarkiv-mock/upload/*
 
 
 # exception to the rule
-!src/modules/DPF/uploads/.gitkeep
-!src/modules/DPO/uploads/.gitkeep
+!mocks/src/modules/DPF/uploads/.gitkeep
+!mocks/src/modules/DPO/uploads/.gitkeep
 !move-sakarkiv-mock/upload/.gitkeep
 
 

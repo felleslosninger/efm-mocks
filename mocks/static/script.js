@@ -1,10 +1,7 @@
-// let deleteButtons = document.getElementsByClassName('delete-button');
-
-// [].call
 
 const deleteButtons = document.querySelectorAll('.delete-button');
 
-console.log(deleteButtons);
+console.log(window.location.href);
 
 deleteButtons.forEach(button => {
 
@@ -12,9 +9,7 @@ deleteButtons.forEach(button => {
 
     button.addEventListener('click', function(e){
 
-        console.log("click");
-
-        axios.post(`/api/messages/${button.dataset.serviceidentifier}`)
+        axios.post(`${window.location.href}api/messages/${button.dataset.serviceidentifier}`)
             .then(function(res){
                 console.log("success", res);
             })
