@@ -79,7 +79,7 @@ function deleteFiles(directory){
     });
 }
 
-app.delete('/api/messages/DPF', (req, res) => {
+app.post('/api/messages/DPF', (req, res) => {
     dpfDB = new Map();
     deleteFiles('./src/modules/DPF/uploads')
         .then(() => {
@@ -90,7 +90,7 @@ app.delete('/api/messages/DPF', (req, res) => {
         })
 });
 
-app.delete('/api/messages/DPO', (req, res) => {
+app.post('/api/messages/DPO', (req, res) => {
     db = new Map();
     deleteFiles('./src/modules/DPO/uploads')
         .then(() => {

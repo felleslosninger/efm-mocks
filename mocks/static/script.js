@@ -14,7 +14,7 @@ deleteButtons.forEach(button => {
 
         console.log("click");
 
-        axios.delete(`/api/messages/${button.dataset.serviceidentifier}`)
+        axios.post(`/api/messages/${button.dataset.serviceidentifier}`)
             .then(function(res){
                 console.log("success", res);
             })
