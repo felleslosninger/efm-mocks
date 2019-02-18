@@ -1,10 +1,10 @@
-const dpfDB = require("./dpfDB").dpfDB;
+// const dpfDB = require("./dpfDB").dpfDB;
 
 function retrieveforsendelsestatus(req, res, parsed){
 
     let forsendelsesId = parsed.envelope.body["0"].retrieveforsendelsestatus["0"].forsendelsesid["0"]
 
-    let messages = dpfDB.get(forsendelsesId);
+    let messages = global.dpfDB.get(forsendelsesId);
 
     if (messages) {
         console.log("stop");
@@ -55,7 +55,7 @@ function hentForsendelsefil(req, res){
 
     const childProcess = require('child_process');
 
-    let message = dpfDB.get(res.req.params.forsendelsesId);
+    let message = global.dpfDB.get(res.req.params.forsendelsesId);
 
     let certPath = `${__dirname}/server.pem`;
     let encryptedPath = `${__dirname}/uploads/${res.req.params.forsendelsesId}-encrypted-new`;
@@ -148,7 +148,7 @@ function hentNyeForsendelser(req, res) {
                 "downloadUrl": `http://localhost:${process.env.PORT}/tjenester/svarinn/forsendelse/${value.eksternRef}`
             };
 
-            console.log(JSON.stringify(response, null, 2));
+            // console.log(JSON.stringify(response, null, 2));
 
             return response;
     }));

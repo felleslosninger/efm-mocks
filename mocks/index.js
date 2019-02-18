@@ -7,11 +7,14 @@ const xmlparser = require('express-xml-bodyparser');
 const bodyParser = require('body-parser');
 const uid = require("uid");
 const morgan = require('morgan');
-let db = require("./src/db").db;
-let dpfDB= require("./src/modules/DPF/dpfDB").dpfDB;
+// let db = require("./src/db");
+// let dpfDB= require("./src/modules/DPF/dpfDB").dpfDB;
 const messageTable = require('./src/components/messageTable');
 const rimraf = require('rimraf');
 const fs = require('fs');
+
+global.dpoDB = new Map();
+global.dpfDB = new Map();
 
 process.env.PORT = process.env.PORT || 8001;
 
@@ -51,14 +54,12 @@ app.get('/', (req, res) => {
                     </div>
                 </nav>
                 <div class="container main-container">
-                    <div class="">
-                        ${messageTable('DPF', dpfDB)}
-                        
-                        
-                        ${messageTable('DPO', db)}
-                        
-                           </div>
-                       </div>
+                
+                    ${messageTable('DPF', global.dpfDB)}
+                    
+                    ${messageTable('DPO', global.dpoDB)} 
+                    
+               </div>
                     </body>
                     <script src="script.js"></script>
             </html>
@@ -80,7 +81,7 @@ function deleteFiles(directory){
 }
 
 app.post('/api/messages/DPF', (req, res) => {
-    dpfDB = new Map();
+    global.dpfDB = new Map();
     deleteFiles('./src/modules/DPF/uploads')
         .then(() => {
             res.sendStatus(200);
@@ -91,7 +92,7 @@ app.post('/api/messages/DPF', (req, res) => {
 });
 
 app.post('/api/messages/DPO', (req, res) => {
-    db = new Map();
+    global.dpoDB = new Map();
     deleteFiles('./src/modules/DPO/uploads')
         .then(() => {
             res.sendStatus(200);
@@ -100,6 +101,17 @@ app.post('/api/messages/DPO', (req, res) => {
         res.sendStatus(500)
     })
 });
+
+app.get('/api/messages/DPF', (req, res) => {
+    res.send([...global.dpfDB].map(([key, value]) => value));
+});
+
+app.get('/api/messages/DPO', (req, res) => {
+
+    res.send([...global.dpoDB].map(([key, value]) => value));
+});
+
+
 
 //File info: ${JSON.stringify(value, null, 2)}
 

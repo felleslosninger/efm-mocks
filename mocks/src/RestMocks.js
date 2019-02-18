@@ -230,6 +230,8 @@ const mocks = [
                     } else if (req.headers.soapaction === "\"http://www.altinn.no/services/ServiceEngine/Broker/2015/06/IBrokerServiceExternalBasicStreamed/UploadFileStreamedBasic\""){
                         // getRawBody(req, res, next)
                         next();
+                    } else {
+                        console.log("stop");
                     }
                 },
                 responseFunction: (req, res) => {

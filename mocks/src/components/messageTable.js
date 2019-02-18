@@ -1,4 +1,3 @@
-let dpfDB= require("../modules/DPF/dpfDB").dpfDB;
 
 function messageTable(serviceIdentifier, messages){
     let deleteButtonId = `delete-button-${serviceIdentifier}`;
@@ -10,18 +9,18 @@ function messageTable(serviceIdentifier, messages){
     <table class="table table-striped">
       <thead>
         <tr>
-          <th scope="col">#</th>
           <th scope="col">Receiver</th>
-          <th scope="col">Last</th>
-          <th scope="col">Handle</th>
+          <th scope="col">File Reference</th>
+          <th scope="col">Recipt ID</th>
         </tr>
       </thead>
-      <tbody>
-      
-      ${[...messages].map(([key, value]) => `<tr>Receiver: ${key}  ${value} </tr>` ).join('') }
-    
+      <tbody id="${serviceIdentifier}-messages">
       </tbody>
     </table>`;
 }
 
 module.exports = messageTable;
+
+
+
+//${[...messages].map(([key, value]) => `<tr>Receiver: ${key}  ${JSON.stringify(value, null, 2)} </tr>` ).join('') }

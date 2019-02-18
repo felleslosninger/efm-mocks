@@ -1,0 +1,88 @@
+timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,Latency,IdleTime,Connect
+1550479412446,23,Sett opp liste for holde conversationIds.,200,OK,Test oppsett 1-1,text,true,,0,0,1,1,0,0,0
+1550479412526,4,BeanShell Sampler,200,OK,Send meldinger. 1-1,text,true,,0,0,1,1,0,0,0
+1550479412592,148,Send message.,200,OK,Send meldinger. 1-1,text,true,,423,4285,1,1,145,0,77
+1550479412756,1,debug,200,OK,Send meldinger. 1-1,text,true,,419,0,1,1,0,0,0
+1550479412773,4,Sett loop variabel.,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,1,0,1,1,0,0,0
+1550479412885,2,Sett conversation ID.,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,0,0,1,1,0,0,0
+1550479412888,14,HTTP Request,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,691,191,1,1,14,0,1
+1550479412955,5,BeanShell Sampler,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,0,0,1,1,0,0,0
+1550479412961,0,Debug Sampler,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,559,0,1,1,0,0,0
+1550479412984,2,Sett conversation ID.,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,0,0,1,1,0,0,0
+1550479412986,6,HTTP Request,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,864,191,1,1,6,0,0
+1550479412993,6,BeanShell Sampler,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,0,0,1,1,0,0,0
+1550479412999,0,Debug Sampler,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,558,0,1,1,0,0,0
+1550479558588,18,Sett opp liste for holde conversationIds.,200,OK,Test oppsett 1-1,text,true,,0,0,1,1,0,0,0
+1550479558671,4,BeanShell Sampler,200,OK,Send meldinger. 1-1,text,true,,0,0,1,1,0,0,0
+1550479558758,200,Send message.,200,OK,Send meldinger. 1-1,text,true,,423,4285,1,1,196,0,118
+1550479558975,1,debug,200,OK,Send meldinger. 1-1,text,true,,419,0,1,1,0,0,0
+1550479558993,4,Sett loop variabel.,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,1,0,1,1,0,0,0
+1550479559109,2,Sett conversation ID.,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,0,0,1,1,0,0,0
+1550479559113,15,HTTP Request,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,691,191,1,1,15,0,1
+1550479559176,4,BeanShell Sampler,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,0,0,1,1,0,0,0
+1550479559181,0,Debug Sampler,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,558,0,1,1,0,0,0
+1550479559203,1,Sett conversation ID.,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,0,0,1,1,0,0,0
+1550479559204,6,HTTP Request,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,865,191,1,1,6,0,0
+1550479559210,7,BeanShell Sampler,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,0,0,1,1,0,0,0
+1550479559217,0,Debug Sampler,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,557,0,1,1,0,0,0
+1550479694860,16,Sett opp liste for holde conversationIds.,200,OK,Test oppsett 1-1,text,true,,0,0,1,1,0,0,0
+1550479694925,3,BeanShell Sampler,200,OK,Send meldinger. 1-1,text,true,,0,0,1,1,0,0,0
+1550479695007,164,Send message.,200,OK,Send meldinger. 1-1,text,true,,423,4285,1,1,160,0,92
+1550479695188,1,debug,200,OK,Send meldinger. 1-1,text,true,,419,0,1,1,0,0,0
+1550479695201,3,Sett loop variabel.,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,1,0,1,1,0,0,0
+1550479695320,2,Sett conversation ID.,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,0,0,1,1,0,0,0
+1550479695323,14,HTTP Request,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,692,191,1,1,14,0,1
+1550479695395,5,BeanShell Sampler,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,0,0,1,1,0,0,0
+1550479695400,0,Debug Sampler,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,559,0,1,1,0,0,0
+1550479695422,2,Sett conversation ID.,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,0,0,1,1,0,0,0
+1550479695424,5,HTTP Request,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,866,191,1,1,5,0,0
+1550479695430,5,BeanShell Sampler,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,0,0,1,1,0,0,0
+1550479695436,0,Debug Sampler,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,558,0,1,1,0,0,0
+1550479846442,15,Sett opp liste for holde conversationIds.,200,OK,Test oppsett 1-1,text,true,,0,0,1,1,0,0,0
+1550479846503,3,BeanShell Sampler,200,OK,Send meldinger. 1-1,text,true,,0,0,1,1,0,0,0
+1550479846550,120,Send message.,200,OK,Send meldinger. 1-1,text,true,,423,4285,1,1,118,0,57
+1550479846682,1,debug,200,OK,Send meldinger. 1-1,text,true,,419,0,1,1,0,0,0
+1550479846697,3,Sett loop variabel.,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,1,0,1,1,0,0,0
+1550479846818,2,Sett conversation ID.,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,0,0,1,1,0,0,0
+1550479846821,11,HTTP Request,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,692,191,1,1,11,0,1
+1550479846892,5,BeanShell Sampler,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,0,0,1,1,0,0,0
+1550479846898,0,Debug Sampler,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,558,0,1,1,0,0,0
+1550479846922,1,Sett conversation ID.,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,0,0,1,1,0,0,0
+1550479846924,7,HTTP Request,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,866,191,1,1,7,0,0
+1550479846931,7,BeanShell Sampler,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,0,0,1,1,0,0,0
+1550479846938,0,Debug Sampler,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,557,0,1,1,0,0,0
+1550479916030,16,Sett opp liste for holde conversationIds.,200,OK,Test oppsett 1-1,text,true,,0,0,1,1,0,0,0
+1550479916095,3,BeanShell Sampler,200,OK,Send meldinger. 1-1,text,true,,0,0,1,1,0,0,0
+1550479916181,164,Send message.,200,OK,Send meldinger. 1-1,text,true,,423,4285,1,1,160,0,95
+1550479916375,1,debug,200,OK,Send meldinger. 1-1,text,true,,419,0,1,1,0,0,0
+1550479916390,3,Sett loop variabel.,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,1,0,1,1,0,0,0
+1550479916514,1,Sett conversation ID.,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,0,0,1,1,0,0,0
+1550479916517,17,HTTP Request,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,865,191,1,1,17,0,1
+1550479916598,8,BeanShell Sampler,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,0,0,1,1,0,0,0
+1550479916606,0,Debug Sampler,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,558,0,1,1,0,0,0
+1550480003350,13,Sett opp liste for holde conversationIds.,200,OK,Test oppsett 1-1,text,true,,0,0,1,1,0,0,0
+1550480003411,4,BeanShell Sampler,200,OK,Send meldinger. 1-1,text,true,,0,0,1,1,0,0,0
+1550480003456,104,Send message.,200,OK,Send meldinger. 1-1,text,true,,423,4285,1,1,101,0,54
+1550480003574,1,debug,200,OK,Send meldinger. 1-1,text,true,,419,0,1,1,0,0,0
+1550480003590,4,Sett loop variabel.,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,1,0,1,1,0,0,0
+1550480003691,2,Sett conversation ID.,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,0,0,1,1,0,0,0
+1550480003694,12,HTTP Request,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,692,191,1,1,12,0,1
+1550480003755,5,BeanShell Sampler,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,0,0,1,1,0,0,0
+1550480003760,1,Debug Sampler,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,559,0,1,1,0,0,0
+1550480003783,1,Sett conversation ID.,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,0,0,1,1,0,0,0
+1550480003784,5,HTTP Request,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,865,191,1,1,5,0,0
+1550480003789,6,BeanShell Sampler,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,0,0,1,1,0,0,0
+1550480003796,0,Debug Sampler,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,558,0,1,1,0,0,0
+1550481899978,13,Sett opp liste for holde conversationIds.,200,OK,Test oppsett 1-1,text,true,,0,0,1,1,0,0,0
+1550481900044,3,BeanShell Sampler,200,OK,Send meldinger. 1-1,text,true,,0,0,1,1,0,0,0
+1550481900087,124,Send message.,200,OK,Send meldinger. 1-1,text,true,,423,4285,1,1,121,0,52
+1550481900225,0,debug,200,OK,Send meldinger. 1-1,text,true,,419,0,1,1,0,0,0
+1550481900240,4,Sett loop variabel.,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,1,0,1,1,0,0,0
+1550481900335,1,Sett conversation ID.,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,0,0,1,1,0,0,0
+1550481900338,13,HTTP Request,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,694,191,1,1,13,0,1
+1550481900405,5,BeanShell Sampler,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,0,0,1,1,0,0,0
+1550481900410,0,Debug Sampler,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,559,0,1,1,0,0,0
+1550481900431,1,Sett conversation ID.,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,0,0,1,1,0,0,0
+1550481900433,2,HTTP Request,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,869,191,1,1,2,0,0
+1550481900436,5,BeanShell Sampler,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,0,0,1,1,0,0,0
+1550481900441,0,Debug Sampler,200,OK,Sjekk at meldinger får SENDT status. 1-1,text,true,,558,0,1,1,0,0,0

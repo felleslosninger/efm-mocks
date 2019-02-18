@@ -1,4 +1,4 @@
-const dpfDB = require("./dpfDB").dpfDB;
+// const dpfDB = require("./dpfDB").dpfDB;
 const makeid = require("../helper").makeid;
 var fs = require("fs");
 const AdmZip = require('adm-zip');
@@ -19,7 +19,7 @@ function sendForsendelseMedId(req, res, parsed) {
 
     let forsendelsesId = parsed.envelope.body["0"].sendforsendelsemedid["0"].forsendelsesid["0"];
 
-    let messages = dpfDB.get(eksternRef);
+    let messages = global.dpfDB.get(eksternRef);
 
     let mimeType = parsed.envelope.body["0"].sendforsendelsemedid["0"].forsendelse["0"].dokumenter["0"].mimetype;
 
@@ -89,7 +89,7 @@ function sendForsendelseMedId(req, res, parsed) {
         if (messages){
             messages.push(file);
         } else {
-            dpfDB.set(eksternRef, [ file ]);
+            global.dpfDB.set(eksternRef, [ file ]);
         }
 
         res.send(`<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:ser="http://www.ks.no/svarut/servicesV9">

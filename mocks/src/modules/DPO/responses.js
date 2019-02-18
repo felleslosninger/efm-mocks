@@ -1,10 +1,10 @@
-const { db } = require("../../db");
+// const db = require("../../db");
 const { parseString } = require('xml2js');
 const move = require("../helper").move;
 const makeid = require("../helper").makeid;
 const formidable = require('formidable');
 const stripPrefix = require('xml2js').processors.stripPrefix;
-const extract = require('extract-zip')
+const extract = require('extract-zip');
 const fs = require('fs');
 const uid = require("uid");
 const recursiveKeySearch = require("../helper").recursiveKeySearch;
@@ -19,7 +19,7 @@ function GetAvailableFilesBasic(req, res) {
             if(err) throw err;
             let reportee = js.envelope.body[0]['getavailablefilesbasic'][0]['searchparameters'][0]["reportee"][0];
 
-            let files = db.get(reportee)
+            let files = global.dpoDB.get(reportee)
 
             let response = `<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
                           <s:Body>
@@ -93,13 +93,13 @@ function DownloadFileStreamedBasic(req, res) {
 
             let fileReference = parsed["envelope"]["body"][0]["downloadfilestreamedbasic"][0]["filereference"][0];
 
-            let files = db.get(reportee);
+            let files = global.dpoDB.get(reportee);
 
             let file = files.filter((item) => {
                 return item.fileReference === fileReference;
             });
 
-            let SNAPSHOT_BOUNDARY = `--uuid:${partID}`;
+            let SNAPSHOT_BOUNDARY = `610be47c-8021-4e0d-82d9-362a1e2c6b58+id=3890`;
 
             let CID = `f2ecf653-0262-4d3f-bfdc-38b7c98fca9f@example.jaxws.sun.com`
 
@@ -121,34 +121,134 @@ function DownloadFileStreamedBasic(req, res) {
 
                 readStream.on('end', () => {
 
-                    res.writeHead(200, {
-                        'Content-Type': `multipart/related;start=\"<rootpart*${partID}@example.jaxws.sun.com>\";type=\"application/xop+xml\";boundary=\"uuid:${partID}\";start-info=\"text/xml\"`,
-                        "accept": "text/xml, multipart/related",
-                        Connection: 'keep-alive'
+                    res.status(200);
+                    res.set( {
+                        'Cache-Control': `private`,
+                        "Content-Type": `multipart/related; type="application/xop+xml";start="<http://tempuri.org/0>";boundary="uuid:610be47c-8021-4e0d-82d9-362a1e2c6b58+id=3890";start-info="text/xml"`,
+                        'MIME-Version': '1.0',
+                        'Server': 'Microsoft-IIS/8.5',
+                        'Transfer-Encoding': 'chunked',
+                        'X-AspNet-Version': '4.0.30319',
+                        'X-Powered-By': 'ASP.NET',
                     });
+                    //
+                    //
+                    let contentId = '636854854482615129';
 
-                    res.write(SNAPSHOT_BOUNDARY + '\r\n');
-                    res.write(`Content-Id: <rootpart*${partID}@example.jaxws.sun.com>` + '\r\n');
-                    res.write(`Content-Type: application/xop+xml;charset=utf-8;type="text/xml"` + '\r\n');
-                    res.write(`Content-Transfer-Encoding: binary` + '\r\n' + '\r\n');
-                    res.write(` <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.altinn.no/services/ServiceEngine/Broker/2015/06">
-                                    <soapenv:Header/>
-                                    <soapenv:Body>
-                                        <ns:DownloadFileStreamedBasicResponse>
-                                            <ns:DownloadFileStreamedBasicResult>cid:${CID}</ns:DownloadFileStreamedBasicResult>
-                                        </ns:DownloadFileStreamedBasicResponse>
-                                    </soapenv:Body>
-                                </soapenv:Envelope>`+ '\r\n');
 
-                    res.write(SNAPSHOT_BOUNDARY + '\r\n');
-                    res.write(`content-id: <${CID}>` + '\r\n');
-                    res.write('Content-Type: application/octet-stream' + '\r\n');
-                    res.write('Content-Transfer-Encoding: binary' + '\r\n');
-                    res.write('Content-Disposition: attachment; name="' + CID + '\r\n\r\n');
-                    res.write(buffer);
-                    res.write('\r\n')
-                    res.write(`${SNAPSHOT_BOUNDARY}--`);
-                    res.end()
+
+                    // console.log(`Cache-Control: private` + '\r');
+                    // console.log(`Content-Type: multipart/related; type="application/xop+xml";start="<http://tempuri.org/0>";boundary="uuid:610be47c-8021-4e0d-82d9-362a1e2c6b58+id=3890";start-info="text/xml"` + '\r');
+                    // console.log(`Date: Mon, 11 Feb 2019 11:37:28 GMT` + '\r');
+                    // console.log(`MIME-Version: 1.0` + '\r');
+                    // console.log(`Server: Microsoft-IIS/8.5` + '\r');
+                    // console.log(`Transfer-Encoding: chunked` + '\r');
+                    // console.log(`X-AspNet-Version: 4.0.30319` + '\r');
+                    // console.log(`X-Powered-By: ASP.NET` + '\r');
+                    // console.log('\r');
+                    //
+                    // console.log(`--uuid:${SNAPSHOT_BOUNDARY}` + '\r');
+                    // console.log(`Content-ID: <http://tempuri.org/0>` + '\r');
+                    // console.log(`Content-Transfer-Encoding: 8bit` + '\r');
+                    // console.log(`Content-Type: application/xop+xml;charset=utf-8;type="text/xml"` + '\r');
+                    //
+                    // console.log('\r');
+                    //
+                    // console.log(`<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/"><s:Body><DownloadFileStreamedBasicResponse xmlns="http://www.altinn.no/servicesServiceEngineBroker/2015/06"><DownloadFileStreamedBasicResult>
+                    //             <xop:Include href="cid:http://tempuri.org/1/${contentId}" xmlns:xop="http://www.w3.org/2004/08/xopinclude"/></DownloadFileStreamedBasicResult></DownloadFileStreamedBasicResponse></s:Body></s:Envelope>`)
+                    //
+                    // console.log('\r');
+                    //
+                    // console.log(`--uuid:${SNAPSHOT_BOUNDARY}` + '\r');
+                    //
+                    // console.log(`Content-ID: <http://tempuri.org/1/${contentId}>` + '\r');
+                    // console.log(`Content-Transfer-Encoding: binary` + '\r');
+                    // console.log(`Content-Type: application/octet-stream` + '\r');
+                    //
+                    // console.log('\r');
+                    //
+                    // console.log(buffer.toString('utf8'));
+                    //
+                    // console.log(`--uuid:${SNAPSHOT_BOUNDARY}--`);
+
+
+                    // res.write(`null: HTTP/1.1 200 OK` + '\r');
+                    // res.write(`Cache-Control: private` + '\r');
+                    // res.write(`Content-Type: multipart/related; type="application/xop+xml";start="<http://tempuri.org/0>";boundary="uuid:610be47c-8021-4e0d-82d9-362a1e2c6b58+id=3890";start-info="text/xml"` + '\r');
+                    // res.write(`Date: Mon, 11 Feb 2019 11:37:28 GMT` + '\r');
+                    // res.write(`MIME-Version: 1.0` + '\r');
+                    // res.write(`Server: Microsoft-IIS/8.5` + '\r');
+                    // res.write(`Transfer-Encoding: chunked` + '\r');
+                    // res.write(`X-AspNet-Version: 4.0.30319` + '\r');
+                    // res.write(`X-Powered-By: ASP.NET` + '\r');
+                    // res.write('\r');
+
+                    // res.write(`--uuid:${SNAPSHOT_BOUNDARY}` + '\r');
+                    // res.write(`Content-ID: <http://tempuri.org/0>` + '\r');
+                    // res.write(`Content-Transfer-Encoding: 8bit` + '\r');
+                    // res.write(`Content-Type: application/xop+xml;charset=utf-8;type="text/xml"` + '\r');
+                    //
+                    // res.write('\r');
+                    //
+                    // res.write(`<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/"><s:Body><DownloadFileStreamedBasicResponse xmlns="http://www.altinn.no/servicesServiceEngineBroker/2015/06"><DownloadFileStreamedBasicResult><xop:Include href="cid:http://tempuri.org/1/${contentId}" xmlns:xop="http://www.w3.org/2004/08/xopinclude"/></DownloadFileStreamedBasicResult></DownloadFileStreamedBasicResponse></s:Body></s:Envelope>`)
+                    //
+                    // res.write('\r');
+                    //
+                    // res.write(`--uuid:${SNAPSHOT_BOUNDARY}` + '\r');
+                    //
+                    // res.write(`Content-ID: <http://tempuri.org/1/${contentId}>` + '\r');
+                    // res.write(`Content-Transfer-Encoding: binary` + '\r');
+                    // res.write(`Content-Type: application/octet-stream` + '\r');
+                    //
+                    // res.write('\r');
+                    //
+                    // res.write(buffer.toString('utf8'));
+                    //
+                    // res.write(`--uuid:${SNAPSHOT_BOUNDARY}--`);
+                    //
+                    //
+                    //
+                    // res.write(`Content-Transfer-Encoding: binary` + '\r\n' + '\r\n');
+                    // res.write(` <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.altinn.no/services/ServiceEngine/Broker/2015/06">
+                    //                 <soapenv:Header/>
+                    //                 <soapenv:Body>
+                    //                     <ns:DownloadFileStreamedBasicResponse>
+                    //                         <ns:DownloadFileStreamedBasicResult>cid:${CID}</ns:DownloadFileStreamedBasicResult>
+                    //                     </ns:DownloadFileStreamedBasicResponse>
+                    //                 </soapenv:Body>
+                    //             </soapenv:Envelope>`+ '\r\n');
+                    //
+                    // res.write(SNAPSHOT_BOUNDARY + '\r\n');
+                    // res.write(`content-id: <${CID}>` + '\r\n');
+                    // res.write('Content-Type: application/octet-stream' + '\r\n');
+                    // res.write('Content-Transfer-Encoding: binary' + '\r\n');
+                    // res.write('Content-Disposition: attachment; name="' + CID + '\r\n\r\n');
+                    // res.write(buffer.toString('utf8'));
+                    // res.write('\r\n')
+                    // res.write(`${SNAPSHOT_BOUNDARY}--`);
+                    //
+                    //
+                    //
+                    //
+                    // res.end()
+
+                    res.send(`--uuid:610be47c-8021-4e0d-82d9-362a1e2c6b58+id=3890
+Content-ID: <http://tempuri.org/0>
+Content-Transfer-Encoding: 8bit
+Content-Type: application/xop+xml;charset=utf-8;type="text/xml"
+
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/"><s:Body><DownloadFileStreamedBasicResponse xmlns="http://www.altinn.no/services/ServiceEngine/Broker/2015/06"><DownloadFileStreamedBasicResult><xop:Include href="cid:http://tempuri.org/1/636854854482615129" xmlns:xop="http://www.w3.org/2004/08/xop/include"/></DownloadFileStreamedBasicResult></DownloadFileStreamedBasicResponse></s:Body></s:Envelope>
+--uuid:610be47c-8021-4e0d-82d9-362a1e2c6b58+id=3890
+Content-ID: <http://tempuri.org/1/636854854482615129>
+Content-Transfer-Encoding: binary
+Content-Type: application/octet-stream
+
+${buffer.toString()}   
+
+--uuid:610be47c-8021-4e0d-82d9-362a1e2c6b58+id=3890--`);
+
+
+
                 });
             }
                 writeResponse();
@@ -180,7 +280,7 @@ function UploadFileStreamedBasic(req, res) {
                             (err, result) => {
                                 if (!err){
                                     let recipient = recursiveKeySearch('partynumber', result)[0][0];
-                                        let messages = db.get(recipient);
+                                        let messages = global.dpoDB.get(recipient);
 
                                         let receiptId = uid();
 
@@ -188,13 +288,14 @@ function UploadFileStreamedBasic(req, res) {
                                             xmlHeader: data,
                                             file: filePath,
                                             fileReference: fileName,
-                                            receiptId: receiptId
+                                            receiptId: receiptId,
+                                            receiver: recipient
                                         };
 
                                         if (messages){
                                             messages.push(file);
                                         } else {
-                                            db.set(recipient, [ file ]);
+                                            global.dpoDB.set(recipient, [ file ]);
                                         }
 
                                         res.send(`<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.altinn.no/services/ServiceEngine/Broker/2015/06">

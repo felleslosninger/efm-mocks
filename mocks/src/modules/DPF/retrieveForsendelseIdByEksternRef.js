@@ -1,10 +1,10 @@
-const dpfDB = require("./dpfDB").dpfDB;
+// const dpfDB = require("./dpfDB").dpfDB;
 
 retrieveForsendelseIdByEksternRefResponse = function (req, res, parsed) {
     // 1. Save the externalRef for later:
     let externRef = parsed.envelope.body["0"].retrieveforsendelseidbyeksternref["0"].eksternref["0"];
 
-    let messages = dpfDB.get(externRef);
+    let messages = global.dpfDB.get(externRef);
 
     console.log('Got the external ref:', externRef);
 
