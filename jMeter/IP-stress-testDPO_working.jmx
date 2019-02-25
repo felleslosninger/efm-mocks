@@ -154,7 +154,7 @@ bsh.shared.conversationIdsSuccessfull=new ArrayList();</stringProp>
                   <boolProp name="HTTPArgument.always_encode">false</boolProp>
                   <stringProp name="Argument.value">{&#xd;
     &quot;serviceIdentifier&quot;: &quot;DPO&quot;,&#xd;
-    &quot;receiverId&quot;: &quot;991825827&quot;,&#xd;
+    &quot;receiverId&quot;: &quot;910229028&quot;,&#xd;
     &quot;jpId&quot;: &quot;e89af16c-5746-11e8-9c2d-fa7ae01bbebc&quot;&#xd;
 }</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
@@ -211,15 +211,22 @@ log.info(&quot;\n\n\n\n\n&quot;);</stringProp>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Send message." enabled="true">
             <elementProp name="HTTPsampler.Files" elementType="HTTPFileArgs">
               <collectionProp name="HTTPFileArgs.files">
-                <elementProp name="/Users/adam.haeger/Downloads/liten.pdf" elementType="HTTPFileArg">
-                  <stringProp name="File.path">/Users/adam.haeger/Downloads/liten.pdf</stringProp>
+                <elementProp name="/Users/adam.haeger/Projects/mocks/jMeter/liten.pdf" elementType="HTTPFileArg">
+                  <stringProp name="File.path">/Users/adam.haeger/Projects/mocks/jMeter/liten.pdf</stringProp>
                   <stringProp name="File.paramname">name</stringProp>
                   <stringProp name="File.mimetype">application/pdf</stringProp>
                 </elementProp>
               </collectionProp>
             </elementProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-              <collectionProp name="Arguments.arguments"/>
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value"></stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                </elementProp>
+              </collectionProp>
             </elementProp>
             <stringProp name="HTTPSampler.domain">${host}</stringProp>
             <stringProp name="HTTPSampler.port">${port}</stringProp>

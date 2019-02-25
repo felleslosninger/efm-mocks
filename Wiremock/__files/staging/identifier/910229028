@@ -3,134 +3,221 @@
 "securitylevels": [],
 "infoRecord": {
 "identifier": "910229028",
-"organizationName": "Sømådalen og Bessaker Revisjon",
-"entityType": {
-"name": "KOMM",
-"acronym": null
+"organizationName": "DIREKTORATET FOR FORVALTNING OG IKT",
+"postadresse": {
+"adresse": "Postboks 8115 Dep",
+"postnummer": "0032",
+"poststed": "OSLO",
+"land": "Norge"
 },
-"postadresse": null
+"entityType": {
+"name": "ORGL"
+}
 },
 "serviceRecord": {
-"serviceIdentifier": "DPF",
 "organisationNumber": "910229028",
+"serviceIdentifier": "DPO",
 "pemCertificate": "-----BEGIN CERTIFICATE-----
-                   MIIC5zCCAc+gAwIBAgIBATANBgkqhkiG9w0BAQsFADAhMRIwEAYDVQQDDAlsb2Nh
-                   bGhvc3QxCzAJBgNVBAYTAk5PMB4XDTE5MDEyOTExMzgyMFoXDTIwMDEyOTExMzgy
-                   MFowITESMBAGA1UEAwwJbG9jYWxob3N0MQswCQYDVQQGEwJOTzCCASIwDQYJKoZI
-                   hvcNAQEBBQADggEPADCCAQoCggEBAK6ScNAEwKqOWOVB6e+d+sEczUCibf6EDcHv
-                   n4sbqevW/ONxKTvJBx91rpVwFnm6KuA+w7Rc9yLN3tz+VEdmTV7+5ZDZubVV7Tjh
-                   +zQsXKwFwCjkZbft7w9qkPRwO7w0HAGqezl9wsYVgqG7f9ukSJ6fiQGi3Je6v1Pn
-                   62kGHpx9vqqPxLAhhofJ2DhlJ1+2byHwxzts7yLtyIkzVVso485rl1vOrj8Tw13F
-                   NksgiRyK65SsEibPOnOoTnYdUYAmqo2strQW1VZ2y304CuVaUtBcBuQNpqXnmzQG
-                   utUCjpZZTkDPU9EGNig6LiNkTDXxcKsSjiNhJ7UEo+kbeIP+x30CAwEAAaMqMCgw
-                   DgYDVR0PAQH/BAQDAgWgMBYGA1UdJQEB/wQMMAoGCCsGAQUFBwMBMA0GCSqGSIb3
-                   DQEBCwUAA4IBAQCUBPlaRm+XhHBKZGjvJ8D9WycI7AC6h2ElCxcr+uMVs1WqAOVp
-                   eh4OwT60nCkXAYj8I/viI9rCm0Wvc7O+ajbgcf2U5AGE/9Ceb7buJD1oCijLKJxi
-                   VbVGv9i+Z6lBcYGcp+usykH1SA+ZFaHqOfF0UwHeGpaji6rUHMzlWL++fBbesVnM
-                   fbcFg0r095XKcMA7dGxOlt2CnL5zKaOqzG3LtrThQTgAl/nxp0WoQ4JV0q2tRWo0
-                   En9GACueWth6P+f06naaVHRCC98fuvVvt37jLm6D5gcf6IYHyTbcsxtqTR5mOEgh
-                   bMaJspBqHd5sfyM9YD8Ss3UPY0+g3jlhNJAs
+                   MIIFETCCA/mgAwIBAgILAUknTgzjO5360y8wDQYJKoZIhvcNAQELBQAwUTELMAkG
+                   A1UEBhMCTk8xHTAbBgNVBAoMFEJ1eXBhc3MgQVMtOTgzMTYzMzI3MSMwIQYDVQQD
+                   DBpCdXlwYXNzIENsYXNzIDMgVGVzdDQgQ0EgMzAeFw0xNzA2MTIwODU2MTFaFw0y
+                   MDA2MTIyMTU5MDBaMHcxCzAJBgNVBAYTAk5PMSwwKgYDVQQKDCNESVJFS1RPUkFU
+                   RVQgRk9SIEZPUlZBTFROSU5HIE9HIElLVDESMBAGA1UECwwJT0lEQyB0ZXN0MRIw
+                   EAYDVQQDDAlESUZJIFRFU1QxEjAQBgNVBAUTCTk5MTgyNTgyNzCCASIwDQYJKoZI
+                   hvcNAQEBBQADggEPADCCAQoCggEBANgnUbiXPmgA8OBxnPa4ZlRHKNSiR1OQIj1w
+                   YKHrz4U1HoWmG5+VTZPXbhmRx20lGqQWrC0mqV2l/BrSTTpMumotPMWMQMmlUwWq
+                   0AXdQDx3H5BGYa66sV56xIvC4lzKI2EAGjsxdde8Xw7aypE5uJ/OVMycb/w6lqoD
+                   is8tHxiN0K4Z+IlULvpfCY56P7C+cuSzFU7UYkjbz9+XuWZlgJFfw2jAAXg6szzZ
+                   +lvleAI+6oUu3HfpnuJeBRO/xfDvkc/0cIPFRHAEeZ8nQwbsEi+OVSEFyYntSW3S
+                   0Pb9YmJk0CIiucLnVXJ5VBwyl6WsbDrckYd6JOmbXJGET/NtehMCAwEAAaOCAcIw
+                   ggG+MAkGA1UdEwQCMAAwHwYDVR0jBBgwFoAUP671eAuSo3AgNV9a+vckoFIB8EEw
+                   HQYDVR0OBBYEFEeyddtKkcdiyFtyvb1nZwwEbnTAMA4GA1UdDwEB/wQEAwIGQDAW
+                   BgNVHSAEDzANMAsGCWCEQgEaAQADAjCBuwYDVR0fBIGzMIGwMDegNaAzhjFodHRw
+                   Oi8vY3JsLnRlc3Q0LmJ1eXBhc3Mubm8vY3JsL0JQQ2xhc3MzVDRDQTMuY3JsMHWg
+                   c6Bxhm9sZGFwOi8vbGRhcC50ZXN0NC5idXlwYXNzLm5vL2RjPUJ1eXBhc3MsZGM9
+                   Tk8sQ049QnV5cGFzcyUyMENsYXNzJTIwMyUyMFRlc3Q0JTIwQ0ElMjAzP2NlcnRp
+                   ZmljYXRlUmV2b2NhdGlvbkxpc3QwgYoGCCsGAQUFBwEBBH4wfDA7BggrBgEFBQcw
+                   AYYvaHR0cDovL29jc3AudGVzdDQuYnV5cGFzcy5uby9vY3NwL0JQQ2xhc3MzVDRD
+                   QTMwPQYIKwYBBQUHMAKGMWh0dHA6Ly9jcnQudGVzdDQuYnV5cGFzcy5uby9jcnQv
+                   QlBDbGFzczNUNENBMy5jZXIwDQYJKoZIhvcNAQELBQADggEBAEcjKqJu3NoaOECY
+                   Tek66wNfjW9iRz0VYLlpbc5AFEc2cuEiewNR6Sh0Mo4TfxZDVAli2ZiEWc+rlvFa
+                   S2hbebR+bKUryPcVFSCAtC72D4ja6zMju+NpvEetTn6k81Wgfsgjx6XNjJYc/6QN
+                   jvT4N22adEwyMvhE8ljkSg4d/udQyi2DQdHt0Shq/WK068N+hKRg+RIIdCu6Il9F
+                   SndyYO0azWZpcjujHVH7p8qKVZ58G87HDiC6FcpeZBOmzT/O7XiSy141U43JeFKB
+                   XkVupC0OYPosYGPnmzExqWLybgkbO/dSl8oDTzIIifvxyCd2iMEAc07+OuEefETz
+                   AxjqBHM=
                    -----END CERTIFICATE-----",
-"endPointURL": "https://test.svarut.ks.no/tjenester/forsendelseservice/ForsendelsesServiceV6",
-"serviceCode": null,
-"serviceEditionCode": null,
-"orgnrPostkasse": null,
-"postkasseAdresse": null,
-"epostAdresse": "",
-"mobilnummer": "",
-"fysiskPost": false,
-"kanVarsles": false,
-"postAddress": {
-"name": "",
-"street": "",
-"postalCode": "",
-"postalArea": "",
-"country": ""
-},
-"returnAddress": {
-"name": "",
-"street": "",
-"postalCode": "",
-"postalArea": "",
-"country": ""
-},
-"dpeCapabilities": []
+"dpeCapabilities": [
+"DPE_INNSYN",
+"DPE_DATA"
+],
+"serviceCode": "4192",
+"serviceEditionCode": "270815",
+"endPointURL": "https://beta-meldingsutveksling.difi.no/move-mocks/mocks/dpo"
 },
 "serviceRecords": [
 {
-"serviceIdentifier": "DPF",
 "organisationNumber": "910229028",
+"serviceIdentifier": "DPO",
 "pemCertificate": "-----BEGIN CERTIFICATE-----
-                   MIIC5zCCAc+gAwIBAgIBATANBgkqhkiG9w0BAQsFADAhMRIwEAYDVQQDDAlsb2Nh
-                   bGhvc3QxCzAJBgNVBAYTAk5PMB4XDTE5MDEyOTExMzgyMFoXDTIwMDEyOTExMzgy
-                   MFowITESMBAGA1UEAwwJbG9jYWxob3N0MQswCQYDVQQGEwJOTzCCASIwDQYJKoZI
-                   hvcNAQEBBQADggEPADCCAQoCggEBAK6ScNAEwKqOWOVB6e+d+sEczUCibf6EDcHv
-                   n4sbqevW/ONxKTvJBx91rpVwFnm6KuA+w7Rc9yLN3tz+VEdmTV7+5ZDZubVV7Tjh
-                   +zQsXKwFwCjkZbft7w9qkPRwO7w0HAGqezl9wsYVgqG7f9ukSJ6fiQGi3Je6v1Pn
-                   62kGHpx9vqqPxLAhhofJ2DhlJ1+2byHwxzts7yLtyIkzVVso485rl1vOrj8Tw13F
-                   NksgiRyK65SsEibPOnOoTnYdUYAmqo2strQW1VZ2y304CuVaUtBcBuQNpqXnmzQG
-                   utUCjpZZTkDPU9EGNig6LiNkTDXxcKsSjiNhJ7UEo+kbeIP+x30CAwEAAaMqMCgw
-                   DgYDVR0PAQH/BAQDAgWgMBYGA1UdJQEB/wQMMAoGCCsGAQUFBwMBMA0GCSqGSIb3
-                   DQEBCwUAA4IBAQCUBPlaRm+XhHBKZGjvJ8D9WycI7AC6h2ElCxcr+uMVs1WqAOVp
-                   eh4OwT60nCkXAYj8I/viI9rCm0Wvc7O+ajbgcf2U5AGE/9Ceb7buJD1oCijLKJxi
-                   VbVGv9i+Z6lBcYGcp+usykH1SA+ZFaHqOfF0UwHeGpaji6rUHMzlWL++fBbesVnM
-                   fbcFg0r095XKcMA7dGxOlt2CnL5zKaOqzG3LtrThQTgAl/nxp0WoQ4JV0q2tRWo0
-                   En9GACueWth6P+f06naaVHRCC98fuvVvt37jLm6D5gcf6IYHyTbcsxtqTR5mOEgh
-                   bMaJspBqHd5sfyM9YD8Ss3UPY0+g3jlhNJAs
+                   MIIFETCCA/mgAwIBAgILAUknTgzjO5360y8wDQYJKoZIhvcNAQELBQAwUTELMAkG
+                   A1UEBhMCTk8xHTAbBgNVBAoMFEJ1eXBhc3MgQVMtOTgzMTYzMzI3MSMwIQYDVQQD
+                   DBpCdXlwYXNzIENsYXNzIDMgVGVzdDQgQ0EgMzAeFw0xNzA2MTIwODU2MTFaFw0y
+                   MDA2MTIyMTU5MDBaMHcxCzAJBgNVBAYTAk5PMSwwKgYDVQQKDCNESVJFS1RPUkFU
+                   RVQgRk9SIEZPUlZBTFROSU5HIE9HIElLVDESMBAGA1UECwwJT0lEQyB0ZXN0MRIw
+                   EAYDVQQDDAlESUZJIFRFU1QxEjAQBgNVBAUTCTk5MTgyNTgyNzCCASIwDQYJKoZI
+                   hvcNAQEBBQADggEPADCCAQoCggEBANgnUbiXPmgA8OBxnPa4ZlRHKNSiR1OQIj1w
+                   YKHrz4U1HoWmG5+VTZPXbhmRx20lGqQWrC0mqV2l/BrSTTpMumotPMWMQMmlUwWq
+                   0AXdQDx3H5BGYa66sV56xIvC4lzKI2EAGjsxdde8Xw7aypE5uJ/OVMycb/w6lqoD
+                   is8tHxiN0K4Z+IlULvpfCY56P7C+cuSzFU7UYkjbz9+XuWZlgJFfw2jAAXg6szzZ
+                   +lvleAI+6oUu3HfpnuJeBRO/xfDvkc/0cIPFRHAEeZ8nQwbsEi+OVSEFyYntSW3S
+                   0Pb9YmJk0CIiucLnVXJ5VBwyl6WsbDrckYd6JOmbXJGET/NtehMCAwEAAaOCAcIw
+                   ggG+MAkGA1UdEwQCMAAwHwYDVR0jBBgwFoAUP671eAuSo3AgNV9a+vckoFIB8EEw
+                   HQYDVR0OBBYEFEeyddtKkcdiyFtyvb1nZwwEbnTAMA4GA1UdDwEB/wQEAwIGQDAW
+                   BgNVHSAEDzANMAsGCWCEQgEaAQADAjCBuwYDVR0fBIGzMIGwMDegNaAzhjFodHRw
+                   Oi8vY3JsLnRlc3Q0LmJ1eXBhc3Mubm8vY3JsL0JQQ2xhc3MzVDRDQTMuY3JsMHWg
+                   c6Bxhm9sZGFwOi8vbGRhcC50ZXN0NC5idXlwYXNzLm5vL2RjPUJ1eXBhc3MsZGM9
+                   Tk8sQ049QnV5cGFzcyUyMENsYXNzJTIwMyUyMFRlc3Q0JTIwQ0ElMjAzP2NlcnRp
+                   ZmljYXRlUmV2b2NhdGlvbkxpc3QwgYoGCCsGAQUFBwEBBH4wfDA7BggrBgEFBQcw
+                   AYYvaHR0cDovL29jc3AudGVzdDQuYnV5cGFzcy5uby9vY3NwL0JQQ2xhc3MzVDRD
+                   QTMwPQYIKwYBBQUHMAKGMWh0dHA6Ly9jcnQudGVzdDQuYnV5cGFzcy5uby9jcnQv
+                   QlBDbGFzczNUNENBMy5jZXIwDQYJKoZIhvcNAQELBQADggEBAEcjKqJu3NoaOECY
+                   Tek66wNfjW9iRz0VYLlpbc5AFEc2cuEiewNR6Sh0Mo4TfxZDVAli2ZiEWc+rlvFa
+                   S2hbebR+bKUryPcVFSCAtC72D4ja6zMju+NpvEetTn6k81Wgfsgjx6XNjJYc/6QN
+                   jvT4N22adEwyMvhE8ljkSg4d/udQyi2DQdHt0Shq/WK068N+hKRg+RIIdCu6Il9F
+                   SndyYO0azWZpcjujHVH7p8qKVZ58G87HDiC6FcpeZBOmzT/O7XiSy141U43JeFKB
+                   XkVupC0OYPosYGPnmzExqWLybgkbO/dSl8oDTzIIifvxyCd2iMEAc07+OuEefETz
+                   AxjqBHM=
                    -----END CERTIFICATE-----",
-"endPointURL": "https://test.svarut.ks.no/tjenester/forsendelseservice/ForsendelsesServiceV6",
-"serviceCode": null,
-"serviceEditionCode": null,
-"orgnrPostkasse": null,
-"postkasseAdresse": null,
-"epostAdresse": "",
-"mobilnummer": "",
-"fysiskPost": false,
-"kanVarsles": false,
-"postAddress": {
-"name": "",
-"street": "",
-"postalCode": "",
-"postalArea": "",
-"country": ""
-},
-"returnAddress": {
-"name": "",
-"street": "",
-"postalCode": "",
-"postalArea": "",
-"country": ""
-},
-"dpeCapabilities": []
+"dpeCapabilities": [
+"DPE_INNSYN",
+"DPE_DATA"
+],
+"serviceCode": "4192",
+"serviceEditionCode": "270815",
+"endPointURL": "https://beta-meldingsutveksling.difi.no/move-mocks/mocks/dpo"
 },
 {
-"serviceIdentifier": "DPV",
+
 "organisationNumber": "910229028",
+"serviceIdentifier": "DPE_INNSYN",
+"pemCertificate": "-----BEGIN CERTIFICATE-----
+                   MIIFETCCA/mgAwIBAgILAUknTgzjO5360y8wDQYJKoZIhvcNAQELBQAwUTELMAkG
+                   A1UEBhMCTk8xHTAbBgNVBAoMFEJ1eXBhc3MgQVMtOTgzMTYzMzI3MSMwIQYDVQQD
+                   DBpCdXlwYXNzIENsYXNzIDMgVGVzdDQgQ0EgMzAeFw0xNzA2MTIwODU2MTFaFw0y
+                   MDA2MTIyMTU5MDBaMHcxCzAJBgNVBAYTAk5PMSwwKgYDVQQKDCNESVJFS1RPUkFU
+                   RVQgRk9SIEZPUlZBTFROSU5HIE9HIElLVDESMBAGA1UECwwJT0lEQyB0ZXN0MRIw
+                   EAYDVQQDDAlESUZJIFRFU1QxEjAQBgNVBAUTCTk5MTgyNTgyNzCCASIwDQYJKoZI
+                   hvcNAQEBBQADggEPADCCAQoCggEBANgnUbiXPmgA8OBxnPa4ZlRHKNSiR1OQIj1w
+                   YKHrz4U1HoWmG5+VTZPXbhmRx20lGqQWrC0mqV2l/BrSTTpMumotPMWMQMmlUwWq
+                   0AXdQDx3H5BGYa66sV56xIvC4lzKI2EAGjsxdde8Xw7aypE5uJ/OVMycb/w6lqoD
+                   is8tHxiN0K4Z+IlULvpfCY56P7C+cuSzFU7UYkjbz9+XuWZlgJFfw2jAAXg6szzZ
+                   +lvleAI+6oUu3HfpnuJeBRO/xfDvkc/0cIPFRHAEeZ8nQwbsEi+OVSEFyYntSW3S
+                   0Pb9YmJk0CIiucLnVXJ5VBwyl6WsbDrckYd6JOmbXJGET/NtehMCAwEAAaOCAcIw
+                   ggG+MAkGA1UdEwQCMAAwHwYDVR0jBBgwFoAUP671eAuSo3AgNV9a+vckoFIB8EEw
+                   HQYDVR0OBBYEFEeyddtKkcdiyFtyvb1nZwwEbnTAMA4GA1UdDwEB/wQEAwIGQDAW
+                   BgNVHSAEDzANMAsGCWCEQgEaAQADAjCBuwYDVR0fBIGzMIGwMDegNaAzhjFodHRw
+                   Oi8vY3JsLnRlc3Q0LmJ1eXBhc3Mubm8vY3JsL0JQQ2xhc3MzVDRDQTMuY3JsMHWg
+                   c6Bxhm9sZGFwOi8vbGRhcC50ZXN0NC5idXlwYXNzLm5vL2RjPUJ1eXBhc3MsZGM9
+                   Tk8sQ049QnV5cGFzcyUyMENsYXNzJTIwMyUyMFRlc3Q0JTIwQ0ElMjAzP2NlcnRp
+                   ZmljYXRlUmV2b2NhdGlvbkxpc3QwgYoGCCsGAQUFBwEBBH4wfDA7BggrBgEFBQcw
+                   AYYvaHR0cDovL29jc3AudGVzdDQuYnV5cGFzcy5uby9vY3NwL0JQQ2xhc3MzVDRD
+                   QTMwPQYIKwYBBQUHMAKGMWh0dHA6Ly9jcnQudGVzdDQuYnV5cGFzcy5uby9jcnQv
+                   QlBDbGFzczNUNENBMy5jZXIwDQYJKoZIhvcNAQELBQADggEBAEcjKqJu3NoaOECY
+                   Tek66wNfjW9iRz0VYLlpbc5AFEc2cuEiewNR6Sh0Mo4TfxZDVAli2ZiEWc+rlvFa
+                   S2hbebR+bKUryPcVFSCAtC72D4ja6zMju+NpvEetTn6k81Wgfsgjx6XNjJYc/6QN
+                   jvT4N22adEwyMvhE8ljkSg4d/udQyi2DQdHt0Shq/WK068N+hKRg+RIIdCu6Il9F
+                   SndyYO0azWZpcjujHVH7p8qKVZ58G87HDiC6FcpeZBOmzT/O7XiSy141U43JeFKB
+                   XkVupC0OYPosYGPnmzExqWLybgkbO/dSl8oDTzIIifvxyCd2iMEAc07+OuEefETz
+                   AxjqBHM=
+                   -----END CERTIFICATE-----",
+"dpeCapabilities": [
+"DPE_INNSYN"
+],
+"endPointURL": null
+},
+{
+"organisationNumber": "910229028",
+"serviceIdentifier": "DPE_DATA",
+"pemCertificate": "-----BEGIN CERTIFICATE-----
+                   MIIFETCCA/mgAwIBAgILAUknTgzjO5360y8wDQYJKoZIhvcNAQELBQAwUTELMAkG
+                   A1UEBhMCTk8xHTAbBgNVBAoMFEJ1eXBhc3MgQVMtOTgzMTYzMzI3MSMwIQYDVQQD
+                   DBpCdXlwYXNzIENsYXNzIDMgVGVzdDQgQ0EgMzAeFw0xNzA2MTIwODU2MTFaFw0y
+                   MDA2MTIyMTU5MDBaMHcxCzAJBgNVBAYTAk5PMSwwKgYDVQQKDCNESVJFS1RPUkFU
+                   RVQgRk9SIEZPUlZBTFROSU5HIE9HIElLVDESMBAGA1UECwwJT0lEQyB0ZXN0MRIw
+                   EAYDVQQDDAlESUZJIFRFU1QxEjAQBgNVBAUTCTk5MTgyNTgyNzCCASIwDQYJKoZI
+                   hvcNAQEBBQADggEPADCCAQoCggEBANgnUbiXPmgA8OBxnPa4ZlRHKNSiR1OQIj1w
+                   YKHrz4U1HoWmG5+VTZPXbhmRx20lGqQWrC0mqV2l/BrSTTpMumotPMWMQMmlUwWq
+                   0AXdQDx3H5BGYa66sV56xIvC4lzKI2EAGjsxdde8Xw7aypE5uJ/OVMycb/w6lqoD
+                   is8tHxiN0K4Z+IlULvpfCY56P7C+cuSzFU7UYkjbz9+XuWZlgJFfw2jAAXg6szzZ
+                   +lvleAI+6oUu3HfpnuJeBRO/xfDvkc/0cIPFRHAEeZ8nQwbsEi+OVSEFyYntSW3S
+                   0Pb9YmJk0CIiucLnVXJ5VBwyl6WsbDrckYd6JOmbXJGET/NtehMCAwEAAaOCAcIw
+                   ggG+MAkGA1UdEwQCMAAwHwYDVR0jBBgwFoAUP671eAuSo3AgNV9a+vckoFIB8EEw
+                   HQYDVR0OBBYEFEeyddtKkcdiyFtyvb1nZwwEbnTAMA4GA1UdDwEB/wQEAwIGQDAW
+                   BgNVHSAEDzANMAsGCWCEQgEaAQADAjCBuwYDVR0fBIGzMIGwMDegNaAzhjFodHRw
+                   Oi8vY3JsLnRlc3Q0LmJ1eXBhc3Mubm8vY3JsL0JQQ2xhc3MzVDRDQTMuY3JsMHWg
+                   c6Bxhm9sZGFwOi8vbGRhcC50ZXN0NC5idXlwYXNzLm5vL2RjPUJ1eXBhc3MsZGM9
+                   Tk8sQ049QnV5cGFzcyUyMENsYXNzJTIwMyUyMFRlc3Q0JTIwQ0ElMjAzP2NlcnRp
+                   ZmljYXRlUmV2b2NhdGlvbkxpc3QwgYoGCCsGAQUFBwEBBH4wfDA7BggrBgEFBQcw
+                   AYYvaHR0cDovL29jc3AudGVzdDQuYnV5cGFzcy5uby9vY3NwL0JQQ2xhc3MzVDRD
+                   QTMwPQYIKwYBBQUHMAKGMWh0dHA6Ly9jcnQudGVzdDQuYnV5cGFzcy5uby9jcnQv
+                   QlBDbGFzczNUNENBMy5jZXIwDQYJKoZIhvcNAQELBQADggEBAEcjKqJu3NoaOECY
+                   Tek66wNfjW9iRz0VYLlpbc5AFEc2cuEiewNR6Sh0Mo4TfxZDVAli2ZiEWc+rlvFa
+                   S2hbebR+bKUryPcVFSCAtC72D4ja6zMju+NpvEetTn6k81Wgfsgjx6XNjJYc/6QN
+                   jvT4N22adEwyMvhE8ljkSg4d/udQyi2DQdHt0Shq/WK068N+hKRg+RIIdCu6Il9F
+                   SndyYO0azWZpcjujHVH7p8qKVZ58G87HDiC6FcpeZBOmzT/O7XiSy141U43JeFKB
+                   XkVupC0OYPosYGPnmzExqWLybgkbO/dSl8oDTzIIifvxyCd2iMEAc07+OuEefETz
+                   AxjqBHM=
+                   -----END CERTIFICATE-----",
+"dpeCapabilities": [
+"DPE_DATA"
+],
+"endPointURL": null
+},
+{
+"organisationNumber": "910229028",
+"serviceIdentifier": "DPE_RECEIPT",
+"pemCertificate": "-----BEGIN CERTIFICATE-----
+                   MIIFETCCA/mgAwIBAgILAUknTgzjO5360y8wDQYJKoZIhvcNAQELBQAwUTELMAkG
+                   A1UEBhMCTk8xHTAbBgNVBAoMFEJ1eXBhc3MgQVMtOTgzMTYzMzI3MSMwIQYDVQQD
+                   DBpCdXlwYXNzIENsYXNzIDMgVGVzdDQgQ0EgMzAeFw0xNzA2MTIwODU2MTFaFw0y
+                   MDA2MTIyMTU5MDBaMHcxCzAJBgNVBAYTAk5PMSwwKgYDVQQKDCNESVJFS1RPUkFU
+                   RVQgRk9SIEZPUlZBTFROSU5HIE9HIElLVDESMBAGA1UECwwJT0lEQyB0ZXN0MRIw
+                   EAYDVQQDDAlESUZJIFRFU1QxEjAQBgNVBAUTCTk5MTgyNTgyNzCCASIwDQYJKoZI
+                   hvcNAQEBBQADggEPADCCAQoCggEBANgnUbiXPmgA8OBxnPa4ZlRHKNSiR1OQIj1w
+                   YKHrz4U1HoWmG5+VTZPXbhmRx20lGqQWrC0mqV2l/BrSTTpMumotPMWMQMmlUwWq
+                   0AXdQDx3H5BGYa66sV56xIvC4lzKI2EAGjsxdde8Xw7aypE5uJ/OVMycb/w6lqoD
+                   is8tHxiN0K4Z+IlULvpfCY56P7C+cuSzFU7UYkjbz9+XuWZlgJFfw2jAAXg6szzZ
+                   +lvleAI+6oUu3HfpnuJeBRO/xfDvkc/0cIPFRHAEeZ8nQwbsEi+OVSEFyYntSW3S
+                   0Pb9YmJk0CIiucLnVXJ5VBwyl6WsbDrckYd6JOmbXJGET/NtehMCAwEAAaOCAcIw
+                   ggG+MAkGA1UdEwQCMAAwHwYDVR0jBBgwFoAUP671eAuSo3AgNV9a+vckoFIB8EEw
+                   HQYDVR0OBBYEFEeyddtKkcdiyFtyvb1nZwwEbnTAMA4GA1UdDwEB/wQEAwIGQDAW
+                   BgNVHSAEDzANMAsGCWCEQgEaAQADAjCBuwYDVR0fBIGzMIGwMDegNaAzhjFodHRw
+                   Oi8vY3JsLnRlc3Q0LmJ1eXBhc3Mubm8vY3JsL0JQQ2xhc3MzVDRDQTMuY3JsMHWg
+                   c6Bxhm9sZGFwOi8vbGRhcC50ZXN0NC5idXlwYXNzLm5vL2RjPUJ1eXBhc3MsZGM9
+                   Tk8sQ049QnV5cGFzcyUyMENsYXNzJTIwMyUyMFRlc3Q0JTIwQ0ElMjAzP2NlcnRp
+                   ZmljYXRlUmV2b2NhdGlvbkxpc3QwgYoGCCsGAQUFBwEBBH4wfDA7BggrBgEFBQcw
+                   AYYvaHR0cDovL29jc3AudGVzdDQuYnV5cGFzcy5uby9vY3NwL0JQQ2xhc3MzVDRD
+                   QTMwPQYIKwYBBQUHMAKGMWh0dHA6Ly9jcnQudGVzdDQuYnV5cGFzcy5uby9jcnQv
+                   QlBDbGFzczNUNENBMy5jZXIwDQYJKoZIhvcNAQELBQADggEBAEcjKqJu3NoaOECY
+                   Tek66wNfjW9iRz0VYLlpbc5AFEc2cuEiewNR6Sh0Mo4TfxZDVAli2ZiEWc+rlvFa
+                   S2hbebR+bKUryPcVFSCAtC72D4ja6zMju+NpvEetTn6k81Wgfsgjx6XNjJYc/6QN
+                   jvT4N22adEwyMvhE8ljkSg4d/udQyi2DQdHt0Shq/WK068N+hKRg+RIIdCu6Il9F
+                   SndyYO0azWZpcjujHVH7p8qKVZ58G87HDiC6FcpeZBOmzT/O7XiSy141U43JeFKB
+                   XkVupC0OYPosYGPnmzExqWLybgkbO/dSl8oDTzIIifvxyCd2iMEAc07+OuEefETz
+                   AxjqBHM=
+                   -----END CERTIFICATE-----",
+"dpeCapabilities": [
+"DPE_RECEIPT"
+],
+"endPointURL": null
+},
+{
+"organisationNumber": "910229028",
+"serviceIdentifier": "DPV",
 "pemCertificate": null,
-"endPointURL": "https://tt02.altinn.no/ServiceEngineExternal/CorrespondenceAgencyExternal.svc",
-"serviceCode": null,
-"serviceEditionCode": null,
-"orgnrPostkasse": null,
-"postkasseAdresse": null,
-"epostAdresse": "",
-"mobilnummer": "",
-"fysiskPost": false,
-"kanVarsles": false,
-"postAddress": {
-"name": "",
-"street": "",
-"postalCode": "",
-"postalArea": "",
-"country": ""
-},
-"returnAddress": {
-"name": "",
-"street": "",
-"postalCode": "",
-"postalArea": "",
-"country": ""
-},
-"dpeCapabilities": []
+"dpeCapabilities": [],
+"endPointURL": "https://beta-meldingsutveksling.difi.no/move-mocks/mocks/dpv"
 }
 ]
 }
