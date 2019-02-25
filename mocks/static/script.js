@@ -2,6 +2,7 @@ const deleteButtons = document.querySelectorAll('.delete-button');
 
 let dpfMessageContainer = document.getElementById('DPF-messages');
 let dpoMessageContainer = document.getElementById('DPO-messages');
+let dpvMessageContainer = document.getElementById('DPV-messages');
 
 let emptyMessages = function(node) {
     while (node.firstChild) {
@@ -14,7 +15,6 @@ deleteButtons.forEach(button => {
 
         axios.post(`${window.location.href}api/messages/${button.dataset.serviceidentifier}`)
             .then(function(res){
-                // console.log("success", res);
                 e.target.innerText = 'Delete'
                 emptyMessages(button.dataset.serviceidentifier === 'DPO' ? dpoMessageContainer : dpfMessageContainer);
 
@@ -26,8 +26,6 @@ deleteButtons.forEach(button => {
 });
 
 function messageTable(serviceIdentifier, messages){
-
-    console.log(serviceIdentifier, messages);
     return `${[...messages]
         .map(([key, value]) => {
             return key ? `<tr><td>${key.receiver}</td><td>${key.fileReference}</td><td>${key.receiptId}</td></tr>` : null
@@ -35,11 +33,28 @@ function messageTable(serviceIdentifier, messages){
         }`;
 }
 
-poll = (url, serviceIdentifier, targetElement) => {
+function messageTable2(serviceIdentifier, messages, headers){
+    return `${messages
+        .map((entry) => {
+            return entry ? `<tr>
+                                ${Object.values(entry).map((value) => `<td>${value}</td>    `).join('')}</tr>` : null
+        }).join('')
+        }`;
+}
 
+
+poll = (url, serviceIdentifier, targetElement) => {
     axios.get(url).then((res) => {
         emptyMessages(targetElement);
         targetElement.innerHTML = messageTable(serviceIdentifier, Array.from(new Map(res.data)));
+    });
+};
+
+
+poll2 = (url, serviceIdentifier, targetElement, headers) => {
+    axios.get(url).then((res) => {
+        emptyMessages(targetElement);
+        targetElement.innerHTML = messageTable2(serviceIdentifier, res.data, headers);
     });
 };
 
@@ -54,6 +69,12 @@ setTimeout(() => {
     });
 }, 1000)
 
+
+setTimeout(() => {
+    axios.get('/api/messages/dpv').then((res) => {
+        this.timer = setInterval(()=> this.poll2('/api/messages/dpv', 'DPV',  dpvMessageContainer, dpvHeaders), 1000);
+    });
+}, 2000)
 
 
 

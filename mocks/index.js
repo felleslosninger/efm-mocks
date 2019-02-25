@@ -9,7 +9,7 @@ const uid = require("uid");
 const morgan = require('morgan');
 // let db = require("./src/db");
 // let dpfDB= require("./src/modules/DPF/dpfDB").dpfDB;
-const messageTable = require('./src/components/messageTable');
+const messageTable = require('./src/components/messageTable').messageTable;
 const rimraf = require('rimraf');
 const fs = require('fs');
 const https = require('https');
@@ -22,13 +22,14 @@ const https = require('https');
 global.dpoDB = new Map();
 global.dpfDB = new Map();
 global.dpeDB = new Map();
+global.dpvDB = new Map();
 
 process.env.PORT = process.env.PORT || 8001;
 
 let app = express();
 
-app.use(bodyParser.json({limit: '100mb', extended: true}))
-app.use(bodyParser.urlencoded({limit: '100mb', extended: true}))
+app.use(bodyParser.json({limit: '100mb', extended: true}));
+app.use(bodyParser.urlencoded({limit: '100mb', extended: true}));
 
 
 app.use(express.static('static'));
@@ -42,12 +43,50 @@ let soapString = mocks
     .map((item) => `http://localhost:${process.env.PORT}${item.pathName}?wsdl`);
 
 app.get('/', (req, res) => {
+
+    let dpvHeaders = [
+        {
+            title: 'Senders Reference',
+            accessor: 'sendersReference',
+        },
+        {
+            title: 'Reportee',
+            accessor: 'reportee',
+        },
+        {
+            title: 'Created',
+            accessor: 'created',
+        },
+        {
+            title: 'Receipt ID',
+            accessor: 'receiptId'
+        }
+    ];
+
+    let dpoHeaders = [
+        {
+            title: 'Receiver',
+            accessor: 'receiver',
+        },
+        {
+            title: 'File Reference',
+            accessor: 'fileReference',
+        },
+        {
+            title: 'Recipt ID',
+            accessor: 'receiptId',
+        }
+    ];
+
     res.send(`
             <html>
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
             <link rel="stylesheet" href="styles.css">
             <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
             
+            <script>
+                let dpvHeaders = ${JSON.stringify(dpvHeaders)};
+            </script>
            
             <body>
                 <nav class="navbar fixed-top flex-md-nowrap shadow elma-navbar p-0" >
@@ -62,10 +101,12 @@ app.get('/', (req, res) => {
                 </nav>
                 <div class="container main-container">
                 
-                    ${messageTable('DPF', global.dpfDB)}
+                    ${messageTable(dpoHeaders, 'DPF', global.dpfDB)}
                     
-                    ${messageTable('DPO', global.dpoDB)} 
+                    ${messageTable(dpoHeaders, 'DPO', global.dpoDB)}
                     
+                    ${messageTable(dpvHeaders, 'DPV', global.dpvDB)}
+                     
                </div>
                     </body>
                     <script src="script.js"></script>
@@ -116,6 +157,11 @@ app.get('/api/messages/DPF', (req, res) => {
 app.get('/api/messages/DPO', (req, res) => {
 
     res.send([...global.dpoDB].map(([key, value]) => value));
+});
+
+app.get('/api/messages/DPV', (req, res) => {
+
+    res.send([...global.dpvDB].map(([key, value]) => value));
 });
 
 

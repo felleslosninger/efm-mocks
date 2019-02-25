@@ -1,16 +1,16 @@
 version: '2'
 services:
-  mocks:
-    build: ./mocks
-    command: npm run start
-    ports:
-      - 8001:8001
-
-  sa-mock:
-    build: ./move-sakarkiv-mock
-    command: npm run start
-    ports:
-      - 8002:8002
+#  mocks:
+#    build: ./mocks
+#    command: npm run start
+#    ports:
+#      - 8001:8001
+#
+#  sa-mock:
+#    build: ./move-sakarkiv-mock
+#    command: npm run start
+#    ports:
+#      - 8002:8002
 
   wiremock:
     build: ./Wiremock

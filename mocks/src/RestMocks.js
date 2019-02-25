@@ -16,7 +16,11 @@ const parseXml = require("./modules/DPO/responses").parseXml;
 const bodyParser = require('body-parser');
 
 
+
 const formidable = require('formidable');
+
+const receiveDPI = require("./modules/DPI/responses").receiveDPI;
+
 
 global.messageCount = 0;
 
@@ -28,10 +32,6 @@ const mocks = [
                 path: '/dpi*',
                 method: 'POST',
                 middleware: getRawBody,
-                // middleware: (req, res, next) => {
-                //     console.log("stop");
-                //     next()
-                // },
                 responseFunction: (req, res) => {
                     receiveDPI(req, res);
                 }
@@ -168,6 +168,7 @@ const mocks = [
             {
                 path: '/dpv/*',
                 method: 'POST',
+                middleware: getRawBody,
                 responseFunction: receiveDPV
             }
         ]

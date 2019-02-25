@@ -30,7 +30,7 @@
             "postalArea": "OSLO",
             "country": "Norge"
         },
-        "endPointURL": "https://qaoffentlig.meldingsformidler.digipost.no/api/ebms"
+        "endPointURL": "http://localhost:8001/dpi"
     },
     "serviceRecords": [
         {
@@ -58,14 +58,14 @@
                 "postalArea": "OSLO",
                 "country": "Norge"
             },
-            "endPointURL": "https://qaoffentlig.meldingsformidler.digipost.no/api/ebms"
+            "endPointURL": "http://localhost:8001/dpi"
         },
         {
             "organisationNumber": "06068700602",
             "serviceIdentifier": "DPV",
             "pemCertificate": null,
             "dpeCapabilities": [],
-            "endPointURL": "https://tt02.altinn.no/ServiceEngineExternal/CorrespondenceAgencyExternal.svc"
+            "endPointURL": "http://localhost:8001/dpi"
         }
     ]
 }

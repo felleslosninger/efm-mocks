@@ -7,7 +7,12 @@ const axios = require('axios');
 const morgan = require('morgan')
 const bodyParser = require('body-parser');
 const { parseString } = require('xml2js');
+
 const path = require('path');
+
+const stripPrefix = require('xml2js').processors.stripPrefix;
+
+
 
 
 const stripPrefix = require('xml2js').processors.stripPrefix;
@@ -22,6 +27,7 @@ pollDPE();
 
 let soapString = mocks.map((item) => `http://localhost:${process.env.PORT}${item.pathName}?wsdl`);
 
+
 app.get('/', function (req, res) {
 
     console.log(`${__dirname}/client/build`);
@@ -29,7 +35,9 @@ app.get('/', function (req, res) {
     res.sendFile(`${__dirname}/client/build`);
 });
 
-app.post('/api/send', bodyParser(), (req, res, next) => {
+
+app.post('/api/send', bodyParser, (req, res, next) => {
+
     let url = 'http://localhost:9093/noarkExchange';
     axios({
             url,
