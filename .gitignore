@@ -15,4 +15,5 @@ move-sakarkiv-mock/upload/*
 !mocks/src/modules/DPO/uploads/.gitkeep
 !move-sakarkiv-mock/upload/.gitkeep
 
+tests/node_modules
 

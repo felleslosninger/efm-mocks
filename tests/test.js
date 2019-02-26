@@ -5,24 +5,22 @@ const args = require('yargs').argv;
 
 const uuidv1 = require('uuid/v1');
 
-// let file = fs.readFileSync('/Users/adam.haeger/Downloads/Testfiler/25MB.docx', { encoding: 'base64' });
-// let file = fs.readFileSync('/Users/adam.haeger/Downloads/Testfiler/72.pdf', { encoding: 'base64' });
-
-// let file = fs.readFileSync('/Users/adam.haeger/Downloads/Testfiler/100.pdf', { encoding: 'base64' });
-
-// let file = fs.readFileSync('/Users/adam.haeger/Downloads/Testfiler/200.pdf', { encoding: 'base64' });
-
-// let file = fs.readFileSync('/Users/adam.haeger/Downloads/Testfiler/24.pdf', { encoding: 'base64' });
-
-// let file = fs.readFileSync('/Users/adam.haeger/Downloads/Testfiler/liten.pdf', { encoding: 'base64' });
-
-console.log('receiver: ' + args.receiver);
-console.log('sender: ' + args.sender);
-let receiver = args.receiver || 991825827;
+let receiver = args.receiver || 910229028;
 let sender = args.sender || 991825827;
 let filePath = args.filePath || '/Users/adam.haeger/Projects/mocks/jMeter/liten.pdf';
-let iterations = args.iterations || 10;
+let iterations = args.iterations || 100;
+let ipUrl = args.ipUrl || 'http://localhost:9093';
 
+
+console.log('receiver: ' + receiver);
+console.log('sender: ' + sender);
+console.log('filePath: ' + filePath);
+console.log('iterations: ' + iterations);
+console.log('ipUrl: ' + ipUrl);
+console.log('\n');
+
+
+console.time("Execution time");
 let file = fs.readFileSync(filePath, { encoding: 'base64' });
 
 let requests = [];
@@ -31,10 +29,10 @@ let convIds = [];
 for(let i = 0; i < iterations; i++){
     let convId = uuidv1();
     convIds.push(convId);
-    let body = getEduMessage(file, 991825827, 910229028, convId);
+    let body = getEduMessage(file, sender, receiver, convId);
 
     requests.push(request
-        .post('http://localhost:9093/noarkExchange')
+        .post(`${ipUrl}/noarkExchange`)
         .set('Content-Type', 'text/xml;charset=UTF-8')
         .set('Accept-Encoding', 'gzip,deflate')
         .send(body)
@@ -46,20 +44,19 @@ for(let i = 0; i < iterations; i++){
 
 function checkStatuses() {
 
-    Promise.all(convIds.map((convId) => {
-        return request(`http://localhost:9093/conversations/${convId}?useConversationId=true`)
-    })).then((res) => {
-        console.log("stop");
+    Promise.all(convIds.map((convId) => request(`${ipUrl}/conversations/${convId}?useConversationId=true`)))
+        .then((res) => {
 
-        let allSent = res.map((response) =>
-            response.body.messageStatuses
-                .some((status) => status.status === 'SENT'))
-                .every(status => status);
+        let statuses =  res.map((response) =>
+            response.body.messageStatuses.some((status) => status.status === 'SENDT'));
+
+        let allSent = statuses.every(status => status);
 
         if (allSent) {
-            console.log("All sent!!");
+            console.log("All sent!");
+            console.timeEnd("Execution time");
         } else {
-
+            console.log(`${statuses.filter((stat) => stat).length} sent, checking again...."`);
             setTimeout(checkStatuses, 1000)
         }
 
@@ -67,7 +64,8 @@ function checkStatuses() {
 
 }
 
-
+console.log("Sending messages...");
+console.log("\n");
 Promise.all(requests)
     .then(res => {
 
