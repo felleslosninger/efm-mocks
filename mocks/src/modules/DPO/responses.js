@@ -285,7 +285,6 @@ function UploadFileStreamedBasic(req, res) {
                                         let receiptId = uid();
 
                                         let file = {
-                                            xmlHeader: data,
                                             file: filePath,
                                             fileReference: fileName,
                                             receiptId: receiptId,

@@ -54,7 +54,7 @@
 ],
 "serviceCode": "4192",
 "serviceEditionCode": "270815",
-"endPointURL": "http://localhost:8001/dpo"
+"endPointURL": "https://beta-meldingsutveksling.difi.no/move-mocks/mocks/dpo"
 },
 "serviceRecords": [
 {
@@ -97,7 +97,7 @@
 ],
 "serviceCode": "4192",
 "serviceEditionCode": "270815",
-"endPointURL": "http://localhost:8001/dpo"
+"endPointURL": "https://beta-meldingsutveksling.difi.no/move-mocks/mocks/dpo"
 },
 {
 "failedServiceIdentifiers": [],
@@ -222,7 +222,7 @@
 "serviceIdentifier": "DPV",
 "pemCertificate": null,
 "dpeCapabilities": [],
-"endPointURL": "http://localhost:8001/dpv"
+"endPointURL": "https://beta-meldingsutveksling.difi.no/move-mocks/mocks/dpv"
 }
 ]
 }
