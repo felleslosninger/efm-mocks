@@ -2,7 +2,7 @@
   "name": "tests",
   "version": "1.0.0",
   "description": "",
-  "main": "test.js",
+  "main": "bestEdu.js",
   "dependencies": {
     "superagent": "^4.1.0",
     "uuid": "^3.3.2",
