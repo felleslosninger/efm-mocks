@@ -153,9 +153,8 @@ bsh.shared.conversationIdsSuccessfull=new ArrayList();</stringProp>
                 <elementProp name="" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">false</boolProp>
                   <stringProp name="Argument.value">{&#xd;
-    &quot;serviceIdentifier&quot;: &quot;DPE&quot;,&#xd;
-    &quot;receiverId&quot;: &quot;910229028&quot;,&#xd;
-    &quot;jpId&quot;: &quot;e89af16c-5746-11e8-9c2d-fa7ae01bbebc&quot;&#xd;
+    &quot;serviceIdentifier&quot;: &quot;DPE_DATA&quot;,&#xd;
+    &quot;receiverId&quot;: &quot;991825827&quot;&#xd;
 }</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                 </elementProp>

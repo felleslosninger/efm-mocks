@@ -12,6 +12,10 @@ const hentForsendelsefil = require("./modules/DPF/soapResponses").hentForsendels
 const hentNyeForsendelser = require("./modules/DPF/soapResponses").hentNyeForsendelser;
 const sendForsendelseMedId = require("./modules/DPF/sendForsendelseMedId").sendForsendelseMedId;
 const parseXml = require("./modules/DPO/responses").parseXml;
+const bodyParser = require('body-parser');
+
+
+const formidable = require('formidable');
 
 global.messageCount = 0;
 
@@ -299,13 +303,35 @@ const mocks = [
         name: "DPE Service bus",
         routes: [
             {
-                path: '/dpe/*/messages/head',
+                path: '/dpe/*/messages',
                 method: 'POST',
+                middleware: getRawBody,
                 responseFunction: (req, res) => {
 
                     console.log('stop');
 
-                    res.send('Logged');
+                    res.status(200).send();
+
+                }
+            },
+            {
+                path: '/dpe/*/messages/head',
+                // path: '/dpe*',
+                method: 'POST',
+                responseFunction: (req, res) => {
+
+                    let authorization = req.headers.authorization.split('=');
+
+                    let code = decodeURI(authorization[2])
+
+                    if (global.dpeDB.get(code)) {
+                        res.status(201).send();
+                    } else {
+                        res.status(204).send();
+                    }
+                    console.log('stop');
+
+                    // res.send('Logged');
 
                 }
             }

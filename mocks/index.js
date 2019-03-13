@@ -21,6 +21,7 @@ const https = require('https');
 
 global.dpoDB = new Map();
 global.dpfDB = new Map();
+global.dpeDB = new Map();
 
 process.env.PORT = process.env.PORT || 8001;
 
