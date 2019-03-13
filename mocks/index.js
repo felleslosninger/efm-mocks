@@ -12,6 +12,12 @@ const morgan = require('morgan');
 const messageTable = require('./src/components/messageTable');
 const rimraf = require('rimraf');
 const fs = require('fs');
+const https = require('https');
+
+// var privateKey  = fs.readFileSync('./ssl3/910094548.key', 'utf8');
+// var certificate = fs.readFileSync('./ssl3/910094548.cer', 'utf8');
+
+// var credentials = {key: privateKey, cert: certificate};
 
 global.dpoDB = new Map();
 global.dpfDB = new Map();
@@ -133,6 +139,37 @@ restMocks.forEach((mock) => {
     });
 });
 
+// let httpsApp = express();
+//
+// // httpsApp.get('*', function(req, res) {
+// //
+// //     res.redirect('http://' + req.client.servername + ':' + process.env.PORT + req.url);
+// //
+// //     // Or, if you don't want to automatically detect the domain name from the request header, you can hard code it:
+// //     // res.redirect('https://example.com' + req.url);
+// // })
+//
+// httpsApp.use(function(req, res, next) {
+//     if (req.url === '/dpe/nextbestqueue991825827data/messages/head') {
+//         console.log();
+//         res.redirect(307, 'http://' + req.client.servername + ':' + process.env.PORT + req.url);
+//     }
+//     next();
+// });
+//
+//
+// httpsApp.post('*', function(req, res) {
+//
+//     let url = 'http://' + req.client.servername + ':' + process.env.PORT + req.url;
+//
+//     console.log('stop');
+//
+//     res.redirect(307, 'http://' + req.client.servername + ':' + process.env.PORT + req.url);
+//
+//     // Or, if you don't want to automatically detect the domain name from the request header, you can hard code it:
+//     // res.redirect('https://example.com' + req.url);
+// })
+
 // Set up SOAP mocks:
 
 // Fetch the WSDLs:
@@ -146,6 +183,14 @@ Promise.all(mocks.map((mock) => fetch(mock.wsdlUrl) ))
                 });
 
                 // Set up the listeners:
+
+                // let httpsServer = https.createServer(credentials, httpsApp);
+                //
+                // httpsServer.listen(8443, () => {
+                //     console.log('SSL server running on 8443');
+                // });
+
+
                 app.listen(process.env.PORT, () => {
                     mocks.forEach((mock) => {
                         soap.listen(app, mock.pathName, mock.service, mock.wsdl);

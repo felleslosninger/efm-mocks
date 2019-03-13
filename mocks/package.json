@@ -11,6 +11,7 @@
     "express-xml-bodyparser": "^0.3.0",
     "extract-zip": "^1.6.7",
     "file-type": "^8.0.0",
+    "https": "^1.0.0",
     "moment": "^2.22.1",
     "morgan": "^1.9.0",
     "multiparty": "^4.1.4",

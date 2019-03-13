@@ -17,6 +17,39 @@ global.messageCount = 0;
 
 const mocks = [
     {
+        name: "DPI",
+        routes: [
+            {
+                path: '/dpi*',
+                method: 'POST',
+                middleware: getRawBody,
+                // middleware: (req, res, next) => {
+                //     console.log("stop");
+                //     next()
+                // },
+                responseFunction: (req, res) => {
+                    receiveDPI(req, res);
+                }
+            },
+            {
+                path: '/dpi*',
+                method: 'PUT',
+                middleware: bodyParser,
+                responseFunction: (req, res) => {
+                    res.send('Logged');
+                }
+            },
+            {
+                path: '/dpi*',
+                method: 'GET',
+                middleware: getRawBody,
+                responseFunction: (req, res) => {
+                    res.send('Logged');
+                }
+            }
+        ]
+    },
+    {
         name: 'DPF',
         routes: [
             {
@@ -115,13 +148,6 @@ const mocks = [
                     res.download(`${__dirname}/testdata/${config.hentForsendelsefil}`)
                 }
             },
-            // {
-            //     path: '/svarinn/mottaker/hentNyeForsendelser',
-            //     method: 'GET',
-            //     responseFunction: (req, res) => {
-            //         res.send(JSON.stringify(hentNyeForsendelser()));
-            //     }
-            // },
             {
                 path: '/svarinn/kvitterMottak/forsendelse/:forsendelseid',
                 method: 'POST',
@@ -273,10 +299,14 @@ const mocks = [
         name: "DPE Service bus",
         routes: [
             {
-                path: '/dpe-service-bus/*',
+                path: '/dpe/*/messages/head',
                 method: 'POST',
                 responseFunction: (req, res) => {
+
+                    console.log('stop');
+
                     res.send('Logged');
+
                 }
             }
         ]
