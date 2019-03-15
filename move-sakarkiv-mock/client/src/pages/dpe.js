@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactTable from "react-table";
 import "react-table/react-table.css";
-import './Dashboard.css';
+import './Dashboard/Dashboard.css';
 import ReactModal from 'react-modal';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
-import MessageForm from "../NewMessage/NewMessageModal/MessageForm";
+import MessageForm from "./NewMessage/NewMessageModal/MessageForm";
 
 const modalStyle = {
     overlay: {
@@ -36,7 +36,7 @@ const modalStyle = {
     }
 };
 
-export default class sDashboard extends React.Component {
+export default class DPE extends React.Component {
 
     state = {
         showNewMessage: false,
@@ -45,13 +45,11 @@ export default class sDashboard extends React.Component {
 
 
     poll = () => {
-        axios.get('/api/messages').then((res) => {
+        axios.get('/api/dpe/messages').then((res) => {
 
-            let nextMessages = Array.from(new Map(res.data).values())
-
-            if (nextMessages.length !== this.state.messages.length) {
+            if (res.data.length !== this.state.messages.length) {
                 this.setState({
-                    messages: nextMessages
+                    messages: res.data
                 }, () => {
                     this.toastId = toast.success("New message received.", {
                         position: toast.POSITION.BOTTOM_RIGHT,
@@ -96,6 +94,7 @@ export default class sDashboard extends React.Component {
         });
     };
 
+
     render(){
         return (
             <main role="main" className="col-md-9 ml-sm-auto col-lg-10 px-4">
@@ -105,11 +104,11 @@ export default class sDashboard extends React.Component {
                     <div className="btn-toolbar mb-2 mb-md-0">
                         <div className="btn-group mr-2">
                             {/*<button className="btn btn-sm btn-outline-secondary">Share</button>*/}
-                            <button className="btn btn-sm btn-outline-secondary" onClick={this.toggleNewMessage}>New message</button>
+                            {/*<button className="btn btn-sm btn-outline-secondary" onClick={this.toggleNewMessage}>New message</button>*/}
                         </div>
                         {/*<button className="btn btn-sm btn-outline-secondary dropdown-toggle">*/}
-                            {/*<span data-feather="calendar" />*/}
-                            {/*This week*/}
+                        {/*<span data-feather="calendar" />*/}
+                        {/*This week*/}
                         {/*</button>*/}
                     </div>
                 </div>
@@ -122,31 +121,27 @@ export default class sDashboard extends React.Component {
                         columns={[
                             {
                                 Header: "Receiver org name",
-                                accessor: "receiver.name",
+                                accessor: "receiverName",
                                 filterable:true
                             },
                             {
                                 Header: "Receiver org number",
-                                accessor: "receiver.orgnr",
+                                accessor: "receiverId",
                                 filterable:true
                             },
                             {
                                 Header: "Sender name",
-                                accessor: "sender.name",
+                                accessor: "senderName",
                                 filterable:true
                             },
                             {
                                 Header: "Sender org number",
-                                accessor: "sender.orgnr",
+                                accessor: "senderId",
                                 filterable:true
                             },
                             {
                                 Header: "Conversation ID",
                                 accessor: "conversationId"
-                            },
-                            {
-                                Header: "Attachment",
-                                accessor: "file"
                             }
                         ]}
                         defaultPageSize={10}

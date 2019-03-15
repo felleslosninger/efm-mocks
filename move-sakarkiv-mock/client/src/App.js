@@ -10,6 +10,7 @@ import ReactModal from 'react-modal';
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Navbar from "./components/Navbar/Navbar";
 import NewMessage from "./pages/NewMessage/NewMessage";
+import dpe from "./pages/dpe";
 
 
 let messages = [
@@ -31,6 +32,9 @@ class App extends Component {
                           <Sidebar />
                           <Route exact path="/" component={Dashboard}/>
                           <Route exact path="/new" component={NewMessage}/>
+                          <Route exact path="/dpe" component={dpe}/>
+
+
                       </div>
                   </Router>
                   </div>

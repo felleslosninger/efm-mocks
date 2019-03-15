@@ -1,3 +1,4 @@
+const {pollDPE} = require("./src/dpePoller");
 const mocks = require('./src/mocks');
 const soap = require('soap');
 const express = require('express');
@@ -6,20 +7,16 @@ const axios = require('axios');
 const morgan = require('morgan')
 const bodyParser = require('body-parser');
 const { parseString } = require('xml2js');
-const sqlite3 = require('sqlite3');
+
 const stripPrefix = require('xml2js').processors.stripPrefix;
-// const db = new sqlite3.Database(':memory:');
-
 process.env.PORT = process.env.PORT || 8002;
-//
-// db.serialize(function () {
-//     db.run("CREATE TABLE MessagesSent (sender, receiver, conversationId, timestamp, message)");
-// });
-
 
 let app = express();
 app.use(morgan('combined'));
-// Set up SOAP mocks:
+
+global.dpeDB = [];
+
+pollDPE();
 
 let soapString = mocks.map((item) => `http://localhost:${process.env.PORT}${item.pathName}?wsdl`);
 
@@ -68,6 +65,9 @@ app.get('/api/messages', (req, res) => {
     res.send(JSON.stringify([...dpfDB]));
 });
 
+app.get('/api/dpe/messages', (req, res) => {
+    res.json(global.dpeDB);
+});
 
 app.post('/p360',
     getRawBody,

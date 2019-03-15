@@ -1,3 +1,4 @@
+const {recieveFile} = require("./modules/DPE/responses");
 const { getRawBody } = require('./modules/helper');
 const { PutMessage, retrieveforsendelsestatus } = require("./modules/DPF/soapResponses");
 const retrieveForsendelseIdByEksternRefResponse = require("./modules/DPF/retrieveForsendelseIdByEksternRef").retrieveForsendelseIdByEksternRefResponse;
@@ -307,10 +308,7 @@ const mocks = [
                 method: 'POST',
                 middleware: getRawBody,
                 responseFunction: (req, res) => {
-
-                    console.log('stop');
-
-                    res.status(200).send();
+                    recieveFile(req, res)
 
                 }
             },
@@ -324,8 +322,19 @@ const mocks = [
 
                     let code = decodeURI(authorization[2])
 
-                    if (global.dpeDB.get(code)) {
-                        res.status(201).send();
+                    let split = req.originalUrl.split('/');
+
+                    let orgNum  = req.originalUrl.split('/')[2].match(/\d/g).join('');
+
+                    console.log('orgNum', orgNum);
+
+                    if (global.dpeDB.get(orgNum)) {
+                        res.set('BrokerProperties', JSON.stringify(
+                            { LockToken: "gerger",
+                                SequenceNumber: 1,
+                                MessageId: global.dpeDB.get(orgNum).convId
+                            }))
+                            .status(201).send(global.dpeDB.get(orgNum).sbd);
                     } else {
                         res.status(204).send();
                     }

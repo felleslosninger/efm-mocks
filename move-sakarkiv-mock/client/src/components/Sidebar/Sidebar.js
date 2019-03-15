@@ -24,6 +24,13 @@ export default class Sidebar extends React.Component {
                             </NavLink>
 
 
+                            <NavLink to='/dpe' exact activeClassName="active" className="nav-link" >
+                                <span data-feather="home"></span>
+                                DPE
+                                <span className="sr-only">(current)</span>
+                            </NavLink>
+
+
                             {/*<NavLink to='/' exact activeClassName="active" className="nav-link" >*/}
                                 {/*<span data-feather="home"></span>*/}
                                 {/*DPO<span className="sr-only">(current)</span>*/}
