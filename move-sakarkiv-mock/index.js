@@ -7,6 +7,8 @@ const axios = require('axios');
 const morgan = require('morgan')
 const bodyParser = require('body-parser');
 const { parseString } = require('xml2js');
+const path = require('path');
+
 
 const stripPrefix = require('xml2js').processors.stripPrefix;
 process.env.PORT = process.env.PORT || 8002;
@@ -19,6 +21,13 @@ global.dpeDB = [];
 pollDPE();
 
 let soapString = mocks.map((item) => `http://localhost:${process.env.PORT}${item.pathName}?wsdl`);
+
+app.get('/', function (req, res) {
+
+    console.log(`${__dirname}/client/build`);
+
+    res.sendFile(`${__dirname}/client/build`);
+});
 
 app.post('/api/send', bodyParser(), (req, res, next) => {
     let url = 'http://localhost:9093/noarkExchange';
@@ -145,18 +154,17 @@ app.post('/p360',
         });
 
     });
-
 });
 
-app.get('/', (req, res) => {
-    res.send(`<html style="font-family: Comic Sans MS;">
-                <body>
-                    <h1>MOVE Mocks<h1>
-                    <h3>SOAP Mocks:<h3>
-                    <ul> ${ soapString.map((url) => `<li><a href="${url}">${url}</a></li>`).join('') }</ul>
-                </body>
-            </html>`);
-});
+// app.get('/', (req, res) => {
+//     res.send(`<html style="font-family: Comic Sans MS;">
+//                 <body>
+//                     <h1>MOVE Mocks<h1>
+//                     <h3>SOAP Mocks:<h3>
+//                     <ul> ${ soapString.map((url) => `<li><a href="${url}">${url}</a></li>`).join('') }</ul>
+//                 </body>
+//             </html>`);
+// });
 
 
 // Fetch the WSDLs:
