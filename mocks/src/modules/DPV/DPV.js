@@ -48,8 +48,6 @@ function getDPVrequest(req, res, parsedBody) {
         receiptId: receiptId
     });
 
-    global.messageCount = global.messageCount + 1;
-
     let resXML = getResponse(sendersRererence, receiptId, reportee, created, expires);
     res.set('Content-Type', 'application/soap+xml');
     res.send(resXML);

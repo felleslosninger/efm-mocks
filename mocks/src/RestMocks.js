@@ -14,15 +14,7 @@ const hentNyeForsendelser = require("./modules/DPF/soapResponses").hentNyeForsen
 const sendForsendelseMedId = require("./modules/DPF/sendForsendelseMedId").sendForsendelseMedId;
 const parseXml = require("./modules/DPO/responses").parseXml;
 const bodyParser = require('body-parser');
-
-
-
-const formidable = require('formidable');
-
 const receiveDPI = require("./modules/DPI/responses").receiveDPI;
-
-
-global.messageCount = 0;
 
 const mocks = [
     {
@@ -99,29 +91,6 @@ const mocks = [
                 }
             }
         ]
-    },
-    {
-        name: 'messageCount',
-        routes: [
-            {
-                method: 'GET',
-                path: '/messageCount',
-                responseFunction: (req, res) => {
-                    res.send({
-                        count: global.messageCount
-                    });
-                }
-            },
-            {
-                method: 'POST',
-                path: '/clearCount',
-                responseFunction: (req, res) => {
-                    global.messageCount = 0;
-                    res.send('OK');
-                }
-            }
-        ],
-
     },
     {
         name: 'Noark',
@@ -214,7 +183,7 @@ const mocks = [
                 path: '/dpo/ServiceEngineExternal/BrokerServiceExternalBasicStreamed.svc',
                 method: 'GET',
                 responseFunction: (req,res) => {
-                    if (!req.query.part){
+                    if (!req.query.part) {
                         getBrokerServiceExternalBasicWSDL(req,res)
                     } else if (req.query.part === 'BrokerServiceExternalBasicStreamed.wsdl'){
                         res.set('Content-type', 'text/xml');
@@ -250,6 +219,15 @@ const mocks = [
                         GetAvailableFilesBasic(req, res);
                     } else if (req.headers.soapaction === "\"http://www.altinn.no/services/ServiceEngine/Broker/2015/06/IBrokerServiceExternalBasic/InitiateBrokerServiceBasic\"") {
                         res.send(InitiateBrokerServiceBasic(req.body))
+                    } else if (req.headers.soapaction === "\"http://www.altinn.no/services/ServiceEngine/Broker/2015/06/IBrokerServiceExternalBasic/ConfirmDownloadedBasic\"" ){
+
+                        res.send(`<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.altinn.no/services/ServiceEngine/Broker/2015/06">
+                                   <soapenv:Header/>
+                                   <soapenv:Body>
+                                      <ns:ConfirmDownloadedBasicResponse/>
+                                   </soapenv:Body>
+                                </soapenv:Envelope>`);
+
                     }
                 }
             },
@@ -275,7 +253,6 @@ const mocks = [
                         DownloadFileStreamedBasic(req, res);
                     } else if (req.headers.soapaction === "\"http://www.altinn.no/services/ServiceEngine/Broker/2015/06/IBrokerServiceExternalBasicStreamed/UploadFileStreamedBasic\""){
                         console.log(chalk.blue('\n\nUploadFileStreamedBasic\n\n'));
-                        global.messageCount = global.messageCount + 1;
                         UploadFileStreamedBasic(req, res)
                     }
                 }
@@ -315,19 +292,10 @@ const mocks = [
             },
             {
                 path: '/dpe/*/messages/head',
-                // path: '/dpe*',
                 method: 'POST',
                 responseFunction: (req, res) => {
 
-                    let authorization = req.headers.authorization.split('=');
-
-                    let code = decodeURI(authorization[2])
-
-                    let split = req.originalUrl.split('/');
-
                     let orgNum  = req.originalUrl.split('/')[2].match(/\d/g).join('');
-
-                    console.log('orgNum', orgNum);
 
                     if (global.dpeDB.get(orgNum)) {
                         res.set('BrokerProperties', JSON.stringify(
@@ -339,10 +307,6 @@ const mocks = [
                     } else {
                         res.status(204).send();
                     }
-                    console.log('stop');
-
-                    // res.send('Logged');
-
                 }
             }
         ]

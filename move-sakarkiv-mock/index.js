@@ -56,9 +56,21 @@ const getRawBody = (req, res, next) => {
 };
 
 app.get('/p360', (req, res) => {
+
+    console.log('ding!');
+
     res.type('application/xml');
     res.sendFile(`${__dirname}/wsdl/p360.wsdl`);
 });
+
+app.post('/p360/*', (req, res) => {
+
+    console.log('ding!');
+
+    res.type('application/xml');
+    res.sendFile(`${__dirname}/wsdl/p360.wsdl`);
+});
+
 
 let dpfDB = new Map();
 
@@ -113,8 +125,7 @@ app.post('/p360',
                         conversationId : conversationId,
                         sender: {
                             name: parsed.envelope.body["0"].putmessagerequest["0"].envelope["0"].sender["0"].name["0"],
-                            orgnr: parsed.envelope.body["0"].putmessagerequest["0"].envelope["0"].sender["0"].orgnr["0"],
-                            ref: parsed.envelope.body["0"].putmessagerequest["0"].envelope["0"].sender["0"].ref["0"]
+                            orgnr: parsed.envelope.body["0"].putmessagerequest["0"].envelope["0"].sender["0"].orgnr["0"]
                         },
                         receiver: {
                             name: parsed.envelope.body["0"].putmessagerequest["0"].envelope["0"].receiver["0"].name["0"],
@@ -148,16 +159,6 @@ app.post('/p360',
     });
 });
 
-// app.get('/', (req, res) => {
-//     res.send(`<html style="font-family: Comic Sans MS;">
-//                 <body>
-//                     <h1>MOVE Mocks<h1>
-//                     <h3>SOAP Mocks:<h3>
-//                     <ul> ${ soapString.map((url) => `<li><a href="${url}">${url}</a></li>`).join('') }</ul>
-//                 </body>
-//             </html>`);
-// });
-
 app.get('/*', function (req, res) {
 
     console.log(`${__dirname}/client/build`);
@@ -166,8 +167,6 @@ app.get('/*', function (req, res) {
 });
 
 
-
-//
 // // Fetch the WSDLs:
 Promise.all(mocks.map((mock) => getData(mock.wsdlUrl, 'utf8')))
     .then((res) => {
