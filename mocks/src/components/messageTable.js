@@ -16,7 +16,3 @@ function messageTable(headers, serviceIdentifier, messages){
 }
 
 module.exports = { messageTable };
-
-
-
-//${[...messages].map(([key, value]) => `<tr>Receiver: ${key}  ${JSON.stringify(value, null, 2)} </tr>` ).join('') }

@@ -18,11 +18,10 @@ export default class Sidebar extends React.Component {
                                 Incoming messages <span className="sr-only">(current)</span>
                             </NavLink>
 
-                            <NavLink to='/' exact activeClassName="active" className="nav-link" >
-                                <span data-feather="home"></span>
-                                Outgoing messages <span className="sr-only">(current)</span>
-                            </NavLink>
-
+                            {/*<NavLink to='/' exact activeClassName="active" className="nav-link" >*/}
+                                {/*<span data-feather="home"></span>*/}
+                                {/*Outgoing messages <span className="sr-only">(current)</span>*/}
+                            {/*</NavLink>*/}
 
                             <NavLink to='/dpe' exact activeClassName="active" className="nav-link" >
                                 <span data-feather="home"></span>

@@ -33,8 +33,6 @@ class App extends Component {
                           <Route exact path="/" component={Dashboard}/>
                           <Route exact path="/new" component={NewMessage}/>
                           <Route exact path="/dpe" component={dpe}/>
-
-
                       </div>
                   </Router>
                   </div>

@@ -7,14 +7,7 @@ const axios = require('axios');
 const morgan = require('morgan')
 const bodyParser = require('body-parser');
 const { parseString } = require('xml2js');
-
 const path = require('path');
-
-const stripPrefix = require('xml2js').processors.stripPrefix;
-
-
-
-
 const stripPrefix = require('xml2js').processors.stripPrefix;
 process.env.PORT = process.env.PORT || 8002;
 
@@ -25,16 +18,7 @@ global.dpeDB = [];
 
 pollDPE();
 
-let soapString = mocks.map((item) => `http://localhost:${process.env.PORT}${item.pathName}?wsdl`);
-
-
-app.get('/', function (req, res) {
-
-    console.log(`${__dirname}/client/build`);
-
-    res.sendFile(`${__dirname}/client/build`);
-});
-
+app.use(express.static(`${__dirname}/client/build`));
 
 app.post('/api/send', bodyParser, (req, res, next) => {
 
@@ -174,8 +158,17 @@ app.post('/p360',
 //             </html>`);
 // });
 
+app.get('/*', function (req, res) {
 
-// Fetch the WSDLs:
+    console.log(`${__dirname}/client/build`);
+
+    res.sendFile(`${__dirname}/client/build/index.html`);
+});
+
+
+
+//
+// // Fetch the WSDLs:
 Promise.all(mocks.map((mock) => getData(mock.wsdlUrl, 'utf8')))
     .then((res) => {
         // Map the WSDL to the mock:
@@ -190,7 +183,7 @@ Promise.all(mocks.map((mock) => getData(mock.wsdlUrl, 'utf8')))
             })
         });
 });
-
+//
 function getData(fileName, type) {
     return new Promise((resolve, reject) => {
         fs.readFile(fileName, type, (err, data) => {

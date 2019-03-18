@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-let baseUrl = 'http://localhost:9093'
+let baseUrl = 'http://localhost:9093';
 
 function downloadMessage(payload){
 
@@ -10,15 +10,8 @@ function downloadMessage(payload){
             url,
             method: 'get'
         }).then((response) => {
-            // console.log(response.data);
-            console.log('got reponse  up here');
+            console.log('Checking message: ');
             console.log(payload.conversationId);
-
-            // let dbInstance = global.dpeDB.get(payload.conversationId) || global.dpeDB.set(payload.conversationId, { messages: [] });
-            // dbInstance.messages.push(payload)
-
-            console.log('hey');
-
             resolve();
 
         }).catch((error) => {
@@ -35,15 +28,27 @@ function pollDPE(){
         method: 'get'
     }).then((response) => {
         if (response.data.conversationId) {
-            global.dpeDB.push(response.data)
-            downloadMessage(response.data)
-                .then(() => {
-                    setTimeout(() => {
-                        pollDPE();
-                    }, 1000)
-                }).catch((err) => {
+
+            console.log('response.data', response.data);
+
+            let existingMessage = global.dpeDB.find((message) => message.conversationId === response.data.conversationId);
+
+            if (!existingMessage) {
+                global.dpeDB.push(response.data)
+                downloadMessage(response.data)
+                    .then(() => {
+                        setTimeout(() => {
+                            pollDPE();
+                        }, 1000)
+                    }).catch((err) => {
                     console.log(err);
-            });
+                });
+            } else {
+                setTimeout(() => {
+                    pollDPE();
+                }, 1000)
+            }
+
         } else {
             setTimeout(() => {
                 pollDPE()
@@ -54,6 +59,5 @@ function pollDPE(){
 
     });
 }
-
 
 module.exports = { pollDPE };

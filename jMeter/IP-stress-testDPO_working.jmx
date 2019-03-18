@@ -137,7 +137,7 @@ bsh.shared.conversationIdsSuccessfull=new ArrayList();</stringProp>
           <boolProp name="LoopController.continue_forever">false</boolProp>
           <stringProp name="LoopController.loops">1</stringProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.num_threads">10</stringProp>
         <stringProp name="ThreadGroup.ramp_time">5</stringProp>
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
         <stringProp name="ThreadGroup.duration"></stringProp>
@@ -154,7 +154,7 @@ bsh.shared.conversationIdsSuccessfull=new ArrayList();</stringProp>
                   <boolProp name="HTTPArgument.always_encode">false</boolProp>
                   <stringProp name="Argument.value">{&#xd;
     &quot;serviceIdentifier&quot;: &quot;DPO&quot;,&#xd;
-    &quot;receiverId&quot;: &quot;910229028&quot;,&#xd;
+    &quot;receiverId&quot;: &quot;991825827&quot;,&#xd;
     &quot;jpId&quot;: &quot;e89af16c-5746-11e8-9c2d-fa7ae01bbebc&quot;&#xd;
 }</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>

@@ -78,6 +78,33 @@ app.get('/', (req, res) => {
         }
     ];
 
+    let dpeHeaders = [
+        {
+            title: 'Receiver orgnum',
+            accessor: 'receiverOrgnum',
+        },
+        {
+            title: 'Receiver org name',
+            accessor: 'receiverOrgName',
+        },
+        {
+            title: 'Sender orgnum',
+            accessor: 'senderOrgnum',
+        },
+        {
+            title: 'Sender org name',
+            accessor: 'senderOrgname',
+        },
+        {
+            title: 'Conversation ID',
+            accessor: 'convId',
+        },
+        {
+            title: 'Type',
+            accessor: 'serviceIdentifier',
+        }
+    ];
+
     res.send(`
             <html>
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
@@ -86,6 +113,8 @@ app.get('/', (req, res) => {
             
             <script>
                 let dpvHeaders = ${JSON.stringify(dpvHeaders)};
+                let dpeHeaders = ${JSON.stringify(dpeHeaders)};
+                
             </script>
            
             <body>
@@ -106,6 +135,8 @@ app.get('/', (req, res) => {
                     ${messageTable(dpoHeaders, 'DPO', global.dpoDB)}
                     
                     ${messageTable(dpvHeaders, 'DPV', global.dpvDB)}
+                    
+                    ${messageTable(dpeHeaders, 'DPE', global.dpeDB)}
                      
                </div>
                     </body>
@@ -152,6 +183,19 @@ app.post('/api/messages/DPO', (req, res) => {
 
 app.get('/api/messages/DPF', (req, res) => {
     res.send([...global.dpfDB].map(([key, value]) => value));
+});
+
+app.get('/api/messages/dpe', (req, res) => {
+    res.send([...global.dpeDB].map(([key, value]) => {
+        return {
+            convId: value.convId,
+            receiverOrgnum: value.receiverOrgnum,
+            receiverOrgName: value.receiverOrgName,
+            senderOrgnum: value.senderOrgnum,
+            senderOrgname: value.senderOrgname,
+            serviceIdentifier: value.serviceIdentifier
+        }
+    }));
 });
 
 app.get('/api/messages/DPO', (req, res) => {
