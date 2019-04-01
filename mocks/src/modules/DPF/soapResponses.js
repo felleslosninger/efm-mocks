@@ -148,7 +148,6 @@ function hentNyeForsendelser(req, res) {
                 "downloadUrl": `http://localhost:${process.env.PORT}/tjenester/svarinn/forsendelse/${value.eksternRef}`
             };
 
-            // console.log(JSON.stringify(response, null, 2));
 
             return response;
     }));

@@ -17,3 +17,4 @@ move-sakarkiv-mock/upload/*
 
 tests/node_modules
 
+**/*.pem
