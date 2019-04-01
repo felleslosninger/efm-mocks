@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://www.unece.org/cefact/namespaces/StandardBusinessDocumentHeader" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.unece.org/cefact/namespaces/StandardBusinessDocumentHeader" targetNamespace="http://www.unece.org/cefact/namespaces/StandardBusinessDocumentHeader">
+    <wsdl:types>
+        <xs:schema xmlns="http://www.unece.org/cefact/namespaces/StandardBusinessDocumentHeader" xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.unece.org/cefact/namespaces/StandardBusinessDocumentHeader">
+            <xs:include schemaLocation="DocumentIdentification.xsd"/>
+            <xs:include schemaLocation="Partner.xsd"/>
+            <xs:include schemaLocation="Manifest.xsd"/>
+            <xs:include schemaLocation="BusinessScope.xsd"/>
+            <xs:complexType name="StandardBusinessDocumentHeader">
+                <xs:sequence>
+                    <xs:element name="HeaderVersion" type="xs:string"/>
+                    <xs:element maxOccurs="unbounded" name="Sender" type="Partner"/>
+                    <xs:element maxOccurs="unbounded" name="Receiver" type="Partner"/>
+                    <xs:element name="DocumentIdentification" type="DocumentIdentification"/>
+                    <xs:element minOccurs="0" name="Manifest" type="Manifest"/>
+                    <xs:element minOccurs="0" name="BusinessScope" type="BusinessScope"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="StandardBusinessDocumentHeader" type="StandardBusinessDocumentHeader"/>
+            <xs:element name="StandardBusinessDocument" type="StandardBusinessDocument"/>
+            <xs:complexType name="StandardBusinessDocument">
+                <xs:sequence>
+                    <xs:element minOccurs="0" ref="StandardBusinessDocumentHeader"/>
+                    <xs:any namespace="##other" processContents="lax"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:portType name="sbdPort">
+    </wsdl:portType>
+    <wsdl:binding name="sbdPortSoap11" type="tns:sbdPort">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    </wsdl:binding>
+    <wsdl:service name="sbdPortService">
+        <wsdl:port binding="tns:sbdPortSoap11" name="sbdPortSoap11">
+            <soap:address location="http://localhost:8080/as4"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
