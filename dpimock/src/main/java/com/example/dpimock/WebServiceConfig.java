@@ -86,7 +86,6 @@ public class WebServiceConfig extends WsConfigurerAdapter {
         Merlin merlin = new Merlin();
         merlin.setKeyStore(getKeyStore("altinn.jks"));
         merlin.setTrustStore(getKeyStore("demo.jks"));
-
         return merlin;
     }
 

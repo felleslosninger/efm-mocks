@@ -116,7 +116,7 @@ Sett følgende properties:
 ```
 difi.move.feature.enableDPI=true
 difi.move.dpi.endpoint=http://localhost:8080/as4
-difi.move.dpi.trustStore.path=file:/Users/adam.haeger/Projects/move-integrasjonspunkt/demo.jks
+difi.move.dpi.trustStore.path=<path til din .jks>/demo.jks
 difi.move.dpi.trustStore.password=changeit
 ```
 
