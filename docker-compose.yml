@@ -12,8 +12,14 @@ services:
 #    ports:
 #      - 8002:8002
 
-  wiremock:
-    build: ./Wiremock
+#  wiremock:
+#    build: ./Wiremock
+#    ports:
+#      - 8090:8090
+
+  dpimock:
+    build: ./dpimock
+    command:  cd ./dpimock && ./mvnw install dockerfile:build
     ports:
-      - 8090:8090
+      - 8080:8080
 

@@ -37,7 +37,15 @@ function receiveDPI(req, res){
             tagNameProcessors: [ stripPrefix ]
         },
         (err, js) => {
-            console.log("stop");
+
+
+
+            if (js.envelope.header["0"].messaging["0"].signalmessage["0"].pullrequest) {
+                console.log('stop');
+            } else {
+                console.log("also stop");
+            }
+
 
             let created = new moment().format();
             let expires = new moment().add(5, 'minutes').format();

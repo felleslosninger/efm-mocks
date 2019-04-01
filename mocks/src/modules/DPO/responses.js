@@ -25,7 +25,7 @@ function GetAvailableFilesBasic(req, res) {
                           <s:Body>
                             <GetAvailableFilesBasicResponse xmlns="http://www.altinn.no/services/ServiceEngine/Broker/2015/06">
                               <GetAvailableFilesBasicResult xmlns:a="http://schemas.altinn.no/services/ServiceEngine/Broker/2015/06" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
-                                ${  files ? files.map((file) =>
+                                ${ files ? files.map((file) =>
                                     `<BrokerServiceAvailableFile>
                                         <FileReference>${file.fileReference}</FileReference>
                                         <ReceiptID>${file.receiptId}</ReceiptID>
@@ -80,8 +80,8 @@ function DownloadFileStreamedBasic(req, res) {
     if (xml) {
         parseXml(xml, (err, parsed) => {
 
-            if (!parsed) {
-                console.log("Stop!");
+            if (err) {
+                console.log(err);
             } else {
 
                 let reportee = parsed["envelope"]["body"][0]["downloadfilestreamedbasic"][0]["reportee"][0];
@@ -103,6 +103,7 @@ function DownloadFileStreamedBasic(req, res) {
 
                     readStream.on('error', function (err) {
                         if (err) {
+                            console.log(err);
                             // handle error
                         }
                     });
@@ -124,8 +125,7 @@ function DownloadFileStreamedBasic(req, res) {
                             'X-AspNet-Version': '4.0.30319',
                             'X-Powered-By': 'ASP.NET',
                         });
-                        //
-                        //
+
                         let contentId = '636854854482615129';
                         res.write(`--uuid:${SNAPSHOT_BOUNDARY}` + '\r\n');
                         res.write(`Content-ID: <http://tempuri.org/0>` + '\r\n');
@@ -198,6 +198,7 @@ function UploadFileStreamedBasic(req, res) {
                                             global.dpoDB.set(recipient, [ file ]);
                                         }
 
+                                        console.log('stop');
                                         res.send(`<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.altinn.no/services/ServiceEngine/Broker/2015/06">
                                                    <soapenv:Header/>
                                                    <soapenv:Body>

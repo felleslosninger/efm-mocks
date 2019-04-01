@@ -14,7 +14,7 @@ export default class Sidebar extends React.Component {
                         <li className="nav-item">
 
                             <NavLink to='/' exact activeClassName="active" className="nav-link" >
-                                <span data-feather="home"></span>
+                                <span data-feather="home" />
                                 Incoming messages <span className="sr-only">(current)</span>
                             </NavLink>
 
@@ -24,7 +24,7 @@ export default class Sidebar extends React.Component {
                             {/*</NavLink>*/}
 
                             <NavLink to='/dpe' exact activeClassName="active" className="nav-link" >
-                                <span data-feather="home"></span>
+                                <span data-feather="home" />
                                 DPE
                                 <span className="sr-only">(current)</span>
                             </NavLink>

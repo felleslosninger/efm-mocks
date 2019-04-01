@@ -213,8 +213,8 @@ log.info(&quot;\n\n\n\n\n&quot;);</stringProp>
               <collectionProp name="HTTPFileArgs.files">
                 <elementProp name="/Users/adam.haeger/Projects/mocks/jMeter/liten.pdf" elementType="HTTPFileArg">
                   <stringProp name="File.path">/Users/adam.haeger/Projects/mocks/jMeter/liten.pdf</stringProp>
-                  <stringProp name="File.paramname"></stringProp>
-                  <stringProp name="File.mimetype"></stringProp>
+                  <stringProp name="File.paramname">name</stringProp>
+                  <stringProp name="File.mimetype">application/pdf</stringProp>
                 </elementProp>
               </collectionProp>
             </elementProp>

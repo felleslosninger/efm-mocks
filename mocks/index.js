@@ -3,21 +3,11 @@ const restMocks = require('./src/RestMocks');
 const soap = require('soap');
 const express = require('express');
 const fetch = require('node-fetch');
-const xmlparser = require('express-xml-bodyparser');
 const bodyParser = require('body-parser');
-const uid = require("uid");
 const morgan = require('morgan');
-// let db = require("./src/db");
-// let dpfDB= require("./src/modules/DPF/dpfDB").dpfDB;
 const messageTable = require('./src/components/messageTable').messageTable;
 const rimraf = require('rimraf');
 const fs = require('fs');
-const https = require('https');
-
-// var privateKey  = fs.readFileSync('./ssl3/910094548.key', 'utf8');
-// var certificate = fs.readFileSync('./ssl3/910094548.cer', 'utf8');
-
-// var credentials = {key: privateKey, cert: certificate};
 
 global.dpoDB = new Map();
 global.dpfDB = new Map();
@@ -112,9 +102,10 @@ app.get('/', (req, res) => {
             <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
             
             <script>
+                // These variables are used in static/script.js
                 let dpvHeaders = ${JSON.stringify(dpvHeaders)};
                 let dpeHeaders = ${JSON.stringify(dpeHeaders)};
-                
+                let dpoHeaders = ${JSON.stringify(dpoHeaders)};
             </script>
            
             <body>
@@ -182,36 +173,46 @@ app.post('/api/messages/DPO', (req, res) => {
 });
 
 app.get('/api/messages/DPF', (req, res) => {
-    res.send([...global.dpfDB].map(([key, value]) => value));
+    if (global.dpfDB.size > 0) {
+        res.send([...global.dpfDB].map(([key, value]) => value)[0]);
+    } else {
+        res.send([]);
+    }
+
 });
 
 app.get('/api/messages/dpe', (req, res) => {
-    res.send([...global.dpeDB].map(([key, value]) => {
-        return {
-            convId: value.convId,
-            receiverOrgnum: value.receiverOrgnum,
-            receiverOrgName: value.receiverOrgName,
-            senderOrgnum: value.senderOrgnum,
-            senderOrgname: value.senderOrgname,
-            serviceIdentifier: value.serviceIdentifier
-        }
-    }));
+    if (global.dpeDB.size > 0) {
+        res.send([...global.dpeDB].map(([key, value]) => {
+            return {
+                convId: value.convId,
+                receiverOrgnum: value.receiverOrgnum,
+                receiverOrgName: value.receiverOrgName,
+                senderOrgnum: value.senderOrgnum,
+                senderOrgname: value.senderOrgname,
+                serviceIdentifier: value.serviceIdentifier
+            }
+        }));
+    } else {
+        res.send([]);
+    }
 });
 
 app.get('/api/messages/DPO', (req, res) => {
-
-    res.send([...global.dpoDB].map(([key, value]) => value));
+    if (global.dpoDB.size > 0) {
+        res.send([...global.dpoDB].map(([key, value]) => value)[0]);
+    } else {
+        res.send([]);
+    }
 });
 
 app.get('/api/messages/DPV', (req, res) => {
-
-    res.send([...global.dpvDB].map(([key, value]) => value));
+    if (global.dpvDB.size > 0) {
+        res.send([...global.dpvDB].map(([key, value]) => value)[0]);
+    } else {
+        res.send([]);
+    }
 });
-
-
-
-//File info: ${JSON.stringify(value, null, 2)}
-
 
 // Set up REST mocks:
 restMocks.forEach((mock) => {
@@ -230,36 +231,6 @@ restMocks.forEach((mock) => {
     });
 });
 
-// let httpsApp = express();
-//
-// // httpsApp.get('*', function(req, res) {
-// //
-// //     res.redirect('http://' + req.client.servername + ':' + process.env.PORT + req.url);
-// //
-// //     // Or, if you don't want to automatically detect the domain name from the request header, you can hard code it:
-// //     // res.redirect('https://example.com' + req.url);
-// // })
-//
-// httpsApp.use(function(req, res, next) {
-//     if (req.url === '/dpe/nextbestqueue991825827data/messages/head') {
-//         console.log();
-//         res.redirect(307, 'http://' + req.client.servername + ':' + process.env.PORT + req.url);
-//     }
-//     next();
-// });
-//
-//
-// httpsApp.post('*', function(req, res) {
-//
-//     let url = 'http://' + req.client.servername + ':' + process.env.PORT + req.url;
-//
-//     console.log('stop');
-//
-//     res.redirect(307, 'http://' + req.client.servername + ':' + process.env.PORT + req.url);
-//
-//     // Or, if you don't want to automatically detect the domain name from the request header, you can hard code it:
-//     // res.redirect('https://example.com' + req.url);
-// })
 
 // Set up SOAP mocks:
 
@@ -272,16 +243,6 @@ Promise.all(mocks.map((mock) => fetch(mock.wsdlUrl) ))
                 wsdls.forEach((wsdl, idx) => {
                     mocks[idx].wsdl = wsdl;
                 });
-
-                // Set up the listeners:
-
-                // let httpsServer = https.createServer(credentials, httpsApp);
-                //
-                // httpsServer.listen(8443, () => {
-                //     console.log('SSL server running on 8443');
-                // });
-
-
                 app.listen(process.env.PORT, () => {
                     mocks.forEach((mock) => {
                         soap.listen(app, mock.pathName, mock.service, mock.wsdl);

@@ -1,13 +1,46 @@
 ## MoveMocks
 
-MoveMocks lar deg kjøre et integrasjonspunkt uten avtaler med medlingsformidlerene.
-Foreløbig støttes følgende:
+MoveMocks lar deg simulere de forskjellige meldingsformidlertjenestene.
 
-* DPO
-* DPF
-* DPV
+![alt text](images/MockContainers.png "Container diagram")
+
+
+### Forutsetninger
+
+* Docker
+* Kjørende integrasjonspunkt
+
+
+### Oppstart
+
+```
+git clone https://github.com/difi/move-mocks.git
+cd move-mocks
+docker-compose up
+```
+
+Du har nå følgende applikasjoner kjørende:
+
+* localhost:8090: Wiremock.
+* localhost:8080: DPI mock.
+* localhost:8001: DPO, DPV, DPF, og DPE mock.
+* localhost:8002: Sak/arkivsystem mock.
+
+På localhost:8001 finner du et lite gui der du kan se meldinger som har blitt sendt vellykket.
+
 
 ### Oppsett
+
+#### Integrasjonspunkt
+
+Integrasjonspunktet må konfigureres til å bruke Wiremock istedenfor SR, og til å bruke mocken for de forskjellige meldingstypene.
+Følgende konfigurasjon må settes opp i den gjeldende .properties filen:
+
+Angi urlen til Wiremock(SR) og sak/arkivsystem mocken:
+```
+difi.move.serviceregistryEndpoint=http://localhost:8090
+difi.move.noarkSystem.endpointURL=http://localhost:8002/p360
+```
 
 #### Wiremock
 
@@ -17,11 +50,105 @@ I ```Wiremock/__files/identifier```, må det ligge ligge en config fil for organ
 
 Se ```Wiremock/__files/identifier``` for eksempler på alle de støttede meldinsformiddlerene.
 
-For å starte wiremock:   
-```cd Wiremock/```  
-```java -jar wiremock-standalone-2.10.1.jar --port 8090```
+Se veiledning under for wiremock oppsett for de spesifike meldingstypene.
 
-Det er valgfritt å angi port. Hvis ingen port er angitt, brukes 8080.
+
+##### DPE
+
+
+###### Integrasjonspunkt
+
+Sett følgende properties:
+```
+difi.move.feature.enableDPE=true
+difi.move.nextmove.serviceBus.host=local:8001/dpe
+```
+###### Wiremock:
+Opprett service record som koresponderer med org nummeret du skal sende til.
+Se Wiremock/__files/identifier/dpe_sample. 
+Pass på at virksomhetssertifikatet er riktig. 
+
+##### DPF
+
+###### Integrasjonspunkt
+
+Sett følgende properties:
+```
+difi.move.feature.enableDPF=true
+difi.move.fiks.ut.endpointUrl=http://localhost:8001/dpf
+difi.move.fiks.inn.baseUrl=http://localhost:8001/svarinn
+difi.move.fiks.ut.username=username
+difi.move.fiks.ut.password=password
+difi.move.fiks.inn.mailOnError=false
+```
+###### Wiremock:
+Opprett service record som koresponderer med org nummeret du skal sende til.
+Se Wiremock/__files/identifier/dpf_sample. 
+Pass på at virksomhetssertifikatet er riktig, og endpointURL er satt til localhost:8001/dpf 
+
+
+
+##### DPO
+
+###### Integrasjonspunkt
+
+Sett følgende properties:
+```
+difi.move.feature.enableDPO=true
+difi.move.noarkSystem.type=p360
+logging.level.no.difi.meldingsutveksling.noarkexchange.altinn=debug
+logging.level.org.springframework.ws.client.MessageTracing=TRACE
+logging.level.org.springframework.ws.server.MessageTracing=TRACE     
+difi.move.noarkSystem.endpointURL=http://localhost:8001/noark
+
+```
+###### Wiremock:
+Opprett service record som koresponderer med org nummeret du skal sende til.
+Se Wiremock/__files/identifier/dpo_sample. 
+Pass på at virksomhetssertifikatet er riktig, og endpointURL er satt til localhost:8001/dpo
+
+
+##### DPI
+
+###### Integrasjonspunkt
+
+Sett følgende properties:
+```
+difi.move.feature.enableDPI=true
+difi.move.dpi.endpoint=http://localhost:8080/as4
+difi.move.dpi.trustStore.path=file:/Users/adam.haeger/Projects/move-integrasjonspunkt/demo.jks
+difi.move.dpi.trustStore.password=changeit
+```
+
+TODO: Beskriv oppsett av sertifikater.
+
+###### Wiremock:
+Opprett service record som koresponderer med org nummeret du skal sende til.
+Se Wiremock/__files/identifier/dpi_sample. 
+Pass på at virksomhetssertifikatet er riktig.
+
+
+##### DPV
+
+###### Integrasjonspunkt
+
+Sett følgende properties:
+```
+difi.move.feature.enableDPV=true
+difi.move.dpv.username=whatever
+difi.move.dpv.password=whatever
+difi.move.dpv.endpointUrl=http://localhost:8001/dpv/
+```
+
+TODO: Beskriv oppsett av sertifikater.
+
+###### Wiremock:
+Opprett service record som koresponderer med org nummeret du skal sende til.
+Se Wiremock/__files/identifier/dpv_sample. 
+Pass på at virksomhetssertifikatet er riktig, og endpointURL er satt til localhost:8001/dpv.
+
+
+
 
 #### Integrasjonspunkt
 
@@ -61,7 +188,7 @@ logging.level.org.springframework.ws.server.MessageTracing=TRACE
 difi.move.noarkSystem.endpointURL=http://localhost:8001/noark
 ```
 
-#### MoveMocks
+#### Kjør mocks uten docker
 
 1. MoveMocks krever node.js installert. Gå til [https://nodejs.org/en/download/](https://nodejs.org/en/download/) for å laste ned og installere node js for ditt system.
 
