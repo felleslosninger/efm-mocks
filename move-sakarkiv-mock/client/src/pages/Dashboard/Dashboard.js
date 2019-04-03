@@ -6,7 +6,8 @@ import ReactModal from 'react-modal';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
-import MessageForm from "../NewMessage/NewMessageModal/MessageForm";
+import {PrismCode} from "react-prism";
+import MDSpinner from "react-md-spinner";
 
 const modalStyle = {
     overlay: {
@@ -36,19 +37,18 @@ const modalStyle = {
     }
 };
 
-export default class sDashboard extends React.Component {
+
+
+export default class Dashboard extends React.Component {
 
     state = {
         showNewMessage: false,
         messages: []
     };
 
-
     poll = () => {
         axios.get('/api/messages').then((res) => {
-
             let nextMessages = Array.from(new Map(res.data).values())
-
             if (nextMessages.length !== this.state.messages.length) {
                 this.setState({
                     messages: nextMessages
@@ -78,21 +78,16 @@ export default class sDashboard extends React.Component {
         this.timer = null;
     }
 
-    // 1. Avsender
-    // 2. Mottaker
-    // 3. ConversationID
-    // 4. Mulighet til å vise XML av meldinga.
-    // 5. Timestamp.
-
-    toggleNewMessage = () => {
+    showPayload = (conversationID) => {
         this.setState({
-            showNewMessage: !this.state.showNewMessage
+            showModal: true,
+            modalConversationID: conversationID
         });
     };
 
-    dismissNewMessage = () => {
+    dismissModal = () => {
         this.setState({
-            showNewMessage: !this.state.showNewMessage
+            showModal: false
         });
     };
 
@@ -101,17 +96,7 @@ export default class sDashboard extends React.Component {
             <main role="main" className="col-md-9 ml-sm-auto col-lg-10 px-4">
                 <div
                     className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 className="h2">Dashboard</h1>
-                    <div className="btn-toolbar mb-2 mb-md-0">
-                        <div className="btn-group mr-2">
-                            {/*<button className="btn btn-sm btn-outline-secondary">Share</button>*/}
-                            <button className="btn btn-sm btn-outline-secondary" onClick={this.toggleNewMessage}>New message</button>
-                        </div>
-                        {/*<button className="btn btn-sm btn-outline-secondary dropdown-toggle">*/}
-                            {/*<span data-feather="calendar" />*/}
-                            {/*This week*/}
-                        {/*</button>*/}
-                    </div>
+                    <h1 className="h2">Incoming messages</h1>
                 </div>
 
                 <h2>Section title</h2>
@@ -142,27 +127,23 @@ export default class sDashboard extends React.Component {
                             },
                             {
                                 Header: "Conversation ID",
-                                accessor: "conversationId"
+                                accessor: "conversationId",
+                                filterable:true
                             },
                             {
-                                Header: "Attachment",
-                                accessor: "file"
+                                Header: "Payload",
+                                accessor: "conversationId",
+                                Cell: (row) => {
+                                    return <div>
+                                            <button className="btn btn-sm btn-outline-primary" onClick={() => this.showPayload(row.value)}>Raw message</button>
+                                    </div>
+                                }
                             }
                         ]}
                         defaultPageSize={10}
                         className=" -highlight"
                     />
 
-                    <ReactModal
-                        style={modalStyle}
-                        isOpen={this.state.showNewMessage}
-                        contentLabel="Minimal Modal Example"
-                        onSave={this.showNewMessage}
-                    >
-                        <MessageForm
-                            dismiss={this.toggleNewMessage}
-                        />
-                    </ReactModal>
 
                     <ToastContainer
                         position="top-right"
@@ -173,8 +154,81 @@ export default class sDashboard extends React.Component {
                         pauseOnHover
                     />
 
+                    <ReactModal
+                        style={modalStyle}
+                        isOpen={this.state.showModal}
+                    >
+                        <ModalBody
+                            conversationID={this.state.modalConversationID}
+                            dismiss={this.dismissModal}
+                        />
+                    </ReactModal>
                 </div>
             </main>
+        );
+    }
+}
+
+
+
+class ModalBody extends React.Component {
+
+    state = {
+        isLoading: true,
+        payload: null
+    };
+
+    componentDidMount() {
+        axios.get(`/api/messages/payload/${this.props.conversationID}`)
+            .then((res) => {
+
+                console.log('res.data', res.data);
+
+                this.setState({
+                    isLoading: false,
+                    payload: res.data.payload
+                });
+
+
+            }).catch((err) => {
+                console.log(err);
+            })
+    }
+
+    render(){
+        return (
+            <div style={{
+                height: "100%",
+                overflow: 'hidden',
+                display: 'flex',
+                flexDirection: 'column'
+            }}>
+                <div style={{ maxHeight: "96%", overflow: 'scroll' }}>
+                <div className="modal-body">
+                    { this.state.isLoading &&
+                        <MDSpinner
+                            size={24}
+                            color1="#498CBB"
+                            color2="#8F6693"
+                            color3="#5ACAFA"
+                            color4="#C7B3CA"
+                        />
+                    }
+
+                    { !this.state.isLoading &&
+                        <PrismCode component="pre" className="language-markup">
+                            { this.state.payload }
+                        </PrismCode>
+                    }
+
+                </div>
+            </div>
+
+                <div className="modal-footer">
+                    <button type="button" className="btn btn-secondary" onClick={this.props.dismiss}>Close</button>
+                </div>
+
+            </div>
         );
     }
 }

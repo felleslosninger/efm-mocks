@@ -1,4 +1,6 @@
-const {pollDPE} = require("./src/dpePoller");
+const xml2js = require('xml2js');
+const { parseXml } = require("./src/utils");
+const {pollMessage} = require("./src/messagePoller");
 const mocks = require('./src/mocks');
 const soap = require('soap');
 const express = require('express');
@@ -6,9 +8,8 @@ const fs = require('fs');
 const axios = require('axios');
 const morgan = require('morgan')
 const bodyParser = require('body-parser');
-const { parseString } = require('xml2js');
 const path = require('path');
-const stripPrefix = require('xml2js').processors.stripPrefix;
+const js2xmlparser = require("js2xmlparser");
 process.env.PORT = process.env.PORT || 8002;
 
 let app = express();
@@ -16,31 +17,57 @@ app.use(morgan('combined'));
 
 global.dpeDB = [];
 
-pollDPE();
-
+pollMessage();
 app.use(express.static(`${__dirname}/client/build`));
 
-app.post('/api/send', bodyParser, (req, res, next) => {
+app.post('/api/send', bodyParser.json({limit: '50mb'}), (req, res, next) => {
 
     let url = 'http://localhost:9093/noarkExchange';
+
     axios({
             url,
             method: 'POST',
-            headers: { 'content-type': 'text/xml' },
+            headers: { 'content-type': 'text/xml;charset=utf-8' },
             data: req.body.payload
-    }).then((response) => {
+    }).then(() => {
         res.send("OK");
     }).catch((error) => {
+        console.log(error);
+        // The IP returns XML so we need to parse the response:
+        parseXml(error.response.data, (err, parsed) => {
+            if (err) {
+                res.status(error.response.status)
+                    .send(error.response.statusText);
+            } else {
+                // IP will return 500 status code even though the payload returns a 404:
+                if (parsed.envelope.body["0"].fault["0"].faultstring["0"].includes(404)){
+                    res.status(404)
+                        .send("The specified recipient does not support this message type. Please check that the org number you are trying to send to has a record in the SR MOCK.");
+                } else {
+                    res.status(error.response.status)
+                        .send(error.response.statusText);
+                }
+            }
+
+        })
+
+    });
+});
+
+app.get('/outgoing', (req, res) => {
+    axios({
+        url: 'http://localhost:9093/conversations',
+        method: 'GET'
+    }).then((response) => {
+        // console.log(response);
+        res.send(response.data);
+    }).catch((error) => {
+        console.log(error);
         res.status(error.response.status)        // HTTP status 404: NotFound
             .send(error.response.statusText);
     });
 });
 
-const parseXml = (xml, callback) => {
-    parseString(xml, { normalizeTags: true, tagNameProcessors: [ stripPrefix ] }, (err, js) => {
-        callback(err, js);
-    });
-};
 
 const getRawBody = (req, res, next) => {
 
@@ -56,17 +83,11 @@ const getRawBody = (req, res, next) => {
 };
 
 app.get('/p360', (req, res) => {
-
-    console.log('ding!');
-
     res.type('application/xml');
     res.sendFile(`${__dirname}/wsdl/p360.wsdl`);
 });
 
 app.post('/p360/*', (req, res) => {
-
-    console.log('ding!');
-
     res.type('application/xml');
     res.sendFile(`${__dirname}/wsdl/p360.wsdl`);
 });
@@ -75,8 +96,24 @@ app.post('/p360/*', (req, res) => {
 let dpfDB = new Map();
 
 app.get('/api/messages', (req, res) => {
-    res.send(JSON.stringify([...dpfDB]));
+    res.send(JSON.stringify(
+        [...dpfDB].map(
+            // Removing the payload from the response because it is too big:
+            (message) => [ message[0], { ...message[1], payload: null } ])
+    ));
 });
+
+app.get('/api/messages/payload/:conversationId', (req, res) => {
+
+    let payload = dpfDB.get(req.params.conversationId);
+
+    if (payload) {
+        res.send(payload);
+    } else {
+        res.status(404).send("Message not found.");
+    }
+});
+
 
 app.get('/api/dpe/messages', (req, res) => {
     res.json(global.dpeDB);
@@ -121,8 +158,18 @@ app.post('/p360',
                         return console.log(err);
                     }
 
+
+                    // getProcessedPayloadXML(parsed);
+
+                    parsedPayload.melding.journpost["0"].dokument["0"].fil["0"].base64["0"] = 'File content removed';
+
+                    parsed.envelope.body["0"].putmessagerequest["0"].payload["0"] = parsedPayload;
+
+                    var builder = new xml2js.Builder();
+
                     let message = {
                         conversationId : conversationId,
+                        payload: builder.buildObject(parsed),
                         sender: {
                             name: parsed.envelope.body["0"].putmessagerequest["0"].envelope["0"].sender["0"].name["0"],
                             orgnr: parsed.envelope.body["0"].putmessagerequest["0"].envelope["0"].sender["0"].orgnr["0"]
@@ -160,9 +207,6 @@ app.post('/p360',
 });
 
 app.get('/*', function (req, res) {
-
-    console.log(`${__dirname}/client/build`);
-
     res.sendFile(`${__dirname}/client/build/index.html`);
 });
 

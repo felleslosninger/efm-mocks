@@ -9,15 +9,7 @@ import {
 import ReactModal from 'react-modal';
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Navbar from "./components/Navbar/Navbar";
-import NewMessage from "./pages/NewMessage/NewMessage";
-import dpe from "./pages/dpe";
-
-
-let messages = [
-    {
-        title: 'melding 1'
-    }
-];
+import SentMessages from "./pages/SentMessages";
 
 ReactModal.setAppElement('#root');
 
@@ -31,11 +23,10 @@ class App extends Component {
                       <div className="row">
                           <Sidebar />
                           <Route exact path="/" component={Dashboard}/>
-                          <Route exact path="/new" component={NewMessage}/>
-                          <Route exact path="/dpe" component={dpe}/>
+                          <Route exact path="/sent" component={SentMessages}/>
                       </div>
                   </Router>
-                  </div>
+              </div>
           </div>
         );
     }

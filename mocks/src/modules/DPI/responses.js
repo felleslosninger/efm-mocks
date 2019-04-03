@@ -38,14 +38,11 @@ function receiveDPI(req, res){
         },
         (err, js) => {
 
-
-
             if (js.envelope.header["0"].messaging["0"].signalmessage["0"].pullrequest) {
                 console.log('stop');
             } else {
                 console.log("also stop");
             }
-
 
             let created = new moment().format();
             let expires = new moment().add(5, 'minutes').format();

@@ -1,4 +1,3 @@
-// const db = require("../../db");
 const { parseString } = require('xml2js');
 const move = require("../helper").move;
 const makeid = require("../helper").makeid;
@@ -153,6 +152,7 @@ function DownloadFileStreamedBasic(req, res) {
                     });
                 }
                     writeResponse();
+                    global.dpoDB.delete(reportee);
             }
         });
     }
@@ -198,7 +198,7 @@ function UploadFileStreamedBasic(req, res) {
                                             global.dpoDB.set(recipient, [ file ]);
                                         }
 
-                                        console.log('stop');
+
                                         res.send(`<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.altinn.no/services/ServiceEngine/Broker/2015/06">
                                                    <soapenv:Header/>
                                                    <soapenv:Body>
