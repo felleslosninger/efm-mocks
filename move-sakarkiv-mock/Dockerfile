@@ -14,6 +14,7 @@ RUN npm install
 # Copy frontend code:
 COPY ./client /usr/src/app/client
 
+ENV NODE_ENV=production
 
 # If you are building your code for production
 # RUN npm install --only=production
