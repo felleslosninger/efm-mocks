@@ -48,106 +48,9 @@ Wiremock simulerer Service Registry, og er nødvendig for at Integrasjonspunktet
 
 I ```Wiremock/__files/identifier```, må det ligge ligge en config fil for organisasjonen man ønsker å sende til, og filen må inneholde nødvendig konfigurasjon for meldingsformiddleren man ønsker å bruke.
 
-Se ```Wiremock/__files/identifier``` for eksempler på alle de støttede meldinsformiddlerene.
+Se ```Wiremock/__files/identifier``` for eksempler på alle de støttede meldingstypene.
 
 Se veiledning under for wiremock oppsett for de spesifike meldingstypene.
-
-
-##### DPE
-
-
-###### Integrasjonspunkt
-
-Sett følgende properties:
-```
-difi.move.feature.enableDPE=true
-difi.move.nextmove.serviceBus.host=local:8001/dpe
-```
-###### Wiremock:
-Opprett service record som koresponderer med org nummeret du skal sende til.
-Se Wiremock/__files/identifier/dpe_sample. 
-Pass på at virksomhetssertifikatet er riktig. 
-
-##### DPF
-
-###### Integrasjonspunkt
-
-Sett følgende properties:
-```
-difi.move.feature.enableDPF=true
-difi.move.fiks.ut.endpointUrl=http://localhost:8001/dpf
-difi.move.fiks.inn.baseUrl=http://localhost:8001/svarinn
-difi.move.fiks.ut.username=username
-difi.move.fiks.ut.password=password
-difi.move.fiks.inn.mailOnError=false
-```
-###### Wiremock:
-Opprett service record som koresponderer med org nummeret du skal sende til.
-Se Wiremock/__files/identifier/dpf_sample. 
-Pass på at virksomhetssertifikatet er riktig, og endpointURL er satt til localhost:8001/dpf 
-
-
-
-##### DPO
-
-###### Integrasjonspunkt
-
-Sett følgende properties:
-```
-difi.move.feature.enableDPO=true
-difi.move.noarkSystem.type=p360
-logging.level.no.difi.meldingsutveksling.noarkexchange.altinn=debug
-logging.level.org.springframework.ws.client.MessageTracing=TRACE
-logging.level.org.springframework.ws.server.MessageTracing=TRACE     
-difi.move.noarkSystem.endpointURL=http://localhost:8001/noark
-
-```
-###### Wiremock:
-Opprett service record som koresponderer med org nummeret du skal sende til.
-Se Wiremock/__files/identifier/dpo_sample. 
-Pass på at virksomhetssertifikatet er riktig, og endpointURL er satt til localhost:8001/dpo
-
-
-##### DPI
-
-###### Integrasjonspunkt
-
-Sett følgende properties:
-```
-difi.move.feature.enableDPI=true
-difi.move.dpi.endpoint=http://localhost:8080/as4
-difi.move.dpi.trustStore.path=<path til din .jks>/demo.jks
-difi.move.dpi.trustStore.password=changeit
-```
-
-TODO: Beskriv oppsett av sertifikater.
-
-###### Wiremock:
-Opprett service record som koresponderer med org nummeret du skal sende til.
-Se Wiremock/__files/identifier/dpi_sample. 
-Pass på at virksomhetssertifikatet er riktig.
-
-
-##### DPV
-
-###### Integrasjonspunkt
-
-Sett følgende properties:
-```
-difi.move.feature.enableDPV=true
-difi.move.dpv.username=whatever
-difi.move.dpv.password=whatever
-difi.move.dpv.endpointUrl=http://localhost:8001/dpv/
-```
-
-TODO: Beskriv oppsett av sertifikater.
-
-###### Wiremock:
-Opprett service record som koresponderer med org nummeret du skal sende til.
-Se Wiremock/__files/identifier/dpv_sample. 
-Pass på at virksomhetssertifikatet er riktig, og endpointURL er satt til localhost:8001/dpv.
-
-
 
 
 #### Integrasjonspunkt
@@ -160,11 +63,17 @@ Angi urlen til Wiremock:
 
 ##### DPI
 
-```difi.move.dpi.endpoint=http://localhost:8001/dpi```
+```
+difi.move.feature.enableDPI=true
+difi.move.dpi.endpoint=http://localhost:8080/as4
+difi.move.dpi.trustStore.path=<path til din .jks>/demo.jks
+difi.move.dpi.trustStore.password=changeit
+```
 
 ##### DPV
 
 ```
+difi.move.feature.enableDPV=true
 difi.move.dpv.username=whatever
 difi.move.dpv.password=whatever
 difi.move.dpv.endpointUrl=http://localhost:8001/dpv/
@@ -172,20 +81,29 @@ difi.move.dpv.endpointUrl=http://localhost:8001/dpv/
 
 ##### DPF
 ```
+difi.move.feature.enableDPF=true
 difi.move.fiks.ut.endpointUrl=http://localhost:8001/dpf
+difi.move.fiks.inn.baseUrl=http://localhost:8001/svarinn
 difi.move.fiks.ut.username=username
 difi.move.fiks.ut.password=password
 difi.move.fiks.inn.mailOnError=false
-difi.move.fiks.inn.baseUrl=http://localhost:8001
 ```
 
 ##### DPO
 ```
+difi.move.feature.enableDPO=true
 difi.move.noarkSystem.type=p360
 logging.level.no.difi.meldingsutveksling.noarkexchange.altinn=debug
 logging.level.org.springframework.ws.client.MessageTracing=TRACE
 logging.level.org.springframework.ws.server.MessageTracing=TRACE     
 difi.move.noarkSystem.endpointURL=http://localhost:8001/noark
+```
+
+##### DPE
+
+```
+difi.move.feature.enableDPE=true
+difi.move.nextmove.serviceBus.host=local:8001/dpe
 ```
 
 #### Kjør mocks uten docker
@@ -211,6 +129,4 @@ MoveMocks inneholder også jMeter tester. Disse kan brukes til ytelses testing, 
 3. Kjør testen.
 
 Dersom alt er satt opp korrekt, vil meldingene gå igjennom, og du vil få et tall på hvor lang tid det tok i terminalen i jMeter. 
-
-
 
