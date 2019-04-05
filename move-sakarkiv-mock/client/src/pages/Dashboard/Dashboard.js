@@ -99,7 +99,6 @@ export default class Dashboard extends React.Component {
                     <h1 className="h2">Incoming messages</h1>
                 </div>
 
-                <h2>Section title</h2>
                 <div className="table-responsive">
 
                     <ReactTable
