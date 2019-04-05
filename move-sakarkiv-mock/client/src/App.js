@@ -22,8 +22,8 @@ class App extends Component {
                   <Router>
                       <div className="row">
                           <Sidebar />
-                          <Route exact path="/" component={Dashboard}/>
-                          <Route exact path="/sent" component={SentMessages}/>
+                          <Route exact path={`${process.env.PUBLIC_URL}/`} component={Dashboard}/>
+                          <Route exact path={`${process.env.PUBLIC_URL}/sent`} component={SentMessages}/>
                       </div>
                   </Router>
               </div>
