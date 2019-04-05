@@ -17,7 +17,7 @@ process.env.IP_URL = process.env.IP_URL || "http://localhost:9093";
 
 const env = process.env.NODE_ENV || 'dev';
 
-const baseUrl = env === 'production' ? '/move-mocks/sa-mock' : '';
+const baseUrl = env === 'production' ? '' : '';
 
 
 let app = express();
@@ -67,7 +67,6 @@ app.get(`${baseUrl}/api/outgoing`, (req, res) => {
         url: `${process.env.IP_URL}/conversations`,
         method: 'GET'
     }).then((response) => {
-        // console.log(response);
         res.send(response.data);
     }).catch((error) => {
         console.log(error);
