@@ -19,11 +19,11 @@ class App extends Component {
           <div>
               <Navbar />
               <div className="container-fluid">
-                  <Router>
+                  <Router basename="/move-mocks/sa-mock">
                       <div className="row">
                           <Sidebar />
-                          <Route exact path={`${process.env.PUBLIC_URL}/`} component={Dashboard}/>
-                          <Route exact path={`${process.env.PUBLIC_URL}/sent`} component={SentMessages}/>
+                          <Route exact path="/" component={Dashboard}/>
+                          <Route exact path="/sent" component={SentMessages}/>
                       </div>
                   </Router>
               </div>
