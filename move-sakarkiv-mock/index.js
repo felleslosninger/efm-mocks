@@ -6,11 +6,15 @@ const soap = require('soap');
 const express = require('express');
 const fs = require('fs');
 const axios = require('axios');
-const morgan = require('morgan')
+const morgan = require('morgan');
 const bodyParser = require('body-parser');
-const path = require('path');
-const js2xmlparser = require("js2xmlparser");
+
 process.env.PORT = process.env.PORT || 8002;
+process.env.ORG_NUM = process.env.ORG_NUM || 991825827;
+process.env.ORG_NAME = process.env.ORG_NAME || "DIREKTORATET FOR FORVALTNING OG IKT";
+process.env.EMAIL = process.env.EMAIL || "idporten@difi.no";
+process.env.IP_URL = process.env.IP_URL || "http://localhost:9093";
+
 
 let app = express();
 app.use(morgan('combined'));
@@ -22,7 +26,7 @@ app.use(express.static(`${__dirname}/client/build`));
 
 app.post('/api/send', bodyParser.json({limit: '50mb'}), (req, res, next) => {
 
-    let url = 'http://localhost:9093/noarkExchange';
+    let url = `${process.env.IP_URL}/noarkExchange`;
 
     axios({
             url,
@@ -56,7 +60,7 @@ app.post('/api/send', bodyParser.json({limit: '50mb'}), (req, res, next) => {
 
 app.get('/outgoing', (req, res) => {
     axios({
-        url: 'http://localhost:9093/conversations',
+        url: `${process.env.IP_URL}/conversations`,
         method: 'GET'
     }).then((response) => {
         // console.log(response);
@@ -158,14 +162,11 @@ app.post('/p360',
                         return console.log(err);
                     }
 
-
-                    // getProcessedPayloadXML(parsed);
-
                     parsedPayload.melding.journpost["0"].dokument["0"].fil["0"].base64["0"] = 'File content removed';
 
                     parsed.envelope.body["0"].putmessagerequest["0"].payload["0"] = parsedPayload;
 
-                    var builder = new xml2js.Builder();
+                    let builder = new xml2js.Builder();
 
                     let message = {
                         conversationId : conversationId,

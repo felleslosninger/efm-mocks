@@ -37,13 +37,13 @@ public class DPIEndpoint {
     private static final String NAMESPACE_URI = "http://www.unece.org/cefact/namespaces/StandardBusinessDocumentHeader";
 
 
-//    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "SignalMessage")
-//    @ResponsePayload
-//    public void receipt(@RequestPayload StandardBusinessDocument sbd, MessageContext context) throws OxalisAs4Exception, SOAPException {
-//
-//        System.out.println("stop");
-//
-//    }
+    @PayloadRoot(localPart = "SignalMessage")
+    @ResponsePayload
+    public void receipt(@RequestPayload Object sbd, MessageContext context) throws OxalisAs4Exception, SOAPException {
+
+        System.out.println("stop");
+
+    }
 
 
 
