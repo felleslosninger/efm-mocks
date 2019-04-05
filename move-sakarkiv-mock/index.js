@@ -15,11 +15,6 @@ process.env.ORG_NAME = process.env.ORG_NAME || "DIREKTORATET FOR FORVALTNING OG 
 process.env.EMAIL = process.env.EMAIL || "idporten@difi.no";
 process.env.IP_URL = process.env.IP_URL || "http://localhost:9093";
 
-const env = process.env.NODE_ENV || 'dev';
-
-const baseUrl = env === 'production' ? '' : '';
-
-
 let app = express();
 app.use(morgan('combined'));
 
@@ -28,7 +23,7 @@ global.dpeDB = [];
 pollMessage();
 app.use(express.static(`${__dirname}/client/build`));
 
-app.post(`${baseUrl}/api/send`, bodyParser.json({limit: '50mb'}), (req, res, next) => {
+app.post(`/api/send`, bodyParser.json({limit: '50mb'}), (req, res, next) => {
 
     let url = `${process.env.IP_URL}/noarkExchange`;
 
@@ -62,7 +57,7 @@ app.post(`${baseUrl}/api/send`, bodyParser.json({limit: '50mb'}), (req, res, nex
     });
 });
 
-app.get(`${baseUrl}/api/outgoing`, (req, res) => {
+app.get(`/api/outgoing`, (req, res) => {
     axios({
         url: `${process.env.IP_URL}/conversations`,
         method: 'GET'
@@ -102,7 +97,7 @@ app.post('/p360/*', (req, res) => {
 
 let dpfDB = new Map();
 
-app.get(`${baseUrl}/api/messages`, (req, res) => {
+app.get(`/api/messages`, (req, res) => {
     res.send(JSON.stringify(
         [...dpfDB].map(
             // Removing the payload from the response because it is too big:
@@ -110,7 +105,7 @@ app.get(`${baseUrl}/api/messages`, (req, res) => {
     ));
 });
 
-app.get(`${baseUrl}/api/messages/payload/:conversationId`, (req, res) => {
+app.get(`/api/messages/payload/:conversationId`, (req, res) => {
 
     let payload = dpfDB.get(req.params.conversationId);
 
@@ -122,11 +117,11 @@ app.get(`${baseUrl}/api/messages/payload/:conversationId`, (req, res) => {
 });
 
 
-app.get(`${baseUrl}/api/dpe/messages`, (req, res) => {
+app.get(`/api/dpe/messages`, (req, res) => {
     res.json(global.dpeDB);
 });
 
-app.post(`${baseUrl}/p360`,
+app.post(`/p360`,
     getRawBody,
     (req, res) => {
     parseXml(req.rawBody, (err, parsed) => {

@@ -13,13 +13,15 @@ import SentMessages from "./pages/SentMessages";
 
 ReactModal.setAppElement('#root');
 
+const baseName = process.env.NODE_ENV === 'production' ? '/move-mocks/sa-mock' : '';
+
 class App extends Component {
     render() {
         return (
           <div>
               <Navbar />
               <div className="container-fluid">
-                  <Router basename="/move-mocks/sa-mock">
+                  <Router basename={baseName}>
                       <div className="row">
                           <Sidebar />
                           <Route exact path="/" component={Dashboard}/>

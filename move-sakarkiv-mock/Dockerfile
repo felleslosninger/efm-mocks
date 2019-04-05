@@ -27,4 +27,4 @@ COPY . .
 
 EXPOSE 8002
 
-CMD [ "npm", "REACT_APP_TEST_VAR=123 start" ]
+CMD [ "npm", "start" ]
