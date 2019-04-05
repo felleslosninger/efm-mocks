@@ -65,6 +65,8 @@ export default class Dashboard extends React.Component {
 
     componentDidMount() {
 
+        console.log(process.env.REACT_APP_TEST_VAR);
+
         axios.get('/api/messages').then((res) => {
             let db = new Map(res.data);
             this.setState({
