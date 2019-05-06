@@ -13,11 +13,18 @@ MoveMocks lar deg simulere de forskjellige meldingsformidlertjenestene.
 
 ### Oppstart
 
-```
-git clone https://github.com/difi/move-mocks.git
-cd move-mocks
-docker-compose up
-```
+Dersom du skal kjøre DPI mocken må du utføre følgende skritt før docker-compose up:
+
+1. Legge en keystore jks fil i /dpimock/main/resources mappen
+2. Legge en truststore jks fil i /dpimock/main/resources mappen
+3. Sette navn på jks filene i application.properties:
+    ```
+    keystore.name=altinn.jks
+    truststore.name=demo.jks
+    ```
+
+4. Bygg dpimock prosjektet: ``` cd /dpimock && ./mvnw install dockerfile:build ```
+5. Kjør ``` docker-compose up ``` i roten av prosjektet. 
 
 Du har nå følgende applikasjoner kjørende:
 

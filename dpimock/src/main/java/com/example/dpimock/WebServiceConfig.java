@@ -2,6 +2,7 @@ package com.example.dpimock;
 
 import org.apache.wss4j.common.crypto.Crypto;
 import org.apache.wss4j.common.crypto.Merlin;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -34,6 +35,12 @@ import static util.Constants.RSA_SHA256;
 @EnableWs
 @Configuration
 public class WebServiceConfig extends WsConfigurerAdapter {
+
+    @Value("${keystore.name}")
+    private String keystoreName;
+
+    @Value("${truststore.name}")
+    private String truststoreName;
 
     @Bean
     public SaajSoapMessageFactory messageFactory() {
@@ -84,8 +91,8 @@ public class WebServiceConfig extends WsConfigurerAdapter {
 
     private Crypto getCrypto(){
         Merlin merlin = new Merlin();
-        merlin.setKeyStore(getKeyStore("altinn.jks"));
-        merlin.setTrustStore(getKeyStore("demo.jks"));
+        merlin.setKeyStore(getKeyStore(keystoreName));
+        merlin.setTrustStore(getKeyStore(truststoreName));
         return merlin;
     }
 
