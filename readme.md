@@ -114,11 +114,8 @@ difi.move.nextmove.serviceBus.host=local:8001/dpe
 
 3. Mocken er nå klar til å ta imot meldinger fra Integrasjonspunktet.
 
-Meldinger som mocken har mottat kan ses på:
+Meldinger som mocken har mottat kan ses på [http://localhost:8001](http://localhost:8001):
 
-* [DPV](http://localhost:8001/messages/dpv)
-* [DPO](http://localhost:8001/messages/dpo)
-* [DPF](http://localhost:8001/messages/dpf)
 
 #### jMeter
 

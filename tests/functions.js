@@ -34,7 +34,7 @@ function checkStatuses(convIds, ipUrl) {
     }))
         .then((res) => {
 
-            let statuses =  res.map((response) =>
+            let statuses = res.map((response) =>
                 response.body.messageStatuses
                     .some((status) => status.status === 'SENDT'));
 

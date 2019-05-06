@@ -9,7 +9,7 @@ export default class Sidebar extends React.Component {
                 <div className="sidebar-sticky">
                     <ul className="nav flex-column">
                         <li className="nav-item">
-                            <NavLink to='/' exact activeClassName="active" className="nav-link" >
+                            <NavLink to='/incoming' exact activeClassName="active" className="nav-link" >
                                 <span data-feather="home" />
                                 Incoming messages <span className="sr-only">(current)</span>
                             </NavLink>

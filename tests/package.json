@@ -4,6 +4,9 @@
   "description": "",
   "main": "bestEdu.js",
   "dependencies": {
+    "axios": "^0.18.0",
+    "moment": "^2.24.0",
+    "request": "^2.88.0",
     "superagent": "^4.1.0",
     "uuid": "^3.3.2",
     "yargs": "^13.2.1"

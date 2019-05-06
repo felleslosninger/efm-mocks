@@ -104,12 +104,26 @@ export default class MessageForm extends React.Component {
                         }
                     });
                 }).catch((err) => {
-                    this.setState({
-                        isCheckingBR: false,
-                        error: {
-                            message: err.response.statusText
-                        }
-                    });
+
+
+
+
+                    // this.setState({
+                    //     isCheckingBR: false,
+                    //     error: {
+                    //         message: err.response.statusText
+                    //     }
+                    // });
+
+                this.setState({
+                    isCheckingBR: false,
+                    error: null,
+                    selectedOrg: {
+                        orgNum: orgNum,
+                        orgName: "Test Organisasjon"
+                    }
+                });
+
             });
         });
     };

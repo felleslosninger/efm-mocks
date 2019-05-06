@@ -7,9 +7,10 @@ import {
     Route,
 } from 'react-router-dom';
 import ReactModal from 'react-modal';
-import Dashboard from "./pages/Dashboard/Dashboard";
+import IncomingMessages from "./pages/IncomingMessages";
 import Navbar from "./components/Navbar/Navbar";
 import SentMessages from "./pages/SentMessages";
+import Dashboard from "./pages/Dashboard";
 
 ReactModal.setAppElement('#root');
 
@@ -18,18 +19,19 @@ const baseName = process.env.NODE_ENV === 'production' ? '/move-mocks/sa-mock' :
 class App extends Component {
     render() {
         return (
-          <div>
-              <Navbar />
-              <div className="container-fluid">
-                  <Router basename={baseName}>
-                      <div className="row">
-                          <Sidebar />
-                          <Route exact path="/" component={Dashboard}/>
-                          <Route exact path="/sent" component={SentMessages}/>
-                      </div>
-                  </Router>
-              </div>
-          </div>
+            <Router basename={baseName}>
+                <div>
+                    <Navbar />
+                    <div className="container-fluid">
+                        <div className="row">
+                            <Sidebar />
+                            <Route exact path="/" component={Dashboard}/>
+                            <Route exact path="/incoming" component={IncomingMessages}/>
+                            <Route exact path="/sent" component={SentMessages}/>
+                        </div>
+                    </div>
+                </div>
+            </Router>
         );
     }
 }

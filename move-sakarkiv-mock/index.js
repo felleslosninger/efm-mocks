@@ -15,12 +15,17 @@ process.env.ORG_NAME = process.env.ORG_NAME || "DIREKTORATET FOR FORVALTNING OG 
 process.env.EMAIL = process.env.EMAIL || "idporten@difi.no";
 process.env.IP_URL = process.env.IP_URL || "http://localhost:9093";
 
+console.log(process.env);
+
 let app = express();
 app.use(morgan('combined'));
 
 global.dpeDB = [];
 
 pollMessage();
+
+console.log(`${__dirname}/client/build`);
+
 app.use(express.static(`${__dirname}/client/build`));
 
 app.post(`/api/send`, bodyParser.json({limit: '50mb'}), (req, res, next) => {

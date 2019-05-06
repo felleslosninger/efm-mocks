@@ -152,7 +152,7 @@ function DownloadFileStreamedBasic(req, res) {
                     });
                 }
                     writeResponse();
-                    global.dpoDB.delete(reportee);
+                    // global.dpoDB.delete(reportee);
             }
         });
     }

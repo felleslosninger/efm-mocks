@@ -20,7 +20,7 @@ ENV NODE_ENV=production
 # RUN npm install --only=production
 
 # Install frondend dependencies:
-RUN cd client && rm -rf node_modules/ && npm i && npm run build && cd ..
+RUN cd client && rm -rf node_modules/ && npm i && rm -rf build/ && npm run build && cd ..
 
 # Bundle app source
 COPY . .

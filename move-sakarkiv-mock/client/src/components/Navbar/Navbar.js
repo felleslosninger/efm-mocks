@@ -2,6 +2,7 @@ import React from 'react';
 import './Navbar.css';
 import ReactModal from 'react-modal';
 import MessageForm from "../../pages/NewMessage/NewMessageModal/MessageForm";
+import {Link} from "react-router-dom";
 
 const modalStyle = {
     overlay: {
@@ -47,10 +48,10 @@ export default class Navbar extends React.Component {
 
 
                 <div className="navbar-header">
-                    <a className="mock-logo">
+                    <Link to={'/'} className="mock-logo">
                         <img src="difi.jpg" />
                         <div className="logo-text">Sak/Arkiv mock</div>
-                    </a>
+                    </Link>
                 </div>
 
                 {/*<a className="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Move Sak/Arkiv</a>*/}

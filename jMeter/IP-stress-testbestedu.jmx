@@ -57,7 +57,7 @@
             </elementProp>
             <elementProp name="testFile" elementType="Argument">
               <stringProp name="Argument.name">testFile</stringProp>
-              <stringProp name="Argument.value">/Users/adam.haeger/Projects/mocks/jMeter/5MB.pdf</stringProp>
+              <stringProp name="Argument.value">/Users/adam.haeger/Projects/mocks/jMeter/liten.pdf</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
               <stringProp name="Argument.desc">Full system path to the file you wish to send.</stringProp>
             </elementProp>

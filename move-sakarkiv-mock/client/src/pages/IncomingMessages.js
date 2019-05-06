@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactTable from "react-table";
 import "react-table/react-table.css";
-import './Dashboard.css';
 import ReactModal from 'react-modal';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -39,7 +38,7 @@ const modalStyle = {
 
 const baseUrl = process.env.NODE_ENV === 'production' ? '/move-mocks/sa-mock' : '';
 
-export default class Dashboard extends React.Component {
+export default class IncomingMessages extends React.Component {
 
     state = {
         showNewMessage: false,

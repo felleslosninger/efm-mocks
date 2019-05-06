@@ -2,12 +2,10 @@ import React from 'react';
 import ReactTable from "react-table";
 import {toast, ToastContainer} from "react-toastify";
 import "react-table/react-table.css";
-import './Dashboard/Dashboard.css';
 import ReactModal from 'react-modal';
-import 'react-toastify/dist/ReactToastify.css';
 import MessageForm from "./NewMessage/NewMessageModal/MessageForm";
 import axios from "axios";
-
+import 'react-toastify/dist/ReactToastify.css';
 
 const modalStyle = {
     overlay: {
@@ -37,13 +35,15 @@ const modalStyle = {
     }
 };
 
+const baseUrl = process.env.NODE_ENV === 'production' ? '/move-mocks/sa-mock' : '';
+
 export default class SentMessages extends React.Component {
     
     state = {
     };
 
     poll = () => {
-        axios.get('/outgoing').then((res) => {
+        axios.get(`${baseUrl}/api/outgoing`).then((res) => {
 
             if (res.data.length !== this.state.messages.length) {
                 this.setState({
@@ -61,7 +61,7 @@ export default class SentMessages extends React.Component {
 
     componentDidMount() {
         this.timer = null;
-        axios.get('/outgoing').then((res) => {
+        axios.get(`${baseUrl}/api/outgoing`).then((res) => {
             this.setState({
                 messages: res.data
             });

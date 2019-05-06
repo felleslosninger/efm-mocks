@@ -1,4 +1,4 @@
-// const dpfDB = require("./dpfDB").dpfDB;
+
 
 function retrieveforsendelsestatus(req, res, parsed){
 
@@ -33,10 +33,8 @@ function sendforsendelsemedid(){
                         </soap:Envelope>`;
 }
 
-
 function PutMessage(){
-
-    let message = `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:typ="http://www.arkivverket.no/Noark/Exchange/types">
+    return `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:typ="http://www.arkivverket.no/Noark/Exchange/types">
               <soapenv:Header/>
               <soapenv:Body>
                  <typ:PutMessageResponse>
@@ -46,17 +44,13 @@ function PutMessage(){
                  </typ:PutMessageResponse>
               </soapenv:Body>
             </soapenv:Envelope>`;
-
-    return message;
 }
 
 function hentForsendelsefil(req, res){
     res.header("Content-Type", "application/zip; charset=UTF-8");
 
     const childProcess = require('child_process');
-
     let message = global.dpfDB.get(res.req.params.forsendelsesId);
-
     let certPath = `${__dirname}/server.pem`;
     let encryptedPath = `${__dirname}/uploads/${res.req.params.forsendelsesId}-encrypted-new`;
 
