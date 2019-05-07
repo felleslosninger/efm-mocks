@@ -57,7 +57,19 @@ async function sendLargeMessage(sbd){
     } catch(err) {
         // console.log(err);
 
-        console.log(JSON.stringify(err, null, 2));
+        // console.log(JSON.stringify(err, null, 2));
+
+        let error = JSON.parse(JSON.stringify(err))
+
+        // console.log(JSON.stringify(error, null, 2));
+
+        let text = JSON.parse(error.response.text)
+        // console.log(text.message);
+        // console.log(text.exception);
+        console.log(JSON.stringify(text, null, 2));
+
+
+        throw Error(err);
 
         // console.log(err.message);
         // console.log(err.status);
@@ -81,8 +93,15 @@ async function sendMessages(){
 
 
     console.log('Sending message with process: \'kulturIdrettOgFritid\'');
-    await sendLargeMessage(StandardBusinessDocument(991825827, 991825827, 'arkivmelding', 'arkivmelding', 'kulturIdrettOgFritid', uuidv1(), uuidv1()))
-    console.log('Message with process: \'kulturIdrettOgFritid\' sent OK');
+    try {
+        await sendLargeMessage(StandardBusinessDocument(991825827, "06068700602", 'digital', 'digital', 'kulturIdrettOgFritid', uuidv1(), uuidv1()))
+        console.log('Message with process: \'kulturIdrettOgFritid\' sent OK');
+    } catch(err){
+        // console.log(err);
+        // console.log('Sending failed.');
+    }
+
+
 
 
 }

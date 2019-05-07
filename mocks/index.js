@@ -8,6 +8,7 @@ const morgan = require('morgan');
 const messageTable = require('./src/components/messageTable').messageTable;
 const rimraf = require('rimraf');
 const fs = require('fs');
+const request = require('superagent');
 
 global.dpoDB = new Map();
 global.dpfDB = new Map();
@@ -95,6 +96,25 @@ app.get('/', (req, res) => {
         }
     ];
 
+    let dpiHeaders = [
+        {
+            title: 'Receiver orgnum',
+            accessor: 'receiverOrgNum',
+        },
+        {
+            title: 'Sender orgnum',
+            accessor: 'senderOrgNum',
+        },
+        {
+            title: 'Conversation ID',
+            accessor: 'conversationId',
+        },
+        {
+            title: 'Message ID',
+            accessor: 'messageId',
+        }
+    ];
+
     res.send(`
             <html>
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
@@ -106,6 +126,7 @@ app.get('/', (req, res) => {
                 let dpvHeaders = ${JSON.stringify(dpvHeaders)};
                 let dpeHeaders = ${JSON.stringify(dpeHeaders)};
                 let dpoHeaders = ${JSON.stringify(dpoHeaders)};
+                let dpiHeaders = ${JSON.stringify(dpiHeaders)};
             </script>
            
             <body>
@@ -128,7 +149,9 @@ app.get('/', (req, res) => {
                     ${messageTable(dpvHeaders, 'DPV', global.dpvDB)}
                     
                     ${messageTable(dpeHeaders, 'DPE', global.dpeDB)}
-                     
+                    
+                    ${messageTable(dpiHeaders, 'DPI', [])}
+                  
                </div>
                     </body>
                     <script src="script.js"></script>
@@ -172,13 +195,21 @@ app.post('/api/messages/DPO', (req, res) => {
     })
 });
 
+app.post('/api/messages/dpi', (req, res) => {
+    request.delete('http://localhost:8080/messages')
+        .then((response) => {
+            res.set(200).send();
+        }).catch((err) => {
+        res.status(500).send();
+    })
+});
+
 app.get('/api/messages/DPF', (req, res) => {
     if (global.dpfDB.size > 0) {
         res.send([...global.dpfDB].map(([key, value]) => value)[0]);
     } else {
         res.send([]);
     }
-
 });
 
 app.get('/api/messages/dpe', (req, res) => {
@@ -214,6 +245,15 @@ app.get('/api/messages/DPV', (req, res) => {
     }
 });
 
+app.get('/api/messages/dpi', (req, res) => {
+    request.get('http://localhost:8080/messages')
+        .then((response) => {
+            res.send(JSON.parse(response.text))
+        }).catch((err) => {
+            res.status(500).send();
+        })
+});
+
 // Set up REST mocks:
 restMocks.forEach((mock) => {
     mock.routes
@@ -221,7 +261,6 @@ restMocks.forEach((mock) => {
             if (item.method === 'GET'){
                 app.get(item.path, item.responseFunction)
             } else if (item.method === 'POST') {
-
                 if (item.middleware){
                     app.post(item.path, item.middleware, item.responseFunction);
                 } else {

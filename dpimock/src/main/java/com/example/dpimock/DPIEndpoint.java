@@ -1,7 +1,8 @@
 package com.example.dpimock;
 
+import model.Message;
+import model.MessagesSingleton;
 import no.difi.oxalis.api.model.Direction;
-import no.difi.oxalis.api.model.TransmissionIdentifier;
 import org.oasis_open.docs.ebxml_bp.ebbp_signals_2.MessagePartNRInformation;
 import org.oasis_open.docs.ebxml_bp.ebbp_signals_2.NonRepudiationInformation;
 import org.oasis_open.docs.ebxml_msg.ebms.v3_0.ns.core._200704.*;
@@ -11,8 +12,6 @@ import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;;
-import org.springframework.ws.soap.SoapMessage;
-import org.springframework.ws.soap.addressing.server.annotation.Action;
 import org.springframework.ws.soap.saaj.SaajSoapMessage;
 import org.unece.cefact.namespaces.standardbusinessdocumentheader.StandardBusinessDocument;
 import org.w3.xmldsig.ReferenceType;
@@ -40,9 +39,7 @@ public class DPIEndpoint {
     @PayloadRoot(localPart = "SignalMessage")
     @ResponsePayload
     public void receipt(@RequestPayload Object sbd, MessageContext context) throws OxalisAs4Exception, SOAPException {
-
-        System.out.println("stop");
-
+        System.out.println("Receipt request received");
     }
 
 
@@ -60,6 +57,8 @@ public class DPIEndpoint {
         UserMessage userMessage = SOAPHeaderParser.getUserMessage(soapHeader);
 
         As4EnvelopeHeader envelopeHeader = parseAs4EnvelopeHeader(userMessage);
+
+        saveIncomingMessage(envelopeHeader);
 
         Timestamp ts = getTimestamp(soapMessage);
 
@@ -82,13 +81,27 @@ public class DPIEndpoint {
             ts = systemTimestampProvider.generate(signature, Direction.IN);
 
         } catch (Exception e) {
-
             throw new OxalisAs4Exception("Error generating timestamp", e);
         }
         return ts;
     }
 
+    /**
+     * Create a message in memory that we expose in the incoming messages API.
+     * **/
+    private void saveIncomingMessage(As4EnvelopeHeader header){
+        Message dbMessage = new Message();
+        dbMessage.setConversationId(header.getConversationId());
+        dbMessage.setSenderOrgNum(header.getFromPartyId().get(0));
+        dbMessage.setReceiverOrgNum(header.getToPartyId().get(0));
+        dbMessage.setMessageId(header.getMessageId());
+        MessagesSingleton.getInstance().addMessage(dbMessage);
+
+    }
+
     private As4EnvelopeHeader parseAs4EnvelopeHeader(UserMessage userMessage) {
+
+
 
         As4EnvelopeHeader as4EnvelopeHeader = new As4EnvelopeHeader();
 
@@ -122,6 +135,7 @@ public class DPIEndpoint {
     private SOAPMessage createSOAPResponse(Timestamp ts,
                                            String refToMessageId,
                                            List<ReferenceType> referenceList) throws OxalisAs4Exception {
+        Message dbMessage = new Message();
         SignalMessage signalMessage;
         SOAPHeaderElement messagingHeader;
         SOAPMessage message;
@@ -179,6 +193,7 @@ public class DPIEndpoint {
 
         JAXBElement<SignalMessage> userMessageJAXBElement = new JAXBElement<>(Constants.SIGNAL_MESSAGE_QNAME,
                 (Class<SignalMessage>) signalMessage.getClass(), signalMessage);
+
         try {
             Marshaller marshaller = Marshalling.getInstance().getJaxbContext().createMarshaller();
             marshaller.marshal(userMessageJAXBElement, messagingHeader);

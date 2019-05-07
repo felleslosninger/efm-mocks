@@ -15,9 +15,9 @@ MoveMocks lar deg simulere de forskjellige meldingsformidlertjenestene.
 
 Dersom du skal kjøre DPI mocken må du utføre følgende skritt før docker-compose up:
 
-1. Legge en keystore jks fil i /dpimock/main/resources mappen
-2. Legge en truststore jks fil i /dpimock/main/resources mappen
-3. Sette navn på jks filene i application.properties:
+1. Legge en keystore jks fil i /dpimock/src/main/resources mappen
+2. Legge en truststore jks fil i /dpimock/src/main/resources mappen
+3. Sette navn på jks filene i dpimmock/src/main/resources/application.properties:
     ```
     keystore.name=altinn.jks
     truststore.name=demo.jks

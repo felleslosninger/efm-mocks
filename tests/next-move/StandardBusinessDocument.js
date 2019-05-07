@@ -16,7 +16,7 @@ function StandardBusinessDocument(senderOrgNr, receiverOrgNr, meldingsType, forr
             "receiver": [
                 {
                     "identifier": {
-                        "value": `0192:${receiverOrgNr}`,
+                        "value": `${receiverOrgNr}`,
                         "authority": "iso6523-actorid-upis"
                     },
                     "contactInformation": []
@@ -44,7 +44,26 @@ function StandardBusinessDocument(senderOrgNr, receiverOrgNr, meldingsType, forr
                 ]
             }
         },
-        "arkivmelding": {}
+        "digital": {
+            "sikkerhetsnivaa": "",
+            "ikkeSensitivTittel": "tittel",
+            "spraak": "NO",
+            "primaryDocumentFilename": "test4.pdf",
+            "digitalPostInfo": {
+                "virkningsdato": "",
+                "virkningstidspunkt": "",
+                "aapningskvittering": "false"
+            },
+            "varsler": {
+                "epost": {
+                    "tekst": "Varseltekst"
+                },
+                "sms": {
+                    "tekst": "Varseltekst"
+                }
+            }
+        }
+
     };
 }
 

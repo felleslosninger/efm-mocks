@@ -22,6 +22,7 @@
     "rimraf": "^2.6.3",
     "soap": "^0.24.0",
     "strong-soap": "^1.6.2",
+    "superagent": "^5.0.5",
     "uid": "0.0.2",
     "ws.js": "^2.0.23",
     "xml-stream": "^0.4.5",
