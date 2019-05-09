@@ -21,20 +21,20 @@ function GetAvailableFilesBasic(req, res) {
             let files = global.dpoDB.get(reportee)
 
             let response = `<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
-                          <s:Body>
-                            <GetAvailableFilesBasicResponse xmlns="http://www.altinn.no/services/ServiceEngine/Broker/2015/06">
-                              <GetAvailableFilesBasicResult xmlns:a="http://schemas.altinn.no/services/ServiceEngine/Broker/2015/06" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
-                                ${ files ? files.map((file) =>
-                                    `<BrokerServiceAvailableFile>
-                                        <FileReference>${file.fileReference}</FileReference>
-                                        <ReceiptID>${file.receiptId}</ReceiptID>
-                                    </BrokerServiceAvailableFile>`
-                                    ).join('') : ''
-                                }
-                                </GetAvailableFilesBasicResult>
-                            </GetAvailableFilesBasicResponse>
-                          </s:Body>
-                    </s:Envelope>`;
+                              <s:Body>
+                                <GetAvailableFilesBasicResponse xmlns="http://www.altinn.no/services/ServiceEngine/Broker/2015/06">
+                                  <GetAvailableFilesBasicResult xmlns:a="http://schemas.altinn.no/services/ServiceEngine/Broker/2015/06" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+                                    ${ files ? files.map((file) =>
+                                        `<BrokerServiceAvailableFile>
+                                            <FileReference>${file.fileReference}</FileReference>
+                                            <ReceiptID>${file.receiptId}</ReceiptID>
+                                        </BrokerServiceAvailableFile>`
+                                        ).join('') : ''
+                                    }
+                                    </GetAvailableFilesBasicResult>
+                                </GetAvailableFilesBasicResponse>
+                              </s:Body>
+                        </s:Envelope>`;
             res.send(response);
     });
 }
@@ -152,7 +152,7 @@ function DownloadFileStreamedBasic(req, res) {
                     });
                 }
                     writeResponse();
-                    // global.dpoDB.delete(reportee);
+                    global.dpoDB.delete(reportee);
             }
         });
     }

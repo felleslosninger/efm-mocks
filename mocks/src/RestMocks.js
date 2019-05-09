@@ -84,8 +84,6 @@ const mocks = [
                             retrieveForsendelseIdByEksternRefResponse(req, res, parsed)
                         } else if(parsed.envelope.body["0"].retrieveforsendelsestatus) {
                             retrieveforsendelsestatus(req, res, parsed);
-                        } else {
-                            // res.send
                         }
                     });
                 }
@@ -227,7 +225,10 @@ const mocks = [
                                       <ns:ConfirmDownloadedBasicResponse/>
                                    </soapenv:Body>
                                 </soapenv:Envelope>`);
-
+                    //} else if (req.headers.soapaction === "\"http://www.altinn.no/services/ServiceEngine/Broker/2015/06/IBrokerServiceExternalBasic/ConfirmDownloadedBasic\"") {
+                    } else  {
+                        res.send('halla')
+                        //res.send(InitiateBrokerServiceBasic(req.body))
                     }
                 }
             },
@@ -254,6 +255,8 @@ const mocks = [
                     } else if (req.headers.soapaction === "\"http://www.altinn.no/services/ServiceEngine/Broker/2015/06/IBrokerServiceExternalBasicStreamed/UploadFileStreamedBasic\""){
                         console.log(chalk.blue('\n\nUploadFileStreamedBasic\n\n'));
                         UploadFileStreamedBasic(req, res)
+                    } else {
+                        console.log("stop");
                     }
                 }
             }

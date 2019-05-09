@@ -18,14 +18,11 @@ function receiveDPV(req, res) {
             tagNameProcessors: [ stripPrefix ]
         },
         (err, js) => {
-
-
-        if (js.envelope.body["0"].insertcorrespondencev2){
-            getDPVrequest(req, res, js);
-        } else {
-            getDPVreceipt(req, res, js);
-        }
-
+            if (js.envelope.body["0"].insertcorrespondencev2){
+                getDPVrequest(req, res, js);
+            } else {
+                getDPVreceipt(req, res, js);
+            }
     });
 }
 

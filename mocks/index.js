@@ -117,44 +117,44 @@ app.get('/', (req, res) => {
 
     res.send(`
             <html>
-            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-            <link rel="stylesheet" href="styles.css">
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
-            
-            <script>
-                // These variables are used in static/script.js
-                let dpvHeaders = ${JSON.stringify(dpvHeaders)};
-                let dpeHeaders = ${JSON.stringify(dpeHeaders)};
-                let dpoHeaders = ${JSON.stringify(dpoHeaders)};
-                let dpiHeaders = ${JSON.stringify(dpiHeaders)};
-            </script>
-           
-            <body>
-                <nav class="navbar fixed-top flex-md-nowrap shadow elma-navbar p-0" >
-                    <div class="container-fluid mr-auto">
-                        <div class="navbar-header">
-                            <a class="elma-logo" >
-                                <img src="images/difi.jpg"/>
-                                <div class="logo-text">Move Mocks</div>
-                            </a>
-                        </div>
-                    </div>
-                </nav>
-                <div class="container main-container">
+                <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+                <link rel="stylesheet" href="styles.css">
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
                 
-                    ${messageTable(dpoHeaders, 'DPF', global.dpfDB)}
+                <script>
+                    // These variables are used in static/script.js
+                    let dpvHeaders = ${JSON.stringify(dpvHeaders)};
+                    let dpeHeaders = ${JSON.stringify(dpeHeaders)};
+                    let dpoHeaders = ${JSON.stringify(dpoHeaders)};
+                    let dpiHeaders = ${JSON.stringify(dpiHeaders)};
+                </script>
+           
+                <body>
+                    <nav class="navbar fixed-top flex-md-nowrap shadow elma-navbar p-0" >
+                        <div class="container-fluid mr-auto">
+                            <div class="navbar-header">
+                                <a class="elma-logo" >
+                                    <img src="images/difi.jpg"/>
+                                    <div class="logo-text">Move Mocks</div>
+                                </a>
+                            </div>
+                        </div>
+                    </nav>
+                    <div class="container main-container">
                     
-                    ${messageTable(dpoHeaders, 'DPO', global.dpoDB)}
-                    
-                    ${messageTable(dpvHeaders, 'DPV', global.dpvDB)}
-                    
-                    ${messageTable(dpeHeaders, 'DPE', global.dpeDB)}
-                    
-                    ${messageTable(dpiHeaders, 'DPI', [])}
-                  
-               </div>
-                    </body>
-                    <script src="script.js"></script>
+                        ${messageTable(dpoHeaders, 'DPF', global.dpfDB)}
+                        
+                        ${messageTable(dpoHeaders, 'DPO', global.dpoDB)}
+                        
+                        ${messageTable(dpvHeaders, 'DPV', global.dpvDB)}
+                        
+                        ${messageTable(dpeHeaders, 'DPE', global.dpeDB)}
+                        
+                         ${messageTable(dpiHeaders, 'DPI', [])}
+                      
+                   </div>
+                </body>
+                <script src="script.js"></script>
             </html>
     `);
 });

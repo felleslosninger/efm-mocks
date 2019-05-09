@@ -1,6 +1,6 @@
 const uuidv1 = require('uuid/v1');
 const superagent = require('superagent');
-const StandardBusinessDocument = require('./StandardBusinessDocument');
+const { StandardBusinessDocument, dpiSbd } = require('./StandardBusinessDocument');
 const path = require('path');
 const fs = require('fs');
 const request = require('request');
@@ -53,56 +53,54 @@ async function sendLargeMessage(sbd){
 
         await superagent
             .post( `${ipUrl}/${endpoint}/${conversationId}`)
+            .then((res) => {
+                console.log('sendt OK');
+            }).catch((err) => {
+                console.log(err);
+                console.log("fail");
+            })
 
     } catch(err) {
-        // console.log(err);
-
-        // console.log(JSON.stringify(err, null, 2));
-
         let error = JSON.parse(JSON.stringify(err))
-
-        // console.log(JSON.stringify(error, null, 2));
-
         let text = JSON.parse(error.response.text)
-        // console.log(text.message);
-        // console.log(text.exception);
         console.log(JSON.stringify(text, null, 2));
-
-
         throw Error(err);
-
-        // console.log(err.message);
-        // console.log(err.status);
-        // console.log(err.req.body.message);
     }
 }
 
 async function sendMessages(){
 
     // console.log('Sending message with process: \'administrasjon\'');
-    // await sendLargeMessage(StandardBusinessDocument(991825827, 991825827, 'arkivmelding', 'arkivmelding', 'administrasjon', uuidv1(), uuidv1()))
+    // try {
+    //     await sendLargeMessage(StandardBusinessDocument(`991825827`, `991825827`, 'arkivmelding', 'arkivmelding', 'administrasjon', uuidv1(), uuidv1()))
+    // } catch(err) {
+    //     console.log(err);
+    // }
+    //
     // console.log('Message with process: \'administrasjon\' sent OK');
     //
     // console.log('Sending message with process: \'helseSosialOgOmsorg\'');
     // await sendLargeMessage(StandardBusinessDocument(991825827, 991825827, 'arkivmelding', 'arkivmelding', 'helseSosialOgOmsorg', uuidv1(), uuidv1()))
     // console.log('Message with process: \'helseSosialOgOmsorg\' sent OK');
     //
-    // console.log('Sending message with process: \'planByggOgGeodata\'');
-    // await sendLargeMessage(StandardBusinessDocument(991825827, 991825827, 'arkivmelding', 'arkivmelding', 'planByggOgGeodata', uuidv1(), uuidv1()))
-    // console.log('Message with process: \'planByggOgGeodata\' sent OK');
-
-
-    console.log('Sending message with process: \'kulturIdrettOgFritid\'');
+    console.log('Sending message with process: \'planByggOgGeodata\'');
     try {
-        await sendLargeMessage(StandardBusinessDocument(991825827, "06068700602", 'digital', 'digital', 'kulturIdrettOgFritid', uuidv1(), uuidv1()))
-        console.log('Message with process: \'kulturIdrettOgFritid\' sent OK');
-    } catch(err){
-        // console.log(err);
-        // console.log('Sending failed.');
+        await sendLargeMessage(StandardBusinessDocument(991825827, 991825827, 'arkivmelding', 'arkivmelding', 'planByggOgGeodata', uuidv1(), uuidv1()))
+
+    } catch (e) {
+        console.log('Message with process: \'planByggOgGeodata\' failed.');
     }
+    console.log('Message with process: \'planByggOgGeodata\' sent OK');
 
-
-
+    // console.log('Sending message with process: \'kulturIdrettOgFritid\'');
+    // try {
+    //     await sendLargeMessage(dpiSbd(`0192:991825827`, "06068700602", 'digital', 'digital', 'kulturIdrettOgFritid', uuidv1(), uuidv1()))
+    //     console.log('Message with process: \'kulturIdrettOgFritid\' sent OK');
+    // } catch(err){
+    //     console.log(err);
+    //     // console.log(err);
+    //     // console.log('Sending failed.');
+    // }
 
 }
 
