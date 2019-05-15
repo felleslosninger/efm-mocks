@@ -1,7 +1,5 @@
 package com.example.dpimock;
 
-import com.sun.org.apache.xerces.internal.dom.TextImpl;
-import com.sun.xml.internal.messaging.saaj.soap.ver1_2.SOAPPart1_2Impl;
 import model.Message;
 import model.MessagesSingleton;
 import no.difi.oxalis.api.model.Direction;
@@ -82,9 +80,6 @@ public class DPIEndpoint {
     public void receipt(MessageContext context) {
         SaajSoapMessage message = (SaajSoapMessage) context.getRequest();
 
-
-        String messageId = ((TextImpl) ((SOAPPart1_2Impl) ((SaajSoapMessage) context.getRequest()).getSaajMessage().getSOAPPart()).getDocument().getFirstChild().getFirstChild().getFirstChild().getNextSibling().getFirstChild().getFirstChild().getFirstChild().getNextSibling().getFirstChild()).getData();
-
         SOAPMessage soapMessage = message.getSaajMessage();
 
         SOAPHeader soapHeader = null;
@@ -103,6 +98,9 @@ public class DPIEndpoint {
         } catch (SOAPException e) {
             e.printStackTrace();
         }
+
+        DefaultMessageIdGenerator messageIdGenerator = new DefaultMessageIdGenerator("mock");
+        String messageId = messageIdGenerator.generate();
 
         SOAPMessage response = null;
         try {
