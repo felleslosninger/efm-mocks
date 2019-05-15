@@ -63,6 +63,7 @@ async function sendLargeMessage(sbd){
             })
 
     } catch(err) {
+        console.log(err);
         let error = JSON.parse(JSON.stringify(err))
         let text = JSON.parse(error.response.text)
         console.log(JSON.stringify(text, null, 2));
