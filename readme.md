@@ -17,7 +17,8 @@ Dersom du skal kjøre DPI mocken må du utføre følgende skritt før docker-com
 
 1. ``` git clone https://github.com/difi/move-mocks.git ```
 2. Bygg dpimock prosjektet: ``` cd move-mocks/dpimock && ./mvnw install dockerfile:build ```
-5. Kjør ``` docker-compose up ``` i roten av prosjektet. 
+5. Pass på at ingenting kjører på følgende porter: 9093, 8001, 8002 og 8080.
+6. Kjør ``` docker-compose up ``` i roten av prosjektet. 
 
 Du har nå følgende applikasjoner kjørende:
 
@@ -33,6 +34,10 @@ På localhost:8001 finner du et lite gui der du kan se meldinger som har blitt s
 
 
 #### Integrasjonspunkt
+
+1. Kopier filen integrasjonspunkt-local.properties inn til der du kjører integrasjonspunktet.
+2. Koper dpimock/src/main/resources/altinn.jks og dpimock/src/main/resources/demo.jks inn til der du kjører integrasjonspunktet.
+3. Start integrasjonspunktet. 
 
 Integrasjonspunktet må konfigureres til å bruke Wiremock istedenfor SR, og til å bruke mocken for de forskjellige meldingstypene.
 Følgende konfigurasjon må settes opp i den gjeldende .properties filen:
