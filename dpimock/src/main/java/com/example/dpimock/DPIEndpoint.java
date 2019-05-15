@@ -1,5 +1,7 @@
 package com.example.dpimock;
 
+import com.sun.org.apache.xerces.internal.dom.TextImpl;
+import com.sun.xml.internal.messaging.saaj.soap.ver1_2.SOAPPart1_2Impl;
 import model.Message;
 import model.MessagesSingleton;
 import no.difi.oxalis.api.model.Direction;
@@ -7,12 +9,15 @@ import org.oasis_open.docs.ebxml_bp.ebbp_signals_2.MessagePartNRInformation;
 import org.oasis_open.docs.ebxml_bp.ebbp_signals_2.NonRepudiationInformation;
 import org.oasis_open.docs.ebxml_msg.ebms.v3_0.ns.core._200704.*;
 import org.oasis_open.docs.ebxml_msg.ebms.v3_0.ns.core._200704.MessageInfo;
+import org.oasis_open.docs.ebxml_msg.ebms.v3_0.ns.core._200704.Error;
+import org.oasis_open.docs.ebxml_msg.ebms.v3_0.ns.core._200704.Description;
 import org.springframework.ws.context.MessageContext;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;;
 import org.springframework.ws.soap.saaj.SaajSoapMessage;
+import org.springframework.ws.soap.server.endpoint.annotation.SoapAction;
 import org.unece.cefact.namespaces.standardbusinessdocumentheader.StandardBusinessDocument;
 import org.w3.xmldsig.ReferenceType;
 import util.*;
@@ -25,6 +30,10 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.soap.*;
 import no.difi.oxalis.api.timestamp.Timestamp;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,14 +44,166 @@ public class DPIEndpoint {
 
     private static final String NAMESPACE_URI = "http://www.unece.org/cefact/namespaces/StandardBusinessDocumentHeader";
 
+    public String soapMessageToString(SaajSoapMessage message)
+    {
+        String result = null;
 
-    @PayloadRoot(localPart = "SignalMessage")
-    @ResponsePayload
-    public void receipt(@RequestPayload Object sbd, MessageContext context) throws OxalisAs4Exception, SOAPException {
-        System.out.println("Receipt request received");
+        if (message != null)
+        {
+            ByteArrayOutputStream baos = null;
+            try
+            {
+                baos = new ByteArrayOutputStream();
+                message.writeTo(baos);
+                result = baos.toString();
+            }
+            catch (Exception e)
+            {
+            }
+            finally
+            {
+                if (baos != null)
+                {
+                    try
+                    {
+                        baos.close();
+                    }
+                    catch (IOException ioe)
+                    {
+                    }
+                }
+            }
+        }
+        return result;
     }
 
+    @SuppressWarnings("Duplicates")
+    @SoapAction(value="")
+    public void receipt(MessageContext context) {
+        SaajSoapMessage message = (SaajSoapMessage) context.getRequest();
 
+
+        String messageId = ((TextImpl) ((SOAPPart1_2Impl) ((SaajSoapMessage) context.getRequest()).getSaajMessage().getSOAPPart()).getDocument().getFirstChild().getFirstChild().getFirstChild().getNextSibling().getFirstChild().getFirstChild().getFirstChild().getNextSibling().getFirstChild()).getData();
+
+        SOAPMessage soapMessage = message.getSaajMessage();
+
+        SOAPHeader soapHeader = null;
+        try {
+            soapHeader = getSoapHeader(soapMessage);
+        } catch (OxalisAs4Exception e) {
+            e.printStackTrace();
+        }
+
+        Timestamp ts = new Timestamp(new Date(), null);
+        List<ReferenceType> referenceList = null;
+        try {
+            referenceList = SOAPHeaderParser.getReferenceListFromSignedInfo(soapHeader);
+        } catch (OxalisAs4Exception e) {
+            e.printStackTrace();
+        } catch (SOAPException e) {
+            e.printStackTrace();
+        }
+
+        SOAPMessage response = null;
+        try {
+            response = createSOAPReceipt(ts, messageId, referenceList);
+        } catch (OxalisAs4Exception e) {
+            e.printStackTrace();
+        }
+
+        SaajSoapMessage webServiceMessage = (SaajSoapMessage)context.getResponse();
+
+        webServiceMessage.setSaajMessage(response);
+    }
+
+    @SuppressWarnings("Duplicates")
+    private SOAPMessage createSOAPReceipt(Timestamp ts,
+                                          String refToMessageId,
+                                          List<ReferenceType> referenceList) throws OxalisAs4Exception {
+        SignalMessage signalMessage;
+        SOAPHeaderElement messagingHeader;
+        SOAPMessage message;
+        try {
+
+            MessageFactory messageFactory = MessageFactory.newInstance(SOAPConstants.SOAP_1_2_PROTOCOL);
+            message = messageFactory.createMessage();
+
+            SOAPHeader soapHeader = message.getSOAPHeader();
+
+            messagingHeader = soapHeader.addHeaderElement(Constants.MESSAGING_QNAME);
+            messagingHeader.setMustUnderstand(true);
+
+        } catch (SOAPException e) {
+            throw new OxalisAs4Exception("Could not create SOAP message", e);
+        }
+
+        GregorianCalendar gc = new GregorianCalendar();
+        gc.setTime(ts.getDate());
+
+        XMLGregorianCalendar xmlGc;
+        try {
+            xmlGc = DatatypeFactory.newInstance().newXMLGregorianCalendar(gc);
+        } catch (DatatypeConfigurationException e) {
+            throw new OxalisAs4Exception("Could not parse timestamp", e);
+        }
+
+        // Generate Message-Id
+        DefaultMessageIdGenerator messageIdGenerator = new DefaultMessageIdGenerator("mock");
+        String messageId = messageIdGenerator.generate();
+
+        if (!MessageIdUtil.verify(messageId))
+            throw new OxalisAs4Exception(
+                    "Invalid Message-ID '" + messageId + "' generated.");
+
+        MessageInfo messageInfo = MessageInfo.builder()
+                .withTimestamp(xmlGc)
+                .withMessageId(messageId)
+                .withRefToMessageId(refToMessageId)
+                .build();
+
+        List<MessagePartNRInformation> mpList = referenceList.stream()
+                .map(r -> MessagePartNRInformation.builder()
+                        .withReference(r).build())
+                .collect(Collectors.toList());
+
+        NonRepudiationInformation nri = NonRepudiationInformation.builder()
+                .addMessagePartNRInformation(mpList)
+                .build();
+
+        if (MessagesSingleton.getInstance().messages.size() > 0) {
+           // MessagesSingleton.getInstance().messages.remove(0);
+        } else {
+            Error error = Error.builder()
+                    .withCategory("Communication")
+                    .withErrorCode("EBMS:0006")
+                    .withOrigin("ebMS")
+                    .withRefToMessageInError(refToMessageId)
+                    .withSeverity("warning")
+                    .withShortDescription("EmptyMessagePartitionChannel")
+                    .withDescription(Description.builder()
+                            .withLang("en")
+                            .withValue("There is no message available for pulling from this MPC at this moment.").build())
+                    .build();
+
+            signalMessage = SignalMessage.builder()
+                    .withMessageInfo(messageInfo)
+                    .withError(error)
+                    //.withReceipt(Receipt.builder().withAny(nri).build())
+                    .build();
+
+
+            JAXBElement<SignalMessage> userMessageJAXBElement = new JAXBElement<>(Constants.SIGNAL_MESSAGE_QNAME,
+                    (Class<SignalMessage>) signalMessage.getClass(), signalMessage);
+
+            try {
+                Marshaller marshaller = Marshalling.getInstance().getJaxbContext().createMarshaller();
+                marshaller.marshal(userMessageJAXBElement, messagingHeader);
+            } catch (JAXBException e) {
+                throw new OxalisAs4Exception("Could not marshal signal message to header", e);
+            }
+        }
+        return message;
+    }
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "StandardBusinessDocument")
     @ResponsePayload
@@ -100,9 +261,6 @@ public class DPIEndpoint {
     }
 
     private As4EnvelopeHeader parseAs4EnvelopeHeader(UserMessage userMessage) {
-
-
-
         As4EnvelopeHeader as4EnvelopeHeader = new As4EnvelopeHeader();
 
         as4EnvelopeHeader.setMessageId(userMessage.getMessageInfo().getMessageId());
@@ -132,10 +290,10 @@ public class DPIEndpoint {
         return header;
     }
 
+    @SuppressWarnings("Duplicates")
     private SOAPMessage createSOAPResponse(Timestamp ts,
                                            String refToMessageId,
                                            List<ReferenceType> referenceList) throws OxalisAs4Exception {
-        Message dbMessage = new Message();
         SignalMessage signalMessage;
         SOAPHeaderElement messagingHeader;
         SOAPMessage message;

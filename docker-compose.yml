@@ -1,10 +1,10 @@
 version: '2'
 services:
-#  mocks:
-#    build: ./mocks
-#    command: npm run start
-#    ports:
-#      - 8001:8001
+  mocks:
+    build: ./mocks
+    command: npm run start
+    ports:
+      - 8001:8001
 
   sa-mock:
     build: ./move-sakarkiv-mock
@@ -17,9 +17,8 @@ services:
     ports:
       - 8090:8090
 
-#  dpimock:
-#    build: ./dpimock
-#    command:  cd ./dpimock && ./mvnw install dockerfile:build
-#    ports:
-#      - 8080:8080
-#
+  dpimock:
+    build: ./dpimock
+    command:  cd ./dpimock && ./mvnw install dockerfile:build
+    ports:
+      - 8080:8080

@@ -250,6 +250,7 @@ app.get('/api/messages/dpi', (req, res) => {
         .then((response) => {
             res.send(JSON.parse(response.text))
         }).catch((err) => {
+            console.log(err);
             res.status(500).send();
         })
 });

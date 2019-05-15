@@ -18,35 +18,6 @@ const receiveDPI = require("./modules/DPI/responses").receiveDPI;
 
 const mocks = [
     {
-        name: "DPI",
-        routes: [
-            {
-                path: '/dpi*',
-                method: 'POST',
-                middleware: getRawBody,
-                responseFunction: (req, res) => {
-                    receiveDPI(req, res);
-                }
-            },
-            {
-                path: '/dpi*',
-                method: 'PUT',
-                middleware: bodyParser,
-                responseFunction: (req, res) => {
-                    res.send('Logged');
-                }
-            },
-            {
-                path: '/dpi*',
-                method: 'GET',
-                middleware: getRawBody,
-                responseFunction: (req, res) => {
-                    res.send('Logged');
-                }
-            }
-        ]
-    },
-    {
         name: 'DPF',
         routes: [
             {

@@ -52,7 +52,7 @@
         },
         {
             "organisationNumber": "991825827",
-            "pemCertificate": -----BEGIN CERTIFICATE-----
+            "pemCertificate": "-----BEGIN CERTIFICATE-----
                                                                                                        MIID/DCCAuSgAwIBAgIEbkWf+zANBgkqhkiG9w0BAQsFADBeMRIwEAYDVQQKEwlE
                                                                                                        aWZpIHRlc3QxEjAQBgNVBAUTCTk5MTgyNTgyNzE0MDIGA1UEAxMrRElGSSB0ZXN0
                                                                                                        IHZpcmtzb21oZXRzc2VydGlmaWF0IGludGVybWVkaWF0ZTAeFw0xNzEyMTgxMjU5
@@ -75,7 +75,7 @@
                                                                                                        ryGPDuZsKiEsRgU/lxjBoCYgusTbvV+BuTZbTwmBv/6R7W7s1jcZ7fUYeyPhEZmM
                                                                                                        4Ear+6SRi+trPgfDtqT/pXZFF+sXZ/GrfyZlNvqZJV7kAnKqDsMp2i9+1HdlXAct
                                                                                                        SEVL2OWconWHprVTB32CtQ==
-                                                                                                       -----END CERTIFICATE-----,
+                                                                                                       -----END CERTIFICATE-----",
             "process": "urn:no:difi:profile:arkivmelding:helseSosialOgOmsorg:ver1.0",
             "documentTypes": [
                 "urn:no:difi:arkivmelding:xsd::arkivmelding"
@@ -89,7 +89,7 @@
         },
         {
             "organisationNumber": "991825827",
-            "pemCertificate": -----BEGIN CERTIFICATE-----
+            "pemCertificate": "-----BEGIN CERTIFICATE-----
                                                                                                        MIID/DCCAuSgAwIBAgIEbkWf+zANBgkqhkiG9w0BAQsFADBeMRIwEAYDVQQKEwlE
                                                                                                        aWZpIHRlc3QxEjAQBgNVBAUTCTk5MTgyNTgyNzE0MDIGA1UEAxMrRElGSSB0ZXN0
                                                                                                        IHZpcmtzb21oZXRzc2VydGlmaWF0IGludGVybWVkaWF0ZTAeFw0xNzEyMTgxMjU5
@@ -112,7 +112,7 @@
                                                                                                        ryGPDuZsKiEsRgU/lxjBoCYgusTbvV+BuTZbTwmBv/6R7W7s1jcZ7fUYeyPhEZmM
                                                                                                        4Ear+6SRi+trPgfDtqT/pXZFF+sXZ/GrfyZlNvqZJV7kAnKqDsMp2i9+1HdlXAct
                                                                                                        SEVL2OWconWHprVTB32CtQ==
-                                                                                                       -----END CERTIFICATE-----,
+                                                                                                       -----END CERTIFICATE-----",
             "process": "urn:no:difi:profile:arkivmelding:planByggOgGeodata:ver1.0",
             "documentTypes": [
                 "urn:no:difi:arkivmelding:xsd::arkivmelding"

@@ -22,6 +22,10 @@ public class MessagesSingleton {
         messages.add(message);
     }
 
+    public boolean containsMessageId(String messageId){
+        return messages.stream().anyMatch(message -> message.getMessageId().equals(messageId));
+    }
+
     public void deleteMessages(){
         messages.clear();
     }

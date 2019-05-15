@@ -32,7 +32,7 @@
                                                                                      4Ear+6SRi+trPgfDtqT/pXZFF+sXZ/GrfyZlNvqZJV7kAnKqDsMp2i9+1HdlXAct
                                                                                      SEVL2OWconWHprVTB32CtQ==
                                                                                      -----END CERTIFICATE-----",
-            "process": "urn:no:difi:profile:arkivmelding:kulturIdrettOgFritid:ver1.0",
+            "process": "urn:no:difi:profile:digitalpost:info:ver1.0",
             "orgnrPostkasse": "9908:987464291",
             "postkasseAdresse": "test.testesen#8HC7",
             "mobilnummer": "+4799999999",
@@ -54,7 +54,7 @@
                 "country": "Norge"
             },
             "documentTypes": [
-                "urn:no:difi:digital:xsd::digital"
+                "urn:no:difi:digitalpost:xsd:digital::digital"
             ],
             "service": {
                 "identifier": "DPI",

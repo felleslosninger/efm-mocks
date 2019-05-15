@@ -25,7 +25,6 @@ function StandardBusinessDocument(senderOrgNr, receiverOrgNr, meldingsType, forr
             "documentIdentification": {
                 "standard": `urn:no:difi:${meldingsType}:xsd::${forretningsMelding}`,
                 "typeVersion": "2.0",
-                "instanceIdentifier": "",
                 "type": forretningsMelding,
                 "creationDateAndTime": new moment()
             },
@@ -47,6 +46,7 @@ function StandardBusinessDocument(senderOrgNr, receiverOrgNr, meldingsType, forr
         "arkivmelding": {}
     };
 }
+
 
 dpiSbd = (senderOrgNr, receiverOrgNr, meldingsType, forretningsMelding, prosess, senderRef, receiverRef) => {
     return {
@@ -71,9 +71,8 @@ dpiSbd = (senderOrgNr, receiverOrgNr, meldingsType, forretningsMelding, prosess,
                 }
             ],
             "documentIdentification": {
-                "standard": `urn:no:difi:${meldingsType}:xsd::${forretningsMelding}`,
+                "standard": `urn:no:difi:digitalpost:xsd:digital::digital`,
                 "typeVersion": "2.0",
-                "instanceIdentifier": "",
                 "type": forretningsMelding,
                 "creationDateAndTime": new moment()
             },
@@ -81,8 +80,7 @@ dpiSbd = (senderOrgNr, receiverOrgNr, meldingsType, forretningsMelding, prosess,
                 "scope": [
                     {
                         "type": "ConversationId",
-                        "instanceIdentifier": "",
-                        "identifier": `urn:no:difi:profile:arkivmelding:${prosess}:ver1.0`,
+                        "identifier": `urn:no:difi:profile:digitalpost:info:ver1.0`,
                         "scopeInformation": [
                             {
                                 "expectedResponseDateTime": new moment().add(2, 'hours')
@@ -93,12 +91,12 @@ dpiSbd = (senderOrgNr, receiverOrgNr, meldingsType, forretningsMelding, prosess,
             }
         },
         "digital": {
-            "sikkerhetsnivaa": "",
             "ikkeSensitivTittel": "tittel",
             "spraak": "NO",
             "primaerDokumentNavn": "test4.pdf",
+            "sikkerhetsnivaa": 3,
             "digitalPostInfo": {
-                "virkningsdato": "",
+                "virkningsdato": new moment().add(2, 'hours'),
                 "virkningstidspunkt": "",
                 "aapningskvittering": "false"
             },
