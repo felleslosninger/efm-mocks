@@ -63,9 +63,8 @@ async function sendLargeMessage(sbd){
             })
 
     } catch(err) {
-        console.log(err);
-        let error = JSON.parse(JSON.stringify(err))
-        let text = JSON.parse(error.response.text)
+        let error = JSON.parse(JSON.stringify(err));
+        let text = JSON.parse(error.response.text);
         console.log(JSON.stringify(text, null, 2));
         throw Error(err);
     }
@@ -74,26 +73,29 @@ async function sendLargeMessage(sbd){
 async function sendMessages(){
 
     // console.log('Sending message with process: \'administrasjon\'');
-    // try {
-    //     await sendLargeMessage(StandardBusinessDocument(`991825827`, `991825827`, 'arkivmelding', 'arkivmelding', 'administrasjon', uuidv1(), uuidv1()))
-    // } catch(err) {
-    //     console.log(err);
-    // }
+    try {
+        await sendLargeMessage(StandardBusinessDocument(`991825827`, `991825827`, 'arkivmelding', 'arkivmelding', 'administrasjon', uuidv1(), uuidv1()))
+    } catch(err) {
+        console.log(err);
+    }
     //
     // console.log('Message with process: \'administrasjon\' sent OK');
     //
-    // console.log('Sending message with process: \'helseSosialOgOmsorg\'');
-    // await sendLargeMessage(StandardBusinessDocument(991825827, 991825827, 'arkivmelding', 'arkivmelding', 'helseSosialOgOmsorg', uuidv1(), uuidv1()))
-    // console.log('Message with process: \'helseSosialOgOmsorg\' sent OK');
-    //
-    // console.log('Sending message with process: \'planByggOgGeodata\'');
-    // try {
-    //     await sendLargeMessage(StandardBusinessDocument(991825827, 991825827, 'arkivmelding', 'arkivmelding', 'planByggOgGeodata', uuidv1(), uuidv1()))
-    //
-    // } catch (e) {
-    //     console.log('Message with process: \'planByggOgGeodata\' failed.');
-    // }
-    // console.log('Message with process: \'planByggOgGeodata\' sent OK');
+    console.log('Sending message with process: \'helseSosialOgOmsorg\'');
+    try {
+        await sendLargeMessage(StandardBusinessDocument(991825827, 991825827, 'arkivmelding', 'arkivmelding', 'helseSosialOgOmsorg', uuidv1(), uuidv1()))
+    } catch(e) {
+        console.log('Message with process: \'helseSosialOgOmsorg\' failed.');
+    }
+
+
+    console.log('Sending message with process: \'planByggOgGeodata\'');
+    // DPF melding:
+    try {
+        await sendLargeMessage(StandardBusinessDocument(991825827, 991825827, 'arkivmelding', 'arkivmelding', 'planByggOgGeodata', uuidv1(), uuidv1()))
+    } catch (e) {
+        console.log('Message with process: \'planByggOgGeodata\' failed.');
+    }
 
     console.log('Sending message with process: \'kulturIdrettOgFritid\'');
     try {
@@ -103,8 +105,6 @@ async function sendMessages(){
         console.log('Message with process: \'kulturIdrettOgFritid\' sent OK');
     } catch(err){
         console.log(err);
-        // console.log(err);
-        // console.log('Sending failed.');
     }
 
 

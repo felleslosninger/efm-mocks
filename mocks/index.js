@@ -35,6 +35,29 @@ let soapString = mocks
 
 app.get('/', (req, res) => {
 
+    /**
+    * Set up headers for use in the frontend view of received messages.
+    * */
+
+    let dpfHeaders = [
+        {
+            title: 'Sender orgNum',
+            accessor: 'senderOrgNum',
+        },
+        {
+            title: 'Receiver orgNum',
+            accessor: 'receiverOrgNum',
+        },
+        {
+            title: 'Conversation ID',
+            accessor: 'conversationId',
+        },
+        {
+            title: 'Receipt ID',
+            accessor: 'receiptId'
+        }
+    ];
+
     let dpvHeaders = [
         {
             title: 'Senders Reference',
@@ -123,6 +146,7 @@ app.get('/', (req, res) => {
                 
                 <script>
                     // These variables are used in static/script.js
+                    let dpfHeaders = ${JSON.stringify(dpfHeaders)};
                     let dpvHeaders = ${JSON.stringify(dpvHeaders)};
                     let dpeHeaders = ${JSON.stringify(dpeHeaders)};
                     let dpoHeaders = ${JSON.stringify(dpoHeaders)};
@@ -142,7 +166,7 @@ app.get('/', (req, res) => {
                     </nav>
                     <div class="container main-container">
                     
-                        ${messageTable(dpoHeaders, 'DPF', global.dpfDB)}
+                        ${messageTable(dpfHeaders, 'DPF', global.dpfDB)}
                         
                         ${messageTable(dpoHeaders, 'DPO', global.dpoDB)}
                         
@@ -150,7 +174,7 @@ app.get('/', (req, res) => {
                         
                         ${messageTable(dpeHeaders, 'DPE', global.dpeDB)}
                         
-                         ${messageTable(dpiHeaders, 'DPI', [])}
+                        ${messageTable(dpiHeaders, 'DPI', [])}
                       
                    </div>
                 </body>
@@ -206,7 +230,18 @@ app.post('/api/messages/dpi', (req, res) => {
 
 app.get('/api/messages/DPF', (req, res) => {
     if (global.dpfDB.size > 0) {
-        res.send([...global.dpfDB].map(([key, value]) => value)[0]);
+        res.send([...global.dpfDB]
+            .map(([key, value]) => {
+                return value.map((entry) => {
+                    return {
+                        conversationId: entry.conversationId,
+                        receiverOrgNum: entry.receiverOrgNum,
+                        senderOrgNum: entry.senderOrgNum,
+                        receiptId: entry.receiptId
+                    }
+                });
+            })
+            [0]);
     } else {
         res.send([]);
     }
@@ -239,7 +274,7 @@ app.get('/api/messages/DPO', (req, res) => {
 
 app.get('/api/messages/DPV', (req, res) => {
     if (global.dpvDB.size > 0) {
-        res.send([...global.dpvDB].map(([key, value]) => value)[0]);
+        res.send([...global.dpvDB].map(([key, value]) => value));
     } else {
         res.send([]);
     }

@@ -21,7 +21,7 @@ function retrieveforsendelsestatus(req, res, parsed){
                         </soap:Envelope>`);
 }
 
-function sendforsendelsemedid(){
+function sendforsendelsemedid() {
     return `<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:ser="http://www.ks.no/svarut/servicesV9">
                            <soap:Header/>
                            <soap:Body>
@@ -33,7 +33,7 @@ function sendforsendelsemedid(){
                         </soap:Envelope>`;
 }
 
-function PutMessage(){
+function PutMessage() {
     return `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:typ="http://www.arkivverket.no/Noark/Exchange/types">
               <soapenv:Header/>
               <soapenv:Body>

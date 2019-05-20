@@ -39,62 +39,17 @@ På localhost:8001 finner du et lite gui der du kan se meldinger som har blitt s
 2. Koper dpimock/src/main/resources/altinn.jks og dpimock/src/main/resources/demo.jks inn til der du kjører integrasjonspunktet.
 3. Start integrasjonspunktet. 
 
-Integrasjonspunktet må konfigureres til å bruke Wiremock istedenfor SR, og til å bruke mocken for de forskjellige meldingstypene.
-Følgende konfigurasjon må settes opp i den gjeldende .properties filen:
+#### Sende meldinger
 
-Angi urlen til Wiremock(SR) og sak/arkivsystem mocken:
-```
-difi.move.serviceregistryEndpoint=http://localhost:8090
-difi.move.noarkSystem.endpointURL=http://localhost:8002/p360
-difi.move.sign.enable=false
-difi.move.oidc.enable=false
-```
-I tillegg må følgende oppsett gjøres per meldingstype man ønsker å teste:
+Mocken er satt opp til å motta meldinger for følgende org nr og prosesser:
 
-##### DPI
-
-```
-difi.move.feature.enableDPI=true
-difi.move.dpi.endpoint=http://localhost:8080/as4
-difi.move.dpi.trustStore.path=<path til din .jks>/demo.jks
-difi.move.dpi.trustStore.password=changeit
-```
-
-##### DPV
-
-```
-difi.move.feature.enableDPV=true
-difi.move.dpv.username=whatever
-difi.move.dpv.password=whatever
-difi.move.dpv.endpointUrl=http://localhost:8001/dpv/
-```
-
-##### DPF
-```
-difi.move.feature.enableDPF=true
-difi.move.fiks.ut.endpointUrl=http://localhost:8001/dpf
-difi.move.fiks.inn.baseUrl=http://localhost:8001/svarinn
-difi.move.fiks.ut.username=username
-difi.move.fiks.ut.password=password
-difi.move.fiks.inn.mailOnError=false
-```
-
-##### DPO
-```
-difi.move.feature.enableDPO=true
-difi.move.noarkSystem.type=p360
-logging.level.no.difi.meldingsutveksling.noarkexchange.altinn=debug
-logging.level.org.springframework.ws.client.MessageTracing=TRACE
-logging.level.org.springframework.ws.server.MessageTracing=TRACE     
-difi.move.noarkSystem.endpointURL=http://localhost:8001/noark
-```
-
-##### DPE
-
-```
-difi.move.feature.enableDPE=true
-difi.move.nextmove.serviceBus.host=local:8001/dpe
-```
+| Meldingstype | Mottaker    | Prosess              |
+|--------------|-------------|----------------------|
+| DPI          | 06068700602 | kulturIdrettOgFritid |
+| DPE          |             |                      |
+| DPV          | 991825827   | helseSosialOgOmsorg  |
+| DPF          | 991825827   | planByggOgGeodata    |
+| DPO          | 991825827   | administrasjon       |
 
 #### Kjør mocks uten docker
 

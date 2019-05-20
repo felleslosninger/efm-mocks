@@ -32,7 +32,7 @@ function StandardBusinessDocument(senderOrgNr, receiverOrgNr, meldingsType, forr
                 "scope": [
                     {
                         "type": "ConversationId",
-                        "instanceIdentifier": "",
+                        "instanceIdentifier": senderRef,
                         "identifier": `urn:no:difi:profile:arkivmelding:${prosess}:ver1.0`,
                         "scopeInformation": [
                             {
@@ -43,7 +43,9 @@ function StandardBusinessDocument(senderOrgNr, receiverOrgNr, meldingsType, forr
                 ]
             }
         },
-        "arkivmelding": {}
+        "arkivmelding": {
+            "sikkerhetsnivaa": 3
+        }
     };
 }
 
@@ -99,14 +101,11 @@ dpiSbd = (senderOrgNr, receiverOrgNr, meldingsType, forretningsMelding, prosess,
                 "virkningsdato": new moment().add(2, 'hours'),
                 "virkningstidspunkt": "",
                 "aapningskvittering": "false"
-            },
+            }
+            ,
             "varsler": {
-                "epost": {
-                    "tekst": "Varseltekst"
-                },
-                "sms": {
-                    "tekst": "Varseltekst"
-                }
+                "epostTekst":"Varseltekst",
+                "smsTekst": "Varseltekst"
             }
         }
 

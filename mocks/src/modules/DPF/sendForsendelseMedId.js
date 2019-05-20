@@ -17,9 +17,8 @@ function sendForsendelseMedId(req, res, parsed) {
 
     let eksternRef =  parsed.envelope.body["0"].sendforsendelsemedid["0"].forsendelse["0"].eksternref["0"];
 
-    let forsendelsesId = parsed.envelope.body["0"].sendforsendelsemedid["0"].forsendelsesid["0"];
-
-    let messages = global.dpfDB.get(eksternRef);
+    let forsendelsesId = parsed.
+        envelope.body["0"].sendforsendelsemedid["0"].forsendelsesid["0"];
 
     let mimeType = parsed.envelope.body["0"].sendforsendelsemedid["0"].forsendelse["0"].dokumenter["0"].mimetype;
 
@@ -49,6 +48,8 @@ function sendForsendelseMedId(req, res, parsed) {
     let senderPostCode = parsed.envelope.body["0"].sendforsendelsemedid["0"].forsendelse["0"].svarsendestil["0"].postadresse["0"].postnr["0"];
 
     let senderCity =  parsed.envelope.body["0"].sendforsendelsemedid["0"].forsendelse["0"].svarsendestil["0"].postadresse["0"].poststed["0"];
+
+    let messages = global.dpfDB.get(receiverOrgNum);
 
     fs.writeFile(filePath, buff, (err) => {
         if(err) {
@@ -89,7 +90,7 @@ function sendForsendelseMedId(req, res, parsed) {
         if (messages){
             messages.push(file);
         } else {
-            global.dpfDB.set(eksternRef, [ file ]);
+            global.dpfDB.set(receiverOrgNum, [ file ]);
         }
 
         res.send(`<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:ser="http://www.ks.no/svarut/servicesV9">

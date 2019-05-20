@@ -26,30 +26,33 @@ deleteButtons.forEach(button => {
     });
 });
 
-function messageTable(serviceIdentifier, messages){
-    return `${[...messages]
-        .map(([key, value]) => {
-            return key ? `<tr><td>${key.receiver}</td><td>${key.fileReference}</td><td>${key.receiptId}</td></tr>` : null
-        }).join('')
-    }`;
-}
+// function messageTable(serviceIdentifier, messages){
+//     return `${[...messages]
+//         .map(([key, value]) => {
+//             return key ? `<tr><td>${key.receiver}</td><td>${key.fileReference}</td><td>${key.receiptId}</td></tr>` : null
+//         }).join('')
+//     }`;
+// }
 
 function messageTable2(serviceIdentifier, messages, headers){
 
+    console.log(headers);
+
     return `${messages
         .map((entry) => {
+            console.log(entry);
             return entry ?
                 `<tr>${headers.map(header => `<td>${entry[header.accessor]}</td>`).join('')}</tr>` 
                 : null
         }).join('')}`;
 }
 
-poll = (url, serviceIdentifier, targetElement) => {
-    axios.get(url).then((res) => {
-        emptyMessages(targetElement);
-        targetElement.innerHTML = messageTable(serviceIdentifier, Array.from(new Map(res.data)));
-    });
-};
+// poll = (url, serviceIdentifier, targetElement) => {
+//     axios.get(url).then((res) => {
+//         emptyMessages(targetElement);
+//         targetElement.innerHTML = messageTable(serviceIdentifier, Array.from(new Map(res.data)));
+//     });
+// };
 
 poll2 = (url, serviceIdentifier, targetElement, headers) => {
     axios.get(url).then((res) => {
@@ -59,7 +62,8 @@ poll2 = (url, serviceIdentifier, targetElement, headers) => {
 };
 
 axios.get('/api/messages/dpf').then((res) => {
-    this.timer = setInterval(()=> this.poll('/api/messages/dpf', 'DPF', dpfMessageContainer), 5000);
+    // this.timer = setInterval(()=> this.poll('/api/messages/dpf', 'DPF', dpfMessageContainer), 5000);
+    this.timer = setInterval(()=> this.poll2('/api/messages/dpf', 'DPF',  dpfMessageContainer, dpfHeaders), 5000);
 });
 
 setTimeout(() => {
@@ -70,19 +74,19 @@ setTimeout(() => {
 
 setTimeout(() => {
     axios.get('/api/messages/dpv').then((res) => {
-        this.timer = setInterval(()=> this.poll2('/api/messages/dpv', 'DPV',  dpvMessageContainer, dpvHeaders), 1000);
+        this.timer = setInterval(()=> this.poll2('/api/messages/dpv', 'DPV',  dpvMessageContainer, dpvHeaders), 5000);
     });
 }, 2000);
 
 setTimeout(() => {
     axios.get('/api/messages/dpe').then((res) => {
-        this.timer = setInterval(()=> this.poll2('/api/messages/dpe', 'DPE',  dpeMessageContainer, dpeHeaders), 1000);
+        this.timer = setInterval(()=> this.poll2('/api/messages/dpe', 'DPE',  dpeMessageContainer, dpeHeaders), 5000);
     });
 }, 3000);
 
 setTimeout(() => {
     axios.get('/api/messages/dpi').then((res) => {
-        this.timer = setInterval(()=> this.poll2('/api/messages/dpi', 'DPI',  dpiMessageContainer, dpiHeaders), 1000);
+        this.timer = setInterval(()=> this.poll2('/api/messages/dpi', 'DPI',  dpiMessageContainer, dpiHeaders), 5000);
     });
 }, 3500);
 
