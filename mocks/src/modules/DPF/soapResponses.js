@@ -118,7 +118,7 @@ function hentNyeForsendelser(req, res) {
                 "filmetadata": [
                     {
                         "filnavn": value.fileName,
-                        "mimetype": value.mimeType,
+                        "mimetype": value.mimeType[0],
                         "sha256hash": "7a936ed5f396e6d73f0f33de991be54ab34987032c44a2c14613f03a33beb035",
                         "dokumentType": null,
                         "size": 58521
