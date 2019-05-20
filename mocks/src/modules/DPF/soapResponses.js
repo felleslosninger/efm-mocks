@@ -50,13 +50,13 @@ function hentForsendelsefil(req, res){
     res.header("Content-Type", "application/zip; charset=UTF-8");
 
     const childProcess = require('child_process');
-    let message = global.dpfDB.get(res.req.params.forsendelsesId);
     let certPath = `${__dirname}/910075918.cer`;
     let encryptedPath = `${__dirname}/uploads/${res.req.params.forsendelsesId}-encrypted-new`;
+    let message = [ ...global.dpfDB.values() ][0].find(value => value.conversationId === req.params.forsendelsesId);
 
     res.header("Content-Disposition", `attachment; filename=\"${message[0].fileName}\"`);
 
-    childProcess.exec(`openssl smime -encrypt -binary -aes-256-cbc -in ${message[0].zipFilePath} -out ${encryptedPath} -outform DER ${certPath}`, {},
+    childProcess.exec(`openssl smime -encrypt -binary -aes-256-cbc -in ${__dirname}/uploads/${res.req.params.forsendelsesId}.zip -out ${encryptedPath} -outform DER ${certPath}`, {},
         function (err, stdout, stderr) {
             if (err) throw err;
             res.download(`${encryptedPath}`)
