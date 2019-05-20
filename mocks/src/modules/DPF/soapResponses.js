@@ -51,7 +51,7 @@ function hentForsendelsefil(req, res){
 
     const childProcess = require('child_process');
     let message = global.dpfDB.get(res.req.params.forsendelsesId);
-    let certPath = `${__dirname}/server.pem`;
+    let certPath = `${__dirname}/910075918.cer`;
     let encryptedPath = `${__dirname}/uploads/${res.req.params.forsendelsesId}-encrypted-new`;
 
     res.header("Content-Disposition", `attachment; filename=\"${message[0].fileName}\"`);
