@@ -54,7 +54,7 @@ function hentForsendelsefil(req, res){
     let encryptedPath = `${__dirname}/uploads/${res.req.params.forsendelsesId}-encrypted-new`;
     let message = [ ...global.dpfDB.values() ][0].find(value => value.conversationId === req.params.forsendelsesId);
 
-    res.header("Content-Disposition", `attachment; filename=\"${message[0].fileName}\"`);
+    res.header("Content-Disposition", `attachment; filename=\"${message.fileName}\"`);
 
     childProcess.exec(`openssl smime -encrypt -binary -aes-256-cbc -in ${__dirname}/uploads/${res.req.params.forsendelsesId}.zip -out ${encryptedPath} -outform DER ${certPath}`, {},
         function (err, stdout, stderr) {
