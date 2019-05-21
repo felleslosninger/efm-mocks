@@ -1,4 +1,5 @@
 const moment = require('moment');
+const uuidv1 = require('uuid/v1');
 
 function StandardBusinessDocument(senderOrgNr, receiverOrgNr, meldingsType, forretningsMelding, prosess, senderRef, receiverRef){
     return {
@@ -108,8 +109,58 @@ dpiSbd = (senderOrgNr, receiverOrgNr, meldingsType, forretningsMelding, prosess,
                 "smsTekst": "Varseltekst"
             }
         }
-
     };
 };
 
-module.exports = { dpiSbd, StandardBusinessDocument };
+dpeSbd = (senderOrgNr, receiverOrgNr, meldingsType) => {
+    return {
+        "standardBusinessDocumentHeader": {
+            "headerVersion": "1.0",
+            "sender": [
+                {
+                    "identifier": {
+                        "value": `0192:${senderOrgNr}`,
+                        "authority": "iso6523-actorid-upis"
+                    },
+                    "contactInformation": []
+                }
+            ],
+            "receiver": [
+                {
+                    "identifier": {
+                        "value": `0192:${receiverOrgNr}`,
+                        "authority": "iso6523-actorid-upis"
+                    },
+                    "contactInformation": []
+                }
+            ],
+            "documentIdentification": {
+                "standard": `urn:no:difi:einnsyn:xsd::${meldingsType}`,
+                "typeVersion": "2.0",
+                "type": meldingsType,
+                "creationDateAndTime": new moment()
+            },
+            "businessScope": {
+                "scope": [
+                    {
+                        "type": "ConversationId",
+                        "instanceIdentifier": uuidv1(),
+                        "identifier": `urn:no:difi:profile:einnsyn:${meldingsType}:ver1.0`,
+                        "scopeInformation": [
+                            {
+                                "expectedResponseDateTime": new moment().add(2, 'hours')
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "innsynskrav": {
+            "orgnr": receiverOrgNr,
+            "email": "test@example.com"
+        }
+    };
+};
+
+
+module.exports = { dpiSbd, StandardBusinessDocument, dpeSbd };

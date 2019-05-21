@@ -1,10 +1,10 @@
 const uuidv1 = require('uuid/v1');
 const superagent = require('superagent');
-const { StandardBusinessDocument, dpiSbd } = require('./StandardBusinessDocument');
+const { StandardBusinessDocument, dpiSbd, dpeSbd } = require('./StandardBusinessDocument');
 const path = require('path');
 const fs = require('fs');
 const request = require('request');
-
+const moment = require('moment');
 const ipUrl = 'http://localhost:9093';
 const endpoint = 'api/messages/out';
 
@@ -12,7 +12,6 @@ const endpoint = 'api/messages/out';
 
 function sendFile(fileName, conversationId){
     return new Promise((resolve, reject) => {
-
         fs.createReadStream(path.join(__dirname, fileName))
             .pipe(request({
                 url: `${ipUrl}/${endpoint}/${conversationId}?title=${fileName}`,
@@ -72,15 +71,13 @@ async function sendLargeMessage(sbd){
 
 async function sendMessages(){
 
-    // console.log('Sending message with process: \'administrasjon\'');
+    console.log('Sending message with process: \'administrasjon\'');
     try {
         await sendLargeMessage(StandardBusinessDocument(`991825827`, `991825827`, 'arkivmelding', 'arkivmelding', 'administrasjon', uuidv1(), uuidv1()))
     } catch(err) {
         console.log(err);
     }
-    //
-    // console.log('Message with process: \'administrasjon\' sent OK');
-    //
+
     console.log('Sending message with process: \'helseSosialOgOmsorg\'');
     try {
         await sendLargeMessage(StandardBusinessDocument(991825827, 991825827, 'arkivmelding', 'arkivmelding', 'helseSosialOgOmsorg', uuidv1(), uuidv1()))
@@ -106,6 +103,24 @@ async function sendMessages(){
     } catch(err){
         console.log(err);
     }
+
+
+    console.log('Sending DPE message');
+    try {
+
+        let res = await sendLargeMessage(
+
+            dpeSbd(910076787, 910076787,"innsynskrav")
+        );
+        if (res){
+            console.log("Sent DPE message successfully");
+            console.log(res);
+        }
+    } catch(err){
+        console.log(err);
+        console.log("DPE message failed");
+    }
+
 
 
 }
