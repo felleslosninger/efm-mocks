@@ -46,7 +46,7 @@ Mocken er satt opp til å motta meldinger for følgende org nr og prosesser:
 | Meldingstype | Mottaker    | Prosess              |
 |--------------|-------------|----------------------|
 | DPI          | 06068700602 | kulturIdrettOgFritid |
-| DPE          |             |                      |
+| DPE          | 910076787   | journalpost, innsynskrav, meeting|
 | DPV          | 991825827   | helseSosialOgOmsorg  |
 | DPF          | 991825827   | planByggOgGeodata    |
 | DPO          | 991825827   | administrasjon       |
