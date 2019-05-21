@@ -28,7 +28,7 @@ console.log(`${__dirname}/client/build`);
 
 app.use(express.static(`${__dirname}/client/build`));
 
-app.post(`/api/send`, bodyParser.json({limit: '50mb'}), (req, res, next) => {
+app.post(`/api/send`, bodyParser.json({limit: '2000mb'}), (req, res, next) => {
 
     let url = `${process.env.IP_URL}/noarkExchange`;
 
@@ -144,11 +144,11 @@ app.post(`/p360`,
                            <soapenv:Body>
                               <typ:PutMessageResponse>
                                  <!--Optional:-->
-                                 <result type="?">
+                                 <result type="OK">
                                     <!--Zero or more repetitions:-->
                                     <message code="?">
                                        <!--Optional:-->
-                                       <text>gurba</text>
+                                       <text>OK</text>
                                     </message>
                                  </result>
                               </typ:PutMessageResponse>
@@ -193,7 +193,7 @@ app.post(`/p360`,
                            <soapenv:Body>
                               <typ:PutMessageResponse>
                                  <!--Optional:-->
-                                 <result type="?">
+                                 <result type="OK">
                                     <!--Zero or more repetitions:-->
                                     <message code="?">
                                        <!--Optional:-->
