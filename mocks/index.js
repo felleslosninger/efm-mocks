@@ -98,16 +98,8 @@ app.get('/', (req, res) => {
             accessor: 'receiverOrgnum',
         },
         {
-            title: 'Receiver org name',
-            accessor: 'receiverOrgName',
-        },
-        {
             title: 'Sender orgnum',
             accessor: 'senderOrgnum',
-        },
-        {
-            title: 'Sender org name',
-            accessor: 'senderOrgname',
         },
         {
             title: 'Conversation ID',
@@ -250,15 +242,17 @@ app.get('/api/messages/DPF', (req, res) => {
 app.get('/api/messages/dpe', (req, res) => {
     if (global.dpeDB.size > 0) {
         res.send([...global.dpeDB].map(([key, value]) => {
-            return {
-                convId: value.convId,
-                receiverOrgnum: value.receiverOrgnum,
-                receiverOrgName: value.receiverOrgName,
-                senderOrgnum: value.senderOrgnum,
-                senderOrgname: value.senderOrgname,
-                serviceIdentifier: value.serviceIdentifier
-            }
-        }));
+            return value.map((entry) => {
+                return {
+                    convId: entry.convId,
+                    receiverOrgnum: entry.receiverOrgnum,
+                    receiverOrgName: entry.receiverOrgName,
+                    senderOrgnum: entry.senderOrgnum,
+                    senderOrgname: entry.senderOrgname,
+                    serviceIdentifier: entry.serviceIdentifier
+                }
+            });
+        })[0]);
     } else {
         res.send([]);
     }

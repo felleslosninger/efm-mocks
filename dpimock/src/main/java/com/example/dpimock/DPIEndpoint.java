@@ -168,9 +168,9 @@ public class DPIEndpoint {
                 .addMessagePartNRInformation(mpList)
                 .build();
 
-        if (MessagesSingleton.getInstance().messages.size() > 0) {
-           // MessagesSingleton.getInstance().messages.remove(0);
-        } else {
+//        if (MessagesSingleton.getInstance().messages.size() > 0) {
+//           // MessagesSingleton.getInstance().messages.remove(0);
+//        } else {
             Error error = Error.builder()
                     .withCategory("Communication")
                     .withErrorCode("EBMS:0006")
@@ -199,7 +199,7 @@ public class DPIEndpoint {
             } catch (JAXBException e) {
                 throw new OxalisAs4Exception("Could not marshal signal message to header", e);
             }
-        }
+        //}
         return message;
     }
 
