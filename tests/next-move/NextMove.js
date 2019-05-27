@@ -71,42 +71,42 @@ async function sendLargeMessage(sbd){
 
 async function sendMessages(){
 
-    // console.log('Sending message with process: \'administrasjon\'');
-    // // DPO message
-    // try {
-    //     await sendLargeMessage(StandardBusinessDocument(`910075918`, `910075918`, 'arkivmelding', 'arkivmelding', 'administrasjon', uuidv1(), uuidv1()))
-    // } catch(err) {
-    //     console.log(err);
-    // }
+    console.log('Sending message with process: \'administrasjon\'');
+    // DPO message
+    try {
+        await sendLargeMessage(StandardBusinessDocument(`910075918`, `910075918`, 'arkivmelding', 'arkivmelding', 'administrasjon', uuidv1(), uuidv1()))
+    } catch(err) {
+        console.log(err);
+    }
 
-    // console.log('Sending message with process: \'helseSosialOgOmsorg\'');
-    // // DPV message
-    // try {
-    //     await sendLargeMessage(StandardBusinessDocument(991825827, 991825827, 'arkivmelding', 'arkivmelding', 'helseSosialOgOmsorg', uuidv1(), uuidv1()))
-    // } catch(e) {
-    //     console.log('Message with process: \'helseSosialOgOmsorg\' failed.');
-    // }
-    //
-    //
-    // console.log('Sending message with process: \'planByggOgGeodata\'');
-    // // DPF melding:
-    // try {
-    //     await sendLargeMessage(StandardBusinessDocument(910075918, 910075918, 'arkivmelding', 'arkivmelding', 'planByggOgGeodata', uuidv1(), uuidv1()))
-    // } catch (e) {
-    //     console.log('Message with process: \'planByggOgGeodata\' failed.');
-    // }
-    //
-    // console.log('Sending message with process: \'kulturIdrettOgFritid\'');
-    // // DPI Message
-    // try {
-    //     console.log(JSON.stringify(dpiSbd(`0192:991825827`, "06068700602", 'digital', 'digital', 'kulturIdrettOgFritid', uuidv1(), uuidv1()), null, 2));
-    //
-    //     await sendLargeMessage(dpiSbd(`0192:991825827`, "06068700602", 'digital', 'digital', 'kulturIdrettOgFritid', uuidv1(), uuidv1()))
-    //     console.log('Message with process: \'kulturIdrettOgFritid\' sent OK');
-    // } catch(err){
-    //     console.log(err);
-    // }
-    //
+    console.log('Sending message with process: \'helseSosialOgOmsorg\'');
+    // DPV message
+    try {
+        await sendLargeMessage(StandardBusinessDocument(991825827, 991825827, 'arkivmelding', 'arkivmelding', 'helseSosialOgOmsorg', uuidv1(), uuidv1()))
+    } catch(e) {
+        console.log('Message with process: \'helseSosialOgOmsorg\' failed.');
+    }
+    
+    
+    console.log('Sending message with process: \'planByggOgGeodata\'');
+    // DPF melding:
+    try {
+        await sendLargeMessage(StandardBusinessDocument(910075918, 910075918, 'arkivmelding', 'arkivmelding', 'planByggOgGeodata', uuidv1(), uuidv1()))
+    } catch (e) {
+        console.log('Message with process: \'planByggOgGeodata\' failed.');
+    }
+    
+    console.log('Sending message with process: \'kulturIdrettOgFritid\'');
+    // DPI Message
+    try {
+        console.log(JSON.stringify(dpiSbd(`0192:991825827`, "06068700602", 'digital', 'digital', 'kulturIdrettOgFritid', uuidv1(), uuidv1()), null, 2));
+    
+        await sendLargeMessage(dpiSbd(`0192:991825827`, "06068700602", 'digital', 'digital', 'kulturIdrettOgFritid', uuidv1(), uuidv1()))
+        console.log('Message with process: \'kulturIdrettOgFritid\' sent OK');
+    } catch(err){
+        console.log(err);
+    }
+    
     console.log('Sending DPE message');
     // DPE message
     try {
