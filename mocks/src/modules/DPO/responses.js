@@ -6,7 +6,7 @@ const stripPrefix = require('xml2js').processors.stripPrefix;
 const extract = require('extract-zip');
 const fs = require('fs');
 const uid = require("uid");
-const recursiveKeySearch = require("../helper").recursiveKeySearch;
+const { deleteFile, recursiveKeySearch, deleteDirectoryRecursive} = require("../helper");
 
 function GetAvailableFilesBasic(req, res) {
     parseString(req.rawBody,
@@ -67,15 +67,6 @@ function DownloadFileStreamedBasic(req, res) {
         xml = splitted[0];
     }
 
-    if (splitted[5].length > 0){
-        xml = splitted[5];
-    } else if(splitted[0].length > 0){
-        xml = splitted[0];
-    } else if(splitted[6].length > 0){
-        xml = splitted[6];
-    } else {
-        xml = false;
-    }
     if (xml) {
         parseXml(xml, (err, parsed) => {
 
@@ -151,8 +142,17 @@ function DownloadFileStreamedBasic(req, res) {
                         res.end();
                     });
                 }
-                    writeResponse();
-                    global.dpoDB.delete(reportee);
+
+                writeResponse();
+                // Remove the entry from memory and delete the files.
+                global.dpoDB.delete(reportee);
+                deleteFile(file[0].file);
+                deleteDirectoryRecursive(`${__dirname}/uploads/${fileReference}`, true).then(() => {
+
+                }).catch((err) => {
+                    console.log(err);
+                });
+                console.log('stop');
             }
         });
     }

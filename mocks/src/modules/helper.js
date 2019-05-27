@@ -1,4 +1,5 @@
 let fs = require('fs');
+const rimraf = require('rimraf');
 
 function recursiveKeySearch(key, data) {
     // not shown - perhaps validate key as non-zero length string
@@ -91,5 +92,24 @@ function move(oldPath, newPath, callback) {
     }
 }
 
+// delete file named 'sample.txt'
+function deleteFile(file){
+    fs.unlink(file, function (err) {
+        if (err) throw err;
+        // if no error, file has been deleted successfully
+        console.log('File deleted!');
+    });
+}
 
-module.exports = { recursiveKeySearch, getRawBody, makeid, move };
+function deleteDirectoryRecursive(directory, removeContaining){
+    let path = removeContaining ? `${directory}` : `${directory}/*`;
+    return new Promise((resolve, reject) => {
+        rimraf(path, (err) => {
+            if (err) return reject(err);
+            console.log("Deleted files");
+            resolve("The folder was deleted!")
+        });
+    });
+}
+
+module.exports = { recursiveKeySearch, getRawBody, makeid, move, deleteFile, deleteDirectoryRecursive };

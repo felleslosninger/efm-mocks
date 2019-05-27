@@ -37,4 +37,4 @@ function recursiveKeySearch(key, data) {
     return results;
 }
 
-module.exports = { recursiveKeySearch  };
+module.exports = { recursiveKeySearch };

@@ -6,7 +6,7 @@ const fetch = require('node-fetch');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const messageTable = require('./src/components/messageTable').messageTable;
-const rimraf = require('rimraf');
+const { deleteDirectoryRecursive } = require('./src/modules/helper');
 const fs = require('fs');
 const request = require('superagent');
 
@@ -177,15 +177,17 @@ app.get('/', (req, res) => {
 
 function deleteFiles(directory){
     return new Promise((resolve, reject) => {
-        rimraf(`${directory}/*`, () => {
-            console.log("Deleted files");
-            fs.writeFile(`${directory}/.gitkeep`, "", (err) => {
-                if(err) {
-                    reject(err)
-                }
-                resolve("The file was saved!")
-            });
-        });
+        deleteDirectoryRecursive(directory, false)
+            .then(() => {
+                fs.writeFile(`${directory}/.gitkeep`, "", (err) => {
+                    if(err) {
+                        reject(err)
+                    }
+                    resolve("The file was saved!")
+                });
+            }).catch((err) => {
+                reject(err)
+            })
     });
 }
 

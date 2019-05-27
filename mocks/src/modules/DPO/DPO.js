@@ -2,7 +2,7 @@ const fetch = require('node-fetch');
 
 function receiveDPO(req, res) {
     console.log('receiveDPO');
-    res.send('ding!')
+    res.send('ok');
 }
 
 function getBrokerServiceExternalBasicWSDL(req, res){

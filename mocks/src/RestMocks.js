@@ -13,8 +13,6 @@ const hentForsendelsefil = require("./modules/DPF/soapResponses").hentForsendels
 const hentNyeForsendelser = require("./modules/DPF/soapResponses").hentNyeForsendelser;
 const sendForsendelseMedId = require("./modules/DPF/sendForsendelseMedId").sendForsendelseMedId;
 const parseXml = require("./modules/DPO/responses").parseXml;
-const bodyParser = require('body-parser');
-const receiveDPI = require("./modules/DPI/responses").receiveDPI;
 
 const mocks = [
     {
@@ -273,7 +271,8 @@ const mocks = [
 
                     if (global.dpeDB.get(orgNum)) {
                         res.set('BrokerProperties', JSON.stringify(
-                            { LockToken: "gerger",
+                            {
+                                LockToken: "gerger",
                                 SequenceNumber: 1,
                                 MessageId: global.dpeDB.get(orgNum).convId
                             }))
