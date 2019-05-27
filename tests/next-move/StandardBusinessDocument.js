@@ -157,7 +157,7 @@ dpeSbd = (senderOrgNr, receiverOrgNr, meldingsType) => {
         },
         "innsynskrav": {
             "orgnr": receiverOrgNr,
-            "email": "test@example.com"
+            "epost": "test@example.com"
         }
     };
 };
