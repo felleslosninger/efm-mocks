@@ -36,20 +36,22 @@ På localhost:8001 finner du et lite gui der du kan se meldinger som har blitt s
 #### Integrasjonspunkt
 
 1. Kopier filen integrasjonspunkt-local.properties inn til der du kjører integrasjonspunktet.
-2. Koper dpimock/src/main/resources/altinn.jks og dpimock/src/main/resources/demo.jks inn til der du kjører integrasjonspunktet.
+2. Kopier dpimock/src/main/resources/altinn.jks og dpimock/src/main/resources/demo.jks inn til der du kjører integrasjonspunktet.
 3. Start integrasjonspunktet. 
 
 #### Sende meldinger
 
 Mocken er satt opp til å motta meldinger for følgende org nr og prosesser:
 
-| Meldingstype | Mottaker    | Prosess              |
-|--------------|-------------|----------------------|
-| DPI          | 06068700602 | kulturIdrettOgFritid |
-| DPE          | 910076787   | journalpost, innsynskrav, meeting|
-| DPV          | 991825827   | helseSosialOgOmsorg  |
-| DPF          | 991825827   | planByggOgGeodata    |
-| DPO          | 991825827   | administrasjon       |
+| Meldingstype         | Mottaker    | Prosess                                                     | Dokumenttype                                 |
+|----------------------|-------------|-------------------------------------------------------------|----------------------------------------------|
+| DPI                  | 06068700602 | urn:no:difi:profile:digitalpost:info:ver1.0                 | urn:no:difi:digitalpost:xsd:digital::digital |
+| DPE Journal          | 910076787   | urn:no:difi:profile:einnsyn:journalpost:ver1.0              | urn:no:difi:einnsyn:xsd::publisering         |
+| DPE Innsynsbegjæring | 910076787   | urn:no:difi:profile:einnsyn:innsynskrav:ver1.0              | urn:no:difi:einnsyn:xsd::innsynskrav         |
+| DPE Møte             | 910076787   | urn:no:difi:profile:einnsyn:meeting:ver1.0                  | urn:no:difi:einnsyn:xsd::publisering         |
+| DPO                  | 991825827   | urn:no:difi:profile:arkivmelding:administrasjon:ver1.0      | urn:no:difi:arkivmelding:xsd::arkivmelding   |
+| DPV                  | 991825827   | urn:no:difi:profile:arkivmelding:helseSosialOgOmsorg:ver1.0 | urn:no:difi:arkivmelding:xsd::arkivmelding   |
+| DPF                  | 991825827   | urn:no:difi:profile:arkivmelding:planByggOgGeodata:ver1.0   | urn:no:difi:arkivmelding:xsd::arkivmelding   |
 
 #### Kjør mocks uten docker
 
