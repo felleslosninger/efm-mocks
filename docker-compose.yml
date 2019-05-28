@@ -3,22 +3,24 @@ services:
   mocks:
     build: ./mocks
     command: npm run start
+    environment:
+      DPI_HOST: ${DPI_HOST}
     ports:
-      - 8001:8001
+      - ${MOCK_PORT}:${MOCK_PORT}
 
   sa-mock:
     build: ./move-sakarkiv-mock
     command: npm run start
     ports:
-      - 8002:8002
+      - ${SA_MOCK_PORT}:${SA_MOCK_PORT}
 
   wiremock:
     build: ./Wiremock
     ports:
-      - 8090:8090
+      - ${WIREMOCK_PORT}:${WIREMOCK_PORT}
 
   dpimock:
     build: ./dpimock
     command:  cd ./dpimock && ./mvnw install dockerfile:build
     ports:
-      - 8080:8080
+      - ${DPI_PORT}:${DPI_PORT}

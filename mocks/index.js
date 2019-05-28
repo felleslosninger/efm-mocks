@@ -10,6 +10,11 @@ const { deleteDirectoryRecursive } = require('./src/modules/helper');
 const fs = require('fs');
 const request = require('superagent');
 
+console.log(process.env);
+
+process.env.DPI_HOST = process.env.DPI_HOST || 'localhost';
+process.env.DPI_PORT = process.env.DPI_PORT || 8080;
+
 global.dpoDB = new Map();
 global.dpfDB = new Map();
 global.dpeDB = new Map();
@@ -21,17 +26,8 @@ let app = express();
 
 app.use(bodyParser.json({limit: '100mb', extended: true}));
 app.use(bodyParser.urlencoded({limit: '100mb', extended: true}));
-
-
 app.use(express.static('static'));
 app.use(morgan('combined'));
-
-let restString = restMocks.map((item) => item.routes)
-    .reduce((accumulator, current) => accumulator.concat(current))
-    .map((item) => `${item.method} http://localhost:${process.env.PORT}${item.path}`);
-
-let soapString = mocks
-    .map((item) => `http://localhost:${process.env.PORT}${item.pathName}?wsdl`);
 
 app.get('/', (req, res) => {
 
@@ -214,7 +210,7 @@ app.post('/api/messages/DPO', (req, res) => {
 });
 
 app.post('/api/messages/dpi', (req, res) => {
-    request.delete('http://localhost:8080/messages')
+    request.delete(`http://${process.env.DPI_HOST}:${process.env.DPI_PORT}/messages`)
         .then((response) => {
             res.set(200).send();
         }).catch((err) => {
@@ -277,7 +273,7 @@ app.get('/api/messages/DPV', (req, res) => {
 });
 
 app.get('/api/messages/dpi', (req, res) => {
-    request.get('http://localhost:8080/messages')
+    request.get(`http://${process.env.DPI_HOST}:${process.env.DPI_PORT}/messages`)
         .then((response) => {
             res.send(JSON.parse(response.text))
         }).catch((err) => {
@@ -321,6 +317,13 @@ Promise.all(mocks.map((mock) => fetch(mock.wsdlUrl) ))
                 });
         });
 });
+
+let restString = restMocks.map((item) => item.routes)
+    .reduce((accumulator, current) => accumulator.concat(current))
+    .map((item) => `${item.method} http://localhost:${process.env.PORT}${item.path}`);
+
+let soapString = mocks
+    .map((item) => `http://localhost:${process.env.PORT}${item.pathName}?wsdl`);
 
 console.log(`Mocks running on http://localhost:${process.env.PORT}`);
 console.log('REST mocks: \n');
