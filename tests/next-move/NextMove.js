@@ -10,6 +10,21 @@ const endpoint = 'api/messages/out';
 
 // console.log(JSON.stringify(StandardBusinessDocument(991825827, 991825827, 'arkivmelding', 'arkivmelding', 'planByggOgGeodata', uuidv1(), uuidv1()), null, 2));
 
+for (let j = 0; j < process.argv.length; j++) {
+    console.log(j + ' -> ' + (process.argv[j]));
+}
+
+console.log(process.argv.includes('dpe'));
+
+let runDpe = process.argv.includes('dpe');
+let runDpi = process.argv.includes('dpi');
+let runDpv = process.argv.includes('dpv');
+let runDpf = process.argv.includes('dpf');
+let runDpo = process.argv.includes('dpo');
+
+// If no message types are specified, we run them all:
+let runAll = !runDpe && !runDpi && !runDpv && !runDpf && !runDpo;
+
 function sendFile(fileName, conversationId){
     return new Promise((resolve, reject) => {
         fs.createReadStream(path.join(__dirname, fileName))
@@ -33,93 +48,115 @@ function sendFile(fileName, conversationId){
 }
 
 async function sendLargeMessage(sbd){
-    try {
-        let res = await superagent
-            .post(`${ipUrl}/${endpoint}`)
-            .send(sbd);
 
-        console.log(JSON.stringify(res, null, 2));
+    return new Promise(async (resolve, reject) => {
+        try {
+            let res = await superagent
+                .post(`${ipUrl}/${endpoint}`)
+                .send(sbd);
 
-        let conversationId = res.body.standardBusinessDocumentHeader.businessScope.scope[0].instanceIdentifier;
+            console.log(JSON.stringify(res, null, 2));
 
-        console.log(`Conversation created: ${conversationId}`);
+            let conversationId = res.body.standardBusinessDocumentHeader.businessScope.scope[0].instanceIdentifier;
 
-        await sendFile( 'test4.pdf', conversationId);
+            console.log(`Conversation created: ${conversationId}`);
 
-        console.log(`Attachment uploaded: ${'test4.pdf'}`);
+            let sendFileRes = await sendFile( 'test4.pdf', conversationId);
 
-        await sendFile('arkivmelding.xml', conversationId);
+            console.log(`Attachment uploaded: ${'test4.pdf'}`);
 
-        console.log(`arkivmelding.xml uploaded.`);
+            let sendArchiveRes = await sendFile('arkivmelding.xml', conversationId);
 
-        await superagent
-            .post( `${ipUrl}/${endpoint}/${conversationId}`)
-            .then((res) => {
-                console.log('sendt OK');
-            }).catch((err) => {
-                console.log(err);
-                console.log("fail");
-            })
+            console.log(`arkivmelding.xml uploaded.`);
 
-    } catch(err) {
-        let error = JSON.parse(JSON.stringify(err));
-        let text = JSON.parse(error.response.text);
-        console.log(JSON.stringify(text, null, 2));
-        throw Error(err);
-    }
+            let sendRes = await superagent
+                .post( `${ipUrl}/${endpoint}/${conversationId}`)
+            if (sendRes) resolve(conversationId);
+
+        } catch(err) {
+            // let error = JSON.parse(JSON.stringify(err));
+            // let text = JSON.parse(error.response.text);
+            // console.log(JSON.stringify(text, null, 2));
+            // throw Error(err);
+            reject(err);
+        }
+    })
 }
 
 async function sendMessages(){
 
-    console.log('Sending message with process: \'administrasjon\'');
-    // DPO message
-    try {
-        await sendLargeMessage(StandardBusinessDocument(`910075918`, `910075918`, 'arkivmelding', 'arkivmelding', 'administrasjon', uuidv1(), uuidv1()))
-    } catch(err) {
-        console.log(err);
+    if (runDpo || runAll) {
+        console.log('Sending DPO message.');
+        try {
+            let res = await sendLargeMessage(StandardBusinessDocument(`910075918`, `910075918`, 'arkivmelding', 'arkivmelding', 'administrasjon', uuidv1(), uuidv1()))
+            if (res) {
+                console.log("Sendt DPO message OK.");
+            }
+        } catch(err) {
+            console.log(JSON.stringify(err, null, 2));
+            console.log('DPO message failed.');
+        }
     }
 
-    console.log('Sending message with process: \'helseSosialOgOmsorg\'');
-    // DPV message
-    try {
-        await sendLargeMessage(StandardBusinessDocument(991825827, 991825827, 'arkivmelding', 'arkivmelding', 'helseSosialOgOmsorg', uuidv1(), uuidv1()))
-    } catch(e) {
-        console.log('Message with process: \'helseSosialOgOmsorg\' failed.');
-    }
-    
-    
-    console.log('Sending message with process: \'planByggOgGeodata\'');
-    // DPF melding:
-    try {
-        await sendLargeMessage(StandardBusinessDocument(910075918, 910075918, 'arkivmelding', 'arkivmelding', 'planByggOgGeodata', uuidv1(), uuidv1()))
-    } catch (e) {
-        console.log('Message with process: \'planByggOgGeodata\' failed.');
-    }
-    
-    console.log('Sending message with process: \'kulturIdrettOgFritid\'');
-    // DPI Message
-    try {
-        console.log(JSON.stringify(dpiSbd(`0192:991825827`, "06068700602", 'digital', 'digital', 'kulturIdrettOgFritid', uuidv1(), uuidv1()), null, 2));
-    
-        await sendLargeMessage(dpiSbd(`0192:991825827`, "06068700602", 'digital', 'digital', 'kulturIdrettOgFritid', uuidv1(), uuidv1()))
-        console.log('Message with process: \'kulturIdrettOgFritid\' sent OK');
-    } catch(err){
-        console.log(err);
-    }
-    
-    console.log('Sending DPE message');
-    // DPE message
-    try {
-        let res = await sendLargeMessage(
-            dpeSbd(910076787, 910076787,"innsynskrav")
-        );
-        if (res){
-            console.log("Sent DPE message successfully");
-            console.log(res);
+    if (runDpv || runAll) {
+        console.log('Sending DPV message.');
+        try {
+            let res = await sendLargeMessage(StandardBusinessDocument(991825827, 991825827, 'arkivmelding', 'arkivmelding', 'helseSosialOgOmsorg', uuidv1(), uuidv1()))
+            if (res) {
+                console.log("Sendt DPV message OK.");
+            }
+        } catch(e) {
+            console.log(JSON.stringify(err, null, 2));
+            console.log('DPV message failed.');
         }
-    } catch(err){
-        console.log(err);
-        console.log("DPE message failed");
+    }
+
+
+    if (runDpf || runAll) {
+        console.log('Sending DPF message.');
+        // DPF melding:
+        try {
+            let res = await sendLargeMessage(StandardBusinessDocument(910075918, 910075918, 'arkivmelding', 'arkivmelding', 'planByggOgGeodata', uuidv1(), uuidv1()))
+            if (res) {
+                console.log("Sendt DPF message OK.");
+            }
+        } catch (e) {
+            console.log(JSON.stringify(err, null, 2));
+            console.log("DPF message failed.");
+        }
+    }
+
+
+    if (runDpi || runAll) {
+        console.log('Sending DPI message');
+        // DPI Message
+        try {
+            let res = await sendLargeMessage(dpiSbd(`0192:910075918`, "06068700602", 'digital', 'digital', 'kulturIdrettOgFritid', uuidv1(), uuidv1()))
+            if (res) {
+                console.log('Sent DPI message OK.');
+            }
+        } catch(err){
+            console.log(JSON.stringify(err, null, 2));
+            console.log("DPI message failed.");
+        }
+    }
+
+
+    if (runDpe || runAll) {
+        console.log('Sending DPE message');
+        // DPE message
+        try {
+            let res = await sendLargeMessage(
+                dpeSbd(910076787, 910076787,"innsynskrav")
+            );
+            if (res){
+                console.log("Sent DPE message successfully");
+                console.log(res);
+            }
+        } catch(err){
+            console.log(JSON.stringify(err, null, 2));
+            console.log("DPE message failed");
+        }
     }
 
 }
