@@ -277,7 +277,13 @@ app.get('/api/messages/dpi', (req, res) => {
         .then((response) => {
             res.send(JSON.parse(response.text))
         }).catch((err) => {
+            console.log('\n\n\n\n\n\n\n');
+
+            console.log('DPI fetch messages failed!');
             console.log(err);
+
+            console.log('\n\n\n\n\n\n\n');
+
             res.status(500).send();
         })
 });
