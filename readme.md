@@ -35,9 +35,9 @@ På localhost:8001 finner du et lite gui der du kan se meldinger som har blitt s
 
 #### Integrasjonspunkt
 
-1. Kopier ```dpimock/src/main/resources/altinn.jks```, ```dpimock/src/main/resources/demo.jks``` og ```kontaktinfo-client.pem``` inn til der du kjører integrasjonspunktet.
+1. Kopier ```move-mocks/dpimock/src/main/resources/altinn.jks```, ```move-mocks/dpimock/src/main/resources/demo.jks``` og ```move-mocks/kontaktinfo-client.pem``` inn til der du kjører integrasjonspunktet.
 2. Kopier filen integrasjonspunkt-local.properties inn til der du kjører integrasjonspunktet.
-3. Skift ut feltene merket <path_to> med path til de respektive filene.
+3. Skift ut feltene merket <path_to> med path til de respektive filene. (feks: difi.move.org.keystore.path=file:altinn.jks om du utførte steg 1)
 3. Start integrasjonspunktet. 
 
 #### Sende meldinger
