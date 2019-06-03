@@ -56,14 +56,8 @@ function getDPVreceipt(req, res, parsedBody) {
     let queItem = global.dpvDB.get(sendersRef);
     console.log(chalk.blue('POST /dpv SOAP-action: GetCorrespondenceStatusDetailsV2 ') + ' Returning message for receipt ref:' + chalk.yellow(sendersRef));
     res.set('Content-Type', 'application/soap+xml');
-
-    if (queItem) {
-        res.send(getReceiptResponse(sendersRef, queItem.reportee, queItem.receiptId, queItem.created, queItem.expires));
-    } else {
-        res.status(404).send(`No message with senders ref ${sendersRef} found.`);
-    }
+    res.send(getReceiptResponse(sendersRef, queItem));
 }
-
 
 function getSoapAction(body) {
     let soapAction = recursiveKeySearch("action", body)[0][0];
