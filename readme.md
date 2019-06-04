@@ -8,7 +8,7 @@ MoveMocks lar deg simulere de forskjellige meldingsformidlertjenestene.
 ### Forutsetninger
 
 * Docker
-* Kjørende integrasjonspunkt
+* Integrasjonspunkt
 
 
 ### Oppstart
@@ -35,8 +35,8 @@ På localhost:8001 finner du et lite gui der du kan se meldinger som har blitt s
 
 #### Integrasjonspunkt
 
-1. Kopier ```move-mocks/dpimock/src/main/resources/altinn.jks```, ```move-mocks/dpimock/src/main/resources/demo.jks``` og ```move-mocks/kontaktinfo-client.pem``` inn til der du kjører integrasjonspunktet.
-2. Kopier filen integrasjonspunkt-local.properties inn til der du kjører integrasjonspunktet.
+1. Kopier ```move-mocks/dpimock/src/main/resources/altinn.jks```, ```move-mocks/dpimock/src/main/resources/demo.jks``` og ```move-mocks/kontaktinfo-client.pem``` inn i mappen med integrasjonspunktet..
+2. Kopier filen integrasjonspunkt-local.properties inn i mappen med integrasjonspunktet.
 3. Skift ut feltene merket <path_to> med path til de respektive filene. (feks: difi.move.org.keystore.path=file:altinn.jks om du utførte steg 1)
 3. Start integrasjonspunktet. 
 
@@ -64,6 +64,10 @@ Mocken er satt opp til å motta meldinger for følgende org nr og prosesser:
 
 Meldinger som mocken har mottat kan ses på [http://localhost:8001](http://localhost:8001):
 
+#### Kjøre node tester
+1. MoveMocks krever node.js installert. Gå til [https://nodejs.org/en/download/](https://nodejs.org/en/download/) for å laste ned og installere node js for ditt system.
+2. Naviger til tester ```cd move-mocks/tests/next-move```
+3. Kjør test: ```node NextMove.js```
 
 #### jMeter
 
