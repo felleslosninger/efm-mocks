@@ -19,6 +19,8 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 import org.springframework.ws.soap.saaj.SaajSoapMessage;
 import org.springframework.ws.soap.server.endpoint.annotation.SoapAction;
 import org.w3.xmldsig.ReferenceType;
+import java.time.OffsetDateTime;
+import java.time.ZonedDateTime;
 import util.*;
 
 import javax.xml.bind.JAXBElement;
@@ -210,7 +212,9 @@ public class DPIEndpoint {
             documentIdentification.setTypeVersion("1.0");
             documentIdentification.setInstanceIdentifier(messages.messages.get(0).getConversationId());
             documentIdentification.setType("kvittering");
-            documentIdentification.setCreationDateAndTime(DatatypeFactory.newInstance().newXMLGregorianCalendar());
+            documentIdentification.setCreationDateAndTime(toXMLGregorianCalendar(OffsetDateTime.now()));
+
+            header.setDocumentIdentification(documentIdentification);
 
             // Set business scope
             BusinessScope businessScope = new BusinessScope();
@@ -227,7 +231,7 @@ public class DPIEndpoint {
             sbd.setStandardBusinessDocumentHeader(header);
 
             SOAPBody soapBody = message.getSOAPBody();
-            SOAPBodyElement sbdBodyElement = soapBody.addBodyElement(Constants.SBD_QNAME);
+//            SOAPBodyElement sbdBodyElement = soapBody.addBodyElement(Constants.SBD_QNAME);
 
             JAXBElement<StandardBusinessDocument> sbdJAXBElement = new JAXBElement<>(Constants.SBD_QNAME,
                     (Class<StandardBusinessDocument>) sbd.getClass(), sbd);
@@ -267,7 +271,7 @@ public class DPIEndpoint {
 
             try {
                 Marshaller marshaller = Marshalling.getInstance().getJaxbContext().createMarshaller();
-                marshaller.marshal(sbdJAXBElement, sbdBodyElement);
+                marshaller.marshal(sbdJAXBElement, soapBody);
                 marshaller.marshal(userMessageJAXBElement, messagingHeader);
             } catch (JAXBException e) {
                 throw new OxalisAs4Exception("Could not marshal signal message to header", e);
@@ -305,6 +309,22 @@ public class DPIEndpoint {
             }
         }
         return message;
+    }
+
+    private XMLGregorianCalendar toXMLGregorianCalendar(OffsetDateTime in) {
+        return in != null ? toXMLGregorianCalendar(in.toZonedDateTime()) : null;
+    }
+
+    private XMLGregorianCalendar toXMLGregorianCalendar(ZonedDateTime in) {
+        return in != null ? toXMLGregorianCalendar(GregorianCalendar.from(in)) : null;
+    }
+
+    private XMLGregorianCalendar toXMLGregorianCalendar(GregorianCalendar gcal) {
+        try {
+            return DatatypeFactory.newInstance().newXMLGregorianCalendar(gcal);
+        } catch (DatatypeConfigurationException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "StandardBusinessDocument")
