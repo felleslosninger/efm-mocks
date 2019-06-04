@@ -20,6 +20,9 @@ public interface Constants {
     // Common
     String EBMS_NAMESPACE = "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/";
 
+    String SBD_NAMESPACE = "http://www.unece.org/cefact/namespaces/StandardBusinessDocumentHeader";
+    QName SBD_QNAME = new QName(SBD_NAMESPACE, "StandardBusinessDocument", "sbd");
+
     QName MESSAGING_QNAME = new QName(EBMS_NAMESPACE, "Messaging", "eb");
     QName USER_MESSAGE_QNAME = new QName(EBMS_NAMESPACE, "UserMessage");
     QName SIGNAL_MESSAGE_QNAME = new QName(EBMS_NAMESPACE, "SignalMessage");

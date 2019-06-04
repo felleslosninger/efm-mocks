@@ -2,6 +2,8 @@ package com.example.dpimock;
 
 import model.Message;
 import model.MessagesSingleton;
+
+import no.difi.commons.sbdh.jaxb.*;
 import no.difi.oxalis.api.model.Direction;
 import org.oasis_open.docs.ebxml_bp.ebbp_signals_2.MessagePartNRInformation;
 import org.oasis_open.docs.ebxml_bp.ebbp_signals_2.NonRepudiationInformation;
@@ -16,7 +18,6 @@ import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 import org.springframework.ws.soap.saaj.SaajSoapMessage;
 import org.springframework.ws.soap.server.endpoint.annotation.SoapAction;
-import org.unece.cefact.namespaces.standardbusinessdocumentheader.StandardBusinessDocument;
 import org.w3.xmldsig.ReferenceType;
 import util.*;
 
@@ -42,7 +43,7 @@ public class DPIEndpoint {
 
     private static final String NAMESPACE_URI = "http://www.unece.org/cefact/namespaces/StandardBusinessDocumentHeader";
 
-    public String soapMessageToString(SaajSoapMessage message)
+    public String soapMessageToString(SOAPMessage message)
     {
         String result = null;
 
@@ -77,7 +78,7 @@ public class DPIEndpoint {
 
     @SuppressWarnings("Duplicates")
     @SoapAction(value="")
-    public void receipt(MessageContext context) {
+    public void receipt(MessageContext context) throws DatatypeConfigurationException, SOAPException {
         SaajSoapMessage message = (SaajSoapMessage) context.getRequest();
 
         SOAPMessage soapMessage = message.getSaajMessage();
@@ -112,12 +113,19 @@ public class DPIEndpoint {
         SaajSoapMessage webServiceMessage = (SaajSoapMessage)context.getResponse();
 
         webServiceMessage.setSaajMessage(response);
+
+        System.out.println("\n\n\n\n");
+
+        System.out.println(soapMessageToString(response));
+
+        System.out.println("\n\n\n\n");
+
     }
 
     @SuppressWarnings("Duplicates")
     private SOAPMessage createSOAPReceipt(Timestamp ts,
                                           String refToMessageId,
-                                          List<ReferenceType> referenceList) throws OxalisAs4Exception {
+                                          List<ReferenceType> referenceList) throws OxalisAs4Exception, DatatypeConfigurationException, SOAPException {
         SignalMessage signalMessage;
         SOAPHeaderElement messagingHeader;
         SOAPMessage message;
@@ -168,9 +176,105 @@ public class DPIEndpoint {
                 .addMessagePartNRInformation(mpList)
                 .build();
 
-//        if (MessagesSingleton.getInstance().messages.size() > 0) {
-//           // MessagesSingleton.getInstance().messages.remove(0);
-//        } else {
+
+        if (MessagesSingleton.getInstance().messages.size() > 0) {
+           // MessagesSingleton.getInstance().messages.remove(0);
+            MessagesSingleton messages = MessagesSingleton.getInstance();
+            StandardBusinessDocumentHeader header = new StandardBusinessDocumentHeader();
+            header.setHeaderVersion("1.0");
+
+            // Set sender:
+            List<Partner> partners = header.getSender();
+            Partner partner = new Partner();
+            PartnerIdentification partnerIdentification =  new PartnerIdentification();
+            partnerIdentification.setValue(messages.messages.get(0).getSenderOrgNum());
+            partnerIdentification.setAuthority("urn:oasis:names:tc:ebcore:partyid-type:iso6523:9908");
+            partner.setIdentifier(partnerIdentification);
+
+            partners.add(partner);
+
+            // Set receiver:
+            List<Partner> receivers = header.getReceiver();
+            Partner receiverPartner = new Partner();
+            PartnerIdentification receiverPartnerIdentification = new PartnerIdentification();
+            receiverPartnerIdentification.setValue(messages.messages.get(0).getReceiverOrgNum());
+            receiverPartnerIdentification.setAuthority("urn:oasis:names:tc:ebcore:partyid-type:iso6523:9908");
+            receiverPartner.setIdentifier(receiverPartnerIdentification);
+            receivers.add(receiverPartner);
+
+            // Set document identification
+
+            DocumentIdentification documentIdentification = new DocumentIdentification();
+
+            documentIdentification.setStandard("urn:no:difi:sdp:1.0");
+            documentIdentification.setTypeVersion("1.0");
+            documentIdentification.setInstanceIdentifier(messages.messages.get(0).getConversationId());
+            documentIdentification.setType("kvittering");
+            documentIdentification.setCreationDateAndTime(DatatypeFactory.newInstance().newXMLGregorianCalendar());
+
+            // Set business scope
+            BusinessScope businessScope = new BusinessScope();
+            List<Scope> scopes = businessScope.getScope();
+            Scope scope = new Scope();
+            scope.setType("ConversationId");
+            scope.setInstanceIdentifier(messages.messages.get(0).getMessageId());
+            scope.setIdentifier("urn:no:difi:sdp:1.0");
+            scopes.add(scope);
+
+            header.setBusinessScope(businessScope);
+
+            StandardBusinessDocument sbd = new StandardBusinessDocument();
+            sbd.setStandardBusinessDocumentHeader(header);
+
+            SOAPBody soapBody = message.getSOAPBody();
+            SOAPBodyElement sbdBodyElement = soapBody.addBodyElement(Constants.SBD_QNAME);
+
+            JAXBElement<StandardBusinessDocument> sbdJAXBElement = new JAXBElement<>(Constants.SBD_QNAME,
+                    (Class<StandardBusinessDocument>) sbd.getClass(), sbd);
+
+            PartyId fromPartyId = PartyId.builder().withType("urn:oasis:names:tc:ebcore:partyid-type:iso6523:9908").withValue(messages.messages.get(0).getReceiverOrgNum()).build();
+
+            PartyId toPartyId = PartyId.builder().withType("urn:oasis:names:tc:ebcore:partyid-type:iso6523:9908").withValue(messages.messages.get(0).getReceiverOrgNum()).build();
+
+            CollaborationInfo collaborationInfo = CollaborationInfo.builder()
+                    .withAgreementRef(AgreementRef.builder().withValue("http://begrep.difi.no/SikkerDigitalPost/1.0/transportlag/Meldingsutveksling/FormidleDigitalPostForsendelse").build())
+                    .withService(Service.builder().withValue("SDP").build())
+                    .withAction("KvitteringsForespoersel")
+                    .withConversationId(messages.messages.get(0).getMessageId())
+                    .build();
+
+            UserMessage userMessage = UserMessage.builder()
+                    .withMessageInfo(messageInfo)
+                    .withPartyInfo(PartyInfo.builder()
+                            .withFrom(From.builder()
+                                    .withPartyId(fromPartyId)
+                                    .withRole("urn:sdp:meldingsformidler")
+                                    .build())
+                            .withTo(To.builder()
+                                    .withPartyId(toPartyId)
+                                    .withRole("urn:sdp:avsender")
+                                    .build())
+                            .build())
+                    .withCollaborationInfo(collaborationInfo)
+                    .withPayloadInfo(PayloadInfo.builder().withPartInfo(PartInfo.builder().build()).build())
+                    .build();
+            userMessage.setMpc("urn:normal:no.difi.move.integrasjonspunkt-dev");
+
+            JAXBElement<UserMessage> userMessageJAXBElement;
+
+            userMessageJAXBElement = new JAXBElement<>(Constants.USER_MESSAGE_QNAME,
+                    (Class<UserMessage>) userMessage.getClass(), userMessage);
+
+            try {
+                Marshaller marshaller = Marshalling.getInstance().getJaxbContext().createMarshaller();
+                marshaller.marshal(sbdJAXBElement, sbdBodyElement);
+                marshaller.marshal(userMessageJAXBElement, messagingHeader);
+            } catch (JAXBException e) {
+                throw new OxalisAs4Exception("Could not marshal signal message to header", e);
+            }
+
+
+        } else {
             Error error = Error.builder()
                     .withCategory("Communication")
                     .withErrorCode("EBMS:0006")
@@ -189,17 +293,17 @@ public class DPIEndpoint {
                     //.withReceipt(Receipt.builder().withAny(nri).build())
                     .build();
 
-
-            JAXBElement<SignalMessage> userMessageJAXBElement = new JAXBElement<>(Constants.SIGNAL_MESSAGE_QNAME,
+            JAXBElement<SignalMessage> signalMessageJAXBElement;
+            signalMessageJAXBElement = new JAXBElement<>(Constants.SIGNAL_MESSAGE_QNAME,
                     (Class<SignalMessage>) signalMessage.getClass(), signalMessage);
 
             try {
                 Marshaller marshaller = Marshalling.getInstance().getJaxbContext().createMarshaller();
-                marshaller.marshal(userMessageJAXBElement, messagingHeader);
+                marshaller.marshal(signalMessageJAXBElement, messagingHeader);
             } catch (JAXBException e) {
                 throw new OxalisAs4Exception("Could not marshal signal message to header", e);
             }
-        //}
+        }
         return message;
     }
 
