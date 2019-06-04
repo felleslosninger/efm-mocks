@@ -2,15 +2,16 @@ package com.example.dpimock;
 
 import model.Message;
 import model.MessagesSingleton;
-
+import no.difi.begrep.sdp.schema_v10.Kvittering;
+import no.difi.begrep.sdp.schema_v10.Levering;
 import no.difi.commons.sbdh.jaxb.*;
 import no.difi.oxalis.api.model.Direction;
+import no.difi.oxalis.api.timestamp.Timestamp;
 import org.oasis_open.docs.ebxml_bp.ebbp_signals_2.MessagePartNRInformation;
 import org.oasis_open.docs.ebxml_bp.ebbp_signals_2.NonRepudiationInformation;
-import org.oasis_open.docs.ebxml_msg.ebms.v3_0.ns.core._200704.*;
-import org.oasis_open.docs.ebxml_msg.ebms.v3_0.ns.core._200704.MessageInfo;
 import org.oasis_open.docs.ebxml_msg.ebms.v3_0.ns.core._200704.Error;
-import org.oasis_open.docs.ebxml_msg.ebms.v3_0.ns.core._200704.Description;
+import org.oasis_open.docs.ebxml_msg.ebms.v3_0.ns.core._200704.MessageInfo;
+import org.oasis_open.docs.ebxml_msg.ebms.v3_0.ns.core._200704.*;
 import org.springframework.ws.context.MessageContext;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
@@ -19,8 +20,6 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 import org.springframework.ws.soap.saaj.SaajSoapMessage;
 import org.springframework.ws.soap.server.endpoint.annotation.SoapAction;
 import org.w3.xmldsig.ReferenceType;
-import java.time.OffsetDateTime;
-import java.time.ZonedDateTime;
 import util.*;
 
 import javax.xml.bind.JAXBElement;
@@ -30,10 +29,13 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.soap.*;
-import no.difi.oxalis.api.timestamp.Timestamp;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.UnrecoverableKeyException;
+import java.time.OffsetDateTime;
+import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -45,32 +47,21 @@ public class DPIEndpoint {
 
     private static final String NAMESPACE_URI = "http://www.unece.org/cefact/namespaces/StandardBusinessDocumentHeader";
 
-    public String soapMessageToString(SOAPMessage message)
-    {
+    public String soapMessageToString(SOAPMessage message) {
         String result = null;
 
-        if (message != null)
-        {
+        if (message != null) {
             ByteArrayOutputStream baos = null;
-            try
-            {
+            try {
                 baos = new ByteArrayOutputStream();
                 message.writeTo(baos);
                 result = baos.toString();
-            }
-            catch (Exception e)
-            {
-            }
-            finally
-            {
-                if (baos != null)
-                {
-                    try
-                    {
+            } catch (Exception e) {
+            } finally {
+                if (baos != null) {
+                    try {
                         baos.close();
-                    }
-                    catch (IOException ioe)
-                    {
+                    } catch (IOException ioe) {
                     }
                 }
             }
@@ -79,8 +70,8 @@ public class DPIEndpoint {
     }
 
     @SuppressWarnings("Duplicates")
-    @SoapAction(value="")
-    public void receipt(MessageContext context) throws DatatypeConfigurationException, SOAPException {
+    @SoapAction(value = "")
+    public void receipt(MessageContext context) throws DatatypeConfigurationException, SOAPException, UnrecoverableKeyException, NoSuchAlgorithmException, KeyStoreException {
         SaajSoapMessage message = (SaajSoapMessage) context.getRequest();
 
         SOAPMessage soapMessage = message.getSaajMessage();
@@ -112,22 +103,15 @@ public class DPIEndpoint {
             e.printStackTrace();
         }
 
-        SaajSoapMessage webServiceMessage = (SaajSoapMessage)context.getResponse();
+        SaajSoapMessage webServiceMessage = (SaajSoapMessage) context.getResponse();
 
         webServiceMessage.setSaajMessage(response);
-
-        System.out.println("\n\n\n\n");
-
-        System.out.println(soapMessageToString(response));
-
-        System.out.println("\n\n\n\n");
-
     }
 
     @SuppressWarnings("Duplicates")
     private SOAPMessage createSOAPReceipt(Timestamp ts,
                                           String refToMessageId,
-                                          List<ReferenceType> referenceList) throws OxalisAs4Exception, DatatypeConfigurationException, SOAPException {
+                                          List<ReferenceType> referenceList) throws OxalisAs4Exception, DatatypeConfigurationException, SOAPException, UnrecoverableKeyException, NoSuchAlgorithmException, KeyStoreException {
         SignalMessage signalMessage;
         SOAPHeaderElement messagingHeader;
         SOAPMessage message;
@@ -180,7 +164,6 @@ public class DPIEndpoint {
 
 
         if (MessagesSingleton.getInstance().messages.size() > 0) {
-           // MessagesSingleton.getInstance().messages.remove(0);
             MessagesSingleton messages = MessagesSingleton.getInstance();
             StandardBusinessDocumentHeader header = new StandardBusinessDocumentHeader();
             header.setHeaderVersion("1.0");
@@ -188,7 +171,7 @@ public class DPIEndpoint {
             // Set sender:
             List<Partner> partners = header.getSender();
             Partner partner = new Partner();
-            PartnerIdentification partnerIdentification =  new PartnerIdentification();
+            PartnerIdentification partnerIdentification = new PartnerIdentification();
             partnerIdentification.setValue(messages.messages.get(0).getSenderOrgNum());
             partnerIdentification.setAuthority("urn:oasis:names:tc:ebcore:partyid-type:iso6523:9908");
             partner.setIdentifier(partnerIdentification);
@@ -221,7 +204,7 @@ public class DPIEndpoint {
             List<Scope> scopes = businessScope.getScope();
             Scope scope = new Scope();
             scope.setType("ConversationId");
-            scope.setInstanceIdentifier(messages.messages.get(0).getMessageId());
+            scope.setInstanceIdentifier(messages.messages.get(0).getConversationId());
             scope.setIdentifier("urn:no:difi:sdp:1.0");
             scopes.add(scope);
 
@@ -230,8 +213,18 @@ public class DPIEndpoint {
             StandardBusinessDocument sbd = new StandardBusinessDocument();
             sbd.setStandardBusinessDocumentHeader(header);
 
+            Kvittering kvittering = new Kvittering();
+
+            GregorianCalendar gcal = (GregorianCalendar) GregorianCalendar.getInstance();
+            kvittering.setTidspunkt(DatatypeFactory.newInstance().newXMLGregorianCalendar(gcal));
+
+            Levering levering = new Levering();
+
+            kvittering.setLevering(levering);
+
+            sbd = SBDReceiptFactory.signAndWrapDocument(sbd, kvittering);
+
             SOAPBody soapBody = message.getSOAPBody();
-//            SOAPBodyElement sbdBodyElement = soapBody.addBodyElement(Constants.SBD_QNAME);
 
             JAXBElement<StandardBusinessDocument> sbdJAXBElement = new JAXBElement<>(Constants.SBD_QNAME,
                     (Class<StandardBusinessDocument>) sbd.getClass(), sbd);
@@ -244,7 +237,7 @@ public class DPIEndpoint {
                     .withAgreementRef(AgreementRef.builder().withValue("http://begrep.difi.no/SikkerDigitalPost/1.0/transportlag/Meldingsutveksling/FormidleDigitalPostForsendelse").build())
                     .withService(Service.builder().withValue("SDP").build())
                     .withAction("KvitteringsForespoersel")
-                    .withConversationId(messages.messages.get(0).getMessageId())
+                    .withConversationId(messages.messages.get(0).getConversationId())
                     .build();
 
             UserMessage userMessage = UserMessage.builder()
@@ -276,8 +269,7 @@ public class DPIEndpoint {
             } catch (JAXBException e) {
                 throw new OxalisAs4Exception("Could not marshal signal message to header", e);
             }
-
-
+            MessagesSingleton.getInstance().messages.remove(0);
         } else {
             Error error = Error.builder()
                     .withCategory("Communication")
@@ -341,7 +333,7 @@ public class DPIEndpoint {
 
         As4EnvelopeHeader envelopeHeader = parseAs4EnvelopeHeader(userMessage);
 
-        saveIncomingMessage(envelopeHeader);
+        saveIncomingMessage(sbd);
 
         Timestamp ts = getTimestamp(soapMessage);
 
@@ -349,7 +341,7 @@ public class DPIEndpoint {
 
         SOAPMessage response = createSOAPResponse(ts, envelopeHeader.getMessageId(), referenceList);
 
-        SaajSoapMessage webServiceMessage = (SaajSoapMessage)context.getResponse();
+        SaajSoapMessage webServiceMessage = (SaajSoapMessage) context.getResponse();
 
         webServiceMessage.setSaajMessage(response);
     }
@@ -371,13 +363,15 @@ public class DPIEndpoint {
 
     /**
      * Create a message in memory that we expose in the incoming messages API.
-     * **/
-    private void saveIncomingMessage(As4EnvelopeHeader header){
+     **/
+    private void saveIncomingMessage(StandardBusinessDocument sbd) {
+
+        //sbd.standardBusinessDocumentHeader.businessScope.scope.get(0).instanceIdentifier
+
         Message dbMessage = new Message();
-        dbMessage.setConversationId(header.getConversationId());
-        dbMessage.setSenderOrgNum(header.getFromPartyId().get(0));
-        dbMessage.setReceiverOrgNum(header.getToPartyId().get(0));
-        dbMessage.setMessageId(header.getMessageId());
+        dbMessage.setConversationId(sbd.getStandardBusinessDocumentHeader().getBusinessScope().getScope().get(0).getInstanceIdentifier());
+        dbMessage.setSenderOrgNum(sbd.getStandardBusinessDocumentHeader().getSender().get(0).getIdentifier().getValue());
+        dbMessage.setReceiverOrgNum(sbd.getStandardBusinessDocumentHeader().getReceiver().get(0).getIdentifier().getValue());
         MessagesSingleton.getInstance().addMessage(dbMessage);
 
     }
@@ -472,7 +466,7 @@ public class DPIEndpoint {
                 .build();
 
         JAXBElement<SignalMessage> userMessageJAXBElement = new JAXBElement<>(Constants.SIGNAL_MESSAGE_QNAME,
-                (Class<SignalMessage>) signalMessage.getClass(), signalMessage);
+                SignalMessage.class, signalMessage);
 
         try {
             Marshaller marshaller = Marshalling.getInstance().getJaxbContext().createMarshaller();
@@ -483,7 +477,6 @@ public class DPIEndpoint {
 
         return message;
     }
-
 
 
 }
