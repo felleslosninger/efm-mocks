@@ -259,7 +259,6 @@ const mocks = [
                 middleware: getRawBody,
                 responseFunction: (req, res) => {
                     recieveFile(req, res)
-
                 }
             },
             {

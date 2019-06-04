@@ -10,8 +10,6 @@ const { deleteDirectoryRecursive } = require('./src/modules/helper');
 const fs = require('fs');
 const request = require('superagent');
 
-console.log(process.env);
-
 process.env.DPI_HOST = process.env.DPI_HOST || 'localhost';
 process.env.DPI_PORT = process.env.DPI_PORT || 8080;
 
@@ -207,6 +205,22 @@ app.post('/api/messages/DPO', (req, res) => {
         console.log(err);
         res.sendStatus(500)
     })
+});
+
+app.post('/api/messages/DPV', (req, res) => {
+    global.dpvDB = new Map();
+    res.sendStatus(200);
+});
+
+app.post('/api/messages/DPE', (req, res) => {
+    global.dpeDB = new Map();
+    deleteFiles('./src/modules/DPE/uploads')
+        .then(() => {
+            res.sendStatus(200);
+        }).catch((err) => {
+            console.log(err);
+            res.sendStatus(500);
+        })
 });
 
 app.post('/api/messages/dpi', (req, res) => {

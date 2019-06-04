@@ -1,4 +1,4 @@
-
+const request = require('superagent');
 
 function retrieveforsendelsestatus(req, res, parsed){
 
@@ -46,6 +46,17 @@ function PutMessage() {
             </soapenv:Envelope>`;
 }
 
+function retrieveCertificate(orgNum){
+    return new Promise((resolve, reject) => {
+        request.get(`http://localhost:8090/identifier/${orgNum}`)
+            .then((res) => {
+                console.log(res);
+            }).catch((err) => {
+                console.log(err);
+            })
+    });
+}
+
 function hentForsendelsefil(req, res){
     res.header("Content-Type", "application/zip; charset=UTF-8");
 
@@ -62,6 +73,26 @@ function hentForsendelsefil(req, res){
             res.download(`${encryptedPath}`)
         });
 }
+//
+// function hentForsendelsefil(req, res){
+//     res.header("Content-Type", "application/zip; charset=UTF-8");
+//
+//     const childProcess = require('child_process');
+//     let certPath = `${__dirname}/910075918.cer`;
+//     let encryptedPath = `${__dirname}/uploads/${res.req.params.forsendelsesId}-encrypted-new`;
+//     let message = [ ...global.dpfDB.values() ][0].find(value => value.conversationId === req.params.forsendelsesId);
+//
+//     res.header("Content-Disposition", `attachment; filename=\"${message.fileName}\"`);
+//     retrieveCertificate(message.receiverOrgNum).then(
+//         (cert) => {
+//             childProcess.exec(`openssl smime -encrypt -binary -aes-256-cbc -in ${__dirname}/uploads/${res.req.params.forsendelsesId}.zip -out ${encryptedPath} -outform DER ${cert}`, {},
+//                 function (err, stdout, stderr) {
+//                     if (err) throw err;
+//                     res.download(`${encryptedPath}`)
+//                 });
+//         });
+//
+// }
 
 function hentNyeForsendelser(req, res) {
     res.send([...dpfDB.values()]

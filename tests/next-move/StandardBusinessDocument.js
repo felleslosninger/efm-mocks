@@ -148,7 +148,7 @@ dpeSbd = (senderOrgNr, receiverOrgNr, meldingsType) => {
                         "identifier": `urn:no:difi:profile:einnsyn:${meldingsType}:ver1.0`,
                         "scopeInformation": [
                             {
-                                "expectedResponseDateTime": new moment().add(2, 'hours')
+                                "expectedResponseDateTime": new moment().add(20, 'hours')
                             }
                         ]
                     }

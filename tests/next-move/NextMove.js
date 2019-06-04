@@ -8,14 +8,6 @@ const moment = require('moment');
 const ipUrl = 'http://localhost:9093';
 const endpoint = 'api/messages/out';
 
-// console.log(JSON.stringify(StandardBusinessDocument(991825827, 991825827, 'arkivmelding', 'arkivmelding', 'planByggOgGeodata', uuidv1(), uuidv1()), null, 2));
-
-for (let j = 0; j < process.argv.length; j++) {
-    console.log(j + ' -> ' + (process.argv[j]));
-}
-
-console.log(process.argv.includes('dpe'));
-
 let runDpe = process.argv.includes('dpe');
 let runDpi = process.argv.includes('dpi');
 let runDpv = process.argv.includes('dpv');
@@ -48,14 +40,11 @@ function sendFile(fileName, conversationId){
 }
 
 async function sendLargeMessage(sbd){
-
     return new Promise(async (resolve, reject) => {
         try {
             let res = await superagent
                 .post(`${ipUrl}/${endpoint}`)
                 .send(sbd);
-
-            console.log(JSON.stringify(res, null, 2));
 
             let conversationId = res.body.standardBusinessDocumentHeader.businessScope.scope[0].instanceIdentifier;
 
@@ -74,10 +63,6 @@ async function sendLargeMessage(sbd){
             if (sendRes) resolve(conversationId);
 
         } catch(err) {
-            // let error = JSON.parse(JSON.stringify(err));
-            // let text = JSON.parse(error.response.text);
-            // console.log(JSON.stringify(text, null, 2));
-            // throw Error(err);
             reject(err);
         }
     })
@@ -101,7 +86,7 @@ async function sendMessages(){
     if (runDpv || runAll) {
         console.log('Sending DPV message.');
         try {
-            let res = await sendLargeMessage(StandardBusinessDocument(991825827, 991825827, 'arkivmelding', 'arkivmelding', 'helseSosialOgOmsorg', uuidv1(), uuidv1()))
+            let res = await sendLargeMessage(StandardBusinessDocument(991825827, 910075918, 'arkivmelding', 'arkivmelding', 'helseSosialOgOmsorg', uuidv1(), uuidv1()))
             if (res) {
                 console.log("Sendt DPV message OK.");
             }
