@@ -1,5 +1,6 @@
 package util;
 
+import no.difi.begrep.sdp.schema_v10.Kvittering;
 import no.difi.commons.sbdh.jaxb.StandardBusinessDocument;
 import org.oasis_open.docs.ebxml_bp.ebbp_signals_2.NonRepudiationInformation;
 import org.oasis_open.docs.ebxml_msg.ebms.v3_0.ns.core._200704.Messaging;
@@ -17,6 +18,7 @@ public class Marshalling {
         Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
         marshaller.setContextPaths(
                 StandardBusinessDocument.class.getPackage().getName(),
+                Kvittering.class.getPackage().getName(),
                 Envelope.class.getPackage().getName(),
                 org.w3.soap.Envelope.class.getPackage().getName(),
                 ReferenceType.class.getPackage().getName(),
