@@ -14,7 +14,7 @@ MoveMocks lar deg simulere de forskjellige meldingsformidlertjenestene.
 
 ### Oppstart
 
-Dersom du skal kjøre DPI mocken må du utføre følgende skritt før docker-compose up:
+Dersom du skal kjøre DPI mocken må du utføre følgende skritt før ```docker-compose up```:
 
 1. ``` git clone https://github.com/difi/move-mocks.git ```
 2. Bygg dpimock prosjektet: ``` cd move-mocks/dpimock && ./mvnw install dockerfile:build ```
@@ -39,6 +39,8 @@ På localhost:8001 finner du et lite gui der du kan se meldinger som har blitt s
 1. Kopier ```move-mocks/dpimock/src/main/resources/altinn.jks```, ```move-mocks/dpimock/src/main/resources/demo.jks```, ```integrasjonspunkt-local.properties``` og ```move-mocks/kontaktinfo-client.pem``` working directory for integrasjonspunktet.
 2. Start integrasjonspunktet med *dev* profil.  
 
+[https://difi.github.io/felleslosninger/eformidling_download_ip.html](*Generell informasjon om hvordan sette opp et integrasjonspunkt*)
+
 #### Sende meldinger
 
 Mocken er satt opp til å motta meldinger for følgende org nr og prosesser:
@@ -53,20 +55,14 @@ Mocken er satt opp til å motta meldinger for følgende org nr og prosesser:
 | DPV                  | 991825827   | urn:no:difi:profile:arkivmelding:helseSosialOgOmsorg:ver1.0 | urn:no:difi:arkivmelding:xsd::arkivmelding   |
 | DPF                  | 991825827   | urn:no:difi:profile:arkivmelding:planByggOgGeodata:ver1.0   | urn:no:difi:arkivmelding:xsd::arkivmelding   |
 
-#### Kjør mocks uten docker
+Meldinger som mocken har mottatt kan ses på [http://localhost:8001](http://localhost:8001)
 
-1. MoveMocks krever node.js installert. Gå til [https://nodejs.org/en/download/](https://nodejs.org/en/download/) for å laste ned og installere node js for ditt system.
-
-2. ``` cd mocks && npm i && node index.js```
-
-3. Mocken er nå klar til å ta imot meldinger fra Integrasjonspunktet.
-
-Meldinger som mocken har mottat kan ses på [http://localhost:8001](http://localhost:8001):
 
 #### Kjøre node tester
 1. MoveMocks krever node.js installert. Gå til [https://nodejs.org/en/download/](https://nodejs.org/en/download/) for å laste ned og installere node js for ditt system.
 2. Naviger til tester ```cd move-mocks/tests/next-move```
 3. Kjør test: ```node NextMove.js```
+
 
 #### jMeter
 
@@ -78,3 +74,6 @@ MoveMocks inneholder også jMeter tester. Disse kan brukes til ytelses testing, 
 
 Dersom alt er satt opp korrekt, vil meldingene gå igjennom, og du vil få et tall på hvor lang tid det tok i terminalen i jMeter. 
 
+#### Docker tips
+
+Kommando som kan brukes til å bygge prosjektet etter oppdatering ```docker-compose up --build --force-recreate```. Kjøres i roten av prosjektet.
