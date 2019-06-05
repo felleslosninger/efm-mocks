@@ -22,6 +22,7 @@ public interface Constants {
 
     String SBD_NAMESPACE = "http://www.unece.org/cefact/namespaces/StandardBusinessDocumentHeader";
     QName SBD_QNAME = new QName(SBD_NAMESPACE, "StandardBusinessDocument", "sbd");
+    QName SBD_HEADER_QNAME = new QName(SBD_NAMESPACE, "StandardBusinessDocumentHeader");
 
     QName MESSAGING_QNAME = new QName(EBMS_NAMESPACE, "Messaging", "eb");
     QName USER_MESSAGE_QNAME = new QName(EBMS_NAMESPACE, "UserMessage");
