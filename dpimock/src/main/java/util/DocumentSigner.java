@@ -30,13 +30,13 @@ class DocumentSigner {
      * Creates a standard business document that contains a domain object "kvittering" and a digital signature the
      * receiver can verify to make sure it was not tampered with
      *
-     * @param doc     the document to sign
+     * @param doc the document to sign
      */
     public static Document sign(Document doc) throws KeyStoreException, UnrecoverableKeyException, NoSuchAlgorithmException {
 
         KeyStore ipNokkel = getKeyStore("altinn.jks");
         PublicKey publicKey = ipNokkel.getCertificate("984661185").getPublicKey();
-        PrivateKey privateKey = (PrivateKey)ipNokkel.getKey("984661185", "changeit".toCharArray());
+        PrivateKey privateKey = (PrivateKey) ipNokkel.getKey("984661185", "changeit".toCharArray());
 
 
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -78,6 +78,7 @@ class DocumentSigner {
                         "element, this is the parent of the signature to be inserted");
             }
             DOMSignContext domSignContext = new DOMSignContext(privateKey, kvitteringElement);
+            domSignContext.setNextSibling(kvitteringElement.getFirstChild());
             signature.sign(domSignContext);
             return doc;
 
