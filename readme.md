@@ -39,7 +39,7 @@ På localhost:8001 finner du et lite gui der du kan se meldinger som har blitt s
 1. Kopier ```move-mocks/dpimock/src/main/resources/altinn.jks```, ```move-mocks/dpimock/src/main/resources/demo.jks```, ```integrasjonspunkt-local.properties``` og ```move-mocks/kontaktinfo-client.pem``` working directory for integrasjonspunktet.
 2. Start integrasjonspunktet med *dev* profil.  
 
-[https://difi.github.io/felleslosninger/eformidling_download_ip.html](*Generell informasjon om hvordan sette opp et integrasjonspunkt*)
+[*Generell informasjon om hvordan sette opp et integrasjonspunkt*](https://difi.github.io/felleslosninger/eformidling_download_ip.html)
 
 #### Sende meldinger
 
