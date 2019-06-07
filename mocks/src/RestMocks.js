@@ -133,7 +133,7 @@ const mocks = [
                 path: '/dpo/ServiceEngineExternal/BrokerServiceExternalBasic.svc',
                 method: 'GET',
                 responseFunction: (req, res) => {
-
+*
                     res.set('Content-type', 'text/xml');
                     res.send(getBasicWSDL());
                 }
@@ -269,13 +269,15 @@ const mocks = [
                     let orgNum  = req.originalUrl.split('/')[2].match(/\d/g).join('');
 
                     if (global.dpeDB.get(orgNum)) {
-                        res.set('BrokerProperties', JSON.stringify(
+                        res.set(
+                            'BrokerProperties', JSON.stringify(
                             {
                                 LockToken: "gerger",
                                 SequenceNumber: 1,
-                                MessageId: global.dpeDB.get(orgNum).convId
+                                MessageId: global.dpeDB.get(orgNum).messages[0].convId
                             }))
-                            .status(201).send(global.dpeDB.get(orgNum).sbd);
+                            .status(201)
+                            .send(global.dpeDB.get(orgNum).messages[0].sbd);
                     } else {
                         res.status(204).send();
                     }
