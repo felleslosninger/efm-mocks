@@ -66,20 +66,16 @@ app.get('/', (req, res) => {
             serviceIdentifier: 'dpv',
             headers:[
                 {
-                    title: 'Senders Reference',
-                    accessor: 'sendersReference',
+                    title: 'Sender orgnum',
+                    accessor: 'senderOrgNum',
                 },
                 {
-                    title: 'Reportee',
-                    accessor: 'reportee',
+                    title: 'Receiver orgnum',
+                    accessor: 'receiverOrgNum',
                 },
                 {
-                    title: 'Created',
-                    accessor: 'created',
-                },
-                {
-                    title: 'Receipt ID',
-                    accessor: 'receiptId'
+                    title: 'Conversation ID',
+                    accessor: 'conversationId',
                 }
             ]
         },
@@ -104,20 +100,16 @@ app.get('/', (req, res) => {
             serviceIdentifier: 'dpe',
             headers: [
                 {
-                    title: 'Receiver orgnum',
-                    accessor: 'receiverOrgnum',
+                    title: 'Sender orgnum',
+                    accessor: 'senderOrgNum',
                 },
                 {
-                    title: 'Sender orgnum',
-                    accessor: 'senderOrgnum',
+                    title: 'Receiver orgnum',
+                    accessor: 'receiverOrgNum',
                 },
                 {
                     title: 'Conversation ID',
-                    accessor: 'convId',
-                },
-                {
-                    title: 'Type',
-                    accessor: 'serviceIdentifier',
+                    accessor: 'conversationId',
                 }
             ]
         },

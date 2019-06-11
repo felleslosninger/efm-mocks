@@ -1,3 +1,4 @@
+
 const deleteButtons = document.querySelectorAll('.delete-button');
 
 let dpfMessageContainer = document.getElementById('dpf-messages');
@@ -49,34 +50,28 @@ deleteButtons.forEach(button => {
 });
 
 function messageTable(serviceIdentifier, messages, headers){
-
-    console.log(headers);
-
     return `${messages
         .map((entry) => {
-            console.log(entry);
             return entry ?
-                `<tr>${headers.map(header => `<td>${entry[header.accessor]}</td>`).join('')}</tr>` 
+                `<tr>${headers.headers.map(header => `<td>${entry[header.accessor]}</td>`).join('')}</tr>` 
                 : null
         }).join('')}`;
 }
 
-poll = (url, serviceIdentifier, targetElement) => {
-    axios.get(url).then((res) => {
+poll = () => {
+    axios.get('/api/messages').then((res) => {
         console.log(res.data);
         messageContainers.forEach((targetElement) => emptyMessages(targetElement.element));
 
-        // headers.forEach(header => )
         res.data.forEach((data) => {
-            console.log(data);
-            console.log(headers);
             let theHeaders = headers.filter((header) => header.serviceIdentifier === data.serviceIdentifier)[0];
-            messageTable(data.serviceIdentifier, data.messages, theHeaders);
+            let containerElement = messageContainers.filter(container => container.serviceIdentifier === data.serviceIdentifier)[0];
+            containerElement.element.innerHTML = messageTable(data.serviceIdentifier, data.messages, theHeaders);
             }
         )
     });
 };
-
-setInterval(poll('/api/messages'), 5000)
+poll();
+setInterval(poll, 5000);
 
 
