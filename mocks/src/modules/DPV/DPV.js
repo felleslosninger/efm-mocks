@@ -38,6 +38,19 @@ function getDPVrequest(req, res, parsedBody) {
     let created = new moment().format();
     let expires = new moment().add(5, 'minutes').format();
 
+
+    let conversationId = parsedBody.envelope.body["0"].insertcorrespondencev2["0"].externalshipmentreference["0"];
+
+    let senderOrgNum = parsedBody.envelope.body["0"].insertcorrespondencev2["0"].correspondence["0"].reportee["0"];
+
+    let logMessages = global.messageLog.get('dpv');
+
+    logMessages.push({
+        conversationId: conversationId,
+        senderOrgNum: senderOrgNum,
+        receiverOrgNum: ''
+    });
+
     global.dpvDB.set(sendersRererence, {
         sendersReference: sendersRererence,
         reportee: reportee,

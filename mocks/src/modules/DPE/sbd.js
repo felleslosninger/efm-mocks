@@ -1,8 +1,6 @@
-// const { statusSbd } = require("./sbd");
-
 const moment = require('moment');
 
-function thing(senderOrgNum, receiverOrgNum, conversationId) {
+const statusSbd = function (senderOrgNum, receiverOrgNum, conversationId) {
     return {
         "standardBusinessDocumentHeader": {
             "headerVersion": "1.0",
@@ -52,48 +50,4 @@ function thing(senderOrgNum, receiverOrgNum, conversationId) {
     }
 };
 
-function recieveFile(req, res){
-
-    const payload = JSON.parse(req.rawBody);
-
-    let convId = payload.sbd.standardBusinessDocumentHeader.businessScope.scope["0"].instanceIdentifier;
-    let receiverOrgnum = payload.sbd.standardBusinessDocumentHeader.receiver["0"].identifier.value.split(":")[1];
-    let senderOrgnum = payload.sbd.standardBusinessDocumentHeader.sender["0"].identifier.value.split(":")[1];
-    let serviceIdentifier = payload.sbd.standardBusinessDocumentHeader.documentIdentification.standard;
-
-    let dbMessage = {
-        convId: convId,
-        sbd: req.rawBody,
-        receiverOrgnum: receiverOrgnum,
-        senderOrgnum: senderOrgnum,
-        serviceIdentifier: serviceIdentifier
-    };
-
-    let logMessages = global.messageLog.get('dpe');
-    logMessages.push({
-        conversationId: convId,
-        receiverOrgNum: receiverOrgnum,
-        senderOrgNum: senderOrgnum
-    });
-
-    let receiverMessages = global.dpeDB.get(receiverOrgnum);
-    let senderMessages = global.dpeDB.get(senderOrgnum);
-
-    if (receiverMessages){
-        receiverMessages.push(dbMessage);
-    } else {
-        global.dpeDB.set(receiverOrgnum, [ dbMessage ]);
-    }
-
-    let statusSbd = thing(senderOrgnum, receiverOrgnum, convId);
-
-    if (senderMessages){
-        senderMessages.push(statusSbd);
-    } else {
-        global.dpeDB.set(senderOrgnum, [ statusSbd ]);
-    }
-
-    res.status(200).send();
-}
-
-module.exports = { recieveFile };
+module.exports = { statusSbd };

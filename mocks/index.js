@@ -17,6 +17,12 @@ global.dpoDB = new Map();
 global.dpfDB = new Map();
 global.dpeDB = new Map();
 global.dpvDB = new Map();
+global.messageLog = new Map();
+global.messageLog.set('dpi', []);
+global.messageLog.set('dpe', []);
+global.messageLog.set('dpf', []);
+global.messageLog.set('dpv', []);
+global.messageLog.set('dpo', []);
 
 process.env.PORT = process.env.PORT || 8001;
 
@@ -33,94 +39,108 @@ app.get('/', (req, res) => {
     * Set up headers for use in the frontend view of received messages.
     * */
 
-    let dpfHeaders = [
+    console.log(global.messageLog);
+    let headers = [
         {
-            title: 'Sender orgNum',
-            accessor: 'senderOrgNum',
+            serviceIdentifier: 'dpf',
+            headers:[
+                {
+                    title: 'Sender orgNum',
+                    accessor: 'senderOrgNum',
+                },
+                {
+                    title: 'Receiver orgNum',
+                    accessor: 'receiverOrgNum',
+                },
+                {
+                    title: 'Conversation ID',
+                    accessor: 'conversationId',
+                },
+                {
+                    title: 'Receipt ID',
+                    accessor: 'receiptId'
+                }
+            ]
         },
         {
-            title: 'Receiver orgNum',
-            accessor: 'receiverOrgNum',
+            serviceIdentifier: 'dpv',
+            headers:[
+                {
+                    title: 'Senders Reference',
+                    accessor: 'sendersReference',
+                },
+                {
+                    title: 'Reportee',
+                    accessor: 'reportee',
+                },
+                {
+                    title: 'Created',
+                    accessor: 'created',
+                },
+                {
+                    title: 'Receipt ID',
+                    accessor: 'receiptId'
+                }
+            ]
         },
         {
-            title: 'Conversation ID',
-            accessor: 'conversationId',
+            serviceIdentifier: 'dpo',
+            headers: [
+                {
+                    title: 'Receiver',
+                    accessor: 'receiver',
+                },
+                {
+                    title: 'File Reference',
+                    accessor: 'fileReference',
+                },
+                {
+                    title: 'Recipt ID',
+                    accessor: 'receiptId',
+                }
+            ]
         },
         {
-            title: 'Receipt ID',
-            accessor: 'receiptId'
-        }
-    ];
-
-    let dpvHeaders = [
-        {
-            title: 'Senders Reference',
-            accessor: 'sendersReference',
+            serviceIdentifier: 'dpe',
+            headers: [
+                {
+                    title: 'Receiver orgnum',
+                    accessor: 'receiverOrgnum',
+                },
+                {
+                    title: 'Sender orgnum',
+                    accessor: 'senderOrgnum',
+                },
+                {
+                    title: 'Conversation ID',
+                    accessor: 'convId',
+                },
+                {
+                    title: 'Type',
+                    accessor: 'serviceIdentifier',
+                }
+            ]
         },
         {
-            title: 'Reportee',
-            accessor: 'reportee',
-        },
-        {
-            title: 'Created',
-            accessor: 'created',
-        },
-        {
-            title: 'Receipt ID',
-            accessor: 'receiptId'
-        }
-    ];
-
-    let dpoHeaders = [
-        {
-            title: 'Receiver',
-            accessor: 'receiver',
-        },
-        {
-            title: 'File Reference',
-            accessor: 'fileReference',
-        },
-        {
-            title: 'Recipt ID',
-            accessor: 'receiptId',
-        }
-    ];
-
-    let dpeHeaders = [
-        {
-            title: 'Receiver orgnum',
-            accessor: 'receiverOrgnum',
-        },
-        {
-            title: 'Sender orgnum',
-            accessor: 'senderOrgnum',
-        },
-        {
-            title: 'Conversation ID',
-            accessor: 'convId',
-        },
-        {
-            title: 'Type',
-            accessor: 'serviceIdentifier',
-        }
-    ];
-
-    let dpiHeaders = [
-        {
-            title: 'Receiver orgnum',
-            accessor: 'receiverOrgNum',
-        },
-        {
-            title: 'Sender orgnum',
-            accessor: 'senderOrgNum',
-        },
-        {
-            title: 'Conversation ID',
-            accessor: 'conversationId',
-        },
-        {
-            title: 'Message ID',
-            accessor: 'messageId',
+            serviceIdentifier: 'dpi',
+            headers: [
+                {
+                    title: 'Receiver orgnum',
+                    accessor: 'receiverOrgNum',
+                },
+                {
+                    title: 'Sender orgnum',
+                    accessor: 'senderOrgNum',
+                },
+                {
+                    title: 'Conversation ID',
+                    accessor: 'conversationId',
+                },
+                {
+                    title: 'Message ID',
+                    accessor: 'messageId',
+                }
+            ]
         }
     ];
 
@@ -132,11 +152,7 @@ app.get('/', (req, res) => {
                 
                 <script>
                     // These variables are used in static/script.js
-                    let dpfHeaders = ${JSON.stringify(dpfHeaders)};
-                    let dpvHeaders = ${JSON.stringify(dpvHeaders)};
-                    let dpeHeaders = ${JSON.stringify(dpeHeaders)};
-                    let dpoHeaders = ${JSON.stringify(dpoHeaders)};
-                    let dpiHeaders = ${JSON.stringify(dpiHeaders)};
+                    let headers = ${JSON.stringify(headers)};
                 </script>
            
                 <body>
@@ -152,22 +168,22 @@ app.get('/', (req, res) => {
                     </nav>
                     <div class="container main-container">
                     
-                        ${messageTable(dpfHeaders, 'DPF', global.dpfDB)}
-                        
-                        ${messageTable(dpoHeaders, 'DPO', global.dpoDB)}
-                        
-                        ${messageTable(dpvHeaders, 'DPV', global.dpvDB)}
-                        
-                        ${messageTable(dpeHeaders, 'DPE', global.dpeDB)}
-                        
-                        ${messageTable(dpiHeaders, 'DPI', [])}
-                      
+                        ${headers.map((header) => messageTable(header.headers, header.serviceIdentifier)).join('')}
+                       
                    </div>
                 </body>
                 <script src="script.js"></script>
             </html>
     `);
 });
+
+// ${messageTable(dpoHeaders, 'DPO', global.dpoDB)}
+//
+// ${messageTable(dpvHeaders, 'DPV', global.dpvDB)}
+//
+// ${messageTable(dpeHeaders, 'DPE', global.dpeDB)}
+//
+// ${messageTable(dpiHeaders, 'DPI', [])}
 
 function deleteFiles(directory){
     return new Promise((resolve, reject) => {
@@ -184,6 +200,32 @@ function deleteFiles(directory){
             })
     });
 }
+
+app.get('/api/messages', (req, res) => {
+    let returnMessages = [...global.messageLog].map((item) => {
+        return {
+            serviceIdentifier: item[0],
+            messages: item[1]
+        }
+    });
+
+    console.log('stop');
+
+    res.send(returnMessages)
+
+
+        // .map(([key, value]) => {
+        //     return value.map((entry) => {
+        //         return {
+        //             conversationId: entry.conversationId,
+        //             receiverOrgNum: entry.receiverOrgNum,
+        //             senderOrgNum: entry.senderOrgNum,
+        //             receiptId: entry.receiptId
+        //         }
+        //     });
+        // })
+
+});
 
 app.post('/api/messages/DPF', (req, res) => {
     global.dpfDB = new Map();

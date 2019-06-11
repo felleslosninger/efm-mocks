@@ -1,5 +1,5 @@
 
-function messageTable(headers, serviceIdentifier, messages){
+function messageTable(headers, serviceIdentifier){
     let deleteButtonId = `delete-button-${serviceIdentifier}`;
     return `
     <button class="btn btn-primary delete-button" id="${deleteButtonId}" data-serviceIdentifier="${serviceIdentifier}">Delete</button>

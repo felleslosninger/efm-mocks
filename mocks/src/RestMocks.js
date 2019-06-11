@@ -85,7 +85,6 @@ const mocks = [
                 path: '/svarinn/mottaker/hentForsendelsefil/:forsendelseid',
                 method: 'GET',
                 responseFunction: (req, res) => {
-                    // need stream?
                     res.download(`${__dirname}/testdata/${config.hentForsendelsefil}`)
                 }
             },
@@ -133,7 +132,6 @@ const mocks = [
                 path: '/dpo/ServiceEngineExternal/BrokerServiceExternalBasic.svc',
                 method: 'GET',
                 responseFunction: (req, res) => {
-*
                     res.set('Content-type', 'text/xml');
                     res.send(getBasicWSDL());
                 }
@@ -257,8 +255,8 @@ const mocks = [
                 path: '/dpe/*/messages',
                 method: 'POST',
                 middleware: getRawBody,
-                responseFunction: (req, res) => {
-                    recieveFile(req, res)
+                responseFunction: function(req, res) {
+                    recieveFile(req, res);
                 }
             },
             {
@@ -266,15 +264,17 @@ const mocks = [
                 method: 'POST',
                 responseFunction: (req, res) => {
 
-                    let orgNum  = req.originalUrl.split('/')[2].match(/\d/g).join('');
+                    let orgNum = req.originalUrl.split('/')[2].match(/\d/g).join('');
 
-                    if (global.dpeDB.get(orgNum)) {
+                    let dpeMessages = global.dpeDB.get(orgNum);
+
+                    if (dpeMessages && dpeMessages.messages && dpeMessages.messages.length > 0) {
                         res.set(
                             'BrokerProperties', JSON.stringify(
                             {
                                 LockToken: "gerger",
                                 SequenceNumber: 1,
-                                MessageId: global.dpeDB.get(orgNum).messages[0].convId
+                                MessageId: dpeMessages.messages[0].convId
                             }))
                             .status(201)
                             .send(global.dpeDB.get(orgNum).messages[0].sbd);

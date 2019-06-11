@@ -1,10 +1,32 @@
 const deleteButtons = document.querySelectorAll('.delete-button');
 
-let dpfMessageContainer = document.getElementById('DPF-messages');
-let dpoMessageContainer = document.getElementById('DPO-messages');
-let dpvMessageContainer = document.getElementById('DPV-messages');
-let dpeMessageContainer = document.getElementById('DPE-messages');
-let dpiMessageContainer = document.getElementById('DPI-messages');
+let dpfMessageContainer = document.getElementById('dpf-messages');
+let dpoMessageContainer = document.getElementById('dpo-messages');
+let dpvMessageContainer = document.getElementById('dpv-messages');
+let dpeMessageContainer = document.getElementById('dpe-messages');
+let dpiMessageContainer = document.getElementById('dpi-messages');
+
+let messageContainers = [
+    {
+        serviceIdentifier: 'dpi',
+        element: dpiMessageContainer
+    },
+    {
+        serviceIdentifier: 'dpf',
+        element: dpfMessageContainer
+    },
+    {
+        serviceIdentifier: 'dpo',
+        element: dpoMessageContainer
+    },
+    {
+        serviceIdentifier: 'dpv',
+        element: dpvMessageContainer
+    },
+    {
+        serviceIdentifier: 'dpe',
+        element: dpeMessageContainer
+    } ];
 
 let emptyMessages = function(node) {
     while (node.firstChild) {
@@ -26,15 +48,7 @@ deleteButtons.forEach(button => {
     });
 });
 
-// function messageTable(serviceIdentifier, messages){
-//     return `${[...messages]
-//         .map(([key, value]) => {
-//             return key ? `<tr><td>${key.receiver}</td><td>${key.fileReference}</td><td>${key.receiptId}</td></tr>` : null
-//         }).join('')
-//     }`;
-// }
-
-function messageTable2(serviceIdentifier, messages, headers){
+function messageTable(serviceIdentifier, messages, headers){
 
     console.log(headers);
 
@@ -47,47 +61,22 @@ function messageTable2(serviceIdentifier, messages, headers){
         }).join('')}`;
 }
 
-// poll = (url, serviceIdentifier, targetElement) => {
-//     axios.get(url).then((res) => {
-//         emptyMessages(targetElement);
-//         targetElement.innerHTML = messageTable(serviceIdentifier, Array.from(new Map(res.data)));
-//     });
-// };
-
-poll2 = (url, serviceIdentifier, targetElement, headers) => {
+poll = (url, serviceIdentifier, targetElement) => {
     axios.get(url).then((res) => {
-        emptyMessages(targetElement);
-        targetElement.innerHTML = messageTable2(serviceIdentifier, res.data, headers);
+        console.log(res.data);
+        messageContainers.forEach((targetElement) => emptyMessages(targetElement.element));
+
+        // headers.forEach(header => )
+        res.data.forEach((data) => {
+            console.log(data);
+            console.log(headers);
+            let theHeaders = headers.filter((header) => header.serviceIdentifier === data.serviceIdentifier)[0];
+            messageTable(data.serviceIdentifier, data.messages, theHeaders);
+            }
+        )
     });
 };
 
-axios.get('/api/messages/dpf').then((res) => {
-    // this.timer = setInterval(()=> this.poll('/api/messages/dpf', 'DPF', dpfMessageContainer), 5000);
-    this.timer = setInterval(()=> this.poll2('/api/messages/dpf', 'DPF',  dpfMessageContainer, dpfHeaders), 5000);
-});
-
-setTimeout(() => {
-    axios.get('/api/messages/dpo').then((res) => {
-        this.timer = setInterval(()=> this.poll2('/api/messages/dpo', 'DPO',  dpoMessageContainer, dpoHeaders), 5000);
-    });
-}, 1000);
-
-setTimeout(() => {
-    axios.get('/api/messages/dpv').then((res) => {
-        this.timer = setInterval(()=> this.poll2('/api/messages/dpv', 'DPV',  dpvMessageContainer, dpvHeaders), 5000);
-    });
-}, 2000);
-
-setTimeout(() => {
-    axios.get('/api/messages/dpe').then((res) => {
-        this.timer = setInterval(()=> this.poll2('/api/messages/dpe', 'DPE',  dpeMessageContainer, dpeHeaders), 5000);
-    });
-}, 3000);
-
-setTimeout(() => {
-    axios.get('/api/messages/dpi').then((res) => {
-        this.timer = setInterval(()=> this.poll2('/api/messages/dpi', 'DPI',  dpiMessageContainer, dpiHeaders), 5000);
-    });
-}, 3500);
+setInterval(poll('/api/messages'), 5000)
 
 

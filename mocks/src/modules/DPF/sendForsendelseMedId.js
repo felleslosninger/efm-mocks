@@ -7,7 +7,7 @@ function sendForsendelseMedId(req, res, parsed) {
 
     let orgName = parsed.envelope.body["0"].sendforsendelsemedid["0"].forsendelse["0"].svarsendestil["0"].digitaladresse["0"].orgnr[0];
 
-    let messageId = parsed.envelope.body["0"].sendforsendelsemedid["0"].forsendelsesid["0"];
+    let conversatoinId = parsed.envelope.body["0"].sendforsendelsemedid["0"].forsendelsesid["0"];
 
     let payload = parsed.envelope.body["0"].sendforsendelsemedid["0"].forsendelse["0"].dokumenter["0"].data["0"];
 
@@ -25,7 +25,7 @@ function sendForsendelseMedId(req, res, parsed) {
     let title = parsed.envelope.body["0"].sendforsendelsemedid["0"].forsendelse["0"].tittel["0"];
 
     let filePath = `${__dirname}/uploads/${fileName}`;
-    let zipFilePath = `${__dirname}/uploads/${messageId}.zip`;
+    let zipFilePath = `${__dirname}/uploads/${conversatoinId}.zip`;
 
     let buff = new Buffer(payload, 'base64');
 
@@ -51,6 +51,14 @@ function sendForsendelseMedId(req, res, parsed) {
 
     let messages = global.dpfDB.get(receiverOrgNum);
 
+    let logMessages = global.messageLog.get('dpe');
+
+    logMessages.push({
+        conversationId:conversatoinId,
+        senderOrgNum: senderOrgNum,
+        receiverOrgNum: receiverOrgNum
+    });
+
     fs.writeFile(filePath, buff, (err) => {
         if(err) {
             return console.log(err);
@@ -66,7 +74,7 @@ function sendForsendelseMedId(req, res, parsed) {
             //file: payload,
             fileReference: fileName,
             receiptId: receiptId,
-            conversationId: messageId,
+            conversationId: conversatoinId,
             x: forsendelsesId,
             eksternRef: eksternRef,
             filePath: filePath,
