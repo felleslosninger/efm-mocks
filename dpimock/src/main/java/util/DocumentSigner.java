@@ -34,7 +34,7 @@ class DocumentSigner {
      */
     public static Document sign(Document doc) throws KeyStoreException, UnrecoverableKeyException, NoSuchAlgorithmException {
 
-        KeyStore ipNokkel = getKeyStore("altinn.jks");
+        KeyStore ipNokkel = getKeyStore("mock.jks");
         PublicKey publicKey = ipNokkel.getCertificate("984661185").getPublicKey();
         PrivateKey privateKey = (PrivateKey) ipNokkel.getKey("984661185", "changeit".toCharArray());
 

@@ -53,7 +53,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
     public KeyStoreCallbackHandler securityCallbackHandler() {
         KeyStoreCallbackHandler callbackHandler = new KeyStoreCallbackHandler();
         callbackHandler.setPrivateKeyPassword("changeit");
-        callbackHandler.setTrustStore(getKeyStore("demo.jks"));
+        callbackHandler.setTrustStore(getKeyStore("mock-truststore.jks"));
 
         return callbackHandler;
     }

@@ -54,7 +54,8 @@
                 "country": "Norge"
             },
             "documentTypes": [
-                "urn:no:difi:digitalpost:xsd:digital::digital"
+                "urn:no:difi:digitalpost:xsd:digital::digital",
+                "urn:no:difi:digitalpost:xsd:fysisk::print"
             ],
             "service": {
                 "identifier": "DPI",

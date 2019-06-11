@@ -36,7 +36,7 @@ På localhost:8001 finner du et lite gui der du kan se meldinger som har blitt s
 
 #### Integrasjonspunkt
 
-1. Kopier ```move-mocks/dpimock/src/main/resources/altinn.jks```, ```move-mocks/dpimock/src/main/resources/demo.jks```, ```integrasjonspunkt-local.properties``` og ```move-mocks/kontaktinfo-client.pem``` working directory for integrasjonspunktet.
+1. Kopier ```move-mocks/dpimock/src/main/resources/mock.jks```, ```move-mocks/dpimock/src/main/resources/mock-truststore.jks```, ```integrasjonspunkt-local.properties``` og ```move-mocks/kontaktinfo-client.pem``` working directory for integrasjonspunktet.
 2. Start integrasjonspunktet med *dev* profil.  
 
 [*Generell informasjon om hvordan sette opp et integrasjonspunkt*](https://difi.github.io/felleslosninger/eformidling_download_ip.html)

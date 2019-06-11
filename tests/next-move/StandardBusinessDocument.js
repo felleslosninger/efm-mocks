@@ -112,6 +112,80 @@ dpiSbd = (senderOrgNr, receiverOrgNr, meldingsType, forretningsMelding, prosess,
     };
 };
 
+dpiSbdFysisk = (senderOrgNr, receiverOrgNr, meldingsType, forretningsMelding, prosess, senderRef, receiverRef) => {
+    return {
+        "standardBusinessDocumentHeader": {
+            "headerVersion": "1.0",
+            "sender": [
+                {
+                    "identifier": {
+                        "value": `${senderOrgNr}`,
+                        "authority": "iso6523-actorid-upis"
+                    },
+                    "contactInformation": []
+                }
+            ],
+            "receiver": [
+                {
+                    "identifier": {
+                        "value": `${receiverOrgNr}`,
+                        "authority": "iso6523-actorid-upis"
+                    },
+                    "contactInformation": []
+                }
+            ],
+            "documentIdentification": {
+                "standard": `urn:no:difi:digitalpost:xsd:fysisk::print`,
+                "typeVersion": "2.0",
+                "type": forretningsMelding,
+                "creationDateAndTime": new moment()
+            },
+            "businessScope": {
+                "scope": [
+                    {
+                        "type": "ConversationId",
+                        "identifier": `urn:no:difi:profile:digitalpost:info:ver1.0`,
+                        "scopeInformation": [
+                            {
+                                "expectedResponseDateTime": new moment().add(2, 'hours')
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "print" : {
+            "mottaker":{
+                "navn": "Hentes fra capabilitylookup",
+                "adresselinje1": "Hentes fra capabilitylookup",
+                "adresselinje2": "Hentes fra capabilitylookup",
+                "adresselinje3": "Hentes fra capabilitylookup",
+                "adresselinje4": "Hentes fra capabilitylookup",
+                "postnummer": "Hentes fra capabilitylookup",
+                "poststed": "Hentes fra capabilitylookup",
+                "landkode": "Hentes fra capabilitylookup",
+                "land": "Hentes fra capabilitylookup"
+            },
+            "utskriftsfarge" : "SORT_HVIT",
+            "posttype": "B",
+            "retur":{
+                "mottaker":{
+                    "navn": "Hentes fra capabilitylookup",
+                    "adresselinje1": "Hentes fra capabilitylookup",
+                    "adresselinje2": "Hentes fra capabilitylookup",
+                    "adresselinje3": "Hentes fra capabilitylookup",
+                    "adresselinje4": "Hentes fra capabilitylookup",
+                    "postnummer": "Hentes fra capabilitylookup",
+                    "poststed": "Hentes fra capabilitylookup",
+                    "landkode": "Hentes fra capabilitylookup",
+                    "land": "Hentes fra capabilitylookup"
+                },
+                "returhaandtering": "DIREKTE_RETUR"
+            }
+        }
+    };
+};
+
 dpeSbd = (senderOrgNr, receiverOrgNr, meldingsType) => {
     return {
         "standardBusinessDocumentHeader": {
@@ -163,4 +237,4 @@ dpeSbd = (senderOrgNr, receiverOrgNr, meldingsType) => {
 };
 
 
-module.exports = { dpiSbd, StandardBusinessDocument, dpeSbd };
+module.exports = { dpiSbd, StandardBusinessDocument, dpeSbd, dpiSbdFysisk };

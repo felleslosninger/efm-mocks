@@ -1,6 +1,6 @@
 const uuidv1 = require('uuid/v1');
 const superagent = require('superagent');
-const { StandardBusinessDocument, dpiSbd, dpeSbd } = require('./StandardBusinessDocument');
+const { StandardBusinessDocument, dpiSbd, dpeSbd, dpiSbdFysisk } = require('./StandardBusinessDocument');
 const path = require('path');
 const fs = require('fs');
 const request = require('request');
@@ -14,8 +14,10 @@ let runDpv = process.argv.includes('dpv');
 let runDpf = process.argv.includes('dpf');
 let runDpo = process.argv.includes('dpo');
 
+let runDpiPrint = process.argv.includes('dpiprint');
+
 // If no message types are specified, we run them all:
-let runAll = !runDpe && !runDpi && !runDpv && !runDpf && !runDpo;
+let runAll = !runDpe && !runDpi && !runDpv && !runDpf && !runDpo && !runDpiPrint;
 
 function sendFile(fileName, conversationId){
     return new Promise((resolve, reject) => {
@@ -141,6 +143,23 @@ async function sendMessages(){
         } catch(err){
             console.log(JSON.stringify(err, null, 2));
             console.log("DPE message failed");
+        }
+    }
+
+    if (runDpiPrint || runAll) {
+        console.log('Sending DPI print message.');
+        // DPE message
+        try {
+            let res = await sendLargeMessage(
+                dpiSbdFysisk(910076787, 910076787,"innsynskrav")
+            );
+            if (res){
+                console.log("Sent DPI print message successfully");
+                console.log(res);
+            }
+        } catch(err){
+            console.log(JSON.stringify(err, null, 2));
+            console.log("DPI print message failed");
         }
     }
 
