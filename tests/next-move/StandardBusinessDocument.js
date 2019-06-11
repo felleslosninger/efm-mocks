@@ -147,7 +147,7 @@ dpiSbdFysisk = (senderOrgNr, receiverOrgNr, meldingsType, forretningsMelding, pr
                         "identifier": `urn:no:difi:profile:digitalpost:info:ver1.0`,
                         "scopeInformation": [
                             {
-                                "expectedResponseDateTime": new moment().add(2, 'hours')
+                                "expectedResponseDateTime": new moment().add(4, 'hours')
                             }
                         ]
                     }
@@ -156,15 +156,15 @@ dpiSbdFysisk = (senderOrgNr, receiverOrgNr, meldingsType, forretningsMelding, pr
         },
         "print" : {
             "mottaker":{
-                "navn": "Hentes fra capabilitylookup",
-                "adresselinje1": "Hentes fra capabilitylookup",
+                "navn": "Ola Nordmann",
+                "adresselinje1": "",
                 "adresselinje2": "Hentes fra capabilitylookup",
                 "adresselinje3": "Hentes fra capabilitylookup",
                 "adresselinje4": "Hentes fra capabilitylookup",
                 "postnummer": "Hentes fra capabilitylookup",
                 "poststed": "Hentes fra capabilitylookup",
-                "landkode": "Hentes fra capabilitylookup",
-                "land": "Hentes fra capabilitylookup"
+                "landkode": "NO",
+                "land": "Norge"
             },
             "utskriftsfarge" : "SORT_HVIT",
             "posttype": "B",
@@ -177,8 +177,8 @@ dpiSbdFysisk = (senderOrgNr, receiverOrgNr, meldingsType, forretningsMelding, pr
                     "adresselinje4": "Hentes fra capabilitylookup",
                     "postnummer": "Hentes fra capabilitylookup",
                     "poststed": "Hentes fra capabilitylookup",
-                    "landkode": "Hentes fra capabilitylookup",
-                    "land": "Hentes fra capabilitylookup"
+                    "landkode": "NO",
+                    "land": "Norge"
                 },
                 "returhaandtering": "DIREKTE_RETUR"
             }
