@@ -137,7 +137,7 @@ dpiSbdFysisk = (senderOrgNr, receiverOrgNr, meldingsType, forretningsMelding, pr
             "documentIdentification": {
                 "standard": `urn:no:difi:digitalpost:xsd:fysisk::print`,
                 "typeVersion": "2.0",
-                "type": forretningsMelding,
+                "type": "print",
                 "creationDateAndTime": new moment()
             },
             "businessScope": {
@@ -157,7 +157,7 @@ dpiSbdFysisk = (senderOrgNr, receiverOrgNr, meldingsType, forretningsMelding, pr
         "print" : {
             "mottaker":{
                 "navn": "Ola Nordmann",
-                "adresselinje1": "",
+                "adresselinje1": "Hentes fra capabilitylookup",
                 "adresselinje2": "Hentes fra capabilitylookup",
                 "adresselinje3": "Hentes fra capabilitylookup",
                 "adresselinje4": "Hentes fra capabilitylookup",

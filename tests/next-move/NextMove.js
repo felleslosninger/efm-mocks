@@ -150,8 +150,12 @@ async function sendMessages(){
         console.log('Sending DPI print message.');
         // DPE message
         try {
+
+            console.log('');
+            console.log(JSON.stringify(dpiSbdFysisk(`0192:910075918`, "06068700602", 'digital', 'digital', 'kulturIdrettOgFritid', uuidv1(), uuidv1()), null, 2));
+
             let res = await sendLargeMessage(
-                dpiSbdFysisk(910076787, 910076787,"innsynskrav")
+                dpiSbdFysisk(`0192:910075918`, "06068700602", 'digital', 'digital', 'kulturIdrettOgFritid', uuidv1(), uuidv1())
             );
             if (res){
                 console.log("Sent DPI print message successfully");
