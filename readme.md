@@ -31,10 +31,7 @@ Du har nå følgende applikasjoner kjørende:
 På localhost:8001 finner du et lite gui der du kan se meldinger som har blitt sendt vellykket.
 
 
-### Oppsett
-
-
-#### Integrasjonspunkt
+### Oppsett Integrasjonspunkt
 
 1. Kopier ```move-mocks/dpimock/src/main/resources/mock.jks```, ```move-mocks/dpimock/src/main/resources/mock-truststore.jks```, ```integrasjonspunkt-local.properties``` og ```move-mocks/kontaktinfo-client.pem``` working directory for integrasjonspunktet.
 2. Start integrasjonspunktet med *dev* profil.  
@@ -48,6 +45,7 @@ Mocken er satt opp til å motta meldinger for følgende org nr og prosesser:
 | Meldingstype         | Mottaker    | Prosess                                                     | Dokumenttype                                 |
 |----------------------|-------------|-------------------------------------------------------------|----------------------------------------------|
 | DPI                  | 06068700602 | urn:no:difi:profile:digitalpost:info:ver1.0                 | urn:no:difi:digitalpost:xsd:digital::digital |
+| DPI Print            | 06068700602 | urn:no:difi:profile:digitalpost:vedtak:ver1.0               | urn:no:difi:digitalpost:xsd:fysisk::print    |
 | DPE Journal          | 910076787   | urn:no:difi:profile:einnsyn:journalpost:ver1.0              | urn:no:difi:einnsyn:xsd::publisering         |
 | DPE Innsynsbegjæring | 910076787   | urn:no:difi:profile:einnsyn:innsynskrav:ver1.0              | urn:no:difi:einnsyn:xsd::innsynskrav         |
 | DPE Møte             | 910076787   | urn:no:difi:profile:einnsyn:meeting:ver1.0                  | urn:no:difi:einnsyn:xsd::publisering         |
@@ -63,6 +61,7 @@ Meldinger som mocken har mottatt kan ses på [http://localhost:8001](http://loca
 2. Naviger til tester ```cd move-mocks/tests/next-move```
 3. Kjør test: ```node NextMove.js```
 
+For å sende spesifikke meldingstyper kan du kjøre ``` node NextMove.js dpi dpiprint dpe dpf dpv dpo ```.
 
 #### jMeter
 
