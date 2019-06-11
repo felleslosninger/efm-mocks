@@ -58,8 +58,9 @@ Meldinger som mocken har mottatt kan ses på [http://localhost:8001](http://loca
 
 #### Kjøre node tester
 1. MoveMocks krever node.js installert. Gå til [https://nodejs.org/en/download/](https://nodejs.org/en/download/) for å laste ned og installere node js for ditt system.
-2. Naviger til tester ```cd move-mocks/tests/next-move```
-3. Kjør test: ```node NextMove.js```
+2. ```cd move-mocks/tests npm install``` 
+3. Naviger til tester ```cd move-mocks/tests/next-move```
+4. Kjør test: ```node NextMove.js```
 
 For å sende spesifikke meldingstyper kan du kjøre ``` node NextMove.js dpi dpiprint dpe dpf dpv dpo ```.
 
