@@ -155,19 +155,21 @@ dpiSbdFysisk = (senderOrgNr, receiverOrgNr, meldingsType, forretningsMelding, pr
             }
         },
         "print" : {
+            "sikkerhetsnivaa": 3,
+            "primaerDokumentNavn": "test4.pdf",
             "mottaker":{
                 "navn": "Ola Nordmann",
                 "adresselinje1": "Hentes fra capabilitylookup",
                 "adresselinje2": "Hentes fra capabilitylookup",
                 "adresselinje3": "Hentes fra capabilitylookup",
                 "adresselinje4": "Hentes fra capabilitylookup",
-                "postnummer": "Hentes fra capabilitylookup",
+                "postnummer": "0666",
                 "poststed": "Hentes fra capabilitylookup",
                 "landkode": "NO",
                 "land": "Norge"
             },
             "utskriftsfarge" : "SORT_HVIT",
-            "posttype": "B",
+            "posttype": "B_OEKONOMI",
             "retur":{
                 "mottaker":{
                     "navn": "Hentes fra capabilitylookup",
@@ -175,7 +177,7 @@ dpiSbdFysisk = (senderOrgNr, receiverOrgNr, meldingsType, forretningsMelding, pr
                     "adresselinje2": "Hentes fra capabilitylookup",
                     "adresselinje3": "Hentes fra capabilitylookup",
                     "adresselinje4": "Hentes fra capabilitylookup",
-                    "postnummer": "Hentes fra capabilitylookup",
+                    "postnummer": "0666",
                     "poststed": "Hentes fra capabilitylookup",
                     "landkode": "NO",
                     "land": "Norge"
