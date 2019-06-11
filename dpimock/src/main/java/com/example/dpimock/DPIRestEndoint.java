@@ -12,16 +12,28 @@ import java.util.List;
 @Controller
 public class DPIRestEndoint {
 
-    @GetMapping("/messages")
+    @GetMapping("/api/messages")
     @ResponseBody
     public List<Message> getMesssages() {
         return MessagesSingleton.getInstance().messages;
     }
 
-    @DeleteMapping("/messages")
+    @GetMapping("/api/messages/log")
+    @ResponseBody
+    public List<Message> getMesssageLog() {
+        return MessagesSingleton.getInstance().messageLog;
+    }
+
+    @DeleteMapping("/api/messages")
     @ResponseBody
     public void deleteMesssages() {
         MessagesSingleton.getInstance().deleteMessages();
+    }
+
+    @DeleteMapping("/api/messages/log")
+    @ResponseBody
+    public void clearLog() {
+        MessagesSingleton.getInstance().clearLog();
     }
 
 }

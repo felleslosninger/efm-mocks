@@ -18,7 +18,6 @@ global.dpfDB = new Map();
 global.dpeDB = new Map();
 global.dpvDB = new Map();
 global.messageLog = new Map();
-global.messageLog.set('dpi', []);
 global.messageLog.set('dpe', []);
 global.messageLog.set('dpf', []);
 global.messageLog.set('dpv', []);
@@ -55,10 +54,6 @@ app.get('/', (req, res) => {
                 {
                     title: 'Conversation ID',
                     accessor: 'conversationId',
-                },
-                {
-                    title: 'Receipt ID',
-                    accessor: 'receiptId'
                 }
             ]
         },
@@ -127,10 +122,6 @@ app.get('/', (req, res) => {
                 {
                     title: 'Conversation ID',
                     accessor: 'conversationId',
-                },
-                {
-                    title: 'Message ID',
-                    accessor: 'messageId',
                 }
             ]
         }
@@ -169,14 +160,6 @@ app.get('/', (req, res) => {
     `);
 });
 
-// ${messageTable(dpoHeaders, 'DPO', global.dpoDB)}
-//
-// ${messageTable(dpvHeaders, 'DPV', global.dpvDB)}
-//
-// ${messageTable(dpeHeaders, 'DPE', global.dpeDB)}
-//
-// ${messageTable(dpiHeaders, 'DPI', [])}
-
 function deleteFiles(directory){
     return new Promise((resolve, reject) => {
         deleteDirectoryRecursive(directory, false)
@@ -194,6 +177,8 @@ function deleteFiles(directory){
 }
 
 app.get('/api/messages', (req, res) => {
+
+    // Format message log:
     let returnMessages = [...global.messageLog].map((item) => {
         return {
             serviceIdentifier: item[0],
@@ -201,22 +186,25 @@ app.get('/api/messages', (req, res) => {
         }
     });
 
-    console.log('stop');
+    // get dpi messages:
+    request.get(`http://${process.env.DPI_HOST}:${process.env.DPI_PORT}/api/messages/log`)
+        .then((response) => {
 
-    res.send(returnMessages)
+            let dpiMessages = JSON.parse(response.text);
+            returnMessages.push({
+                serviceIdentifier: 'dpi',
+                messages: dpiMessages
+            });
 
+            res.send(returnMessages);
 
-        // .map(([key, value]) => {
-        //     return value.map((entry) => {
-        //         return {
-        //             conversationId: entry.conversationId,
-        //             receiverOrgNum: entry.receiverOrgNum,
-        //             senderOrgNum: entry.senderOrgNum,
-        //             receiptId: entry.receiptId
-        //         }
-        //     });
-        // })
-
+        }).catch((err) => {
+            console.log('DPI fetch messages failed!');
+            console.log(err);
+            // Return the other messages even though DPI fails.
+            // TODO: Possibly include a message in the response to let frontend know DPI has failed.
+            res.send(returnMessages);
+    });
 });
 
 app.post('/api/messages/DPF', (req, res) => {

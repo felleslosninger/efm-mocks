@@ -51,7 +51,7 @@ function sendForsendelseMedId(req, res, parsed) {
 
     let messages = global.dpfDB.get(receiverOrgNum);
 
-    let logMessages = global.messageLog.get('dpe');
+    let logMessages = global.messageLog.get('dpf');
 
     logMessages.push({
         conversationId:conversatoinId,

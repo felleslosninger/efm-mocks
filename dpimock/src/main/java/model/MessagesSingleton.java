@@ -13,13 +13,17 @@ public class MessagesSingleton {
 
     public List<Message> messages;
 
+    public List<Message> messageLog;
+
     private MessagesSingleton()
     {
         messages = new ArrayList<>();
+        messageLog = new ArrayList<>();
     }
 
     public void addMessage(Message message){
         messages.add(message);
+        messageLog.add(message);
     }
 
     public boolean containsMessageId(String messageId){
@@ -28,6 +32,10 @@ public class MessagesSingleton {
 
     public void deleteMessages(){
         messages.clear();
+    }
+
+    public void clearLog(){
+        messageLog.clear();
     }
 
     public static MessagesSingleton getInstance()
