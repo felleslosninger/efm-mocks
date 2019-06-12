@@ -2,52 +2,54 @@
 
 const moment = require('moment');
 
-function thing(senderOrgNum, receiverOrgNum, conversationId) {
+function receiptSBD(senderOrgNum, receiverOrgNum, conversationId) {
     return {
-        "standardBusinessDocumentHeader": {
-            "headerVersion": "1.0",
-            "sender": [
-                {
-                    "identifier": {
-                        "value": senderOrgNum,
-                        "authority": "iso6523-actorid-upis"
-                    },
-                    "contactInformation": []
-                }
-            ],
-            "receiver": [
-                {
-                    "identifier": {
-                        "value": receiverOrgNum,
-                        "authority": "iso6523-actorid-upis"
-                    },
-                    "contactInformation": []
-                }
-            ],
-            "documentIdentification": {
-                "standard": "urn:no:difi:eformidling:xsd::status",
-                "typeVersion": "2.0",
-                "instanceIdentifier": "72721bf0-0f0c-41c7-98d0-bc447bd8a5c6",
-                "type": "status",
-                "creationDateAndTime": new moment()
-            },
-            "businessScope": {
-                "scope": [
+        "sbd" : {
+            "standardBusinessDocumentHeader": {
+                "headerVersion": "1.0",
+                "sender": [
                     {
-                        "type": "ConversationId",
-                        "instanceIdentifier": conversationId,
-                        "identifier": "urn:no:difi:profile:einnsyn:response:ver1.0",
-                        "scopeInformation": [
-                            {
-                                "expectedResponseDateTime": new moment().add(2, 'hours')
-                            }
-                        ]
+                        "identifier": {
+                            "value": senderOrgNum,
+                            "authority": "iso6523-actorid-upis"
+                        },
+                        "contactInformation": []
                     }
-                ]
+                ],
+                "receiver": [
+                    {
+                        "identifier": {
+                            "value": receiverOrgNum,
+                            "authority": "iso6523-actorid-upis"
+                        },
+                        "contactInformation": []
+                    }
+                ],
+                "documentIdentification": {
+                    "standard": "urn:no:difi:eformidling:xsd::status",
+                    "typeVersion": "2.0",
+                    "instanceIdentifier": "72721bf0-0f0c-41c7-98d0-bc447bd8a5c6",
+                    "type": "status",
+                    "creationDateAndTime": new moment()
+                },
+                "businessScope": {
+                    "scope": [
+                        {
+                            "type": "ConversationId",
+                            "instanceIdentifier": conversationId,
+                            "identifier": "urn:no:difi:profile:einnsyn:response:ver1.0",
+                            "scopeInformation": [
+                                {
+                                    "expectedResponseDateTime": new moment().add(2, 'hours')
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            "status": {
+                "status": "MOTTATT"
             }
-        },
-        "status": {
-            "status": "MOTTATT"
         }
     }
 };
@@ -70,12 +72,15 @@ function recieveFile(req, res){
     };
 
     let logMessages = global.messageLog.get('dpe');
+
     logMessages.push({
         conversationId: convId,
         receiverOrgNum: receiverOrgnum,
         senderOrgNum: senderOrgnum
     });
 
+
+    // We create
     let receiverMessages = global.dpeDB.get(receiverOrgnum);
     let senderMessages = global.dpeDB.get(senderOrgnum);
 
@@ -85,7 +90,11 @@ function recieveFile(req, res){
         global.dpeDB.set(receiverOrgnum, [ dbMessage ]);
     }
 
-    let statusSbd = thing(senderOrgnum, receiverOrgnum, convId);
+
+    let statusSbd = {
+        sbd: receiptSBD(senderOrgnum, receiverOrgnum, convId),
+        convId: convId,
+    };
 
     if (senderMessages){
         senderMessages.push(statusSbd);

@@ -13,10 +13,22 @@ const request = require('superagent');
 process.env.DPI_HOST = process.env.DPI_HOST || 'localhost';
 process.env.DPI_PORT = process.env.DPI_PORT || 8080;
 
+
+/**
+ * These global maps are used to hold incoming messages.
+ * */
 global.dpoDB = new Map();
 global.dpfDB = new Map();
 global.dpeDB = new Map();
 global.dpvDB = new Map();
+
+/**
+ * The messageLog map is used as a message log.
+ * It is similar to the global maps, but is not removed
+ * when a message is being pulled by the IP so that we can
+ * display all received messages in the frontend.
+ * */
+
 global.messageLog = new Map();
 global.messageLog.set('dpe', []);
 global.messageLog.set('dpf', []);
@@ -38,7 +50,6 @@ app.get('/', (req, res) => {
     * Set up headers for use in the frontend view of received messages.
     * */
 
-    console.log(global.messageLog);
     let headers = [
         {
             serviceIdentifier: 'dpf',
@@ -176,9 +187,28 @@ function deleteFiles(directory){
     });
 }
 
+/**
+ * Deletes messages log from the dpi mock.
+ * */
+function deleteDPIMessageLog(){
+    return new Promise((resolve, reject) => {
+        request.delete(`http://${process.env.DPI_HOST}:${process.env.DPI_PORT}/api/messages/log`)
+            .then((response) => {
+                resolve();
+            }).catch((err) => {
+            console.log(err);
+            reject();
+        })
+    })
+}
+
+
+/**
+ * Returns all messages on the message log.
+ * Has a side effect in that it also gets the messages from the DPI mock.
+ * */
 app.get('/api/messages', (req, res) => {
 
-    // Format message log:
     let returnMessages = [...global.messageLog].map((item) => {
         return {
             serviceIdentifier: item[0],
@@ -207,52 +237,53 @@ app.get('/api/messages', (req, res) => {
     });
 });
 
-app.post('/api/messages/DPF', (req, res) => {
+
+app.delete('/api/messages/:serviceIdentifier', (req, res) => {
     global.dpfDB = new Map();
-    deleteFiles('./src/modules/DPF/uploads')
-        .then(() => {
-            res.sendStatus(200);
-        }).catch((err) => {
-            console.log(err);
+
+    if ("DPV" === req.params.serviceIdentifier.toUpperCase()) {
+        global.dpvDB = new Map();
+        res.sendStatus(200);
+    } else if ("DPI" === req.params.serviceIdentifier.toUpperCase()){
+        deleteDPIMessageLog()
+            .then(() => {
+                res.sendStatus(200);
+            }).catch(() => {
+                res.sendStatus(500)
+            })
+    } else {
+        deleteFiles(`./src/modules/${req.params.serviceIdentifier.toUpperCase()}/uploads`)
+            .then(() => {
+                res.sendStatus(200);
+            }).catch((err) => {
+                console.log(err);
+                res.sendStatus(500)
+        });
+    }
+});
+
+
+/**
+ * Clears the message log for the given service identifier.
+ * */
+app.delete('/api/messages/log/:serviceIdentifier', (req, res) => {
+    global.dpfDB = new Map();
+
+    if ("DPI" === req.params.serviceIdentifier.toUpperCase()){
+        // TODO: delete from dpi mock
+        deleteDPIMessages()
+            .then(() => {
+                res.sendStatus(200);
+            }).catch(() => {
             res.sendStatus(500)
         })
+    } else {
+
+        global.messageLog.set(req.params.serviceIdentifier.toLowerCase(), []);
+        console.log('stop');
+    }
 });
 
-app.post('/api/messages/DPO', (req, res) => {
-    global.dpoDB = new Map();
-    deleteFiles('./src/modules/DPO/uploads')
-        .then(() => {
-            res.sendStatus(200);
-        }).catch((err) => {
-        console.log(err);
-        res.sendStatus(500)
-    })
-});
-
-app.post('/api/messages/DPV', (req, res) => {
-    global.dpvDB = new Map();
-    res.sendStatus(200);
-});
-
-app.post('/api/messages/DPE', (req, res) => {
-    global.dpeDB = new Map();
-    deleteFiles('./src/modules/DPE/uploads')
-        .then(() => {
-            res.sendStatus(200);
-        }).catch((err) => {
-            console.log(err);
-            res.sendStatus(500);
-        })
-});
-
-app.post('/api/messages/dpi', (req, res) => {
-    request.delete(`http://${process.env.DPI_HOST}:${process.env.DPI_PORT}/messages`)
-        .then((response) => {
-            res.set(200).send();
-        }).catch((err) => {
-        res.status(500).send();
-    })
-});
 
 app.get('/api/messages/DPF', (req, res) => {
     if (global.dpfDB.size > 0) {
@@ -313,13 +344,8 @@ app.get('/api/messages/dpi', (req, res) => {
         .then((response) => {
             res.send(JSON.parse(response.text))
         }).catch((err) => {
-            console.log('\n\n\n\n\n\n\n');
-
             console.log('DPI fetch messages failed!');
             console.log(err);
-
-            console.log('\n\n\n\n\n\n\n');
-
             res.status(500).send();
         })
 });
@@ -336,6 +362,8 @@ restMocks.forEach((mock) => {
                 } else {
                     app.post(item.path, item.responseFunction);
                 }
+            } else if (item.method === 'DELETE') {
+                app.delete(item.path, item.responseFunction);
             }
     });
 });

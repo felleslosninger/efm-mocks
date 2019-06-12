@@ -1,5 +1,6 @@
 
 const deleteButtons = document.querySelectorAll('.delete-button');
+const clearLogButtons = document.querySelectorAll('.clear-log-button');
 
 let dpfMessageContainer = document.getElementById('dpf-messages');
 let dpoMessageContainer = document.getElementById('dpo-messages');
@@ -37,11 +38,25 @@ let emptyMessages = function(node) {
 
 deleteButtons.forEach(button => {
     button.addEventListener('click', function(e){
-
-        axios.post(`${window.location.href}api/messages/${button.dataset.serviceidentifier}`)
+        console.log('yo');
+        axios.delete(`${window.location.href}api/messages/log/${button.dataset.serviceidentifier}`)
             .then(function(res){
-                e.target.innerText = 'Delete';
-                emptyMessages(button.dataset.serviceidentifier === 'DPO' ? dpoMessageContainer : dpfMessageContainer);
+                alert(`${button.dataset.serviceidentifier} meldinger slettet.`)
+            })
+            .catch(function(err){
+                console.log("fail", err);
+            });
+    });
+});
+
+clearLogButtons.forEach(button => {
+    button.addEventListener('click', function(e){
+
+        axios.delete(`${window.location.href}api/messages/log/${button.dataset.serviceidentifier}`)
+            .then((res) => {
+                let messagesContainer = messageContainers.filter(container => container.serviceIdentifier === button.dataset.serviceidentifier)[0]
+                console.log(messagesContainer);
+                emptyMessages(messagesContainer.element);
             })
             .catch(function(err){
                 console.log("fail", err);
@@ -60,7 +75,6 @@ function messageTable(serviceIdentifier, messages, headers){
 
 poll = () => {
     axios.get('/api/messages').then((res) => {
-        console.log(res.data);
         messageContainers.forEach((targetElement) => emptyMessages(targetElement.element));
 
         res.data.forEach((data) => {

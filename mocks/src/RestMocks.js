@@ -192,10 +192,8 @@ const mocks = [
                                       <ns:ConfirmDownloadedBasicResponse/>
                                    </soapenv:Body>
                                 </soapenv:Envelope>`);
-                    //} else if (req.headers.soapaction === "\"http://www.altinn.no/services/ServiceEngine/Broker/2015/06/IBrokerServiceExternalBasic/ConfirmDownloadedBasic\"") {
                     } else  {
-                        res.send('halla')
-                        //res.send(InitiateBrokerServiceBasic(req.body))
+                        res.send('halla');
                     }
                 }
             },
@@ -255,29 +253,64 @@ const mocks = [
                 path: '/dpe/*/messages',
                 method: 'POST',
                 middleware: getRawBody,
-                responseFunction: function(req, res) {
+                responseFunction: (req, res) => {
                     recieveFile(req, res);
+                }
+            },
+            {
+                /**
+                 * The IP will send a delete request to remove a message it has received a receipt for.
+                 * If this message returns 200, the message will receive the status "MOTTATT" in the IP.
+                 * */
+                path: '/dpe/*/messages/:conversationId/:lockToken',
+                method: 'DELETE',
+                responseFunction: (req, res) => {
+                    // Extract the org number from the que name:
+                    let orgNum = req.originalUrl.split('/')[2].match(/\d/g).join('');
+
+                    // Check it there is any messages for this org number:
+                    let messageQue = global.dpeDB.get(orgNum);
+                    if (messageQue) {
+                        // Check if we have a message with the conversation ID:
+                        let message = messageQue.filter(message => message.convId === req.params.conversationId);
+                        if (message.length > 0) {
+                            // Remove the message from the que and return 200.
+                            global.dpeDB.set(orgNum, messageQue => messageQue.filter(message => message.convId !== req.params.conversationId));
+                            res.status(200).send();
+                        } else {
+                            // If there is no messages with the given conversation ID, return 404.
+                            res.status(404).send();
+                        }
+                    } else {
+                        res.status(404).send();
+                    }
                 }
             },
             {
                 path: '/dpe/*/messages/head',
                 method: 'POST',
+                /**
+                 * The IP will poll this endpoint for messages.
+                 * It simulates the Azure Service Bus.
+                 * */
                 responseFunction: (req, res) => {
 
+                    // Extract the org number from the que name:
                     let orgNum = req.originalUrl.split('/')[2].match(/\d/g).join('');
 
+                    // Check if there is any messages for this org num:
                     let dpeMessages = global.dpeDB.get(orgNum);
 
-                    if (dpeMessages && dpeMessages.messages && dpeMessages.messages.length > 0) {
+                    if (dpeMessages && dpeMessages.length > 0) {
                         res.set(
                             'BrokerProperties', JSON.stringify(
                             {
                                 LockToken: "gerger",
                                 SequenceNumber: 1,
-                                MessageId: dpeMessages.messages[0].convId
+                                MessageId: dpeMessages[0].convId
                             }))
                             .status(201)
-                            .send(global.dpeDB.get(orgNum).messages[0].sbd);
+                            .send(dpeMessages[0].sbd);
                     } else {
                         res.status(204).send();
                     }

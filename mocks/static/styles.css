@@ -35,3 +35,7 @@ body {
 .delete-button {
     float: right;
 }
+
+.clear-log-button {
+    margin-right: 10px;
+}
