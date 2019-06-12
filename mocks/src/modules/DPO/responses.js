@@ -145,9 +145,10 @@ function DownloadFileStreamedBasic(req, res) {
 
                 writeResponse();
                 // Remove the entry from memory and delete the files.
-                files = files.filter((item) => {
+                global.dpoDB.set(reportee, files.filter((item) => {
                     return item.fileReference !== fileReference;
-                });
+                }));
+
                 deleteFile(file[0].file);
                 deleteDirectoryRecursive(`${__dirname}/uploads/${fileReference}`, true).then(() => {
 
