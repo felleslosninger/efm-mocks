@@ -275,14 +275,14 @@ const mocks = [
                         let message = messageQue.filter(message => message.convId === req.params.conversationId);
                         if (message.length > 0) {
                             // Remove the message from the que and return 200.
-                            global.dpeDB.set(orgNum, messageQue => messageQue.filter(message => message.convId !== req.params.conversationId));
+                            global.dpeDB.set(orgNum, messageQue.filter(message => message.convId !== req.params.conversationId));
                             res.status(200).send();
                         } else {
                             // If there is no messages with the given conversation ID, return 404.
-                            res.status(404).send();
+                            res.status(204).send();
                         }
                     } else {
-                        res.status(404).send();
+                        res.status(204).send();
                     }
                 }
             },
