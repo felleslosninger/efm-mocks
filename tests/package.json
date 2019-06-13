@@ -5,6 +5,7 @@
   "main": "bestEdu.js",
   "dependencies": {
     "axios": "^0.18.0",
+    "commander": "^2.20.0",
     "moment": "^2.24.0",
     "request": "^2.88.0",
     "superagent": "^4.1.0",

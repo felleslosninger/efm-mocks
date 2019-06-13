@@ -1,7 +1,7 @@
 const moment = require('moment');
 const uuidv1 = require('uuid/v1');
 
-function StandardBusinessDocument(senderOrgNr, receiverOrgNr, meldingsType, forretningsMelding, prosess, senderRef, receiverRef){
+function StandardBusinessDocument(senderOrgNr, receiverOrgNr, meldingsType, forretningsMelding, prosess){
     return {
         "standardBusinessDocumentHeader": {
             "headerVersion": "1.0",
@@ -33,7 +33,7 @@ function StandardBusinessDocument(senderOrgNr, receiverOrgNr, meldingsType, forr
                 "scope": [
                     {
                         "type": "ConversationId",
-                        "instanceIdentifier": senderRef,
+                        "instanceIdentifier": uuidv1(),
                         "identifier": `urn:no:difi:profile:arkivmelding:${prosess}:ver1.0`,
                         "scopeInformation": [
                             {
@@ -112,7 +112,7 @@ dpiSbd = (senderOrgNr, receiverOrgNr, meldingsType, forretningsMelding, prosess,
     };
 };
 
-dpiSbdFysisk = (senderOrgNr, receiverOrgNr, meldingsType, forretningsMelding, prosess, senderRef, receiverRef) => {
+dpiSbdFysisk = (senderOrgNr, receiverOrgNr) => {
     return {
         "standardBusinessDocumentHeader": {
             "headerVersion": "1.0",

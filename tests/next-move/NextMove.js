@@ -1,23 +1,30 @@
-const uuidv1 = require('uuid/v1');
 const superagent = require('superagent');
 const { StandardBusinessDocument, dpiSbd, dpeSbd, dpiSbdFysisk } = require('./StandardBusinessDocument');
 const path = require('path');
 const fs = require('fs');
 const request = require('request');
-const moment = require('moment');
 const ipUrl = 'http://localhost:9093';
 const endpoint = 'api/messages/out';
+const program = require('commander');
 
-let runDpe = process.argv.includes('dpe');
-let runDpi = process.argv.includes('dpi');
-let runDpv = process.argv.includes('dpv');
-let runDpf = process.argv.includes('dpf');
-let runDpo = process.argv.includes('dpo');
+program
+    .version('0.1.0')
+    .option('dpi [count]', 'Send the specified number of dpi messages.')
+    .option('dpiprint [count]', 'Send the specified number of dpiprint messages.')
+    .option('dpe [count]', 'Send the specified number of dpe messages.')
+    .option('dpo [count]', 'Send the specified number of dpo messages.')
+    .option('dpf [count]', 'Send the specified number of dpf messages.')
+    .option('dpv [count]', 'Send the specified number of dpv messages.')
+    .parse(process.argv);
 
-let runDpiPrint = process.argv.includes('dpiprint');
+let runAll = !program.dpiprint && !program.dpi && !program.dpe && !program.dpo && !program.dpf && !program.dpv;
 
-// If no message types are specified, we run them all:
-let runAll = !runDpe && !runDpi && !runDpv && !runDpf && !runDpo && !runDpiPrint;
+if (program.dpiprint) console.log('  - %s messages dpi', program.dpiprint);
+if (program.dpi) console.log(program.dpi);
+if (program.dpe) console.log(program.dpe);
+if (program.dpo) console.log(program.dpo);
+if (program.dpf) console.log(program.dpf);
+if (program.dpv) console.log(program.dpv);
 
 function sendFile(fileName, conversationId){
     return new Promise((resolve, reject) => {
@@ -42,6 +49,7 @@ function sendFile(fileName, conversationId){
 }
 
 async function sendLargeMessage(sbd){
+
     return new Promise(async (resolve, reject) => {
         try {
             let res = await superagent
@@ -50,7 +58,7 @@ async function sendLargeMessage(sbd){
 
             let conversationId = res.body.standardBusinessDocumentHeader.businessScope.scope[0].instanceIdentifier;
 
-            console.log(`Conversation created: ${conversationId}`);
+            console.log(`Conversation created: http://localhost:9093/api/conversations/conversationId/${conversationId}`);
 
             let sendFileRes = await sendFile( 'test4.pdf', conversationId);
 
@@ -70,98 +78,109 @@ async function sendLargeMessage(sbd){
     })
 }
 
+function getRequests(serviceIdentifier, sbdFunction, ...sbdParameters){
+    let requests = [];
+    let requestNum = serviceIdentifier && serviceIdentifier.length ? parseInt(serviceIdentifier) : 1;
+
+    for (let i = 0; i < requestNum; i++){
+        requests.push(sendLargeMessage(sbdFunction(...sbdParameters)))
+    }
+    return requests;
+}
+
 async function sendMessages(){
 
-    if (runDpo || runAll) {
-        console.log('Sending DPO message.');
-        try {
-            let res = await sendLargeMessage(StandardBusinessDocument(`910075918`, `910075918`, 'arkivmelding', 'arkivmelding', 'administrasjon', uuidv1(), uuidv1()))
-            if (res) {
-                console.log("Sendt DPO message OK.");
-            }
-        } catch(err) {
-            console.log(JSON.stringify(err, null, 2));
-            console.log('DPO message failed.');
-        }
+
+
+    if (program.dpo || runAll) {
+
+        let requests = getRequests(program.dpo, StandardBusinessDocument, 910075918, 910075918, 'arkivmelding', 'arkivmelding', 'administrasjon');
+
+        console.time('DPO Messages');
+
+        Promise.all(requests).then((res) => {
+            console.log(`Sent ${requests.length} DPO messages.`);
+            console.timeEnd('DPO Messages');
+        }).catch((err) => {
+            console.log(err);
+        });
     }
 
-    if (runDpv || runAll) {
-        console.log('Sending DPV message.');
-        try {
-            let res = await sendLargeMessage(StandardBusinessDocument(991825827, 910075918, 'arkivmelding', 'arkivmelding', 'helseSosialOgOmsorg', uuidv1(), uuidv1()))
-            if (res) {
-                console.log("Sendt DPV message OK.");
-            }
-        } catch(err) {
-            console.log(JSON.stringify(err, null, 2));
-            console.log('DPV message failed.');
-        }
+    if (program.dpv || runAll) {
+
+        let requests = getRequests(program.dpv, StandardBusinessDocument, 991825827, 910075918, 'arkivmelding', 'arkivmelding', 'helseSosialOgOmsorg');
+
+        console.time('DPV Messages');
+
+        Promise.all(requests).then((res) => {
+            console.log(`Sent ${requests.length} DPV messages.`);
+            console.timeEnd('DPV Messages');
+        }).catch((err) => {
+            console.log(err);
+        });
     }
 
+    if (program.dpf || runAll) {
 
-    if (runDpf || runAll) {
-        console.log('Sending DPF message.');
-        // DPF melding:
-        try {
-            let res = await sendLargeMessage(StandardBusinessDocument(910075918, 910075918, 'arkivmelding', 'arkivmelding', 'planByggOgGeodata', uuidv1(), uuidv1()))
-            if (res) {
-                console.log("Sendt DPF message OK.");
-            }
-        } catch (err) {
-            console.log(JSON.stringify(err, null, 2));
-            console.log("DPF message failed.");
-        }
+        let requests = getRequests(program.dpf, StandardBusinessDocument, 910075918, 910075918, 'arkivmelding', 'arkivmelding', 'planByggOgGeodata');
+
+        console.time('DPF Messages');
+
+        Promise.all(requests).then((res) => {
+            console.timeEnd('DPF Messages');
+
+            console.log(`Sent ${requests.length} DPF messages.`);
+        }).catch((err) => {
+            console.log(err);
+        });
     }
 
+    if (program.dpi || runAll) {
 
-    if (runDpi || runAll) {
-        console.log('Sending DPI message');
-        // DPI Message
-        try {
-            let res = await sendLargeMessage(dpiSbd(`0192:910075918`, "06068700602", 'digital', 'digital', 'kulturIdrettOgFritid', uuidv1(), uuidv1()))
-            if (res) {
-                console.log('Sent DPI message OK.');
-            }
-        } catch(err){
-            console.log(JSON.stringify(err, null, 2));
-            console.log("DPI message failed.");
-        }
+        let requests = getRequests(program.dpi, dpiSbd, `0192:910075918`, "06068700602", 'digital', 'digital');
+
+        console.time('DPI Messages');
+
+        Promise.all(requests).then((res) => {
+
+            console.timeEnd('DPI Messages');
+
+            console.log(`Sent ${requests.length} DPI messages.`);
+        }).catch((err) => {
+            console.log(err);
+        });
     }
 
+    if (program.dpe || runAll) {
 
-    if (runDpe || runAll) {
-        console.log('Sending DPE message');
-        // DPE message
-        try {
-            let res = await sendLargeMessage(
-                dpeSbd(910075918, 910076787,"innsynskrav")
-            );
-            if (res){
-                console.log("Sent DPE message successfully");
-                console.log(res);
-            }
-        } catch(err){
-            console.log(JSON.stringify(err, null, 2));
-            console.log("DPE message failed");
-        }
+        let requests = getRequests(program.dpe, dpeSbd, 910075918, 910076787,"innsynskrav");
+
+        console.time('DPE Messages');
+
+        Promise.all(requests).then((res) => {
+            console.log(`Sent ${requests.length} DPE messages.`);
+
+            console.timeEnd('DPE Messages');
+
+        }).catch((err) => {
+            console.log(err);
+        });
     }
 
-    if (runDpiPrint || runAll) {
-        console.log('Sending DPI print message.');
-        // DPI Print message
-        try {
+    if (program.dpiprint || runAll) {
 
-            let res = await sendLargeMessage(
-                dpiSbdFysisk(`0192:910075918`, "06068700602", 'digital', 'digital', 'kulturIdrettOgFritid', uuidv1(), uuidv1())
-            );
-            if (res){
-                console.log("Sent DPI print message successfully");
-                console.log(res);
-            }
-        } catch(err){
-            console.log(JSON.stringify(err, null, 2));
-            console.log("DPI print message failed");
-        }
+        let requests = getRequests(program.dpiprint, dpiSbdFysisk, `0192:910075918`, "06068700602");
+
+        console.time('DPI Print Messages');
+
+        Promise.all(requests).then((res) => {
+
+            console.timeEnd('DPI Print Messages');
+
+            console.log(`Sent ${requests.length} DPI Print messages.`);
+        }).catch((err) => {
+            console.log(err);
+        });
     }
 
 }
