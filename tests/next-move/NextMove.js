@@ -6,7 +6,6 @@ const request = require('request');
 const ipUrl = 'http://localhost:9093';
 const endpoint = 'api/messages/out';
 const program = require('commander');
-
 const crypto = require('crypto');
 
 program
@@ -120,7 +119,7 @@ async function sendAllMessages(){
     return new Promise(async (resolve, reject) => {
 
         if (program.dpo || runAll) {
-            await sendMessagesForServiceIdentifier("DPO", getRequests(program.dpo, StandardBusinessDocument, 910075918, 910075918, 'arkivmelding', 'arkivmelding', 'administrasjon'))
+            await sendMessagesForServiceIdentifier("DPO", getRequests(program.dpo, StandardBusinessDocument, 910075918, 910075918, 'arkivmelding', 'arkivmelding', 'administrasjon'));
         }
 
         if (program.dpv || runAll) {
@@ -157,6 +156,7 @@ crypto.randomBytes(fileSize, (err, buffer) => {
     fs.writeFile(fileName, buffer, (err) => {
         if (err) {
             console.log(err);
+            process.exit(1);
         } else {
 
             console.time("totalTime");
@@ -170,7 +170,7 @@ crypto.randomBytes(fileSize, (err, buffer) => {
                         console.log(err);
                     } else {
                         console.log("Messages sent, file deleted");
-                        console.log(`Attachement file size was: ${program.filesize}.`);
+                        console.log(`Attachment file size was: ${program.filesize}.`);
                     }
                 })
             }).catch((err) => {

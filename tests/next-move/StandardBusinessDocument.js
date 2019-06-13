@@ -96,7 +96,7 @@ dpiSbd = (senderOrgNr, receiverOrgNr, meldingsType, forretningsMelding, prosess,
         "digital": {
             "ikkeSensitivTittel": "tittel",
             "spraak": "NO",
-            "primaerDokumentNavn": "test4.pdf",
+            "primaerDokumentNavn": "test.pdf",
             "sikkerhetsnivaa": 3,
             "digitalPostInfo": {
                 "virkningsdato": new moment().add(2, 'hours'),
@@ -156,7 +156,7 @@ dpiSbdFysisk = (senderOrgNr, receiverOrgNr) => {
         },
         "print" : {
             "sikkerhetsnivaa": 3,
-            "primaerDokumentNavn": "test4.pdf",
+            "primaerDokumentNavn": "test.pdf",
             "mottaker":{
                 "navn": "Ola Nordmann",
                 "adresselinje1": "Hentes fra capabilitylookup",
