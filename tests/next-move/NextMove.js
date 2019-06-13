@@ -9,6 +9,7 @@ const program = require('commander');
 
 program
     .version('0.1.0')
+    .option('-s --filesize <size>', 'Size of files to send. User either kb or mb, eg: 200kb or 5mb.',  '200kb')
     .option('dpi [count]', 'Send the specified number of dpi messages.')
     .option('dpiprint [count]', 'Send the specified number of dpiprint messages.')
     .option('dpe [count]', 'Send the specified number of dpe messages.')
@@ -17,14 +18,23 @@ program
     .option('dpv [count]', 'Send the specified number of dpv messages.')
     .parse(process.argv);
 
+let fileSize;
+let fileName = 'test.pdf';
+
+if (program.filesize.includes("kb")) {
+    let kbCount = parseInt(program.filesize) / 1000;
+    fileSize = Math.round(1024*1024*kbCount);
+} else if(program.filesize.includes("mb")) {
+    let mbCount = parseInt(program.filesize);
+    fileSize = 1024*1024*mbCount;
+} else {
+    console.log("You have entered an invalid value for file size.");
+    console.log("Please enter like 200kb or 5mb.");
+    process.exit(1);
+}
+
 let runAll = !program.dpiprint && !program.dpi && !program.dpe && !program.dpo && !program.dpf && !program.dpv;
 
-if (program.dpiprint) console.log('  - %s messages dpi', program.dpiprint);
-if (program.dpi) console.log(program.dpi);
-if (program.dpe) console.log(program.dpe);
-if (program.dpo) console.log(program.dpo);
-if (program.dpf) console.log(program.dpf);
-if (program.dpv) console.log(program.dpv);
 
 function sendFile(fileName, conversationId){
     return new Promise((resolve, reject) => {
@@ -44,7 +54,6 @@ function sendFile(fileName, conversationId){
                     resolve(response)
                 }
             }))
-
     })
 }
 
@@ -60,9 +69,9 @@ async function sendLargeMessage(sbd){
 
             console.log(`Conversation created: http://localhost:9093/api/conversations/conversationId/${conversationId}`);
 
-            let sendFileRes = await sendFile( 'test4.pdf', conversationId);
+            let sendFileRes = await sendFile( fileName, conversationId);
 
-            console.log(`Attachment uploaded: ${'test4.pdf'}`);
+            console.log(`Attachment uploaded: ${fileName}`);
 
             let sendArchiveRes = await sendFile('arkivmelding.xml', conversationId);
 
@@ -88,99 +97,76 @@ function getRequests(serviceIdentifier, sbdFunction, ...sbdParameters){
     return requests;
 }
 
-async function sendMessages(){
 
-    if (program.dpo || runAll) {
+function sendMessagesForServiceIdentifier(serviceIdentifier, requests){
 
-        let requests = getRequests(program.dpo, StandardBusinessDocument, 910075918, 910075918, 'arkivmelding', 'arkivmelding', 'administrasjon');
+    console.time(serviceIdentifier);
 
-        console.time('DPO Messages');
-
+    return new Promise((resolve, reject) => {
         Promise.all(requests).then((res) => {
-            console.log(`Sent ${requests.length} DPO messages.`);
-            console.timeEnd('DPO Messages');
+            console.log(`Sent ${requests.length} ${serviceIdentifier} messages.`);
+            console.timeEnd(serviceIdentifier);
+            resolve()
         }).catch((err) => {
             console.log(err);
+            reject()
         });
-    }
-
-    if (program.dpv || runAll) {
-
-        let requests = getRequests(program.dpv, StandardBusinessDocument, 991825827, 910075918, 'arkivmelding', 'arkivmelding', 'helseSosialOgOmsorg');
-
-        console.time('DPV Messages');
-
-        Promise.all(requests).then((res) => {
-            console.log(`Sent ${requests.length} DPV messages.`);
-            console.timeEnd('DPV Messages');
-        }).catch((err) => {
-            console.log(err);
-        });
-    }
-
-    if (program.dpf || runAll) {
-
-        let requests = getRequests(program.dpf, StandardBusinessDocument, 910075918, 910075918, 'arkivmelding', 'arkivmelding', 'planByggOgGeodata');
-
-        console.time('DPF Messages');
-
-        Promise.all(requests).then((res) => {
-            console.timeEnd('DPF Messages');
-
-            console.log(`Sent ${requests.length} DPF messages.`);
-        }).catch((err) => {
-            console.log(err);
-        });
-    }
-
-    if (program.dpi || runAll) {
-
-        let requests = getRequests(program.dpi, dpiSbd, `0192:910075918`, "06068700602", 'digital', 'digital');
-
-        console.time('DPI Messages');
-
-        Promise.all(requests).then((res) => {
-
-            console.timeEnd('DPI Messages');
-
-            console.log(`Sent ${requests.length} DPI messages.`);
-        }).catch((err) => {
-            console.log(err);
-        });
-    }
-
-    if (program.dpe || runAll) {
-
-        let requests = getRequests(program.dpe, dpeSbd, 910075918, 910076787,"innsynskrav");
-
-        console.time('DPE Messages');
-
-        Promise.all(requests).then((res) => {
-            console.log(`Sent ${requests.length} DPE messages.`);
-
-            console.timeEnd('DPE Messages');
-
-        }).catch((err) => {
-            console.log(err);
-        });
-    }
-
-    if (program.dpiprint || runAll) {
-
-        let requests = getRequests(program.dpiprint, dpiSbdFysisk, `0192:910075918`, "06068700602");
-
-        console.time('DPI Print Messages');
-
-        Promise.all(requests).then((res) => {
-
-            console.timeEnd('DPI Print Messages');
-
-            console.log(`Sent ${requests.length} DPI Print messages.`);
-        }).catch((err) => {
-            console.log(err);
-        });
-    }
-
+    })
 }
 
-sendMessages();
+async function sendAllMessages(){
+
+    return new Promise(async (resolve, reject) => {
+
+        if (program.dpo || runAll) {
+            await sendMessagesForServiceIdentifier("DPO", getRequests(program.dpo, StandardBusinessDocument, 910075918, 910075918, 'arkivmelding', 'arkivmelding', 'administrasjon'))
+        }
+
+        if (program.dpv || runAll) {
+            await sendMessagesForServiceIdentifier("DPV", getRequests(program.dpv, StandardBusinessDocument, 991825827, 910075918, 'arkivmelding', 'arkivmelding', 'helseSosialOgOmsorg'));
+        }
+
+        if (program.dpf || runAll) {
+            await sendMessagesForServiceIdentifier("DPF", getRequests(program.dpf, StandardBusinessDocument, 910075918, 910075918, 'arkivmelding', 'arkivmelding', 'planByggOgGeodata'));
+        }
+
+        if (program.dpi || runAll) {
+            await sendMessagesForServiceIdentifier("DPI", getRequests(program.dpi, dpiSbd, `0192:910075918`, "06068700602", 'digital', 'digital'));
+        }
+
+        if (program.dpe || runAll) {
+            await sendMessagesForServiceIdentifier("DPE", getRequests(program.dpe, dpeSbd, 910075918, 910076787,"innsynskrav"));
+        }
+
+        if (program.dpiprint || runAll) {
+            await sendMessagesForServiceIdentifier("DPI Print", getRequests(program.dpiprint, dpiSbdFysisk, `0192:910075918`, "06068700602"));
+        }
+        resolve();
+    })
+}
+
+
+fs.writeFile(fileName, Buffer.alloc(fileSize), (err) => {
+    if (err) {
+        console.log(err);
+    } else {
+
+        console.time("totalTime");
+
+        sendAllMessages().then(() => {
+
+            console.timeEnd("totalTime");
+
+            fs.unlink(fileName, (err) => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log("Messages sent, file deleted");
+                }
+            })
+        }).catch((err) => {
+            console.log(err);
+        });
+
+    }
+});
