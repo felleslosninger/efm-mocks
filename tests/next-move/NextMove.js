@@ -7,6 +7,8 @@ const ipUrl = 'http://localhost:9093';
 const endpoint = 'api/messages/out';
 const program = require('commander');
 
+const crypto = require('crypto');
+
 program
     .version('0.1.0')
     .option('-s --filesize <size>', 'Size of files to send. User either kb or mb, eg: 200kb or 5mb.',  '200kb')
@@ -34,7 +36,6 @@ if (program.filesize.includes("kb")) {
 }
 
 let runAll = !program.dpiprint && !program.dpi && !program.dpe && !program.dpo && !program.dpf && !program.dpv;
-
 
 function sendFile(fileName, conversationId){
     return new Promise((resolve, reject) => {
@@ -146,27 +147,35 @@ async function sendAllMessages(){
 }
 
 
-fs.writeFile(fileName, Buffer.alloc(fileSize), (err) => {
+crypto.randomBytes(fileSize, (err, buffer) => {
+
     if (err) {
         console.log(err);
-    } else {
-
-        console.time("totalTime");
-
-        sendAllMessages().then(() => {
-
-            console.timeEnd("totalTime");
-
-            fs.unlink(fileName, (err) => {
-                if (err) {
-                    console.log(err);
-                } else {
-                    console.log("Messages sent, file deleted");
-                }
-            })
-        }).catch((err) => {
-            console.log(err);
-        });
-
+        process.exit(1);
     }
+
+    fs.writeFile(fileName, buffer, (err) => {
+        if (err) {
+            console.log(err);
+        } else {
+
+            console.time("totalTime");
+
+            sendAllMessages().then(() => {
+
+                console.timeEnd("totalTime");
+
+                fs.unlink(fileName, (err) => {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        console.log("Messages sent, file deleted");
+                        console.log(`Attachement file size was: ${program.filesize}.`);
+                    }
+                })
+            }).catch((err) => {
+                console.log(err);
+            });
+        }
+    });
 });
