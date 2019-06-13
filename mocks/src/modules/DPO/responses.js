@@ -201,6 +201,13 @@ function UploadFileStreamedBasic(req, res) {
                                             global.dpoDB.set(recipient, [ file ]);
                                         }
 
+                                        let logMessages = global.messageLog.get('dpo');
+
+                                        logMessages.push({
+                                            fileReference: fileName,
+                                            receiptId: receiptId,
+                                            receiver: recipient
+                                        });
 
                                         res.send(`<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.altinn.no/services/ServiceEngine/Broker/2015/06">
                                                    <soapenv:Header/>

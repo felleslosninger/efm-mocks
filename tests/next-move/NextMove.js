@@ -90,8 +90,6 @@ function getRequests(serviceIdentifier, sbdFunction, ...sbdParameters){
 
 async function sendMessages(){
 
-
-
     if (program.dpo || runAll) {
 
         let requests = getRequests(program.dpo, StandardBusinessDocument, 910075918, 910075918, 'arkivmelding', 'arkivmelding', 'administrasjon');

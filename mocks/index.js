@@ -171,6 +171,11 @@ app.get('/', (req, res) => {
     `);
 });
 
+
+/**
+ * Deletes all files in a directory, but creates a .gitkeep file
+ * so that the directory is kept in sourcecontrol.
+ * */
 function deleteFiles(directory){
     return new Promise((resolve, reject) => {
         deleteDirectoryRecursive(directory, false)
@@ -188,11 +193,26 @@ function deleteFiles(directory){
 }
 
 /**
- * Deletes messages log from the dpi mock.
+ * Clears the message log from the dpi mock.
  * */
 function deleteDPIMessageLog(){
     return new Promise((resolve, reject) => {
         request.delete(`http://${process.env.DPI_HOST}:${process.env.DPI_PORT}/api/messages/log`)
+            .then((response) => {
+                resolve();
+            }).catch((err) => {
+                console.log(err);
+                reject();
+            })
+    })
+}
+
+/**
+ * Deletes messages from the dpi mock.
+ * */
+function deleteDPIMessages(){
+    return new Promise((resolve, reject) => {
+        request.delete(`http://${process.env.DPI_HOST}:${process.env.DPI_PORT}/api/messages`)
             .then((response) => {
                 resolve();
             }).catch((err) => {
@@ -237,19 +257,20 @@ app.get('/api/messages', (req, res) => {
     });
 });
 
-
+/**
+ * Deletes messages and files for a given service identifier.
+ * */
 app.delete('/api/messages/:serviceIdentifier', (req, res) => {
-    global.dpfDB = new Map();
 
     if ("DPV" === req.params.serviceIdentifier.toUpperCase()) {
         global.dpvDB = new Map();
         res.sendStatus(200);
     } else if ("DPI" === req.params.serviceIdentifier.toUpperCase()){
-        deleteDPIMessageLog()
+        deleteDPIMessages()
             .then(() => {
                 res.sendStatus(200);
             }).catch(() => {
-                res.sendStatus(500)
+                res.sendStatus(500);
             })
     } else {
         deleteFiles(`./src/modules/${req.params.serviceIdentifier.toUpperCase()}/uploads`)
@@ -257,7 +278,7 @@ app.delete('/api/messages/:serviceIdentifier', (req, res) => {
                 res.sendStatus(200);
             }).catch((err) => {
                 console.log(err);
-                res.sendStatus(500)
+                res.sendStatus(500);
         });
     }
 });
@@ -271,16 +292,15 @@ app.delete('/api/messages/log/:serviceIdentifier', (req, res) => {
 
     if ("DPI" === req.params.serviceIdentifier.toUpperCase()){
         // TODO: delete from dpi mock
-        deleteDPIMessages()
+        deleteDPIMessageLog()
             .then(() => {
                 res.sendStatus(200);
             }).catch(() => {
-            res.sendStatus(500)
+                res.sendStatus(500);
         })
     } else {
-
         global.messageLog.set(req.params.serviceIdentifier.toLowerCase(), []);
-        console.log('stop');
+        res.sendStatus(200);
     }
 });
 

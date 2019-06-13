@@ -37,20 +37,20 @@ let emptyMessages = function(node) {
 };
 
 deleteButtons.forEach(button => {
-    button.addEventListener('click', function(e){
+    button.addEventListener('click', (e) => {
         console.log('yo');
-        axios.delete(`${window.location.href}api/messages/log/${button.dataset.serviceidentifier}`)
-            .then(function(res){
+        axios.delete(`${window.location.href}api/messages/${button.dataset.serviceidentifier}`)
+            .then((res) => {
                 alert(`${button.dataset.serviceidentifier} meldinger slettet.`)
             })
-            .catch(function(err){
+            .catch((err) => {
                 console.log("fail", err);
             });
     });
 });
 
 clearLogButtons.forEach(button => {
-    button.addEventListener('click', function(e){
+    button.addEventListener('click', (e) => {
 
         axios.delete(`${window.location.href}api/messages/log/${button.dataset.serviceidentifier}`)
             .then((res) => {
@@ -58,7 +58,7 @@ clearLogButtons.forEach(button => {
                 console.log(messagesContainer);
                 emptyMessages(messagesContainer.element);
             })
-            .catch(function(err){
+            .catch((err) => {
                 console.log("fail", err);
             });
     });
