@@ -14,12 +14,9 @@ MoveMocks lar deg simulere de forskjellige meldingsformidlertjenestene.
 
 ### Oppstart
 
-Dersom du skal kjøre DPI mocken må du utføre følgende skritt før ```docker-compose up```:
-
 1. ``` git clone https://github.com/difi/move-mocks.git ```
-2. Bygg dpimock prosjektet: ``` cd move-mocks/dpimock && ./mvnw install dockerfile:build ```
-5. Pass på at ingenting kjører på følgende porter: 9093, 8001, 8002 og 8080, eller spesifiser porter .env filen.
-6. Kjør ``` docker-compose up ``` i roten av prosjektet. 
+2. Pass på at ingenting kjører på følgende porter: 9093, 8001, 8002 og 8080, eller spesifiser porter .env filen.
+3. Kjør ``` docker-compose up ``` i roten av prosjektet. 
 
 Du har nå følgende applikasjoner kjørende:
 
