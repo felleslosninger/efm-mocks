@@ -124,7 +124,7 @@ async function sendAllMessages(){
         }
 
         if (program.dpv || runAll) {
-            await sendMessagesForServiceIdentifier("DPV", getRequests(program.dpv, StandardBusinessDocument, 991825827, 910075918, 'arkivmelding', 'arkivmelding', 'helseSosialOgOmsorg'));
+            await sendMessagesForServiceIdentifier("DPV", getRequests(program.dpv, StandardBusinessDocument, 984661185, 910075918, 'arkivmelding', 'arkivmelding', 'helseSosialOgOmsorg'));
         }
 
         if (program.dpf || runAll) {

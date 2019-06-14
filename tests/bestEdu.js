@@ -7,8 +7,8 @@ const args = require('yargs').argv;
 const getRequests = require("./functions").getRequests;
 const makeRequests = require("./functions").makeRequests;
 
-let receiver = args.receiver || 991825827;
-let sender = args.sender || 991825827;
+let receiver = args.receiver || 984661185;
+let sender = args.sender || 984661185;
 let filePath = args.filePath || '/Users/adam.haeger/Projects/mocks/jMeter/liten.pdf';
 let iterations = args.iterations || 10;
 let ipUrl = args.ipUrl || 'http://localhost:9093';
