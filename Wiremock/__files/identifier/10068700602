@@ -1,0 +1,66 @@
+{
+  "infoRecord": {
+    "identifier": "10068700602",
+    "entityType": {
+      "name": "citizen"
+    }
+  },
+  "serviceRecords": [
+    {
+      "organisationNumber": "10068700602",
+      "pemCertificate": "-----BEGIN CERTIFICATE-----
+      MIID/DCCAuSgAwIBAgIEbkWf+zANBgkqhkiG9w0BAQsFADBeMRIwEAYDVQQKEwlE
+      aWZpIHRlc3QxEjAQBgNVBAUTCTk5MTgyNTgyNzE0MDIGA1UEAxMrRElGSSB0ZXN0
+      IHZpcmtzb21oZXRzc2VydGlmaWF0IGludGVybWVkaWF0ZTAeFw0xNzEyMTgxMjU5
+      NTZaFw0yMzAxMTgxMjU5NTdaMD0xEjAQBgNVBAUTCTkxMDA3Njc4NzEnMCUGA1UE
+      AxMeRElGSSB0ZXN0IHZpcmtzb21oZXRzc2VydGlmaWF0MIIBIjANBgkqhkiG9w0B
+      AQEFAAOCAQ8AMIIBCgKCAQEAoTtuO1X+cF0XsVMt33r3DdEBETqNu8cfP0hFmU8t
+      EWQy7sIDv+Yn/V8N4AmzBIB69sf5WbwWnFVbLhDBLNkzQ9Dg4n1T4vl8DjRQkDxB
+      9jKyoqv0KXktGUdWtuqipbSMHwg6iyNYOjUVEpN6ICoH/eC0d6brXJ0D1QCMP0rx
+      C0q1W+2/4NZNyWjcpMA7PqFrwpMvNsaTsGhPZwvuzl2VI3yjzie9gnLWPJQPNjAm
+      RnofbkUKFqsVb3ECJAHUIh1txLULz5N0R6xAGwyztCeNYIanptTPWJTRZE27kqD1
+      kiLlQ7A10WOeJz0PTaaivRm33wcPZI3Vik2cLosDuQvZ8QIDAQABo4HiMIHfMIGL
+      BgNVHSMEgYMwgYCAFC0wPplnLfjHrg8Rj8M6O7BdJ73AoWKkYDBeMRIwEAYDVQQK
+      EwlEaWZpIHRlc3QxEjAQBgNVBAUTCTk5MTgyNTgyNzE0MDIGA1UEAxMrRElGSSB0
+      ZXN0IHZpcmtzb21oZXRzc2VydGlmaWF0IGludGVybWVkaWF0ZYIEK1VFqzAdBgNV
+      HQ4EFgQUptyeMfbR8/zYhDBCbMuCBwbwVcowCQYDVR0TBAIwADAVBgNVHSAEDjAM
+      MAoGCGCEQgEBAQFkMA4GA1UdDwEB/wQEAwIEsDANBgkqhkiG9w0BAQsFAAOCAQEA
+      UwKzYWETxx6nk9YKONmZl4RQiFr5uyEWMv6YrOI3fyALhytLmV/2Lc0DryGxywE6
+      Y0FX8kGkSk5r4ZhFRUE58BoHQfxR01NORLk57q2jpqxFOEPPHf4PmaWXqvQbH8I7
+      2+JhOadH2TqU8E4dkWj1xGdTTtys6L/dmGBfRtWwQPT8RdEeXGD+X4dUIUfbhdIG
+      ryGPDuZsKiEsRgU/lxjBoCYgusTbvV+BuTZbTwmBv/6R7W7s1jcZ7fUYeyPhEZmM
+      4Ear+6SRi+trPgfDtqT/pXZFF+sXZ/GrfyZlNvqZJV7kAnKqDsMp2i9+1HdlXAct
+      SEVL2OWconWHprVTB32CtQ==
+      -----END CERTIFICATE-----",
+      "process": "urn:no:difi:profile:digitalpost:info:ver1.0",
+      "orgnrPostkasse": "9908:987464291",
+      "postkasseAdresse": "test.testesen#8HC7",
+      "mobilnummer": "+4799999999",
+      "kanVarsles": true,
+      "epostAdresse": "10068700602-test@minid.norge.no",
+      "fysiskPost": false,
+      "postAddress": {
+        "name": "MARGIT FOS MOE",
+        "street": "ETTERSTAD",
+        "postalCode": "0603",
+        "postalArea": "OSLO",
+        "country": "Norway"
+      },
+      "returnAddress": {
+        "name": "DIREKTORATET FOR FORVALTNING OG IKT",
+        "street": "Postboks 8115 Dep",
+        "postalCode": "0032",
+        "postalArea": "OSLO",
+        "country": "Norge"
+      },
+      "documentTypes": [
+        "urn:no:difi:digitalpost:xsd:digital::digital_dpv"
+      ],
+      "service": {
+        "identifier": "DPV",
+        "serviceCode": "4255",
+        "serviceEditionCode": "4"
+      }
+    }
+  ]
+}

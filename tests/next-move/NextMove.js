@@ -1,5 +1,5 @@
 const superagent = require('superagent');
-const { StandardBusinessDocument, dpiSbd, dpeSbd, dpiSbdFysisk } = require('./StandardBusinessDocument');
+const { StandardBusinessDocument, dpiSbd, dpeSbd, dpiSbdFysisk, dpiSbdDigitalDpv } = require('./StandardBusinessDocument');
 const path = require('path');
 const fs = require('fs');
 const request = require('request');
@@ -13,6 +13,7 @@ program
     .option('-s --filesize <size>', 'Size of files to send. User either kb or mb, eg: 200kb or 5mb.',  '200kb')
     .option('dpi [count]', 'Send the specified number of dpi messages.')
     .option('dpiprint [count]', 'Send the specified number of dpiprint messages.')
+    .option('digitaldpv [count]', 'Send the specified number of digitaldpv messages.')
     .option('dpe [count]', 'Send the specified number of dpe messages.')
     .option('dpo [count]', 'Send the specified number of dpo messages.')
     .option('dpf [count]', 'Send the specified number of dpf messages.')
@@ -34,7 +35,7 @@ if (program.filesize.includes("kb")) {
     process.exit(1);
 }
 
-let runAll = !program.dpiprint && !program.dpi && !program.dpe && !program.dpo && !program.dpf && !program.dpv;
+let runAll = !program.dpiprint && !program.dpi && !program.dpe && !program.dpo && !program.dpf && !program.dpv && !program.digitaldpv;
 
 function sendFile(fileName, conversationId){
     return new Promise((resolve, reject) => {
@@ -141,6 +142,11 @@ async function sendAllMessages(){
         if (program.dpiprint || runAll) {
             await sendMessagesForServiceIdentifier("DPI Print", getRequests(program.dpiprint, dpiSbdFysisk, `0192:910075918`, "06068700602"));
         }
+
+        if (program.digitaldpv || runAll) {
+            await sendMessagesForServiceIdentifier("DPI Digital DPV", getRequests(program.dpiprint, dpiSbdDigitalDpv, `0192:910075918`, "10068700602"));
+        }
+
         resolve();
     })
 }

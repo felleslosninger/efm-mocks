@@ -51,14 +51,14 @@ function StandardBusinessDocument(senderOrgNr, receiverOrgNr, meldingsType, forr
 }
 
 
-dpiSbd = (senderOrgNr, receiverOrgNr, meldingsType, forretningsMelding, prosess, senderRef, receiverRef) => {
+dpiSbd = (senderOrgNr, receiverOrgNr, meldingsType, forretningsMelding) => {
     return {
         "standardBusinessDocumentHeader": {
             "headerVersion": "1.0",
             "sender": [
                 {
                     "identifier": {
-                        "value": `${senderOrgNr}`,
+                        "value": senderOrgNr,
                         "authority": "iso6523-actorid-upis"
                     },
                     "contactInformation": []
@@ -67,7 +67,7 @@ dpiSbd = (senderOrgNr, receiverOrgNr, meldingsType, forretningsMelding, prosess,
             "receiver": [
                 {
                     "identifier": {
-                        "value": `${receiverOrgNr}`,
+                        "value": receiverOrgNr,
                         "authority": "iso6523-actorid-upis"
                     },
                     "contactInformation": []
@@ -112,14 +112,15 @@ dpiSbd = (senderOrgNr, receiverOrgNr, meldingsType, forretningsMelding, prosess,
     };
 };
 
-dpiSbdFysisk = (senderOrgNr, receiverOrgNr) => {
+
+dpiSbdDigitalDpv = (senderOrgNr, receiverOrgNr) => {
     return {
         "standardBusinessDocumentHeader": {
             "headerVersion": "1.0",
             "sender": [
                 {
                     "identifier": {
-                        "value": `${senderOrgNr}`,
+                        "value": senderOrgNr,
                         "authority": "iso6523-actorid-upis"
                     },
                     "contactInformation": []
@@ -128,7 +129,59 @@ dpiSbdFysisk = (senderOrgNr, receiverOrgNr) => {
             "receiver": [
                 {
                     "identifier": {
-                        "value": `${receiverOrgNr}`,
+                        "value": receiverOrgNr,
+                        "authority": "iso6523-actorid-upis"
+                    },
+                    "contactInformation": []
+                }
+            ],
+            "documentIdentification": {
+                "standard": `urn:no:difi:digitalpost:xsd:digital::digital_dpv`,
+                "typeVersion": "2.0",
+                "type": "digital_dpv",
+                "creationDateAndTime": new moment()
+            },
+            "businessScope": {
+                "scope": [
+                    {
+                        "type": "ConversationId",
+                        "identifier": `urn:no:difi:profile:digitalpost:info:ver1.0`,
+                        "scopeInformation": [
+                            {
+                                "expectedResponseDateTime": new moment().add(4, 'hours')
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "digital_dpv" : {
+            "sikkerhetsnivaa": 3,
+            "primaerDokumentNavn": "test.pdf",
+            "title": "test title",
+            "summary": "test summary",
+            "body": "Test body"
+        }
+    };
+};
+
+dpiSbdFysisk = (senderOrgNr, receiverOrgNr) => {
+    return {
+        "standardBusinessDocumentHeader": {
+            "headerVersion": "1.0",
+            "sender": [
+                {
+                    "identifier": {
+                        "value": senderOrgNr,
+                        "authority": "iso6523-actorid-upis"
+                    },
+                    "contactInformation": []
+                }
+            ],
+            "receiver": [
+                {
+                    "identifier": {
+                        "value": receiverOrgNr,
                         "authority": "iso6523-actorid-upis"
                     },
                     "contactInformation": []
@@ -239,4 +292,4 @@ dpeSbd = (senderOrgNr, receiverOrgNr, meldingsType) => {
 };
 
 
-module.exports = { dpiSbd, StandardBusinessDocument, dpeSbd, dpiSbdFysisk };
+module.exports = { dpiSbd, dpiSbdDigitalDpv, StandardBusinessDocument, dpeSbd, dpiSbdFysisk };
