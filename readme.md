@@ -46,7 +46,7 @@ Mocken er satt opp til å motta meldinger for følgende org nr og prosesser:
 |----------------------|-------------|-------------------------------------------------------------|----------------------------------------------|
 | DPI                  | 06068700602 | urn:no:difi:profile:digitalpost:info:ver1.0                 | urn:no:difi:digitalpost:xsd:digital::digital |
 | DPI Print            | 06068700602 | urn:no:difi:profile:digitalpost:vedtak:ver1.0               | urn:no:difi:digitalpost:xsd:fysisk::print    |
-| DPI Digital DPV      | 06068700602 | urn:no:difi:profile:digitalpost:info:ver1.0	               | urn:no:difi:digitalpost:xsd:digital::digital_dpv |
+| DPI Digital DPV      | 10068700602 | urn:no:difi:profile:digitalpost:info:ver1.0	               | urn:no:difi:digitalpost:xsd:digital::digital_dpv |
 | DPE Journal          | 910076787   | urn:no:difi:profile:einnsyn:journalpost:ver1.0              | urn:no:difi:einnsyn:xsd::publisering         |
 | DPE Innsynsbegjæring | 910076787   | urn:no:difi:profile:einnsyn:innsynskrav:ver1.0              | urn:no:difi:einnsyn:xsd::innsynskrav         |
 | DPE Møte             | 910076787   | urn:no:difi:profile:einnsyn:meeting:ver1.0                  | urn:no:difi:einnsyn:xsd::publisering         |
