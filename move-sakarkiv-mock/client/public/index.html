@@ -25,6 +25,10 @@
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
+    <script>
+      // the baseName is set to move-mocks/sa-mock because thats where it is deployed to on the DIFI servers.
+      window.baseName = window.location.hostname === 'localhost' ? '' : '/move-mocks/sa-mock';
+    </script>
     <div id="root"></div>
     <!--
       This HTML file is a template.

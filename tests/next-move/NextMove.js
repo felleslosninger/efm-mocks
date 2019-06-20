@@ -120,7 +120,7 @@ async function sendAllMessages(){
     return new Promise(async (resolve, reject) => {
 
         if (program.dpo || runAll) {
-            await sendMessagesForServiceIdentifier("DPO", getRequests(program.dpo, StandardBusinessDocument, 910075918, 910075918, 'arkivmelding', 'arkivmelding', 'administrasjon'));
+            await sendMessagesForServiceIdentifier("DPO", getRequests(program.dpo, StandardBusinessDocument, 910075918, 810074582, 'arkivmelding', 'arkivmelding', 'administrasjon'));
         }
 
         if (program.dpv || runAll) {

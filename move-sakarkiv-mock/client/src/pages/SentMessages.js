@@ -35,15 +35,13 @@ const modalStyle = {
     }
 };
 
-const baseUrl = process.env.NODE_ENV === 'production' ? '/move-mocks/sa-mock' : '';
-
 export default class SentMessages extends React.Component {
     
     state = {
     };
 
     poll = () => {
-        axios.get(`${baseUrl}/api/outgoing`).then((res) => {
+        axios.get(`${window.baseName}/api/outgoing`).then((res) => {
 
             if (res.data.length !== this.state.messages.length) {
                 this.setState({
@@ -61,7 +59,7 @@ export default class SentMessages extends React.Component {
 
     componentDidMount() {
         this.timer = null;
-        axios.get(`${baseUrl}/api/outgoing`).then((res) => {
+        axios.get(`${window.baseName}/api/outgoing`).then((res) => {
             this.setState({
                 messages: res.data
             });
@@ -74,7 +72,7 @@ export default class SentMessages extends React.Component {
     }
 
     processMessages = (messages) => {
-        return messages.map(entry => {
+        return messages.content.map(entry => {
             return {
                 conversationId: entry.conversationId,
                 senderIdentifier: entry.senderIdentifier,
@@ -87,7 +85,6 @@ export default class SentMessages extends React.Component {
             }
         })
     };
-
 
     render(){
         return (

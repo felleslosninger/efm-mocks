@@ -60,7 +60,7 @@
             ],
             "service": {
                 "identifier": "DPI",
-                "endpointUrl": "http://localhost:8080/as4",
+                "endpointUrl": {{#eq "localhost" request.requestLine.host}} "http://localhost:8080/as4" {{else}} "http://dpimock:8080/as4" {{/eq}},
                 "serviceCode": "4255",
                 "serviceEditionCode": "4"
             }

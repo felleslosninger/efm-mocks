@@ -14,12 +14,13 @@ import Dashboard from "./pages/Dashboard";
 
 ReactModal.setAppElement('#root');
 
-const baseName = process.env.NODE_ENV === 'production' ? '/move-mocks/sa-mock' : '';
+// console.log(window.location.hostname);
 
+console.log(window.baseName);
 class App extends Component {
     render() {
         return (
-            <Router basename={baseName}>
+            <Router basename={window.baseName}>
                 <div>
                     <Navbar />
                     <div className="container-fluid">

@@ -1,0 +1,10 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPathPattern": "/identifier/.*"
+  },
+  "response": {
+    "status": 200,
+    "bodyFileName": "service_records/{{request.requestLine.pathSegments.[1]}}"
+  }
+}

@@ -3,6 +3,7 @@ import './Navbar.css';
 import ReactModal from 'react-modal';
 import MessageForm from "../../pages/NewMessage/NewMessageModal/MessageForm";
 import {Link} from "react-router-dom";
+import NewNextMoveMessage from "../../pages/NewNextMoveMessage/NewNextMoveMessage";
 
 const modalStyle = {
     overlay: {
@@ -42,6 +43,12 @@ export default class Navbar extends React.Component {
         });
     };
 
+    toggleNewNextMoveMessage = () => {
+        this.setState({
+            showNewNextMoveMessage: !this.state.showNewNextMoveMessage
+        });
+    };
+
     render(){
         return (
             <nav className="navbar fixed-top  flex-md-nowrap p-0 shadow">
@@ -61,7 +68,9 @@ export default class Navbar extends React.Component {
                 <ul className="navbar-nav px-3">
                     <li className="nav-item text-nowrap">
 
-                        <button className="btn btn-sm btn-primary" onClick={this.toggleNewMessage}>New message</button>
+                        <button className="btn btn-sm btn-primary" style={ { marginRight: '10px' } }onClick={this.toggleNewNextMoveMessage}>New NextMove message</button>
+
+                        <button className="btn btn-sm btn-primary" onClick={this.toggleNewMessage}>New NoArk message</button>
 
                         {/*<a className="nav-link" href="#">Sign out</a>*/}
                     </li>
@@ -69,8 +78,19 @@ export default class Navbar extends React.Component {
 
                 <ReactModal
                     style={modalStyle}
+                    isOpen={this.state.showNewNextMoveMessage}
+                    contentLabel="NextMove message"
+                    onSave={this.showNewMessage}
+                >
+
+                    <NewNextMoveMessage dismiss={this.toggleNewNextMoveMessage} />
+
+                </ReactModal>
+
+                <ReactModal
+                    style={modalStyle}
                     isOpen={this.state.showNewMessage}
-                    contentLabel="Minimal Modal Example"
+                    contentLabel="Noark message"
                     onSave={this.showNewMessage}
                 >
                     <MessageForm

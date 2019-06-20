@@ -163,7 +163,7 @@ const mocks = [
                 path: '/dpo/ServiceEngineExternal/BrokerServiceExternalBasic.svc',
                 method: 'GET',
                 responseFunction: (req,res) => {
-                    if (!req.query.part){
+                    if (!req.query.part) {
                         getBrokerServiceExternalBasicWSDL(req,res)
                     } else if (req.query.part === 'BrokerServiceExternalBasicStreamed.wsdl'){
                         res.set('Content-type', 'text/xml');
@@ -193,7 +193,7 @@ const mocks = [
                                    </soapenv:Body>
                                 </soapenv:Envelope>`);
                     } else  {
-                        res.send('halla');
+                        res.status(200).send();
                     }
                 }
             },
@@ -204,7 +204,6 @@ const mocks = [
                     if (req.headers.soapaction === "\"http://www.altinn.no/services/ServiceEngine/Broker/2015/06/IBrokerServiceExternalBasicStreamed/DownloadFileStreamedBasic\"") {
                         getRawBody(req, res, next)
                     } else if (req.headers.soapaction === "\"http://www.altinn.no/services/ServiceEngine/Broker/2015/06/IBrokerServiceExternalBasicStreamed/UploadFileStreamedBasic\""){
-                        // getRawBody(req, res, next)
                         next();
                     } else {
                         console.log("stop");

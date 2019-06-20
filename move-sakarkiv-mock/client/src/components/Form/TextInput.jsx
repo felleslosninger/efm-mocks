@@ -57,6 +57,7 @@ export default class TextInput extends React.Component {
             isDirty: true
         }, () => {
             this.updateFormValidator();
+            if (this.props.onChange) this.props.onChange(value);
         });
     };
 

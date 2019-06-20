@@ -271,9 +271,7 @@ export default class MessageForm extends React.Component {
                             </div>
                         )
                     });
-
                 }
-                console.log(error.config);
             });
         });
     };

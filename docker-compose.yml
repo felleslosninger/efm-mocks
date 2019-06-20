@@ -11,6 +11,8 @@ services:
   sa-mock:
     build: ./move-sakarkiv-mock
     command: npm run start
+    environment:
+      IP_URL: ${IP_URL}
     ports:
       - ${SA_MOCK_PORT}:${SA_MOCK_PORT}
 
@@ -24,3 +26,7 @@ services:
     command:  cd ./dpimock && ./mvnw install dockerfile:build
     ports:
       - ${DPI_PORT}:${DPI_PORT}
+  ip:
+    build: ./ip
+    ports:
+      - ${IP_PORT}:9093

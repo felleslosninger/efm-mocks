@@ -45,7 +45,7 @@
             ],
             "service": {
                 "identifier": "DPO",
-                "endpointUrl": "http://localhost:8001/dpo",
+                "endpointUrl": {{#eq "localhost" request.requestLine.host}} "http://localhost:8001/dpo" {{else}} "http://mocks:8001/dpo" {{/eq}},
                 "serviceCode": "4192",
                 "serviceEditionCode": "270815"
             }
@@ -82,7 +82,7 @@
             ],
             "service": {
                 "identifier": "DPV",
-                "endpointUrl": "http://localhost:8001/dpv",
+                "endpointUrl": {{#eq "localhost" request.requestLine.host}} "http://localhost:8001/dpv" {{else}} "http://mocks:8001/dpv" {{/eq}},
                 "serviceCode": "4255",
                 "serviceEditionCode": "2"
             }
@@ -119,7 +119,7 @@
             ],
             "service": {
                 "identifier": "DPF",
-                "endpointUrl": "http://localhost:8001/dpf",
+                "endpointUrl": {{#eq "localhost" request.requestLine.host}} "http://localhost:8001/dpf" {{else}} "http://mocks:8001/dpf" {{/eq}},
                 "serviceCode": "4255",
                 "serviceEditionCode": "1"
             }
@@ -156,7 +156,7 @@
             ],
             "service": {
                 "identifier": "DPV",
-                "endpointUrl": "http://localhost:8001/dpv",
+                "endpointUrl": {{#eq "localhost" request.requestLine.host}} "http://localhost:8001/dpv" {{else}} "http://mocks:8001/dpv" {{/eq}},
                 "serviceCode": "4255",
                 "serviceEditionCode": "5"
             }
@@ -193,7 +193,7 @@
             ],
             "service": {
                 "identifier": "DPV",
-                "endpointUrl": "http://localhost:8001/dpv",
+                "endpointUrl": {{#eq "localhost" request.requestLine.host}} "http://localhost:8001/dpv" {{else}} "http://mocks:8001/dpv" {{/eq}},
                 "serviceCode": "4255",
                 "serviceEditionCode": "6"
             }
@@ -230,7 +230,7 @@
             ],
             "service": {
                 "identifier": "DPV",
-                "endpointUrl": "http://localhost:8001/dpv",
+                "endpointUrl": {{#eq "localhost" request.requestLine.host}} "http://localhost:8001/dpv" {{else}} "http://mocks:8001/dpv" {{/eq}},
                 "serviceCode": "4255",
                 "serviceEditionCode": "7"
             }
@@ -267,7 +267,7 @@
             ],
             "service": {
                 "identifier": "DPV",
-                "endpointUrl": "http://localhost:8001/dpv",
+                "endpointUrl": {{#eq "localhost" request.requestLine.host}} "http://localhost:8001/dpv" {{else}} "http://mocks:8001/dpv" {{/eq}},
                 "serviceCode": "4255",
                 "serviceEditionCode": "8"
             }
@@ -304,7 +304,7 @@
             ],
             "service": {
                 "identifier": "DPV",
-                "endpointUrl": "http://localhost:8001/dpv",
+                "endpointUrl": {{#eq "localhost" request.requestLine.host}} "http://localhost:8001/dpv" {{else}} "http://mocks:8001/dpv" {{/eq}},
                 "serviceCode": "4255",
                 "serviceEditionCode": "9"
             }
@@ -343,7 +343,7 @@
             ],
             "service": {
                 "identifier": "DPO",
-                "endpointUrl": "http://localhost:8001/dpo",
+                "endpointUrl": {{#eq "localhost" request.requestLine.host}} "http://localhost:8001/dpo" {{else}} "http://mocks:8001/dpo" {{/eq}},
                 "serviceCode": "4192",
                 "serviceEditionCode": "270815"
             }

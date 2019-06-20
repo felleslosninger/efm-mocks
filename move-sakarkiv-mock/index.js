@@ -1,3 +1,5 @@
+const { sendNextMoveMessage } = require("./src/nextMoveSender");
+
 const xml2js = require('xml2js');
 const { parseXml } = require("./src/utils");
 const {pollMessage} = require("./src/messagePoller");
@@ -13,7 +15,7 @@ process.env.PORT = process.env.PORT || 8002;
 process.env.ORG_NUM = process.env.ORG_NUM || 991825827;
 process.env.ORG_NAME = process.env.ORG_NAME || "DIREKTORATET FOR FORVALTNING OG IKT";
 process.env.EMAIL = process.env.EMAIL || "idporten@difi.no";
-process.env.IP_URL = process.env.IP_URL || "http://localhost:9093";
+process.env.IP_URL = process.env.IP_URL || "http://localhost:9094";
 
 console.log(process.env);
 
@@ -23,8 +25,6 @@ app.use(morgan('combined'));
 global.dpeDB = [];
 
 pollMessage();
-
-console.log(`${__dirname}/client/build`);
 
 app.use(express.static(`${__dirname}/client/build`));
 
@@ -62,11 +62,22 @@ app.post(`/api/send`, bodyParser.json({limit: '2000mb'}), (req, res, next) => {
     });
 });
 
+app.post(`/api/send/nextmove`, bodyParser.json({limit: '2000mb'}), (req, res, next) => {
+
+    sendNextMoveMessage(req.body).then((conversationId) => {
+        res.status(200).send(conversationId);
+    }).catch((err) => {
+        res.status(500).send();
+    })
+
+});
+
 app.get(`/api/outgoing`, (req, res) => {
     axios({
-        url: `${process.env.IP_URL}/conversations`,
+        url: `${process.env.IP_URL}/api/conversations`,
         method: 'GET'
     }).then((response) => {
+        console.log(response.data);
         res.send(response.data);
     }).catch((error) => {
         console.log(error);
@@ -102,7 +113,7 @@ app.post('/p360/*', (req, res) => {
 
 let dpfDB = new Map();
 
-app.get(`/api/messages`, (req, res) => {
+app.get("/api/messages", (req, res) => {
     res.send(JSON.stringify(
         [...dpfDB].map(
             // Removing the payload from the response because it is too big:
@@ -210,11 +221,6 @@ app.post(`/p360`,
     });
 });
 
-app.get('/*', function (req, res) {
-    res.sendFile(`${__dirname}/client/build/index.html`);
-});
-
-
 // // Fetch the WSDLs:
 Promise.all(mocks.map((mock) => getData(mock.wsdlUrl, 'utf8')))
     .then((res) => {
@@ -238,3 +244,7 @@ function getData(fileName, type) {
         });
     });
 }
+
+app.get('/*', function (req, res) {
+    res.sendFile(`${__dirname}/client/build/index.html`);
+});

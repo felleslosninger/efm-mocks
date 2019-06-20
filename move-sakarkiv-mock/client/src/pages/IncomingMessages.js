@@ -36,8 +36,6 @@ const modalStyle = {
     }
 };
 
-const baseUrl = process.env.NODE_ENV === 'production' ? '/move-mocks/sa-mock' : '';
-
 export default class IncomingMessages extends React.Component {
 
     state = {
@@ -46,7 +44,7 @@ export default class IncomingMessages extends React.Component {
     };
 
     poll = () => {
-        axios.get(`${baseUrl}/api/messages`).then((res) => {
+        axios.get(`${window.baseName}/api/messages`).then((res) => {
             let nextMessages = Array.from(new Map(res.data).values())
             if (nextMessages.length !== this.state.messages.length) {
                 this.setState({
@@ -64,7 +62,7 @@ export default class IncomingMessages extends React.Component {
 
     componentDidMount() {
 
-        axios.get(`${baseUrl}/api/messages`).then((res) => {
+        axios.get(`${window.baseName}/api/messages`).then((res) => {
             let db = new Map(res.data);
             this.setState({
                 messages: Array.from(db.values())
@@ -177,7 +175,7 @@ class ModalBody extends React.Component {
     };
 
     componentDidMount() {
-        axios.get(`${baseUrl}/api/messages/payload/${this.props.conversationID}`)
+        axios.get(`${window.baseName}/api/messages/payload/${this.props.conversationID}`)
             .then((res) => {
 
                 console.log('res.data', res.data);
