@@ -96,7 +96,7 @@ dpiSbd = (senderOrgNr, receiverOrgNr, meldingsType, forretningsMelding) => {
         "digital": {
             "ikkeSensitivTittel": "tittel",
             "spraak": "NO",
-            "primaerDokumentNavn": "test.pdf",
+            "hoveddokument": "test.pdf",
             "sikkerhetsnivaa": 3,
             "digitalPostInfo": {
                 "virkningsdato": new moment().add(2, 'hours'),
@@ -157,7 +157,7 @@ dpiSbdDigitalDpv = (senderOrgNr, receiverOrgNr) => {
         },
         "digital_dpv" : {
             "sikkerhetsnivaa": 3,
-            "primaerDokumentNavn": "test.pdf",
+            "hoveddokument": "test.pdf",
             "title": "test title",
             "summary": "test summary",
             "body": "Test body"
@@ -209,7 +209,7 @@ dpiSbdFysisk = (senderOrgNr, receiverOrgNr) => {
         },
         "print" : {
             "sikkerhetsnivaa": 3,
-            "primaerDokumentNavn": "test.pdf",
+            "hoveddokument": "test.pdf",
             "mottaker":{
                 "navn": "Ola Nordmann",
                 "adresselinje1": "Hentes fra capabilitylookup",
