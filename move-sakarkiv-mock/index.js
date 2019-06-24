@@ -1,5 +1,5 @@
+const {poll} = require("./src/nextMovePoller");
 const { sendNextMoveMessage } = require("./src/nextMoveSender");
-
 const xml2js = require('xml2js');
 const { parseXml } = require("./src/utils");
 const {pollMessage} = require("./src/messagePoller");
@@ -19,12 +19,15 @@ process.env.IP_URL = process.env.IP_URL || "http://localhost:9094";
 
 console.log(process.env);
 
+global.nextMoveMessages = [];
+
 let app = express();
 app.use(morgan('combined'));
 
 global.dpeDB = [];
 
-pollMessage();
+poll();
+// pollMessage();
 
 app.use(express.static(`${__dirname}/client/build`));
 
@@ -111,19 +114,23 @@ app.post('/p360/*', (req, res) => {
 });
 
 
-let dpfDB = new Map();
+global.dpfDB = new Map();
 
 app.get("/api/messages", (req, res) => {
     res.send(JSON.stringify(
-        [...dpfDB].map(
+        [...global.dpfDB].map(
             // Removing the payload from the response because it is too big:
             (message) => [ message[0], { ...message[1], payload: null } ])
     ));
 });
 
+app.get(`/api/incoming`, (req, res) => {
+    res.send(global.nextMoveMessages);
+});
+
 app.get(`/api/messages/payload/:conversationId`, (req, res) => {
 
-    let payload = dpfDB.get(req.params.conversationId);
+    let payload = global.dpfDB.get(req.params.conversationId);
 
     if (payload) {
         res.send(payload);
@@ -137,9 +144,7 @@ app.get(`/api/dpe/messages`, (req, res) => {
     res.json(global.dpeDB);
 });
 
-app.post(`/p360`,
-    getRawBody,
-    (req, res) => {
+app.post(`/p360`, getRawBody, (req, res) => {
     parseXml(req.rawBody, (err, parsed) => {
         if (err) throw err;
 
@@ -196,7 +201,7 @@ app.post(`/p360`,
                         file: filePath
                     };
 
-                dpfDB.set(conversationId, message);
+                global.dpfDB.set(conversationId, message);
 
                 res.type('application/xop+xml');
                 res.send(`<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:typ="http://www.arkivverket.no/Noark/Exchange/types">

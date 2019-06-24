@@ -33,26 +33,6 @@
       SEVL2OWconWHprVTB32CtQ==
       -----END CERTIFICATE-----",
       "process": "urn:no:difi:profile:digitalpost:info:ver1.0",
-      "orgnrPostkasse": "9908:987464291",
-      "postkasseAdresse": "test.testesen#8HC7",
-      "mobilnummer": "+4799999999",
-      "kanVarsles": true,
-      "epostAdresse": "10068700602-test@minid.norge.no",
-      "fysiskPost": false,
-      "postAddress": {
-        "name": "MARGIT FOS MOE",
-        "street": "ETTERSTAD",
-        "postalCode": "0603",
-        "postalArea": "OSLO",
-        "country": "Norway"
-      },
-      "returnAddress": {
-        "name": "DIREKTORATET FOR FORVALTNING OG IKT",
-        "street": "Postboks 8115 Dep",
-        "postalCode": "0032",
-        "postalArea": "OSLO",
-        "country": "Norge"
-      },
       "documentTypes": [
         "urn:no:difi:digitalpost:xsd:digital::digital_dpv"
       ],
