@@ -104,18 +104,8 @@ export default class IncomingMessages extends React.Component {
                         data={this.state.messages}
                         columns={[
                             {
-                                Header: "Receiver org name",
-                                accessor: "receiver.name",
-                                filterable:true
-                            },
-                            {
                                 Header: "Receiver org number",
                                 accessor: "receiver.orgnr",
-                                filterable:true
-                            },
-                            {
-                                Header: "Sender name",
-                                accessor: "sender.name",
                                 filterable:true
                             },
                             {
@@ -127,6 +117,11 @@ export default class IncomingMessages extends React.Component {
                                 Header: "Conversation ID",
                                 accessor: "conversationId",
                                 filterable:true
+                            },
+                            {
+                                Header: "Type",
+                                accessor: "type",
+                                filterable:false
                             },
                             {
                                 Header: "Payload",
