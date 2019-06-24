@@ -275,6 +275,8 @@ export default class NewNextMoveMessage extends React.Component {
 
                     </Form>
 
+
+
                 </div>
 
 
@@ -298,9 +300,10 @@ export default class NewNextMoveMessage extends React.Component {
                                 this.dpeSbd(this.state.sender, this.state.receiver, "innsynskrav"),
                             null, 2)}`
                         }
-
                     </PrismCode>
                 }
+
+                <button className="btn btn-secondary right" onClick={this.props.dismiss}>Cancel</button>
 
             </div>
         );

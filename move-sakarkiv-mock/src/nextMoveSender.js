@@ -47,14 +47,7 @@ async function sendLargeMessage(sbd){
 
             let conversationId = res.body.standardBusinessDocumentHeader.businessScope.scope[0].instanceIdentifier;
 
-            console.log('\n\n\n\n');
-
-            console.log(conversationId);
-
-            console.log('\n\n\n\n');
-
-            // resolve(conversationId);
-            console.log(`Conversation created: http://localhost:9093/api/conversations/conversationId/${conversationId}`);
+            console.log(`Conversation created: ${process.env.IP_URL}/api/conversations/conversationId/${conversationId}`);
 
             let sendFileRes = await sendFile( fileName, conversationId);
 
@@ -79,11 +72,6 @@ function sendNextMoveMessage(payload){
 
         let fileSize = getFilesize('200kb');
 
-
-        console.log("\n\n\n\n\n\n");
-        console.log(process.env.IP_URL);
-        console.log("\n\n\n\n\n\n");
-
         crypto.randomBytes(fileSize, (err, buffer) => {
 
             if (err) {
@@ -95,7 +83,6 @@ function sendNextMoveMessage(payload){
                         reject(err)
                     } else {
 
-                        console.log("Wrote the file!");
                         console.time("totalTime");
 
                         sendLargeMessage(payload).then((conversationId) => {

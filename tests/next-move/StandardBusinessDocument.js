@@ -158,9 +158,9 @@ dpiSbdDigitalDpv = (senderOrgNr, receiverOrgNr) => {
         "digital_dpv" : {
             "sikkerhetsnivaa": 3,
             "hoveddokument": "test.pdf",
-            "title": "test title",
-            "summary": "test summary",
-            "body": "Test body"
+            "tittel": "test title",
+            "sammendrag": "test summary",
+            "innhold": "Test body"
         }
     };
 };
