@@ -1,12 +1,12 @@
 FROM openjdk:8-jdk-alpine as build
+RUN apk add --no-cache maven
 WORKDIR /workspace/app
-
 COPY mvnw .
 COPY .mvn .mvn
 COPY pom.xml .
 COPY src src
 
-RUN ./mvnw install -DskipTests
+RUN mvn package -DskipTests
 RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
 
 FROM openjdk:8-jdk-alpine
