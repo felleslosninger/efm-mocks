@@ -190,6 +190,7 @@ app.post(`/p360`, getRawBody, (req, res) => {
                     let message = {
                         conversationId : conversationId,
                         payload: builder.buildObject(parsed),
+                        type: 'bestedu',
                         sender: {
                             name: parsed.envelope.body["0"].putmessagerequest["0"].envelope["0"].sender["0"].name["0"],
                             orgnr: parsed.envelope.body["0"].putmessagerequest["0"].envelope["0"].sender["0"].orgnr["0"]

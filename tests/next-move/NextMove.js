@@ -60,6 +60,8 @@ function sendFile(fileName, conversationId){
 
 async function sendLargeMessage(sbd){
 
+    console.log(JSON.stringify(sbd, null, 2));
+
     return new Promise(async (resolve, reject) => {
         try {
             let res = await superagent
@@ -79,7 +81,7 @@ async function sendLargeMessage(sbd){
             console.log(`arkivmelding.xml uploaded.`);
 
             let sendRes = await superagent
-                .post( `${ipUrl}/${endpoint}/${conversationId}`)
+                .post( `${ipUrl}/${endpoint}/${conversationId}`);
             if (sendRes) resolve(conversationId);
 
         } catch(err) {

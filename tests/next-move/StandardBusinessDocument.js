@@ -8,7 +8,7 @@ function StandardBusinessDocument(senderOrgNr, receiverOrgNr, meldingsType, forr
             "sender": [
                 {
                     "identifier": {
-                        "value": `0192:${senderOrgNr}`,
+                        "value": `${senderOrgNr}`,
                         "authority": "iso6523-actorid-upis"
                     },
                     "contactInformation": []
@@ -17,7 +17,7 @@ function StandardBusinessDocument(senderOrgNr, receiverOrgNr, meldingsType, forr
             "receiver": [
                 {
                     "identifier": {
-                        "value": `0192:${receiverOrgNr}`,
+                        "value": `${receiverOrgNr}`,
                         "authority": "iso6523-actorid-upis"
                     },
                     "contactInformation": []
@@ -97,6 +97,7 @@ dpiSbd = (senderOrgNr, receiverOrgNr, meldingsType, forretningsMelding) => {
             "ikkeSensitivTittel": "tittel",
             "spraak": "NO",
             "hoveddokument": "test.pdf",
+            "tittel": "",
             "sikkerhetsnivaa": 3,
             "digitalPostInfo": {
                 "virkningsdato": new moment().add(2, 'hours'),
