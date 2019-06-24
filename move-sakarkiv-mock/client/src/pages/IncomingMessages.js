@@ -75,10 +75,12 @@ export default class IncomingMessages extends React.Component {
         this.timer = null;
     }
 
-    showPayload = (conversationID) => {
+    showPayload = (row) => {
+        console.log(row);
         this.setState({
             showModal: true,
-            modalConversationID: conversationID
+            modalConversationID: row.value,
+            isNextMove: row.original.type === "nextMove"
         });
     };
 
@@ -131,7 +133,7 @@ export default class IncomingMessages extends React.Component {
                                 accessor: "conversationId",
                                 Cell: (row) => {
                                     return <div>
-                                            <button className="btn btn-sm btn-outline-primary" onClick={() => this.showPayload(row.value)}>Raw message</button>
+                                            <button className="btn btn-sm btn-outline-primary" onClick={() => this.showPayload(row)}>Raw message</button>
                                     </div>
                                 }
                             }
@@ -139,7 +141,6 @@ export default class IncomingMessages extends React.Component {
                         defaultPageSize={10}
                         className=" -highlight"
                     />
-
 
                     <ToastContainer
                         position="top-right"
@@ -157,6 +158,7 @@ export default class IncomingMessages extends React.Component {
                         <ModalBody
                             conversationID={this.state.modalConversationID}
                             dismiss={this.dismissModal}
+                            isNextMove={this.state.isNextMove}
                         />
                     </ReactModal>
                 </div>
@@ -178,13 +180,10 @@ class ModalBody extends React.Component {
         axios.get(`${window.baseName}/api/messages/payload/${this.props.conversationID}`)
             .then((res) => {
 
-                console.log('res.data', res.data);
-
                 this.setState({
                     isLoading: false,
                     payload: res.data.payload
                 });
-
 
             }).catch((err) => {
                 console.log(err);
@@ -201,6 +200,7 @@ class ModalBody extends React.Component {
             }}>
                 <div style={{ maxHeight: "96%", overflow: 'scroll' }}>
                 <div className="modal-body">
+
                     { this.state.isLoading &&
                         <MDSpinner
                             size={24}
@@ -211,11 +211,13 @@ class ModalBody extends React.Component {
                         />
                     }
 
-                    { !this.state.isLoading &&
-                        <PrismCode component="pre" className="language-markup">
-                            { this.state.payload }
-                        </PrismCode>
-                    }
+                    <div>
+                        { !this.state.isLoading &&
+                            <PrismCode component="pre" className={this.props.isNextMove ? "language-json" : "language-markup"}>
+                                { this.state.payload }
+                            </PrismCode>
+                        }
+                    </div>
 
                 </div>
             </div>
