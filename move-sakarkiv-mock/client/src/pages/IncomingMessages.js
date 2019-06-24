@@ -192,16 +192,8 @@ class ModalBody extends React.Component {
 
     render(){
         return (
-            <div style={{
-                height: "100%",
-                overflow: 'hidden',
-                display: 'flex',
-                flexDirection: 'column'
-            }}>
-                <div style={{ maxHeight: "96%", overflow: 'scroll' }}>
-                <div className="modal-body">
-
-                    { this.state.isLoading &&
+            <div className="modal-body">
+                { this.state.isLoading &&
                         <MDSpinner
                             size={24}
                             color1="#498CBB"
@@ -214,18 +206,14 @@ class ModalBody extends React.Component {
                     <div>
                         { !this.state.isLoading &&
                             <PrismCode component="pre" className={this.props.isNextMove ? "language-json" : "language-markup"}>
-                                { this.state.payload }
+                                { JSON.stringify(JSON.parse(this.state.payload), null, 2) }
                             </PrismCode>
                         }
                     </div>
 
-                </div>
-            </div>
-
                 <div className="modal-footer">
                     <button type="button" className="btn btn-secondary" onClick={this.props.dismiss}>Close</button>
                 </div>
-
             </div>
         );
     }
