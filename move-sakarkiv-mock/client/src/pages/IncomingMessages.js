@@ -76,7 +76,6 @@ export default class IncomingMessages extends React.Component {
     }
 
     showPayload = (row) => {
-        console.log(row);
         this.setState({
             showModal: true,
             modalConversationID: row.value,
