@@ -71,7 +71,6 @@ function sendForsendelseMedId(req, res, parsed) {
         let file = {
             orgNum: orgName,
             type: "DPF",
-            //file: payload,
             fileReference: fileName,
             receiptId: receiptId,
             conversationId: conversatoinId,

@@ -171,7 +171,7 @@
             ],
             "service": {
                 "identifier": "DPV",
-                "endpointUrl": "endpointUrl": {{#eq "localhost" request.requestLine.host}} "http://localhost:8001/dpv" {{else}} "http://mocks:8001/dpv" {{/eq}},
+                "endpointUrl": {{#eq "localhost" request.requestLine.host}} "http://localhost:8001/dpv" {{else}} "http://mocks:8001/dpv" {{/eq}},
                 "serviceCode": "4255",
                 "serviceEditionCode": "5"
             }

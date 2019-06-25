@@ -36,7 +36,7 @@ function getFilesize(filesize) {
     }
 }
 
-async function sendLargeMessage(sbd){
+async function sendLargeMessage(sbd) {
 
     return new Promise(async (resolve, reject) => {
         try {

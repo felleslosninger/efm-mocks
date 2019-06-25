@@ -1,4 +1,5 @@
-const {recieveFile} = require("./modules/DPE/responses");
+const { deleteFile } = require( "./modules/helper");
+const { recieveFile } = require("./modules/DPE/responses");
 const { getRawBody } = require('./modules/helper');
 const { PutMessage, retrieveforsendelsestatus } = require("./modules/DPF/soapResponses");
 const retrieveForsendelseIdByEksternRefResponse = require("./modules/DPF/retrieveForsendelseIdByEksternRef").retrieveForsendelseIdByEksternRefResponse;
@@ -40,6 +41,44 @@ const mocks = [
                 }
             },
             {
+                path: '/svarinn/kvitterMottak/forsendelse/:conversationId',
+                method: 'POST',
+                responseFunction: (req, res) => {
+
+                    let conversationId = req.params.conversationId;
+
+                    // Check if we have a message with the incoming conversationId:
+                    let messageExists = [...global.dpfDB.values()]
+                        // Flatten the map into an array with all the conversation IDs:
+                        .map((item) => item.map((a) => a.conversationId))[0]
+                        .includes(conversationId);
+
+                    if (!messageExists) {
+                        res.status(404).send();
+                    } else {
+
+                        // Remove the message:
+                        global.dpfDB = new Map(
+                            [...global.dpfDB]
+                                .forEach(([k, v]) => v.filter(item => item.conversationId !== conversationId) ));
+
+                        // Delete the attachements:
+                        Promise.all([
+                            deleteFile(`${__dirname}/modules/DPF/uploads/${conversationId}-encrypted`),
+                            deleteFile(`${__dirname}/modules/DPF/uploads/${conversationId}.zip`)
+                        ]).then((success) => {
+                            res.status(200).send();
+                        }).catch((err) => {
+                            // As long as the message have been deleted from memory,
+                            // the IP is happy, so log the error and return 200:
+                            console.log(err);
+                            res.status(200).send();
+                        });
+
+                    }
+                }
+            },
+            {
                 path: '/dpf*',
                 method: 'POST',
                 middleware: getRawBody,
@@ -74,25 +113,6 @@ const mocks = [
                     } else {
                         res.send('ding!')
                     }
-                }
-            }
-        ]
-    },
-    {
-        name: "KS SvarInn",
-        routes: [
-            {
-                path: '/svarinn/mottaker/hentForsendelsefil/:forsendelseid',
-                method: 'GET',
-                responseFunction: (req, res) => {
-                    res.download(`${__dirname}/testdata/${config.hentForsendelsefil}`)
-                }
-            },
-            {
-                path: '/svarinn/kvitterMottak/forsendelse/:forsendelseid',
-                method: 'POST',
-                responseFunction: (req, res) => {
-                    res.send('Ok');
                 }
             }
         ]
