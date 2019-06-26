@@ -242,7 +242,7 @@ dpiSbdFysisk = (senderOrgNr, receiverOrgNr) => {
     };
 };
 
-dpeSbd = (senderOrgNr, receiverOrgNr, meldingsType) => {
+dpeInnsynSbd = (senderOrgNr, receiverOrgNr) => {
     return {
         "standardBusinessDocumentHeader": {
             "headerVersion": "1.0",
@@ -265,9 +265,9 @@ dpeSbd = (senderOrgNr, receiverOrgNr, meldingsType) => {
                 }
             ],
             "documentIdentification": {
-                "standard": `urn:no:difi:einnsyn:xsd::${meldingsType}`,
+                "standard": `urn:no:difi:einnsyn:xsd::innsynskrav`,
                 "typeVersion": "2.0",
-                "type": meldingsType,
+                "type": "innsynskrav",
                 "creationDateAndTime": new moment()
             },
             "businessScope": {
@@ -275,7 +275,7 @@ dpeSbd = (senderOrgNr, receiverOrgNr, meldingsType) => {
                     {
                         "type": "ConversationId",
                         "instanceIdentifier": uuidv1(),
-                        "identifier": `urn:no:difi:profile:einnsyn:${meldingsType}:ver1.0`,
+                        "identifier": `urn:no:difi:profile:einnsyn:innsynskrav:ver1.0`,
                         "scopeInformation": [
                             {
                                 "expectedResponseDateTime": new moment().add(20, 'hours')
@@ -292,5 +292,53 @@ dpeSbd = (senderOrgNr, receiverOrgNr, meldingsType) => {
     };
 };
 
+dpeJournSbd = (senderOrgNr, receiverOrgNr) => {
+    return {
+        "standardBusinessDocumentHeader": {
+            "headerVersion": "1.0",
+            "sender": [
+                {
+                    "identifier": {
+                        "value": `0192:${senderOrgNr}`,
+                        "authority": "iso6523-actorid-upis"
+                    },
+                    "contactInformation": []
+                }
+            ],
+            "receiver": [
+                {
+                    "identifier": {
+                        "value": `0192:${receiverOrgNr}`,
+                        "authority": "iso6523-actorid-upis"
+                    },
+                    "contactInformation": []
+                }
+            ],
+            "documentIdentification": {
+                "standard": `urn:no:difi:einnsyn:xsd::publisering`,
+                "typeVersion": "2.0",
+                "type": "publisering",
+                "creationDateAndTime": new moment()
+            },
+            "businessScope": {
+                "scope": [
+                    {
+                        "type": "ConversationId",
+                        "instanceIdentifier": uuidv1(),
+                        "identifier": `urn:no:difi:profile:einnsyn:journalpost:ver1.0`,
+                        "scopeInformation": [
+                            {
+                                "expectedResponseDateTime": new moment().add(20, 'hours')
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "publisering": {
+            "orgnr": ""
+        }
+    };
+};
 
-module.exports = { dpiSbd, dpiSbdDigitalDpv, StandardBusinessDocument, dpeSbd, dpiSbdFysisk };
+module.exports = { dpiSbd, dpiSbdDigitalDpv, dpeJournSbd, StandardBusinessDocument, dpeInnsynSbd, dpiSbdFysisk };

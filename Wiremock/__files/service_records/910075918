@@ -124,6 +124,80 @@
                 "serviceEditionCode": "1"
             }
         },
+                {
+                    "organisationNumber": "910075918",
+                    "pemCertificate": "-----BEGIN CERTIFICATE-----
+                        MIID/DCCAuSgAwIBAgIEVUncJzANBgkqhkiG9w0BAQsFADBeMRIwEAYDVQQKEwlE
+                        aWZpIHRlc3QxEjAQBgNVBAUTCTk5MTgyNTgyNzE0MDIGA1UEAxMrRElGSSB0ZXN0
+                        IHZpcmtzb21oZXRzc2VydGlmaWF0IGludGVybWVkaWF0ZTAeFw0xNzEyMTgxMjU5
+                        NTZaFw0yMzAxMTgxMjU5NTdaMD0xEjAQBgNVBAUTCTkxMDA3NTkxODEnMCUGA1UE
+                        AxMeRElGSSB0ZXN0IHZpcmtzb21oZXRzc2VydGlmaWF0MIIBIjANBgkqhkiG9w0B
+                        AQEFAAOCAQ8AMIIBCgKCAQEAyiRXz3/1c8NFXnbJ8Lj+E3MnDIHIm1YV1g6M5aQ4
+                        H+MUZtub6ZTxllnbaPRURACBH+ZMd9xBwmhiaaMrwlXroGHsjKCBCYMfeEKAaFEg
+                        Js+qvgo6DXEPGPuX1ZkO2AeNZt9dEZyFzxkzs1QHncXhnFe02tExmCWGNAPlJydp
+                        6cKD0pupnVpOTR+a8F2bxqBZs0Xgp1W3D9Rd+6dLdkE1w4rjrTZ8jYPzZYk+iC/G
+                        VAtNHAfpHCejIGuXHTGa4Mc95UzgzC0Jg1mnJ8iadJX3W8VRwL2q01w74zVpSlK9
+                        6CUEZmjIo0C+DiJlog3nqPJtIDAzTmzIBLQTJE2SXz3isQIDAQABo4HiMIHfMIGL
+                        BgNVHSMEgYMwgYCAFC0wPplnLfjHrg8Rj8M6O7BdJ73AoWKkYDBeMRIwEAYDVQQK
+                        EwlEaWZpIHRlc3QxEjAQBgNVBAUTCTk5MTgyNTgyNzE0MDIGA1UEAxMrRElGSSB0
+                        ZXN0IHZpcmtzb21oZXRzc2VydGlmaWF0IGludGVybWVkaWF0ZYIEK1VFqzAdBgNV
+                        HQ4EFgQUHvY2J9Ukb/sIx/lwg1hS9v0Qdb0wCQYDVR0TBAIwADAVBgNVHSAEDjAM
+                        MAoGCGCEQgEBAQFkMA4GA1UdDwEB/wQEAwIEsDANBgkqhkiG9w0BAQsFAAOCAQEA
+                        U13XkfIXOkMuZC4v/ZUz8s+gNYFAuHLd2Oonic1eyjvqM3CE8xKLR21VZio7caOv
+                        i5Phti9YIsvgcvHDqOztQ7/yNOHWo3BZ9HCkDcA0g3sQXrsp6IW7QJRrKREnltXP
+                        +p1EslFFq+G479rENbWwU2jh0SEiA0wxrq0ElRtCdUVkVHR6K3xCbWHXtI8l0M23
+                        ta8W52H36IcEAeIC/s/PdWqj20+bJSEaFjs2JnaLHrDcrWAp+jHl/e3LSkSpvLF2
+                        1Pky2AVubYbrrbYgB/4zVD//sGIRfo2rLS0vcusy0xIvLeIDQIm4TDmzw4cr9HM8
+                        i30QaWDkPThYiBoTGSOJLw==
+                        -----END CERTIFICATE-----",
+                    "process": "urn:no:difi:profile:einnsyn:innsynskrav:ver1.0",
+                    "documentTypes": [
+                        "urn:no:difi:einnsyn:xsd::innsynskrav"
+                    ],
+                    "service": {
+                        "identifier": "DPE",
+                        "endpointUrl": {{#eq "localhost" request.requestLine.host}} "http://localhost:8001/dpf" {{else}} "http://mocks:8001/dpf" {{/eq}},
+                        "serviceCode": "4255",
+                        "serviceEditionCode": "1"
+                    }
+                },
+                              {
+                                    "organisationNumber": "910075918",
+                                    "pemCertificate": "-----BEGIN CERTIFICATE-----
+                                        MIID/DCCAuSgAwIBAgIEVUncJzANBgkqhkiG9w0BAQsFADBeMRIwEAYDVQQKEwlE
+                                        aWZpIHRlc3QxEjAQBgNVBAUTCTk5MTgyNTgyNzE0MDIGA1UEAxMrRElGSSB0ZXN0
+                                        IHZpcmtzb21oZXRzc2VydGlmaWF0IGludGVybWVkaWF0ZTAeFw0xNzEyMTgxMjU5
+                                        NTZaFw0yMzAxMTgxMjU5NTdaMD0xEjAQBgNVBAUTCTkxMDA3NTkxODEnMCUGA1UE
+                                        AxMeRElGSSB0ZXN0IHZpcmtzb21oZXRzc2VydGlmaWF0MIIBIjANBgkqhkiG9w0B
+                                        AQEFAAOCAQ8AMIIBCgKCAQEAyiRXz3/1c8NFXnbJ8Lj+E3MnDIHIm1YV1g6M5aQ4
+                                        H+MUZtub6ZTxllnbaPRURACBH+ZMd9xBwmhiaaMrwlXroGHsjKCBCYMfeEKAaFEg
+                                        Js+qvgo6DXEPGPuX1ZkO2AeNZt9dEZyFzxkzs1QHncXhnFe02tExmCWGNAPlJydp
+                                        6cKD0pupnVpOTR+a8F2bxqBZs0Xgp1W3D9Rd+6dLdkE1w4rjrTZ8jYPzZYk+iC/G
+                                        VAtNHAfpHCejIGuXHTGa4Mc95UzgzC0Jg1mnJ8iadJX3W8VRwL2q01w74zVpSlK9
+                                        6CUEZmjIo0C+DiJlog3nqPJtIDAzTmzIBLQTJE2SXz3isQIDAQABo4HiMIHfMIGL
+                                        BgNVHSMEgYMwgYCAFC0wPplnLfjHrg8Rj8M6O7BdJ73AoWKkYDBeMRIwEAYDVQQK
+                                        EwlEaWZpIHRlc3QxEjAQBgNVBAUTCTk5MTgyNTgyNzE0MDIGA1UEAxMrRElGSSB0
+                                        ZXN0IHZpcmtzb21oZXRzc2VydGlmaWF0IGludGVybWVkaWF0ZYIEK1VFqzAdBgNV
+                                        HQ4EFgQUHvY2J9Ukb/sIx/lwg1hS9v0Qdb0wCQYDVR0TBAIwADAVBgNVHSAEDjAM
+                                        MAoGCGCEQgEBAQFkMA4GA1UdDwEB/wQEAwIEsDANBgkqhkiG9w0BAQsFAAOCAQEA
+                                        U13XkfIXOkMuZC4v/ZUz8s+gNYFAuHLd2Oonic1eyjvqM3CE8xKLR21VZio7caOv
+                                        i5Phti9YIsvgcvHDqOztQ7/yNOHWo3BZ9HCkDcA0g3sQXrsp6IW7QJRrKREnltXP
+                                        +p1EslFFq+G479rENbWwU2jh0SEiA0wxrq0ElRtCdUVkVHR6K3xCbWHXtI8l0M23
+                                        ta8W52H36IcEAeIC/s/PdWqj20+bJSEaFjs2JnaLHrDcrWAp+jHl/e3LSkSpvLF2
+                                        1Pky2AVubYbrrbYgB/4zVD//sGIRfo2rLS0vcusy0xIvLeIDQIm4TDmzw4cr9HM8
+                                        i30QaWDkPThYiBoTGSOJLw==
+                                        -----END CERTIFICATE-----",
+                                    "process": "urn:no:difi:profile:einnsyn:response:ver1.0",
+                                    "documentTypes": [
+                                        "urn:no:difi:einnsyn:xsd::einnsyn_kvittering"
+                                    ],
+                                    "service": {
+                                        "identifier": "DPE",
+                                        "endpointUrl": {{#eq "localhost" request.requestLine.host}} "http://localhost:8001/dpf" {{else}} "http://mocks:8001/dpf" {{/eq}},
+                                        "serviceCode": "4255",
+                                        "serviceEditionCode": "1"
+                                    }
+                                },
         {
             "organisationNumber": "910075918",
             "pemCertificate": "-----BEGIN CERTIFICATE-----

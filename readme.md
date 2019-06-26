@@ -2,7 +2,7 @@
 
 MoveMocks lar deg simulere de forskjellige meldingsformidlertjenestene.
 
-![alt text](images/MockContainers.png "Container diagram")
+![alt text](images/Mock.jpg "Container diagram")
 
 
 ### Forutsetninger
@@ -24,6 +24,7 @@ Du har nå følgende applikasjoner kjørende:
 * localhost:8080: DPI mock.
 * localhost:8001: DPO, DPV, DPF, og DPE mock.
 * localhost:8002: Sak/arkivsystem mock.
+* localhost:9094: Mottagende Integrasjonspunkt.
 
 På localhost:8001 finner du et lite gui der du kan se meldinger som har blitt sendt vellykket.
 
@@ -54,13 +55,23 @@ Mocken er satt opp til å motta meldinger for følgende org nr og prosesser:
 Meldinger som mocken har mottatt kan ses på [http://localhost:8001](http://localhost:8001)
 
 
-#### Kjøre node tester
+#### Sende meldinger
+
+MoveMocks inneholder også testscript for å sende de forskjellige meldingstypene.
+
 1. MoveMocks krever node.js installert. Gå til [https://nodejs.org/en/download/](https://nodejs.org/en/download/) for å laste ned og installere node js for ditt system.
 2. ```cd move-mocks/tests npm install``` 
 3. Naviger til tester ```cd move-mocks/tests/next-move```
 4. Kjør test: ```node NextMove.js```
+5. For å sende spesifikke meldingstyper kan du kjøre ``` node NextMove.js dpi dpiprint dpe dpf dpv dpo ```.
+6. Kjør : ```node NextMove.js -h``` for å se alle valg.
 
-For å sende spesifikke meldingstyper kan du kjøre ``` node NextMove.js dpi dpiprint dpe dpf dpv dpo ```.
+#### Ende til ende teste DPO og DPE meldinger
+
+DPO og DPE meldinger vil bli sendt hele veien til Sak/Arkiv mocken som kjører på http://localhost:8002.
+Der kan du også sende DPO og DPE meldinger tilbake til ditt integrasjonspunkt for å teste mottak.
+
+Dette forutsetter at ditt integrasjonspunkt kjører med org nummeret som er angitt i eksempel properties filen i dette repoet (integrasjonspunkt-local.properties).
 
 #### jMeter
 

@@ -1,4 +1,3 @@
-// const dpfDB = require("./dpfDB").dpfDB;
 
 retrieveForsendelseIdByEksternRefResponse = function (req, res, parsed) {
     // 1. Save the externalRef for later:
