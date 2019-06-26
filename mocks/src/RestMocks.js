@@ -321,6 +321,18 @@ const mocks = [
                     let dpeMessages = global.dpeDB.get(orgNum);
 
                     if (dpeMessages && dpeMessages.length > 0) {
+
+                        console.log("\n\n\n\n\n\n");
+
+                        console.log(JSON.stringify(dpeMessages, null, 2));
+
+                        console.log("\n\n\n\n\n\n");
+
+                        console.log(orgNum);
+
+                        console.log("\n\n\n\n\n\n");
+
+
                         res.set(
                             'BrokerProperties', JSON.stringify(
                             {

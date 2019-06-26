@@ -1,5 +1,5 @@
 const superagent = require('superagent');
-const { StandardBusinessDocument, dpiSbd, dpeSbd, dpiSbdFysisk, dpiSbdDigitalDpv } = require('./StandardBusinessDocument');
+const { StandardBusinessDocument, dpiSbd, dpeInnsynSbd, dpiSbdFysisk, dpiSbdDigitalDpv, dpeJournSbd } = require('./StandardBusinessDocument');
 const path = require('path');
 const fs = require('fs');
 const request = require('request');
@@ -15,6 +15,7 @@ program
     .option('dpiprint [count]', 'Send the specified number of dpiprint messages.')
     .option('digitaldpv [count]', 'Send the specified number of digitaldpv messages.')
     .option('dpe [count]', 'Send the specified number of dpe messages.')
+    .option('dpejourn [count]', 'Send the specified number of dpejourn messages.')
     .option('dpo [count]', 'Send the specified number of dpo messages.')
     .option('dpf [count]', 'Send the specified number of dpf messages.')
     .option('dpv [count]', 'Send the specified number of dpv messages.')
@@ -35,7 +36,7 @@ if (program.filesize.includes("kb")) {
     process.exit(1);
 }
 
-let runAll = !program.dpiprint && !program.dpi && !program.dpe && !program.dpo && !program.dpf && !program.dpv && !program.digitaldpv;
+let runAll = !program.dpiprint && !program.dpi && !program.dpe && !program.dpo && !program.dpf && !program.dpv && !program.digitaldpv && !program.dpejourn;
 
 function sendFile(fileName, conversationId){
     return new Promise((resolve, reject) => {
@@ -59,9 +60,6 @@ function sendFile(fileName, conversationId){
 }
 
 async function sendLargeMessage(sbd){
-
-    console.log(JSON.stringify(sbd, null, 2));
-
     return new Promise(async (resolve, reject) => {
         try {
             let res = await superagent
@@ -109,10 +107,10 @@ function sendMessagesForServiceIdentifier(serviceIdentifier, requests){
         Promise.all(requests).then((res) => {
             console.log(`Sent ${requests.length} ${serviceIdentifier} messages.`);
             console.timeEnd(serviceIdentifier);
-            resolve()
+            resolve();
         }).catch((err) => {
-            console.log(err);
-            reject()
+            // console.log(err);
+            reject(err);
         });
     })
 }
@@ -122,35 +120,71 @@ async function sendAllMessages(){
     return new Promise(async (resolve, reject) => {
 
         if (program.dpo || runAll) {
-            await sendMessagesForServiceIdentifier("DPO", getRequests(program.dpo, StandardBusinessDocument, 910075918, 810074582, 'arkivmelding', 'arkivmelding', 'administrasjon'));
+            try {
+                await sendMessagesForServiceIdentifier("DPO", getRequests(program.dpo, StandardBusinessDocument, 910075918, 810074582, 'arkivmelding', 'arkivmelding', 'administrasjon'));
+            } catch(err) {
+                reject(err);
+            }
         }
 
         if (program.dpv || runAll) {
-            await sendMessagesForServiceIdentifier("DPV", getRequests(program.dpv, StandardBusinessDocument, 984661185, 910075918, 'arkivmelding', 'arkivmelding', 'helseSosialOgOmsorg'));
+            try {
+                await sendMessagesForServiceIdentifier("DPV", getRequests(program.dpv, StandardBusinessDocument, 984661185, 910075918, 'arkivmelding', 'arkivmelding', 'helseSosialOgOmsorg'));
+            } catch(err) {
+                reject(err);
+            }
         }
 
         if (program.dpf || runAll) {
-            await sendMessagesForServiceIdentifier("DPF", getRequests(program.dpf, StandardBusinessDocument, 910075918, 910075918, 'arkivmelding', 'arkivmelding', 'planByggOgGeodata'));
+            try {
+                await sendMessagesForServiceIdentifier("DPF", getRequests(program.dpf, StandardBusinessDocument, 910075918, 910075918, 'arkivmelding', 'arkivmelding', 'planByggOgGeodata'));
+            } catch(err) {
+                reject(err);
+            }
         }
 
         if (program.dpi || runAll) {
-            await sendMessagesForServiceIdentifier("DPI", getRequests(program.dpi, dpiSbd, `0192:910075918`, "06068700602", 'digital', 'digital'));
+            try {
+                await sendMessagesForServiceIdentifier("DPI", getRequests(program.dpi, dpiSbd, `0192:910075918`, "06068700602", 'digital', 'digital'));
+            } catch(err) {
+                reject(err);
+            }
         }
 
         if (program.dpe || runAll) {
-            await sendMessagesForServiceIdentifier("DPE", getRequests(program.dpe, dpeSbd, 910075918, 910076787,"innsynskrav"));
+            try {
+                await sendMessagesForServiceIdentifier("DPE", getRequests(program.dpe, dpeInnsynSbd, 910075918, 910076787,"innsynskrav"));
+            } catch(err) {
+                reject(err);
+            }
+        }
+
+        if (program.dpejourn || runAll) {
+            try {
+                await sendMessagesForServiceIdentifier("DPE Journal", getRequests(program.dpejourn, dpeJournSbd, 910075918, 810074582));
+            } catch(err) {
+                reject(err);
+            }
         }
 
         if (program.dpiprint || runAll) {
-            await sendMessagesForServiceIdentifier("DPI Print", getRequests(program.dpiprint, dpiSbdFysisk, `0192:910075918`, "06068700602"));
+            try {
+                await sendMessagesForServiceIdentifier("DPI Print", getRequests(program.dpiprint, dpiSbdFysisk, `0192:910075918`, "06068700602"));
+            } catch(err) {
+                reject(err);
+            }
         }
 
         if (program.digitaldpv || runAll) {
-            await sendMessagesForServiceIdentifier("DPI Digital DPV", getRequests(program.dpiprint, dpiSbdDigitalDpv, `0192:910075918`, "10068700602"));
+            try {
+                await sendMessagesForServiceIdentifier("DPI Digital DPV", getRequests(program.dpiprint, dpiSbdDigitalDpv, `0192:910075918`, "10068700602"));
+            } catch(err) {
+                reject(err);
+            }
         }
 
         resolve();
-    })
+    });
 }
 
 
@@ -182,7 +216,7 @@ crypto.randomBytes(fileSize, (err, buffer) => {
                     }
                 })
             }).catch((err) => {
-                console.log(err);
+                console.log(JSON.stringify(JSON.parse(err.response.text), null, 2));
             });
         }
     });

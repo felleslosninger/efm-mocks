@@ -13,43 +13,6 @@
     }
   },
   "serviceRecords": [
-    {
-      "organisationNumber": "910076787",
-      "pemCertificate": "-----BEGIN CERTIFICATE-----
-                         MIID/DCCAuSgAwIBAgIEUWpBEjANBgkqhkiG9w0BAQsFADBeMRIwEAYDVQQKEwlE
-                         aWZpIHRlc3QxEjAQBgNVBAUTCTk5MTgyNTgyNzE0MDIGA1UEAxMrRElGSSB0ZXN0
-                         IHZpcmtzb21oZXRzc2VydGlmaWF0IGludGVybWVkaWF0ZTAeFw0xOTAyMjYxMzM1
-                         MTlaFw0yNDAzMjYxMzM1MTlaMD0xEjAQBgNVBAUTCTkxMDA3Njc4NzEnMCUGA1UE
-                         AxMeRElGSSB0ZXN0IHZpcmtzb21oZXRzc2VydGlmaWF0MIIBIjANBgkqhkiG9w0B
-                         AQEFAAOCAQ8AMIIBCgKCAQEApHV5V/bwuCc/JZx8oobPkgiSgtUf1iBZTbdnzU7g
-                         qaZBGujpzBIFkMHgqb/osB/Zc3WBwSclC1ppBe6dO9A31Sn3VCeAUQ+3jMVuo5f2
-                         ue1GVhERg2M76eqhICOhkAdWrsTxXTKVIPC+fZmSpchbG4lxLHMD7lSGNqlyRVg6
-                         4jmhbYFjmSGblFbSaMboK4MaD7U0y0nDSQMNhDYGcW6ezfZ2YB6WEfxoj3tgLOG/
-                         b5fAvpzI44/GSm1SdPe72FX/8GD3hIvitLOldrlwAj77IqqTH59cYxZpD1tjFaqY
-                         CT8IKrqbABjcl3Tj64yHPJeoXKsrjXb2yOBuEwO1PLx1tQIDAQABo4HiMIHfMIGL
-                         BgNVHSMEgYMwgYCAFC0wPplnLfjHrg8Rj8M6O7BdJ73AoWKkYDBeMRIwEAYDVQQK
-                         EwlEaWZpIHRlc3QxEjAQBgNVBAUTCTk5MTgyNTgyNzE0MDIGA1UEAxMrRElGSSB0
-                         ZXN0IHZpcmtzb21oZXRzc2VydGlmaWF0IGludGVybWVkaWF0ZYIEK1VFqzAdBgNV
-                         HQ4EFgQUJAbCccfBquYQFvtnkgQU/4JZzg0wCQYDVR0TBAIwADAVBgNVHSAEDjAM
-                         MAoGCGCEQgEBAQFkMA4GA1UdDwEB/wQEAwIEsDANBgkqhkiG9w0BAQsFAAOCAQEA
-                         NU59M8cx6d8Nvnx1yA9njSSfl0RegstEg53Y3qpkkP/VU5kkO6rlWTDbsnhT+Y8h
-                         8ov4PqJT8IKRjk8icoYa6ZhLNTkKSrVmjBhfuyyVgLrghSCe3wdLTgeAH53Q6Gjy
-                         O6xkAZBSend43qaoIS8UcGQvAY0NjeL2N1Cr7IMSkRfnXLUg0BJG3kFNZ8Xl6Giv
-                         owiibpOccyw9TyKh4uWI0rvYyDjEDI4Wo79Me8UtklAyrA61BS0fWpGc7i91mttE
-                         pJppuUXNJrVn5QCadiSSR/pdsZtxmorMfaoDE5Aw7x2atLAsN+f9vheBQ3CYrHmS
-                         07DkYwSTZnXOlIjnlPWAKA==
-                         -----END CERTIFICATE-----",
-      "process": "urn:no:difi:profile:einnsyn:journalpost:ver1.0",
-      "documentTypes": [
-        "urn:no:difi:einnsyn:xsd::publisering"
-      ],
-      "service": {
-        "identifier": "DPE",
-        "endpointUrl": "data",
-        "serviceCode": "4192",
-        "serviceEditionCode": "270815"
-      }
-    },
      {
           "organisationNumber": "910076787",
           "pemCertificate": "-----BEGIN CERTIFICATE-----
