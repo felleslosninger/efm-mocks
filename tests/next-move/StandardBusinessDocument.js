@@ -97,7 +97,7 @@ dpiSbd = (senderOrgNr, receiverOrgNr, meldingsType, forretningsMelding) => {
             "ikkeSensitivTittel": "tittel",
             "spraak": "NO",
             "hoveddokument": "test.pdf",
-            "tittel": "",
+            "tittel": "tittel",
             "sikkerhetsnivaa": 3,
             "digitalPostInfo": {
                 "virkningsdato": new moment().add(2, 'hours'),
