@@ -1,5 +1,5 @@
 const superagent = require('superagent');
-const { StandardBusinessDocument, dpiSbd, dpeInnsynSbd, dpiSbdFysisk, dpiSbdDigitalDpv, dpeJournSbd } = require('./StandardBusinessDocument');
+const {StandardBusinessDocument, dpiSbd, dpeInnsynSbd, dpiSbdFysisk, dpiSbdDigitalDpv, dpeJournSbd} = require('./StandardBusinessDocument');
 const path = require('path');
 const fs = require('fs');
 const request = require('request');
@@ -13,7 +13,7 @@ const bodyParser = require('body-parser');
 
 program
     .version('0.1.0')
-    .option('-s --filesize <size>', 'Size of files to send. User either kb or mb, eg: 200kb or 5mb.',  '200kb')
+    .option('-s --filesize <size>', 'Size of files to send. User either kb or mb, eg: 200kb or 5mb.', '200kb')
     .option('dpi [count]', 'Send the specified number of dpi messages.')
     .option('dpiprint [count]', 'Send the specified number of dpiprint messages.')
     .option('digitaldpv [count]', 'Send the specified number of digitaldpv messages.')
@@ -27,15 +27,16 @@ program
 let fileSize;
 let fileName = 'test.pdf';
 let messages = [];
+let webhookId;
 
 console.time("totalTime");
 
 if (program.filesize.includes("kb")) {
     let kbCount = parseInt(program.filesize) / 1000;
-    fileSize = Math.round(1024*1024*kbCount);
-} else if(program.filesize.includes("mb")) {
+    fileSize = Math.round(1024 * 1024 * kbCount);
+} else if (program.filesize.includes("mb")) {
     let mbCount = parseInt(program.filesize);
-    fileSize = 1024*1024*mbCount;
+    fileSize = 1024 * 1024 * mbCount;
 } else {
     console.log("You have entered an invalid value for file size.");
     console.log("Please enter like 200kb or 5mb.");
@@ -47,7 +48,7 @@ let runAll = !program.dpiprint && !program.dpi && !program.dpe && !program.dpo &
 
 let app = express();
 
-app.use(bodyParser.json( { limit: '100mb', extended: true } ));
+app.use(bodyParser.json({limit: '100mb', extended: true}));
 
 app.post("/incoming", (req, res) => {
 
@@ -55,14 +56,19 @@ app.post("/incoming", (req, res) => {
     if (req.body.event === 'ping') {
         console.log("ping");
         res.status(200).send();
-    } else if(req.body.event === 'status') {
+    } else if (req.body.event === 'status') {
 
         if (req.body.status === "SENDT") {
             messages = messages.filter((convId) => convId !== req.body.conversationId)
             if (messages.length === 0) {
                 console.log("All messages sent.");
                 console.timeEnd("totalTime");
-                process.exit();
+                res.status(200).send();
+                removeWebHook(webhookId).then(() => process.exit(0))
+                    .catch(() => {
+                        console.log("Couldn't remove webhook");
+                        process.exit(0)
+                    });
             }
         }
 
@@ -72,7 +78,7 @@ app.post("/incoming", (req, res) => {
 
 app.listen(3001);
 
-function registerWebHook(){
+function registerWebHook() {
     return new Promise((resolve, reject) => {
         superagent
             .post(`${ipUrl}/api/subscriptions`)
@@ -80,29 +86,30 @@ function registerWebHook(){
                 "name": "Performance test",
                 "pushEndpoint": "http://localhost:3001/incoming",
                 "resource": "all",
-                "event": "status"
+                "event": "status",
+                "filter": "status=SENDT"
             }).then((res) => {
-                console.log(res.body.id);
-                resolve(res.body.id)
-            }).catch((err) => {
-                reject(err);
-            });
-    });
-}
-
-function removeWebHook(id){
-    return new Promise((resolve, reject) => {
-        superagent
-            .delete(`${ipUrl}/api/subscriptions/${id}`)
-            .then((res) => {
-                resolve(id)
+            console.log(res.body.id);
+            resolve(res.body.id)
         }).catch((err) => {
             reject(err);
         });
     });
 }
 
-function sendFile(fileName, conversationId){
+function removeWebHook(id) {
+    return new Promise((resolve, reject) => {
+        superagent
+            .delete(`${ipUrl}/api/subscriptions/${id}`)
+            .then((res) => {
+                resolve(id)
+            }).catch((err) => {
+            reject(err);
+        });
+    });
+}
+
+function sendFile(fileName, conversationId) {
     return new Promise((resolve, reject) => {
         fs.createReadStream(path.join(__dirname, fileName))
             .pipe(request({
@@ -110,7 +117,7 @@ function sendFile(fileName, conversationId){
                 method: 'PUT',
                 headers: {
                     'content-disposition': 'attachment; filename=' + fileName,
-                    'content-type' : 'application/json'
+                    'content-type': 'application/json'
                 },
                 encoding: null
             }, (error, response, body) => {
@@ -123,7 +130,7 @@ function sendFile(fileName, conversationId){
     })
 }
 
-async function sendLargeMessage(sbd){
+async function sendLargeMessage(sbd) {
     return new Promise(async (resolve, reject) => {
         try {
             let res = await superagent
@@ -134,7 +141,7 @@ async function sendLargeMessage(sbd){
 
             console.log(`Conversation created: http://localhost:9093/api/conversations/conversationId/${conversationId}`);
 
-            let sendFileRes = await sendFile( fileName, conversationId);
+            let sendFileRes = await sendFile(fileName, conversationId);
 
             console.log(`Attachment uploaded: ${fileName}`);
 
@@ -143,27 +150,27 @@ async function sendLargeMessage(sbd){
             console.log(`arkivmelding.xml uploaded.`);
 
             let sendRes = await superagent
-                .post( `${ipUrl}/${endpoint}/${conversationId}`);
+                .post(`${ipUrl}/${endpoint}/${conversationId}`);
             if (sendRes) resolve(conversationId);
 
-        } catch(err) {
+        } catch (err) {
             reject(err);
         }
     })
 }
 
-function getRequests(serviceIdentifier, sbdFunction, ...sbdParameters){
+function getRequests(serviceIdentifier, sbdFunction, ...sbdParameters) {
     let requests = [];
     let requestNum = serviceIdentifier && serviceIdentifier.length ? parseInt(serviceIdentifier) : 1;
 
-    for (let i = 0; i < requestNum; i++){
+    for (let i = 0; i < requestNum; i++) {
         requests.push(sendLargeMessage(sbdFunction(...sbdParameters)))
     }
     return requests;
 }
 
 
-function sendMessagesForServiceIdentifier(serviceIdentifier, requests){
+function sendMessagesForServiceIdentifier(serviceIdentifier, requests) {
 
     console.time(serviceIdentifier);
 
@@ -179,15 +186,13 @@ function sendMessagesForServiceIdentifier(serviceIdentifier, requests){
     })
 }
 
-async function sendAllMessages(){
+async function sendAllMessages() {
 
     return new Promise(async (resolve, reject) => {
 
-        let id;
-
-        try{
-            id = await registerWebHook();
-        } catch(err) {
+        try {
+            webhookId = await registerWebHook();
+        } catch (err) {
             console.log(err);
             console.log("Could not register webhook.");
             process.exit(1);
@@ -198,7 +203,7 @@ async function sendAllMessages(){
         if (program.dpo || runAll) {
             try {
                 await sendMessagesForServiceIdentifier("DPO", getRequests(program.dpo, StandardBusinessDocument, 910075918, 810074582, 'arkivmelding', 'arkivmelding', 'administrasjon'));
-            } catch(err) {
+            } catch (err) {
                 reject(err);
             }
         }
@@ -206,8 +211,8 @@ async function sendAllMessages(){
         if (program.dpv || runAll) {
             try {
                 await sendMessagesForServiceIdentifier("DPV", getRequests(program.dpv, StandardBusinessDocument, 984661185, 910075918, 'arkivmelding', 'arkivmelding', 'helseSosialOgOmsorg'));
-            } catch(err) {
-                await removeWebHook(id);
+            } catch (err) {
+                await removeWebHook(webhookId);
                 reject(err);
             }
         }
@@ -215,8 +220,8 @@ async function sendAllMessages(){
         if (program.dpf || runAll) {
             try {
                 await sendMessagesForServiceIdentifier("DPF", getRequests(program.dpf, StandardBusinessDocument, 910075918, 910075918, 'arkivmelding', 'arkivmelding', 'planByggOgGeodata'));
-            } catch(err) {
-                await removeWebHook(id);
+            } catch (err) {
+                await removeWebHook(webhookId);
                 reject(err);
             }
         }
@@ -224,18 +229,18 @@ async function sendAllMessages(){
         if (program.dpi || runAll) {
             try {
                 await sendMessagesForServiceIdentifier("DPI", getRequests(program.dpi, dpiSbd, `0192:910075918`, "06068700602", 'digital', 'digital'));
-            } catch(err) {
-                await removeWebHook(id);
+            } catch (err) {
+                await removeWebHook(webhookId);
                 reject(err);
             }
         }
 
         if (program.dpe || runAll) {
             try {
-                await sendMessagesForServiceIdentifier("DPE", getRequests(program.dpe, dpeInnsynSbd, 910075918, 910076787,"innsynskrav"));
-            } catch(err) {
+                await sendMessagesForServiceIdentifier("DPE", getRequests(program.dpe, dpeInnsynSbd, 910075918, 910076787, "innsynskrav"));
+            } catch (err) {
 
-                await removeWebHook(id);
+                await removeWebHook(webhookId);
                 reject(err);
             }
         }
@@ -243,8 +248,8 @@ async function sendAllMessages(){
         if (program.dpejourn || runAll) {
             try {
                 await sendMessagesForServiceIdentifier("DPE Journal", getRequests(program.dpejourn, dpeJournSbd, 910075918, 810074582));
-            } catch(err) {
-                await removeWebHook(id);
+            } catch (err) {
+                await removeWebHook(webhookId);
                 reject(err);
 
             }
@@ -253,8 +258,8 @@ async function sendAllMessages(){
         if (program.dpiprint || runAll) {
             try {
                 await sendMessagesForServiceIdentifier("DPI Print", getRequests(program.dpiprint, dpiSbdFysisk, `0192:910075918`, "06068700602"));
-            } catch(err) {
-                await removeWebHook(id);
+            } catch (err) {
+                await removeWebHook(webhookId);
                 reject(err);
             }
         }
@@ -262,8 +267,8 @@ async function sendAllMessages(){
         if (program.digitaldpv || runAll) {
             try {
                 await sendMessagesForServiceIdentifier("DPI Digital DPV", getRequests(program.dpiprint, dpiSbdDigitalDpv, `0192:910075918`, "10068700602"));
-            } catch(err) {
-                await removeWebHook(id);
+            } catch (err) {
+                await removeWebHook(webhookId);
                 reject(err);
             }
         }
@@ -298,7 +303,6 @@ crypto.randomBytes(fileSize, (err, buffer) => {
                     } else {
                         console.log("Messages sent, file deleted");
                         console.log(`Attachment file size was: ${program.filesize}.`);
-                        //process.exit(1);
                     }
                 })
             }).catch((err) => {
