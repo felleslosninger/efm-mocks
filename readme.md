@@ -46,7 +46,7 @@ Mocken er satt opp til å motta meldinger for følgende org nr og prosesser:
 | DPI Print            | 06068700602 | urn:no:difi:profile:digitalpost:vedtak:ver1.0               | urn:no:difi:digitalpost:xsd:fysisk::print    |
 | DPI Digital DPV      | 10068700602 | urn:no:difi:profile:digitalpost:info:ver1.0	               | urn:no:difi:digitalpost:xsd:digital::digital_dpv |
 | DPE Journal          | 810074582   | urn:no:difi:profile:einnsyn:journalpost:ver1.0              | urn:no:difi:einnsyn:xsd::publisering         |
-| DPE Innsynsbegjæring | 810074582   | urn:no:difi:profile:einnsyn:innsynskrav:ver1.0              | urn:no:difi:einnsyn:xsd::innsynskrav         |
+| DPE Innsynsbegjæring | 910075918   | urn:no:difi:profile:einnsyn:innsynskrav:ver1.0              | urn:no:difi:einnsyn:xsd::innsynskrav         |
 | DPE Møte             | 810074582   | urn:no:difi:profile:einnsyn:meeting:ver1.0                  | urn:no:difi:einnsyn:xsd::publisering         |
 | DPO                  | 810074582   | urn:no:difi:profile:arkivmelding:administrasjon:ver1.0      | urn:no:difi:arkivmelding:xsd::arkivmelding   |
 | DPV                  | 910075918   | urn:no:difi:profile:arkivmelding:helseSosialOgOmsorg:ver1.0 | urn:no:difi:arkivmelding:xsd::arkivmelding   |
