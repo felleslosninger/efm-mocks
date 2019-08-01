@@ -5,6 +5,9 @@
   },
   "response": {
     "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
     "bodyFileName": "service_records/{{request.requestLine.pathSegments.[1]}}"
   }
 }
