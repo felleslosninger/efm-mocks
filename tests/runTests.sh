@@ -1,4 +1,5 @@
-#!/usr/bin/env bash
+#!/bin/sh
+// #!/usr/bin/env bash
 
 echo "INSTALLING WITH NPM"
 npm install --loglevel=warn
