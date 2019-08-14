@@ -26,7 +26,7 @@ program
 
 let fileSize;
 let fileName = 'test.pdf';
-let messages = [];
+let messages = {};
 let webhookId;
 
 console.time("totalTime");
@@ -52,15 +52,20 @@ app.use(bodyParser.json({limit: '100mb', extended: true}));
 
 app.post("/incoming", (req, res) => {
 
-
     if (req.body.event === 'ping') {
         console.log("ping");
         res.status(200).send();
     } else if (req.body.event === 'status') {
 
-        if (req.body.status === "SENDT") {
-            messages = messages.filter((convId) => convId !== req.body.conversationId)
-            if (messages.length === 0) {
+        if (messages[req.body.conversationId]) {
+
+            if(req.body.status === "SENDT") {
+                delete messages[req.body.conversationId];
+            }
+
+            console.log("Message reported as " + req.body.status + " by IP. Messages left: " + Object.keys(messages).length);
+
+            if (!Object.keys(messages).length) {
                 console.log("All messages sent.");
                 console.timeEnd("totalTime");
                 res.status(200).send();
@@ -88,8 +93,7 @@ function registerWebHook() {
                 "name": "Performance test",
                 "pushEndpoint": "http://localhost:3001/incoming",
                 "resource": "all",
-                "event": "status",
-                "filter": "status=SENDT"
+                "event": "status"
             }).then((res) => {
             console.log(res.body.id);
             resolve(res.body.id)
@@ -135,13 +139,18 @@ function sendFile(fileName, conversationId) {
 }
 
 async function sendLargeMessage(sbd) {
+    let conversationId = sbd.standardBusinessDocumentHeader.businessScope.scope[0].instanceIdentifier;
+    messages[conversationId] = true;
+
     return new Promise(async (resolve, reject) => {
         try {
             let res = await superagent
                 .post(`${ipUrl}/${endpoint}`)
                 .send(sbd);
 
-            let conversationId = res.body.standardBusinessDocumentHeader.businessScope.scope[0].instanceIdentifier;
+            if(res.statusCode !== 200) {
+                reject(res);
+            }
 
             console.log(`Conversation created: http://localhost:9093/api/conversations/conversationId/${conversationId}`);
 
@@ -179,10 +188,9 @@ function sendMessagesForServiceIdentifier(serviceIdentifier, requests) {
     console.time(serviceIdentifier);
 
     return new Promise((resolve, reject) => {
-        Promise.all(requests).then((res) => {
+        Promise.all(requests).then(() => {
             console.log(`Sent ${requests.length} ${serviceIdentifier} messages.`);
             console.timeEnd(serviceIdentifier);
-            messages = messages.concat(res);
             resolve();
         }).catch((err) => {
             reject(err);
