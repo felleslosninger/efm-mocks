@@ -61,9 +61,10 @@ app.post("/incoming", (req, res) => {
 
             if(req.body.status === "SENDT") {
                 delete messages[req.body.conversationId];
+                console.log(req.body.conversationId + " " + req.body.status + " - Messages left: " + Object.keys(messages).length);
+            } else {
+                console.log(req.body.conversationId + " " + req.body.status);
             }
-
-            console.log("Message reported as " + req.body.status + " by IP. Messages left: " + Object.keys(messages).length);
 
             if (!Object.keys(messages).length) {
                 console.log("All messages sent.");
@@ -152,15 +153,13 @@ async function sendLargeMessage(sbd) {
                 reject(res);
             }
 
-            console.log(`Conversation created: http://localhost:9093/api/conversations/conversationId/${conversationId}`);
-
             let sendFileRes = await sendFile(fileName, conversationId);
 
-            console.log(`Attachment uploaded: ${fileName}`);
+            console.log(conversationId + ` Attachment uploaded: ${fileName}`);
 
             let sendArchiveRes = await sendFile('arkivmelding.xml', conversationId);
 
-            console.log(`arkivmelding.xml uploaded.`);
+            console.log(conversationId + ` arkivmelding.xml uploaded.`);
 
             let sendRes = await superagent
                 .post(`${ipUrl}/${endpoint}/${conversationId}`);
