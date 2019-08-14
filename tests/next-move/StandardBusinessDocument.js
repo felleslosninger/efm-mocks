@@ -83,6 +83,7 @@ dpiSbd = (senderOrgNr, receiverOrgNr, meldingsType, forretningsMelding) => {
                 "scope": [
                     {
                         "type": "ConversationId",
+                        "instanceIdentifier": uuidv1(),
                         "identifier": `urn:no:difi:profile:digitalpost:info:ver1.0`,
                         "scopeInformation": [
                             {
@@ -146,6 +147,7 @@ dpiSbdDigitalDpv = (senderOrgNr, receiverOrgNr) => {
                 "scope": [
                     {
                         "type": "ConversationId",
+                        "instanceIdentifier": uuidv1(),
                         "identifier": `urn:no:difi:profile:digitalpost:info:ver1.0`,
                         "scopeInformation": [
                             {
@@ -198,6 +200,7 @@ dpiSbdFysisk = (senderOrgNr, receiverOrgNr) => {
                 "scope": [
                     {
                         "type": "ConversationId",
+                        "instanceIdentifier": uuidv1(),
                         "identifier": `urn:no:difi:profile:digitalpost:info:ver1.0`,
                         "scopeInformation": [
                             {
