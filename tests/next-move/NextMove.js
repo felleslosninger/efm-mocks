@@ -64,11 +64,13 @@ app.post("/incoming", (req, res) => {
                 console.log("All messages sent.");
                 console.timeEnd("totalTime");
                 res.status(200).send();
-                removeWebHook(webhookId).then(() => process.exit(0))
-                    .catch(() => {
-                        console.log("Couldn't remove webhook");
-                        process.exit(0)
-                    });
+                if (webhookId) {
+                    removeWebHook(webhookId).then(() => process.exit(0))
+                        .catch(() => {
+                            console.log("Couldn't remove webhook");
+                            process.exit(0)
+                        });
+                }
             }
         }
 
@@ -98,15 +100,17 @@ function registerWebHook() {
 }
 
 function removeWebHook(id) {
+    webhookId = undefined;
     return new Promise((resolve, reject) => {
-        superagent
-            .delete(`${ipUrl}/api/subscriptions/${id}`)
-            .then((res) => {
-                resolve(id)
-            }).catch((err) => {
-            reject(err);
-        });
-    });
+            superagent
+                .delete(`${ipUrl}/api/subscriptions/${id}`)
+                .then((res) => {
+                    resolve(id)
+                }).catch((err) => {
+                reject(err);
+            });
+        }
+    );
 }
 
 function sendFile(fileName, conversationId) {
@@ -212,7 +216,7 @@ async function sendAllMessages() {
             try {
                 await sendMessagesForServiceIdentifier("DPV", getRequests(program.dpv, StandardBusinessDocument, 984661185, 910075918, 'arkivmelding', 'arkivmelding', 'helseSosialOgOmsorg'));
             } catch (err) {
-                await removeWebHook(webhookId);
+                if (webhookId) await removeWebHook(webhookId);
                 reject(err);
             }
         }
@@ -221,7 +225,7 @@ async function sendAllMessages() {
             try {
                 await sendMessagesForServiceIdentifier("DPF", getRequests(program.dpf, StandardBusinessDocument, 910075918, 910075918, 'arkivmelding', 'arkivmelding', 'planByggOgGeodata'));
             } catch (err) {
-                await removeWebHook(webhookId);
+                if (webhookId) await removeWebHook(webhookId);
                 reject(err);
             }
         }
@@ -230,7 +234,7 @@ async function sendAllMessages() {
             try {
                 await sendMessagesForServiceIdentifier("DPI", getRequests(program.dpi, dpiSbd, `0192:910075918`, "06068700602", 'digital', 'digital'));
             } catch (err) {
-                await removeWebHook(webhookId);
+                if (webhookId) await removeWebHook(webhookId);
                 reject(err);
             }
         }
@@ -240,7 +244,7 @@ async function sendAllMessages() {
                 await sendMessagesForServiceIdentifier("DPE", getRequests(program.dpe, dpeInnsynSbd, 910075918, 910076787, "innsynskrav"));
             } catch (err) {
 
-                await removeWebHook(webhookId);
+                if (webhookId) await removeWebHook(webhookId);
                 reject(err);
             }
         }
@@ -249,7 +253,7 @@ async function sendAllMessages() {
             try {
                 await sendMessagesForServiceIdentifier("DPE Journal", getRequests(program.dpejourn, dpeJournSbd, 910075918, 810074582));
             } catch (err) {
-                await removeWebHook(webhookId);
+                if (webhookId) await removeWebHook(webhookId);
                 reject(err);
 
             }
@@ -259,7 +263,7 @@ async function sendAllMessages() {
             try {
                 await sendMessagesForServiceIdentifier("DPI Print", getRequests(program.dpiprint, dpiSbdFysisk, `0192:910075918`, "06068700602"));
             } catch (err) {
-                await removeWebHook(webhookId);
+                if (webhookId) await removeWebHook(webhookId);
                 reject(err);
             }
         }
@@ -268,7 +272,7 @@ async function sendAllMessages() {
             try {
                 await sendMessagesForServiceIdentifier("DPI Digital DPV", getRequests(program.dpiprint, dpiSbdDigitalDpv, `0192:910075918`, "10068700602"));
             } catch (err) {
-                await removeWebHook(webhookId);
+                if (webhookId) await removeWebHook(webhookId);
                 reject(err);
             }
         }
