@@ -277,7 +277,7 @@ async function sendAllMessages() {
 
         if (program.digitaldpv || runAll) {
             try {
-                await sendMessagesForServiceIdentifier("DPI Digital DPV", getRequests(program.dpiprint, dpiSbdDigitalDpv, `0192:910075918`, "10068700602"));
+                await sendMessagesForServiceIdentifier("DPI Digital DPV", getRequests(program.digitaldpv, dpiSbdDigitalDpv, `0192:910075918`, "10068700602"));
             } catch (err) {
                 if (webhookId) await removeWebHook(webhookId);
                 reject(err);
