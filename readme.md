@@ -32,7 +32,7 @@ På localhost:8001 finner du et lite gui der du kan se meldinger som har blitt s
 ### Oppsett Integrasjonspunkt
 
 1. Kopier ```move-mocks/dpimock/src/main/resources/mock.jks```, ```move-mocks/dpimock/src/main/resources/mock-truststore.jks```, ```integrasjonspunkt-local.properties``` og ```move-mocks/kontaktinfo-client.pem``` working directory for integrasjonspunktet.
-2. Start integrasjonspunktet med *dev* profil.  
+2. Start integrasjonspunktet med *mock* profil. Dersom du har behov for å overstyre properties kan du bruke *dev* profilen.  
 
 [*Generell informasjon om hvordan sette opp et integrasjonspunkt*](https://difi.github.io/felleslosninger/eformidling_download_ip.html)
 
