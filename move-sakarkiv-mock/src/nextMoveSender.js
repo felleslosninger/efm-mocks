@@ -5,11 +5,11 @@ const fs = require('fs');
 const path = require('path');
 let fileName = 'test.pdf';
 
-function sendFile(fileName, conversationId){
+function sendFile(fileName, messageId){
     return new Promise((resolve, reject) => {
         fs.createReadStream(path.join(__dirname, fileName))
             .pipe(request({
-                url: `${process.env.IP_URL}/api/messages/out/${conversationId}?title=${fileName}`,
+                url: `${process.env.IP_URL}/api/messages/out/${messageId}?title=${fileName}`,
                 method: 'PUT',
                 headers: {
                     'content-disposition': 'attachment; filename=' + fileName,
@@ -45,21 +45,21 @@ async function sendLargeMessage(sbd) {
                 .set('Content-Type', 'application/json')
                 .send(sbd);
 
-            let conversationId = res.body.standardBusinessDocumentHeader.businessScope.scope[0].instanceIdentifier;
+            let messageId = res.body.standardBusinessDocumentHeader.documentIdentification.instanceIdentifier;
 
-            console.log(`Conversation created: ${process.env.IP_URL}/api/conversations/conversationId/${conversationId}`);
+            console.log(`Conversation created: ${process.env.IP_URL}/api/conversations/messageId/${messageId}`);
 
-            let sendFileRes = await sendFile( fileName, conversationId);
+            let sendFileRes = await sendFile( fileName, messageId);
 
             console.log(`Attachment uploaded: ${fileName}`);
 
-            let sendArchiveRes = await sendFile('arkivmelding.xml', conversationId);
+            let sendArchiveRes = await sendFile('arkivmelding.xml', messageId);
 
             console.log(`arkivmelding.xml uploaded.`);
 
             let sendRes = await superagent
-                .post( `${process.env.IP_URL}/api/messages/out/${conversationId}`)
-            if (sendRes) resolve(conversationId);
+                .post( `${process.env.IP_URL}/api/messages/out/${messageId}`)
+            if (sendRes) resolve(messageId);
 
         } catch(err) {
             reject(err);
@@ -85,11 +85,11 @@ function sendNextMoveMessage(payload){
 
                         console.time("totalTime");
 
-                        sendLargeMessage(payload).then((conversationId) => {
+                        sendLargeMessage(payload).then((messageId) => {
 
                             console.timeEnd("totalTime");
 
-                            resolve(conversationId);
+                            resolve(messageId);
 
                             fs.unlink(path.join(__dirname, fileName), (err) => {
                                 if (err) {

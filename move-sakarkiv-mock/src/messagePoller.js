@@ -5,7 +5,7 @@ let baseUrl = 'http://localhost:9093';
 function downloadMessage(payload){
 
     return new Promise((resolve, reject) => {
-        let url = `${baseUrl}/in/messages/pop?serviceIdentifier=${payload.serviceIdentifier}&conversationId=${payload.conversationId}`;
+        let url = `${baseUrl}/in/messages/pop?serviceIdentifier=${payload.serviceIdentifier}&messageId=${payload.messageId}`;
         axios({
             url,
             method: 'get'
@@ -24,8 +24,8 @@ function pollMessage(){
         url,
         method: 'get'
     }).then((response) => {
-        if (response.data.conversationId) {
-            let existingMessage = global.dpeDB.find((message) => message.conversationId === response.data.conversationId);
+        if (response.data.messageId) {
+            let existingMessage = global.dpeDB.find((message) => message.messageId === response.data.messageId);
             if (!existingMessage) {
                 global.dpeDB.push(response.data)
                 downloadMessage(response.data)

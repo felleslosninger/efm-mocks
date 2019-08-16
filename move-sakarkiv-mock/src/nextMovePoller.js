@@ -2,9 +2,9 @@ const superagent = require('superagent');
 
 // global.nextMoveMessages = [];
 
-function deleteMessage(conversationId){
+function deleteMessage(messageId){
         return new Promise((resolve, reject) => {
-            superagent.delete(`${process.env.IP_URL}/api/messages/in/${conversationId}`)
+            superagent.delete(`${process.env.IP_URL}/api/messages/in/${messageId}`)
                 .then((res) => {
                     resolve(res);
                 }).catch((err) => {
@@ -24,10 +24,10 @@ function poll(){
 
             if (res.body.standardBusinessDocumentHeader) {
                 global.nextMoveMessages.push(res.body);
-                let conversationId = res.body.standardBusinessDocumentHeader.businessScope.scope[0].instanceIdentifier;
-                console.log(`Received message with ID: ${conversationId}.`);
+                let messageId = res.body.standardBusinessDocumentHeader.documentIdentification.instanceIdentifier;
+                console.log(`Received message with ID: ${messageId}.`);
                 let message = {
-                    conversationId : conversationId,
+                    messageId : messageId,
                     type: 'nextMove',
                     payload: JSON.stringify(res.body),
                     sender: {
@@ -40,9 +40,9 @@ function poll(){
                     }
                 };
 
-                global.dpfDB.set(conversationId, message);
+                global.dpfDB.set(messageId, message);
 
-                deleteMessage(res.body.standardBusinessDocumentHeader.businessScope.scope[0].instanceIdentifier)
+                deleteMessage(res.body.standardBusinessDocumentHeader.documentIdentification.instanceIdentifier)
                     .then((res) => {
                         console.log('message deleted OK');
                         setTimeout(poll, INTERVAL);
