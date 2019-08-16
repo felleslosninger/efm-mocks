@@ -1,4 +1,4 @@
-FROM difi/integrasjonspunkt:nextmove
+FROM difi/integrasjonspunkt:development
 
 COPY integrasjonspunkt-local.properties /var/lib/difi
 COPY integrasjonspunkt-local.properties /var/lib/difi
