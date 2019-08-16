@@ -17,7 +17,7 @@ module.exports = {
     sendAppReceipt: function (receivedMesssage, id) {
         let args = {
             envelope: {
-                attributes: { conversationId: receivedMesssage.envelope.attributes.conversationId },
+                attributes: { messageId: receivedMesssage.envelope.attributes.messageId },
                 sender: {
                     orgnr: receivedMesssage.envelope.sender.orgnr,
                     ref: receivedMesssage.envelope.sender.ref
