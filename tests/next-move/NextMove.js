@@ -57,13 +57,13 @@ app.post("/incoming", (req, res) => {
         res.status(200).send();
     } else if (req.body.event === 'status') {
 
-        if (messages[req.body.conversationId]) {
+        if (messages[req.body.messageId]) {
 
             if(req.body.status === "SENDT") {
-                delete messages[req.body.conversationId];
-                console.log(req.body.conversationId + " " + req.body.status + " - Messages left: " + Object.keys(messages).length);
+                delete messages[req.body.messageId];
+                console.log(req.body.messageId + " " + req.body.status + " - Messages left: " + Object.keys(messages).length);
             } else {
-                console.log(req.body.conversationId + " " + req.body.status);
+                console.log(req.body.messageId + " " + req.body.status);
             }
 
             if (!Object.keys(messages).length) {
@@ -118,11 +118,11 @@ function removeWebHook(id) {
     );
 }
 
-function sendFile(fileName, conversationId) {
+function sendFile(fileName, messageId) {
     return new Promise((resolve, reject) => {
         fs.createReadStream(path.join(__dirname, fileName))
             .pipe(request({
-                url: `${ipUrl}/${endpoint}/${conversationId}?title=${fileName}`,
+                url: `${ipUrl}/${endpoint}/${messageId}?title=${fileName}`,
                 method: 'PUT',
                 headers: {
                     'content-disposition': 'attachment; filename=' + fileName,
@@ -140,8 +140,8 @@ function sendFile(fileName, conversationId) {
 }
 
 async function sendLargeMessage(sbd) {
-    let conversationId = sbd.standardBusinessDocumentHeader.businessScope.scope[0].instanceIdentifier;
-    messages[conversationId] = true;
+    let messageId = sbd.standardBusinessDocumentHeader.documentIdentification.instanceIdentifier;
+    messages[messageId] = true;
 
     return new Promise(async (resolve, reject) => {
         try {
@@ -153,17 +153,17 @@ async function sendLargeMessage(sbd) {
                 reject(res);
             }
 
-            let sendFileRes = await sendFile(fileName, conversationId);
+            let sendFileRes = await sendFile(fileName, messageId);
 
-            console.log(conversationId + ` Attachment uploaded: ${fileName}`);
+            console.log(messageId + ` Attachment uploaded: ${fileName}`);
 
-            let sendArchiveRes = await sendFile('arkivmelding.xml', conversationId);
+            let sendArchiveRes = await sendFile('arkivmelding.xml', messageId);
 
-            console.log(conversationId + ` arkivmelding.xml uploaded.`);
+            console.log(messageId + ` arkivmelding.xml uploaded.`);
 
             let sendRes = await superagent
-                .post(`${ipUrl}/${endpoint}/${conversationId}`);
-            if (sendRes) resolve(conversationId);
+                .post(`${ipUrl}/${endpoint}/${messageId}`);
+            if (sendRes) resolve(messageId);
 
         } catch (err) {
             reject(err);

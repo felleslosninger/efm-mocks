@@ -24,6 +24,7 @@ function StandardBusinessDocument(senderOrgNr, receiverOrgNr, meldingsType, forr
                 }
             ],
             "documentIdentification": {
+                "instanceIdentifier": uuidv1(),
                 "standard": `urn:no:difi:${meldingsType}:xsd::${forretningsMelding}`,
                 "typeVersion": "2.0",
                 "type": forretningsMelding,
@@ -74,6 +75,7 @@ dpiSbd = (senderOrgNr, receiverOrgNr, meldingsType, forretningsMelding) => {
                 }
             ],
             "documentIdentification": {
+                "instanceIdentifier": uuidv1(),
                 "standard": `urn:no:difi:digitalpost:xsd:digital::digital`,
                 "typeVersion": "2.0",
                 "type": forretningsMelding,
@@ -138,6 +140,7 @@ dpiSbdDigitalDpv = (senderOrgNr, receiverOrgNr) => {
                 }
             ],
             "documentIdentification": {
+                "instanceIdentifier": uuidv1(),
                 "standard": `urn:no:difi:digitalpost:xsd:digital::digital_dpv`,
                 "typeVersion": "2.0",
                 "type": "digital_dpv",
@@ -191,6 +194,7 @@ dpiSbdFysisk = (senderOrgNr, receiverOrgNr) => {
                 }
             ],
             "documentIdentification": {
+                "instanceIdentifier": uuidv1(),
                 "standard": `urn:no:difi:digitalpost:xsd:fysisk::print`,
                 "typeVersion": "2.0",
                 "type": "print",
@@ -268,6 +272,7 @@ dpeInnsynSbd = (senderOrgNr, receiverOrgNr) => {
                 }
             ],
             "documentIdentification": {
+                "instanceIdentifier": uuidv1(),
                 "standard": `urn:no:difi:einnsyn:xsd::innsynskrav`,
                 "typeVersion": "2.0",
                 "type": "innsynskrav",
@@ -318,6 +323,7 @@ dpeJournSbd = (senderOrgNr, receiverOrgNr) => {
                 }
             ],
             "documentIdentification": {
+                "instanceIdentifier": uuidv1(),
                 "standard": `urn:no:difi:einnsyn:xsd::publisering`,
                 "typeVersion": "2.0",
                 "type": "publisering",
