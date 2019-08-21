@@ -27,7 +27,7 @@ function pollMessage(){
         if (response.data.messageId) {
             let existingMessage = global.dpeDB.find((message) => message.messageId === response.data.messageId);
             if (!existingMessage) {
-                global.dpeDB.push(response.data)
+                global.dpeDB.push(response.data);
                 downloadMessage(response.data)
                     .then(() => {
                         setTimeout(() => {

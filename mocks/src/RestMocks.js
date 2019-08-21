@@ -1,13 +1,13 @@
-const { deleteFile } = require( "./modules/helper");
-const { recieveFile } = require("./modules/DPE/responses");
-const { getRawBody } = require('./modules/helper');
-const { PutMessage, retrieveforsendelsestatus } = require("./modules/DPF/soapResponses");
+const {deleteFile} = require("./modules/helper");
+const {recieveFile} = require("./modules/DPE/responses");
+const {getRawBody} = require('./modules/helper');
+const {PutMessage, retrieveforsendelsestatus} = require("./modules/DPF/soapResponses");
 const retrieveForsendelseIdByEksternRefResponse = require("./modules/DPF/retrieveForsendelseIdByEksternRef").retrieveForsendelseIdByEksternRefResponse;
-const { GetAvailableFilesBasic, InitiateBrokerServiceBasic, DownloadFileStreamedBasic, UploadFileStreamedBasic } = require("./modules/DPO/responses");
+const {GetAvailableFilesBasic, InitiateBrokerServiceBasic, DownloadFileStreamedBasic, UploadFileStreamedBasic} = require("./modules/DPO/responses");
 const getBasicWSDL = require("./modules/DPO/BasicWsdl").getBasicWSDL;
 const getBasicStreamedWsdl = require("./modules/DPO/BasicStreamedWsdl").getBasicStreamedWsdl;
-const { getBrokerServiceExternalBasicWSDL } = require("./modules/DPO/DPO");
-const { receiveDPV }  = require("./modules/DPV/DPV");
+const {getBrokerServiceExternalBasicWSDL} = require("./modules/DPO/DPO");
+const {receiveDPV} = require("./modules/DPV/DPV");
 const config = require('./config');
 const chalk = require("chalk");
 const hentForsendelsefil = require("./modules/DPF/soapResponses").hentForsendelsefil;
@@ -49,7 +49,7 @@ const mocks = [
 
                     // Check if we have a message with the incoming conversationId:
                     let messageExists = [...global.dpfDB.values()]
-                        // Flatten the map into an array with all the conversation IDs:
+                    // Flatten the map into an array with all the conversation IDs:
                         .map((item) => item.map((a) => a.conversationId))[0]
                         .includes(conversationId);
 
@@ -60,7 +60,7 @@ const mocks = [
                         // Remove the message:
                         global.dpfDB = new Map(
                             [...global.dpfDB]
-                                .forEach(([k, v]) => v.filter(item => item.conversationId !== conversationId) ));
+                                .forEach(([k, v]) => v.filter(item => item.conversationId !== conversationId)));
 
                         // Delete the attachements:
                         Promise.all([
@@ -85,12 +85,12 @@ const mocks = [
                 responseFunction: (req, res) => {
                     res.set('Content-type', 'application/soap+xml');
                     parseXml(req.rawBody, (err, parsed) => {
-                        if (parsed.envelope.body[0]["sendforsendelsemedid"]){
+                        if (parsed.envelope.body[0]["sendforsendelsemedid"]) {
                             sendForsendelseMedId(req, res, parsed);
-                        } else if (parsed.envelope.body["0"].retrieveforsendelseidbyeksternref){
+                        } else if (parsed.envelope.body["0"].retrieveforsendelseidbyeksternref) {
                             console.log("Checking for FIKS messages");
                             retrieveForsendelseIdByEksternRefResponse(req, res, parsed)
-                        } else if(parsed.envelope.body["0"].retrieveforsendelsestatus) {
+                        } else if (parsed.envelope.body["0"].retrieveforsendelsestatus) {
                             retrieveforsendelsestatus(req, res, parsed);
                         }
                     });
@@ -134,10 +134,10 @@ const mocks = [
             {
                 path: '/dpo',
                 method: 'GET',
-                responseFunction: (req,res) => {
-                    if (!req.query.part){
-                        getBrokerServiceExternalBasicWSDL(req,res)
-                    } else if (req.query.part === 'BrokerServiceExternalBasicStreamed.wsdl'){
+                responseFunction: (req, res) => {
+                    if (!req.query.part) {
+                        getBrokerServiceExternalBasicWSDL(req, res)
+                    } else if (req.query.part === 'BrokerServiceExternalBasicStreamed.wsdl') {
                         console.log(chalk.blue('BrokerServiceExternalBasicStreamed.wsdl'));
                         res.set('Content-type', 'text/xml');
                         res.send(getBasicStreamedWsdl());
@@ -167,10 +167,10 @@ const mocks = [
             {
                 path: '/dpo/ServiceEngineExternal/BrokerServiceExternalBasicStreamed.svc',
                 method: 'GET',
-                responseFunction: (req,res) => {
+                responseFunction: (req, res) => {
                     if (!req.query.part) {
-                        getBrokerServiceExternalBasicWSDL(req,res)
-                    } else if (req.query.part === 'BrokerServiceExternalBasicStreamed.wsdl'){
+                        getBrokerServiceExternalBasicWSDL(req, res)
+                    } else if (req.query.part === 'BrokerServiceExternalBasicStreamed.wsdl') {
                         res.set('Content-type', 'text/xml');
                         res.send(getBasicStreamedWsdl());
                     } else if (req.query.part === 'BrokerServiceExternalBasic.wsdl') {
@@ -182,10 +182,10 @@ const mocks = [
             {
                 path: '/dpo/ServiceEngineExternal/BrokerServiceExternalBasic.svc',
                 method: 'GET',
-                responseFunction: (req,res) => {
+                responseFunction: (req, res) => {
                     if (!req.query.part) {
-                        getBrokerServiceExternalBasicWSDL(req,res)
-                    } else if (req.query.part === 'BrokerServiceExternalBasicStreamed.wsdl'){
+                        getBrokerServiceExternalBasicWSDL(req, res)
+                    } else if (req.query.part === 'BrokerServiceExternalBasicStreamed.wsdl') {
                         res.set('Content-type', 'text/xml');
                         res.send(getBasicStreamedWsdl());
                     } else if (req.query.part === 'BrokerServiceExternalBasic.wsdl') {
@@ -198,13 +198,13 @@ const mocks = [
                 path: '/dpo/ServiceEngineExternal/BrokerServiceExternalBasic.svc',
                 method: 'POST',
                 middleware: getRawBody,
-                responseFunction: (req,res) => {
+                responseFunction: (req, res) => {
                     res.header('Content-type', 'text/xml');
                     if (req.headers.soapaction === "\"http://www.altinn.no/services/ServiceEngine/Broker/2015/06/IBrokerServiceExternalBasic/GetAvailableFilesBasic\"") {
                         GetAvailableFilesBasic(req, res);
                     } else if (req.headers.soapaction === "\"http://www.altinn.no/services/ServiceEngine/Broker/2015/06/IBrokerServiceExternalBasic/InitiateBrokerServiceBasic\"") {
                         res.send(InitiateBrokerServiceBasic(req.body))
-                    } else if (req.headers.soapaction === "\"http://www.altinn.no/services/ServiceEngine/Broker/2015/06/IBrokerServiceExternalBasic/ConfirmDownloadedBasic\"" ){
+                    } else if (req.headers.soapaction === "\"http://www.altinn.no/services/ServiceEngine/Broker/2015/06/IBrokerServiceExternalBasic/ConfirmDownloadedBasic\"") {
 
                         res.send(`<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.altinn.no/services/ServiceEngine/Broker/2015/06">
                                    <soapenv:Header/>
@@ -212,7 +212,7 @@ const mocks = [
                                       <ns:ConfirmDownloadedBasicResponse/>
                                    </soapenv:Body>
                                 </soapenv:Envelope>`);
-                    } else  {
+                    } else {
                         res.status(200).send();
                     }
                 }
@@ -223,7 +223,7 @@ const mocks = [
                 middleware: (req, res, next) => {
                     if (req.headers.soapaction === "\"http://www.altinn.no/services/ServiceEngine/Broker/2015/06/IBrokerServiceExternalBasicStreamed/DownloadFileStreamedBasic\"") {
                         getRawBody(req, res, next)
-                    } else if (req.headers.soapaction === "\"http://www.altinn.no/services/ServiceEngine/Broker/2015/06/IBrokerServiceExternalBasicStreamed/UploadFileStreamedBasic\""){
+                    } else if (req.headers.soapaction === "\"http://www.altinn.no/services/ServiceEngine/Broker/2015/06/IBrokerServiceExternalBasicStreamed/UploadFileStreamedBasic\"") {
                         next();
                     } else {
                         console.log("stop");
@@ -236,7 +236,7 @@ const mocks = [
                         console.log(chalk.blue('\n\nDownloadFileStreamedBasic\n\n'));
 
                         DownloadFileStreamedBasic(req, res);
-                    } else if (req.headers.soapaction === "\"http://www.altinn.no/services/ServiceEngine/Broker/2015/06/IBrokerServiceExternalBasicStreamed/UploadFileStreamedBasic\""){
+                    } else if (req.headers.soapaction === "\"http://www.altinn.no/services/ServiceEngine/Broker/2015/06/IBrokerServiceExternalBasicStreamed/UploadFileStreamedBasic\"") {
                         console.log(chalk.blue('\n\nUploadFileStreamedBasic\n\n'));
                         UploadFileStreamedBasic(req, res)
                     } else {
@@ -321,27 +321,25 @@ const mocks = [
                     let dpeMessages = global.dpeDB.get(orgNum);
 
                     if (dpeMessages && dpeMessages.length > 0) {
+                        let message = dpeMessages.find(message => !message.locked);
 
-                        console.log("\n\n\n\n\n\n");
+                        if (message) {
+                            console.log("Serving " + message.convId);
+                            message.locked = true;
+                            global.dpeDB.set(orgNum, dpeMessages);
 
-                        console.log(JSON.stringify(dpeMessages, null, 2));
-
-                        console.log("\n\n\n\n\n\n");
-
-                        console.log(orgNum);
-
-                        console.log("\n\n\n\n\n\n");
-
-
-                        res.set(
-                            'BrokerProperties', JSON.stringify(
-                            {
-                                LockToken: "gerger",
-                                SequenceNumber: 1,
-                                MessageId: dpeMessages[0].convId
-                            }))
-                            .status(201)
-                            .send(dpeMessages[0].sbd);
+                            res.set(
+                                'BrokerProperties', JSON.stringify(
+                                    {
+                                        LockToken: "gerger",
+                                        SequenceNumber: 1,
+                                        MessageId: message.convId
+                                    }))
+                                .status(201)
+                                .send(message.sbd);
+                        } else {
+                            res.status(204).send();
+                        }
                     } else {
                         res.status(204).send();
                     }
