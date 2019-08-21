@@ -68,7 +68,8 @@ function recieveFile(req, res){
         sbd: req.rawBody,
         receiverOrgnum: receiverOrgnum,
         senderOrgnum: senderOrgnum,
-        serviceIdentifier: serviceIdentifier
+        serviceIdentifier: serviceIdentifier,
+        locked: false
     };
 
     let logMessages = global.messageLog.get('dpe');
