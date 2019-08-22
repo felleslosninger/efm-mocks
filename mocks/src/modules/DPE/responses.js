@@ -2,7 +2,7 @@
 
 const moment = require('moment');
 
-function receiptSBD(senderOrgNum, receiverOrgNum, conversationId) {
+function receiptSBD(senderOrgNum, receiverOrgNum, messageId, conversationId) {
     return {
         "sbd" : {
             "standardBusinessDocumentHeader": {
@@ -28,7 +28,7 @@ function receiptSBD(senderOrgNum, receiverOrgNum, conversationId) {
                 "documentIdentification": {
                     "standard": "urn:no:difi:eformidling:xsd::status",
                     "typeVersion": "2.0",
-                    "instanceIdentifier": "72721bf0-0f0c-41c7-98d0-bc447bd8a5c6",
+                    "instanceIdentifier": messageId,
                     "type": "status",
                     "creationDateAndTime": new moment()
                 },
@@ -62,6 +62,7 @@ function recieveFile(req, res){
     let receiverOrgnum = payload.sbd.standardBusinessDocumentHeader.receiver["0"].identifier.value.split(":")[1];
     let senderOrgnum = payload.sbd.standardBusinessDocumentHeader.sender["0"].identifier.value.split(":")[1];
     let serviceIdentifier = payload.sbd.standardBusinessDocumentHeader.documentIdentification.standard;
+    let messageId = payload.sbd.standardBusinessDocumentHeader.documentIdentification.instanceIdentifier;
 
     let dbMessage = {
         convId: convId,
@@ -93,7 +94,7 @@ function recieveFile(req, res){
 
 
     let statusSbd = {
-        sbd: receiptSBD(senderOrgnum, receiverOrgnum, convId),
+        sbd: receiptSBD(senderOrgnum, receiverOrgnum, messageId, convId),
         convId: convId,
     };
 
