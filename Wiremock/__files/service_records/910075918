@@ -189,7 +189,9 @@
                                         -----END CERTIFICATE-----",
                                     "process": "urn:no:difi:profile:einnsyn:response:ver1.0",
                                     "documentTypes": [
-                                        "urn:no:difi:einnsyn:xsd::einnsyn_kvittering"
+                                        "urn:no:difi:einnsyn:xsd::einnsyn_kvittering",
+                                        "urn:no:difi:eformidling:xsd::status",
+                                        "urn:no:difi:eformidling:xsd::feil"
                                     ],
                                     "service": {
                                         "identifier": "DPE",
