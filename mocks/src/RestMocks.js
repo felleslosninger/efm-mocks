@@ -233,9 +233,6 @@ const mocks = [
                     res.header('Content-type', 'text/xml');
 
                     if (req.headers.soapaction === "\"http://www.altinn.no/services/ServiceEngine/Broker/2015/06/IBrokerServiceExternalBasicStreamed/DownloadFileStreamedBasic\"") {
-
-                        console.log(chalk.blue('DownloadFileStreamedBasic'));
-
                         DownloadFileStreamedBasic(req, res);
                     } else if (req.headers.soapaction === "\"http://www.altinn.no/services/ServiceEngine/Broker/2015/06/IBrokerServiceExternalBasicStreamed/UploadFileStreamedBasic\"") {
                         console.log(chalk.blue('UploadFileStreamedBasic'));

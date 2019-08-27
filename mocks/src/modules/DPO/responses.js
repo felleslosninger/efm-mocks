@@ -88,6 +88,8 @@ function DownloadFileStreamedBasic(req, res) {
             } else {
                 let reference = parsed["envelope"]["body"][0]["downloadfilestreamedbasic"][0]["filereference"][0];
 
+                console.log("DownloadFileStreamedBasic START", reference);
+
                 let message = global.dpoDB[reference];
                 delete global.dpoDB[reference];
                 let SNAPSHOT_BOUNDARY = `610be47c-8021-4e0d-82d9-362a1e2c6b58+id=3890`;
@@ -126,6 +128,13 @@ function DownloadFileStreamedBasic(req, res) {
 
                     let readStream = fs.createReadStream(message.zip);
 
+                    readStream.on('end', () => {
+                        res.write('\r\n');
+                        res.write(`--uuid:${SNAPSHOT_BOUNDARY}--`);
+                        res.end();
+                        console.log("DownloadFileStreamedBasic END", reference);
+                    });
+
                     readStream.on('error', function (err) {
                         if (err) {
                             console.log(err);
@@ -133,15 +142,7 @@ function DownloadFileStreamedBasic(req, res) {
                         }
                     });
 
-                    readStream.on('data', function (chunk) {
-                        res.write(chunk);
-                    });
-
-                    readStream.on('end', () => {
-                        res.write('\r\n');
-                        res.write(`--uuid:${SNAPSHOT_BOUNDARY}--`);
-                        res.end();
-                    });
+                    readStream.pipe(res);
                 }
 
                 writeResponse();
@@ -172,9 +173,9 @@ function UploadFileStreamedBasic(req, res) {
             if (file.type !== 'application/octet-stream') {
                 let data = fs.readFileSync(file.path);
                 let body = data.toString('utf8');
-                let regExpMatchArray = body.match(/>(\S+)\s*<\/\w+:Reference>/);
+                let regExpMatchArray = body.match(/>([^<]+)<\/\w*:?Reference>/);
 
-                if (regExpMatchArray.length === 2) {
+                if (regExpMatchArray && regExpMatchArray.length === 2) {
                     reference = regExpMatchArray[1];
                 } else {
                     console.error("Missing Reference!", body);

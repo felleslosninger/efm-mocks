@@ -39,8 +39,8 @@ process.env.PORT = process.env.PORT || 8001;
 
 let app = express();
 
-app.use(bodyParser.json({limit: '100mb', extended: true}));
-app.use(bodyParser.urlencoded({limit: '100mb', extended: true}));
+app.use(express.json({limit: '100mb', extended: true, defer: true}));
+app.use(express.urlencoded({limit: '100mb', extended: true}));
 app.use(express.static('static'));
 app.use(morgan('combined'));
 
