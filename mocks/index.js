@@ -345,7 +345,7 @@ app.get('/api/messages/dpe', (req, res) => {
 
 app.get('/api/messages/DPO', (req, res) => {
     if (global.dpoDB.size > 0) {
-        res.send([...global.dpoDB].map(([key, value]) => value)[0]);
+        res.send([Object.values(global.dpoDB)[0]]);
     } else {
         res.send([]);
     }

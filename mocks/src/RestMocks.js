@@ -203,7 +203,7 @@ const mocks = [
                     if (req.headers.soapaction === "\"http://www.altinn.no/services/ServiceEngine/Broker/2015/06/IBrokerServiceExternalBasic/GetAvailableFilesBasic\"") {
                         GetAvailableFilesBasic(req, res);
                     } else if (req.headers.soapaction === "\"http://www.altinn.no/services/ServiceEngine/Broker/2015/06/IBrokerServiceExternalBasic/InitiateBrokerServiceBasic\"") {
-                        res.send(InitiateBrokerServiceBasic(req.body))
+                        res.send(InitiateBrokerServiceBasic(req.rawBody))
                     } else if (req.headers.soapaction === "\"http://www.altinn.no/services/ServiceEngine/Broker/2015/06/IBrokerServiceExternalBasic/ConfirmDownloadedBasic\"") {
 
                         res.send(`<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.altinn.no/services/ServiceEngine/Broker/2015/06">
@@ -231,13 +231,14 @@ const mocks = [
                 },
                 responseFunction: (req, res) => {
                     res.header('Content-type', 'text/xml');
+
                     if (req.headers.soapaction === "\"http://www.altinn.no/services/ServiceEngine/Broker/2015/06/IBrokerServiceExternalBasicStreamed/DownloadFileStreamedBasic\"") {
 
-                        console.log(chalk.blue('\n\nDownloadFileStreamedBasic\n\n'));
+                        console.log(chalk.blue('DownloadFileStreamedBasic'));
 
                         DownloadFileStreamedBasic(req, res);
                     } else if (req.headers.soapaction === "\"http://www.altinn.no/services/ServiceEngine/Broker/2015/06/IBrokerServiceExternalBasicStreamed/UploadFileStreamedBasic\"") {
-                        console.log(chalk.blue('\n\nUploadFileStreamedBasic\n\n'));
+                        console.log(chalk.blue('UploadFileStreamedBasic'));
                         UploadFileStreamedBasic(req, res)
                     } else {
                         console.log("stop");

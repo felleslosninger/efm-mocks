@@ -59,7 +59,7 @@ app.post("/incoming", (req, res) => {
 
         if (messages[req.body.messageId]) {
 
-            if(req.body.status === "SENDT") {
+            if (req.body.status === "SENDT") {
                 delete messages[req.body.messageId];
                 console.log(req.body.messageId + " " + req.body.status + " - Messages left: " + Object.keys(messages).length);
             } else {
@@ -149,7 +149,7 @@ async function sendLargeMessage(sbd) {
                 .post(`${ipUrl}/${endpoint}`)
                 .send(sbd);
 
-            if(res.statusCode !== 200) {
+            if (res.statusCode !== 200) {
                 reject(res);
             }
 
@@ -288,39 +288,46 @@ async function sendAllMessages() {
     });
 }
 
+function createAttachment() {
+    return new Promise((resolve, reject) => {
 
-crypto.randomBytes(fileSize, (err, buffer) => {
+        let writeStream = fs.createWriteStream(fileName, {flags: 'w'});
+        writeStream.on('finish', function () {
+            resolve();
+        });
 
-    if (err) {
-        console.log(err);
-        process.exit(1);
-    }
+        let chunkSize = Math.min(fileSize, 64 * 1024);
+        let bytesLeft = fileSize;
 
-    fs.writeFile(fileName, buffer, (err) => {
-        if (err) {
-            console.log(err);
-            process.exit(1);
-        } else {
-
-            // console.time("totalTime");
-
-            sendAllMessages().then(() => {
-
-                // console.timeEnd("totalTime");
-                fs.unlink(fileName, (err) => {
-                    if (err) {
-                        console.log(err);
-                        process.exit(1);
-                    } else {
-                        console.log("Messages sent, file deleted");
-                        console.log(`Attachment file size was: ${program.filesize}.`);
-                    }
-                })
-            }).catch((err) => {
-                console.log(JSON.stringify(JSON.parse(err.response.text), null, 2));
-                // Need to delete webhook here.
-                process.exit(1);
-            });
+        while (bytesLeft > 0) {
+            let buffer = crypto.randomBytes(Math.min(bytesLeft, chunkSize));
+            writeStream.write(buffer);
+            bytesLeft -= chunkSize;
         }
+
+        writeStream.end();
+    });
+}
+
+createAttachment().then(function () {
+    console.time("totalTime");
+    console.log("Starting to send messages");
+
+    sendAllMessages().then(() => {
+
+        // console.timeEnd("totalTime");
+        fs.unlink(fileName, (err) => {
+            if (err) {
+                console.log(err);
+                process.exit(1);
+            } else {
+                console.log("Messages sent, file deleted");
+                console.log(`Attachment file size was: ${program.filesize}.`);
+            }
+        })
+    }).catch((err) => {
+        console.log(JSON.stringify(JSON.parse(err.response.text), null, 2));
+        // Need to delete webhook here.
+        process.exit(1);
     });
 });

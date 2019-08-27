@@ -42,13 +42,13 @@ function recursiveKeySearch(key, data) {
 
 const getRawBody = (req, res, next) => {
 
-        var data = '';
+        var chunks = [];
         req.setEncoding('utf8');
         req.on('data', function(chunk) {
-            data += chunk;
+            chunks.push(chunk);
         });
         req.on('end', function() {
-            req.rawBody = data;
+            req.rawBody = chunks.join();
             next();
         });
 };
