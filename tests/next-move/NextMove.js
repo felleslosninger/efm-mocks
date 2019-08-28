@@ -99,7 +99,11 @@ function registerWebHook() {
             console.log(res.body.id);
             resolve(res.body.id)
         }).catch((err) => {
-            reject(err);
+            if (err.status === 400 && err.response.body.exception === 'no.difi.meldingsutveksling.exceptions.SubscriptionWithSameNameAndPushEndpointAlreadyExists') {
+                resolve(-1)
+            } else {
+                reject(err);
+            }
         });
     });
 }
@@ -107,13 +111,17 @@ function registerWebHook() {
 function removeWebHook(id) {
     webhookId = undefined;
     return new Promise((resolve, reject) => {
-            superagent
-                .delete(`${ipUrl}/api/subscriptions/${id}`)
-                .then((res) => {
-                    resolve(id)
-                }).catch((err) => {
-                reject(err);
-            });
+            if (id === -1) {
+                resolve(id);
+            } else {
+                superagent
+                    .delete(`${ipUrl}/api/subscriptions/${id}`)
+                    .then((res) => {
+                        resolve(id)
+                    }).catch((err) => {
+                    reject(err);
+                });
+            }
         }
     );
 }
