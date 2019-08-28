@@ -200,7 +200,7 @@ public class DPIEndpoint {
 
             documentIdentification.setStandard("urn:no:difi:sdp:1.0");
             documentIdentification.setTypeVersion("1.0");
-            documentIdentification.setInstanceIdentifier(firstMessage.getConversationId());
+            documentIdentification.setInstanceIdentifier(firstMessage.getMessageId());
             documentIdentification.setType("kvittering");
             documentIdentification.setCreationDateAndTime(toXMLGregorianCalendar(OffsetDateTime.now()));
 
