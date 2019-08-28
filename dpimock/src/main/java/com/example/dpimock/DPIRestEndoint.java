@@ -20,7 +20,7 @@ public class DPIRestEndoint {
     @GetMapping("/api/messages")
     @ResponseBody
     public Collection<Message> getMesssages() {
-        return messagesSingleton.getMessages().values();
+        return messagesSingleton.getMessages();
     }
 
     @GetMapping("/api/messages/log")
