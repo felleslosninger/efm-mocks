@@ -1,5 +1,6 @@
 package com.example.dpimock;
 
+import lombok.RequiredArgsConstructor;
 import model.Message;
 import model.MessagesSingleton;
 import no.difi.begrep.sdp.schema_v10.Kvittering;
@@ -39,13 +40,17 @@ import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
 @Endpoint
+@RequiredArgsConstructor
 public class DPIEndpoint {
 
     private static final String NAMESPACE_URI = "http://www.unece.org/cefact/namespaces/StandardBusinessDocumentHeader";
+
+    private final MessagesSingleton messagesSingleton;
 
     public String soapMessageToString(SOAPMessage message) {
         String result = null;
@@ -163,8 +168,10 @@ public class DPIEndpoint {
                 .build();
 
 
-        if (MessagesSingleton.getInstance().messages.size() > 0) {
-            MessagesSingleton messages = MessagesSingleton.getInstance();
+        if (!messagesSingleton.getMessages().isEmpty()) {
+            Message firstMessage = messagesSingleton.pop()
+                    .orElseThrow(() -> new IllegalStateException("No message found!"));
+
             StandardBusinessDocumentHeader header = new StandardBusinessDocumentHeader();
             header.setHeaderVersion("1.0");
 
@@ -172,7 +179,7 @@ public class DPIEndpoint {
             List<Partner> partners = header.getSender();
             Partner partner = new Partner();
             PartnerIdentification partnerIdentification = new PartnerIdentification();
-            partnerIdentification.setValue(messages.messages.get(0).getSenderOrgNum());
+            partnerIdentification.setValue(firstMessage.getSenderOrgNum());
             partnerIdentification.setAuthority("urn:oasis:names:tc:ebcore:partyid-type:iso6523:9908");
             partner.setIdentifier(partnerIdentification);
 
@@ -182,7 +189,7 @@ public class DPIEndpoint {
             List<Partner> receivers = header.getReceiver();
             Partner receiverPartner = new Partner();
             PartnerIdentification receiverPartnerIdentification = new PartnerIdentification();
-            receiverPartnerIdentification.setValue(messages.messages.get(0).getReceiverOrgNum());
+            receiverPartnerIdentification.setValue(firstMessage.getReceiverOrgNum());
             receiverPartnerIdentification.setAuthority("urn:oasis:names:tc:ebcore:partyid-type:iso6523:9908");
             receiverPartner.setIdentifier(receiverPartnerIdentification);
             receivers.add(receiverPartner);
@@ -193,7 +200,7 @@ public class DPIEndpoint {
 
             documentIdentification.setStandard("urn:no:difi:sdp:1.0");
             documentIdentification.setTypeVersion("1.0");
-            documentIdentification.setInstanceIdentifier(messages.messages.get(0).getConversationId());
+            documentIdentification.setInstanceIdentifier(firstMessage.getConversationId());
             documentIdentification.setType("kvittering");
             documentIdentification.setCreationDateAndTime(toXMLGregorianCalendar(OffsetDateTime.now()));
 
@@ -204,7 +211,7 @@ public class DPIEndpoint {
             List<Scope> scopes = businessScope.getScope();
             Scope scope = new Scope();
             scope.setType("ConversationId");
-            scope.setInstanceIdentifier(messages.messages.get(0).getConversationId());
+            scope.setInstanceIdentifier(firstMessage.getConversationId());
             scope.setIdentifier("urn:no:difi:sdp:1.0");
             scopes.add(scope);
 
@@ -229,15 +236,15 @@ public class DPIEndpoint {
             JAXBElement<StandardBusinessDocument> sbdJAXBElement = new JAXBElement<>(Constants.SBD_QNAME,
                     (Class<StandardBusinessDocument>) sbd.getClass(), sbd);
 
-            PartyId fromPartyId = PartyId.builder().withType("urn:oasis:names:tc:ebcore:partyid-type:iso6523:9908").withValue(messages.messages.get(0).getReceiverOrgNum()).build();
+            PartyId fromPartyId = PartyId.builder().withType("urn:oasis:names:tc:ebcore:partyid-type:iso6523:9908").withValue(firstMessage.getReceiverOrgNum()).build();
 
-            PartyId toPartyId = PartyId.builder().withType("urn:oasis:names:tc:ebcore:partyid-type:iso6523:9908").withValue(messages.messages.get(0).getReceiverOrgNum()).build();
+            PartyId toPartyId = PartyId.builder().withType("urn:oasis:names:tc:ebcore:partyid-type:iso6523:9908").withValue(firstMessage.getReceiverOrgNum()).build();
 
             CollaborationInfo collaborationInfo = CollaborationInfo.builder()
                     .withAgreementRef(AgreementRef.builder().withValue("http://begrep.difi.no/SikkerDigitalPost/1.0/transportlag/Meldingsutveksling/FormidleDigitalPostForsendelse").build())
                     .withService(Service.builder().withValue("SDP").build())
                     .withAction("KvitteringsForespoersel")
-                    .withConversationId(messages.messages.get(0).getConversationId())
+                    .withConversationId(firstMessage.getConversationId())
                     .build();
 
             UserMessage userMessage = UserMessage.builder()
@@ -269,7 +276,6 @@ public class DPIEndpoint {
             } catch (JAXBException e) {
                 throw new OxalisAs4Exception("Could not marshal signal message to header", e);
             }
-            MessagesSingleton.getInstance().messages.remove(0);
         } else {
             Error error = Error.builder()
                     .withCategory("Communication")
@@ -365,15 +371,14 @@ public class DPIEndpoint {
      * Create a message in memory that we expose in the incoming messages API.
      **/
     private void saveIncomingMessage(StandardBusinessDocument sbd) {
-
-        //sbd.standardBusinessDocumentHeader.businessScope.scope.get(0).instanceIdentifier
+        StandardBusinessDocumentHeader sbdh = sbd.getStandardBusinessDocumentHeader();
 
         Message dbMessage = new Message();
-        dbMessage.setConversationId(sbd.getStandardBusinessDocumentHeader().getBusinessScope().getScope().get(0).getInstanceIdentifier());
-        dbMessage.setSenderOrgNum(sbd.getStandardBusinessDocumentHeader().getSender().get(0).getIdentifier().getValue());
-        dbMessage.setReceiverOrgNum(sbd.getStandardBusinessDocumentHeader().getReceiver().get(0).getIdentifier().getValue());
-        MessagesSingleton.getInstance().addMessage(dbMessage);
-
+        dbMessage.setMessageId(sbdh.getDocumentIdentification().getInstanceIdentifier());
+        dbMessage.setConversationId(sbdh.getBusinessScope().getScope().get(0).getInstanceIdentifier());
+        dbMessage.setSenderOrgNum(sbdh.getSender().get(0).getIdentifier().getValue());
+        dbMessage.setReceiverOrgNum(sbdh.getReceiver().get(0).getIdentifier().getValue());
+        messagesSingleton.addMessage(dbMessage);
     }
 
     private As4EnvelopeHeader parseAs4EnvelopeHeader(UserMessage userMessage) {
