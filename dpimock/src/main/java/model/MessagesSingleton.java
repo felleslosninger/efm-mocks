@@ -3,8 +3,11 @@ package model;
 import lombok.Getter;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
  * This class holds a list of incoming messages in memory so that we can expose an API that
@@ -14,11 +17,11 @@ import java.util.concurrent.ConcurrentHashMap;
 @Getter
 public class MessagesSingleton {
 
-    private final Map<String, Message> messages = new ConcurrentHashMap<>();
+    private final Queue<Message> messages = new ConcurrentLinkedQueue<>();
     private final List<Message> messageLog = Collections.synchronizedList(new ArrayList<>());
 
     public void addMessage(Message message) {
-        messages.put(message.getMessageId(), message);
+        messages.add(message);
         messageLog.add(message);
     }
 
@@ -30,9 +33,7 @@ public class MessagesSingleton {
         messageLog.clear();
     }
 
-    public synchronized Optional<Message> pop() {
-        Optional<Map.Entry<String, Message>> first = messages.entrySet().stream().findFirst();
-        first.ifPresent(p -> messages.remove(p.getKey()));
-        return first.map(Map.Entry::getValue);
+    public Message poll() {
+        return messages.poll();
     }
 }

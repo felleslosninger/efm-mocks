@@ -168,9 +168,9 @@ public class DPIEndpoint {
                 .build();
 
 
-        if (!messagesSingleton.getMessages().isEmpty()) {
-            Message firstMessage = messagesSingleton.pop()
-                    .orElseThrow(() -> new IllegalStateException("No message found!"));
+        Message firstMessage = messagesSingleton.poll();
+
+        if (firstMessage != null) {
 
             StandardBusinessDocumentHeader header = new StandardBusinessDocumentHeader();
             header.setHeaderVersion("1.0");
