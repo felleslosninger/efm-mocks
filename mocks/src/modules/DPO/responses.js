@@ -181,6 +181,8 @@ function UploadFileStreamedBasic(req, res) {
                     console.error("Missing Reference!", body);
                 }
             } else {
+                console.log("UploadFileStreamedBasic UPLOADED", reference);
+
                 let message = global.dpoDB[reference];
 
                 message.zip = file.path;

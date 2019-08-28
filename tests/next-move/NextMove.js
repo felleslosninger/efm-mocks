@@ -91,7 +91,7 @@ function registerWebHook() {
         superagent
             .post(`${ipUrl}/api/subscriptions`)
             .send({
-                "name": "Performance test",
+                "name": "MOVE mocks",
                 "pushEndpoint": "http://localhost:3001/incoming",
                 "resource": "all",
                 "event": "status"
@@ -326,7 +326,8 @@ createAttachment().then(function () {
             }
         })
     }).catch((err) => {
-        console.log(JSON.stringify(JSON.parse(err.response.text), null, 2));
+        console.log("Error catched", err);
+        // console.log(JSON.stringify(JSON.parse(err.response.text), null, 2));
         // Need to delete webhook here.
         process.exit(1);
     });
