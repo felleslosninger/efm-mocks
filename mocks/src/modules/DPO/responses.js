@@ -15,30 +15,33 @@ function GetAvailableFilesBasic(req, res) {
             tagNameProcessors: [stripPrefix]
         },
         (err, js) => {
-            if (err) throw err;
-            let reportee = js.envelope.body[0]['getavailablefilesbasic'][0]['searchparameters'][0]["reportee"][0];
+            if (err) {
+                console.error(err);
+            } else {
+                let reportee = js.envelope.body[0]['getavailablefilesbasic'][0]['searchparameters'][0]["reportee"][0];
 
-            let messages = Object.values(global.dpoDB)
-                .filter(p => p.recipient === reportee)
-                .filter(message => message.zip);
+                let messages = Object.values(global.dpoDB)
+                    .filter(p => p.recipient === reportee)
+                    .filter(message => message.zip);
 
-            let response = `<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.altinn.no/services/ServiceEngine/Broker/2015/06">
+                let response = `<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.altinn.no/services/ServiceEngine/Broker/2015/06">
                               <s:Body>
                                      <a:GetAvailableFilesBasicResponse xmlns:b="http://schemas.altinn.no/services/ServiceEngine/Broker/2015/06"
                                                 xmlns:a="http://www.altinn.no/services/ServiceEngine/Broker/2015/06">
             <a:GetAvailableFilesBasicResult>
                  ${messages ? messages.map((message) =>
-                `<b:BrokerServiceAvailableFile>
+                    `<b:BrokerServiceAvailableFile>
                     <b:FileReference>${message.reference}</b:FileReference>
                     <b:ReceiptID>1</b:ReceiptID>
                 </b:BrokerServiceAvailableFile>`
-            ).join('') : ''
-            }
+                ).join('') : ''
+                }
                                     </a:GetAvailableFilesBasicResult>
                                 </a:GetAvailableFilesBasicResponse>
                               </s:Body>
                         </s:Envelope>`;
-            res.send(response);
+                res.send(response);
+            }
         });
 }
 
@@ -132,6 +135,7 @@ function DownloadFileStreamedBasic(req, res) {
                         res.write('\r\n');
                         res.write(`--uuid:${SNAPSHOT_BOUNDARY}--`);
                         res.end();
+                        deleteFile(message.zip);
                         console.log("DownloadFileStreamedBasic END", reference);
                     });
 
@@ -146,9 +150,6 @@ function DownloadFileStreamedBasic(req, res) {
                 }
 
                 writeResponse();
-
-                deleteFile(message.zip);
-                console.log('stop');
             }
         });
     }
