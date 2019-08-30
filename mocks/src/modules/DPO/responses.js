@@ -158,47 +158,50 @@ function UploadFileStreamedBasic(req, res) {
 
     const form = new formidable.IncomingForm();
 
+    let reference = 'something is wrong!';
     let fileName = makeid();
-    let fileBase = `${__dirname}/uploads/${fileName}`;
-    let reference;
+    let path = `${__dirname}/uploads/${fileName}.zip`;
 
-    form.parse(req)
-        .on('aborted', () => {
-            console.error('Request aborted by the user')
-        })
-        .on('error', (err) => {
-            console.error('Error', err);
-        })
-        .on('end', () => {
-            res.end();
-        })
-        .on('file', (name, file) => {
-            if (file.type !== 'application/octet-stream') {
-                let data = fs.readFileSync(file.path);
-                let body = data.toString('utf8');
-                let regExpMatchArray = body.match(/>([^<]+)<\/\w*:?Reference>/);
+    form.onPart = function (part) {
+        console.log("Part type", part.mime);
+        if (part.mime === 'application/octet-stream') {
+            let writeStream = fs.createWriteStream(path);
+
+            part.on('data', function (data) {
+                writeStream.write(data);
+            });
+
+            part.on('end', function () {
+                writeStream.close();
+            });
+        } else {
+            let xml = '';
+
+            part.on('data', function (data) {
+                xml += data;
+            });
+
+            part.on('end', function () {
+                let regExpMatchArray = xml.match(/>([^<]+)<\/\w*:?Reference>/);
 
                 if (regExpMatchArray && regExpMatchArray.length === 2) {
                     reference = regExpMatchArray[1];
+                    console.log("Reference", reference);
                 } else {
-                    console.error("Missing Reference!", body);
+                    console.error("Missing Reference!");
                 }
-            } else {
-                console.log("UploadFileStreamedBasic UPLOADED", reference);
+            });
+        }
+    };
 
-                let message = global.dpoDB[reference];
+    form.on('error', (err) => {
+        console.error('Error', err);
+        throw err;
+    });
 
-                message.zip = file.path;
-
-                let logMessages = global.messageLog.get('dpo');
-
-                logMessages.push({
-                    fileReference: reference,
-                    receiptId: reference,
-                    receiver: message.recipient
-                });
-
-                res.send(`<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.altinn.no/services/ServiceEngine/Broker/2015/06">
+    form.on('end', () => {
+        console.log("Sending receipt");
+        res.send(`<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.altinn.no/services/ServiceEngine/Broker/2015/06">
                                                    <soapenv:Header/>
                                                    <soapenv:Body>
                                                       <ns:ReceiptExternalStreamedBE>
@@ -219,8 +222,24 @@ function UploadFileStreamedBasic(req, res) {
                                                       </ns:ReceiptExternalStreamedBE>
                                                    </soapenv:Body>
                                                 </soapenv:Envelope>`);
-            }
+        res.end();
+
+        console.log("UploadFileStreamedBasic UPLOADED", reference);
+
+        let message = global.dpoDB[reference];
+        message.zip = path;
+
+        let logMessages = global.messageLog.get('dpo');
+
+        logMessages.push({
+            fileReference: reference,
+            receiptId: reference,
+            receiver: message.recipient
         });
+        console.log("End");
+    });
+
+    form.parse(req);
 }
 
 module.exports = {

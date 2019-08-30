@@ -200,7 +200,7 @@ class ModalBody extends React.Component {
                     <div>
                         { !this.state.isLoading &&
                             <PrismCode component="pre" className={this.props.isNextMove ? "language-json" : "language-markup"}>
-                                { JSON.stringify(JSON.parse(this.state.payload), null, 2) }
+                                { this.props.isNextMove ? JSON.stringify(JSON.parse(this.state.payload), null, 2) : this.state.payload }
                             </PrismCode>
                         }
                     </div>
