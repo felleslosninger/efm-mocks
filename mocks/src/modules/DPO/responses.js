@@ -169,6 +169,9 @@ function UploadFileStreamedBasic(req, res) {
         .on('error', (err) => {
             console.error('Error', err);
         })
+        .on('end', () => {
+            res.end();
+        })
         .on('file', (name, file) => {
             if (file.type !== 'application/octet-stream') {
                 let data = fs.readFileSync(file.path);
@@ -216,7 +219,6 @@ function UploadFileStreamedBasic(req, res) {
                                                       </ns:ReceiptExternalStreamedBE>
                                                    </soapenv:Body>
                                                 </soapenv:Envelope>`);
-                res.end();
             }
         });
 }
