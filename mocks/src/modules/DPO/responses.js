@@ -196,7 +196,6 @@ function UploadFileStreamedBasic(req, res) {
 
     form.on('error', (err) => {
         console.error('Error', err);
-        throw err;
     });
 
     form.on('end', () => {
