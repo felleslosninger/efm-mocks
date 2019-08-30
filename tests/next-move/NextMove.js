@@ -221,7 +221,7 @@ async function sendAllMessages() {
 
         if (program.dpo || runAll) {
             try {
-                await sendMessagesForServiceIdentifier("DPO", getRequests(program.dpo, StandardBusinessDocument, 910075918, 810074582, 'arkivmelding', 'arkivmelding', 'administrasjon'));
+                await sendMessagesForServiceIdentifier("DPO", getRequests(program.dpo, StandardBusinessDocument, 910075918, 910075918, 'arkivmelding', 'arkivmelding', 'administrasjon'));
             } catch (err) {
                 reject(err);
             }

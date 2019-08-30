@@ -1,6 +1,6 @@
 const config = {
-  "orgNum": 991825827,
-  "orgName": "DIREKTORATET FOR FORVALTNING OG IKT",
+  "orgNum": 810074582,
+  "orgName": "BIRISTRAND OG TJØTTA",
   "email": "idporten@difi.no"
 };
 

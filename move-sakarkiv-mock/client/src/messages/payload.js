@@ -24,7 +24,7 @@ let payload = (jpId, jpJaar, jpSeknr, jpJpostnr, jpJdato, jpDokdato,
                     <jpForfdato />
                     <jpTgkode>U</jpTgkode>
                     <jpAgdato />
-                    <jpAntved />
+                    <jpAntved>1</jpAntved>
                     <jpSaar>${saSaar}</jpSaar>
                     <jpSaseknr>${saSeknr}</jpSaseknr>
                     <jpOffinnhold>{Hentes fra tittelfelt på webside}</jpOffinnhold>
@@ -51,7 +51,7 @@ let payload = (jpId, jpJaar, jpSeknr, jpJpostnr, jpJdato, jpDokdato,
                       <veVariant>P</veVariant>
                       <veDokformat>{kommer tilbake til denne}</veDokformat>
                       <fil>
-                        <base64>${fil || 'Fil her'}==</base64>
+                        <base64>${fil || 'Fil her'}</base64>
                       </fil>
                       <veFilnavn>Testdokument.PDF</veFilnavn>
                       <veMimeType>{kommer tilbake til denne}</veMimeType>
