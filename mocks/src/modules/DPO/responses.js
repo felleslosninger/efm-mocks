@@ -166,14 +166,19 @@ function UploadFileStreamedBasic(req, res) {
     form.onPart = function (part) {
         console.log("Part type", part.mime);
         if (part.mime === 'application/octet-stream') {
-            let writeStream = fs.createWriteStream(path);
+            console.log("Writing to", path);
+            let writeStream = fs.createWriteStream(path, {flags: 'w'});
+
+            writeStream.on('error', function(err) {
+                console.log("FILE ERROR", path, err);
+            });
 
             part.on('data', function (data) {
                 writeStream.write(data);
             });
 
             part.on('end', function () {
-                writeStream.close();
+                writeStream.end();
             });
         } else {
             let xml = '';
