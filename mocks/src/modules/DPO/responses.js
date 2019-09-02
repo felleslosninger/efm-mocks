@@ -53,7 +53,16 @@ parseXml = (xml, callback) => {
 
 function InitiateBrokerServiceBasic(body) {
 
-    let recipient = body.match(/<PartyNumber>([^<]+)/)[1];
+    let recipient;
+    let regExpMatchArray = body.match(/>([^<]+)<\/\w*:?PartyNumber>/);
+
+    if (regExpMatchArray && regExpMatchArray.length === 2) {
+        recipient = regExpMatchArray[1];
+        console.log("PartyNumber", recipient);
+    } else {
+        console.error("Missing PartyNumber!", body);
+    }
+
     let reference = uid();
 
     global.dpoDB[reference] = {
@@ -131,12 +140,16 @@ function DownloadFileStreamedBasic(req, res) {
 
                     let readStream = fs.createReadStream(message.zip);
 
+                    readStream.on('data', function (chunk) {
+                        res.write(chunk);
+                    });
+
                     readStream.on('end', () => {
                         res.write('\r\n');
                         res.write(`--uuid:${SNAPSHOT_BOUNDARY}--`);
                         res.end();
                         deleteFile(message.zip);
-                        console.log("DownloadFileStreamedBasic END", reference);
+                        console.log("END readStream");
                     });
 
                     readStream.on('error', function (err) {
@@ -145,11 +158,10 @@ function DownloadFileStreamedBasic(req, res) {
                             // handle error
                         }
                     });
-
-                    readStream.pipe(res);
                 }
 
                 writeResponse();
+                console.log("DownloadFileStreamedBasic END", reference);
             }
         });
     }
@@ -159,17 +171,17 @@ function UploadFileStreamedBasic(req, res) {
 
     const form = new formidable.IncomingForm();
 
+    let path;
     let reference = 'something is wrong!';
-    let fileName = makeid();
-    let path = `${__dirname}/uploads/${fileName}.zip`;
 
     form.onPart = function (part) {
         console.log("Part type", part.mime);
         if (part.mime === 'application/octet-stream') {
+            path = `${__dirname}/uploads/${reference}.zip`;
             console.log("Writing to", path);
             let writeStream = fs.createWriteStream(path, {flags: 'w'});
 
-            writeStream.on('error', function(err) {
+            writeStream.on('error', function (err) {
                 console.log("FILE ERROR", path, err);
             });
 
@@ -179,6 +191,7 @@ function UploadFileStreamedBasic(req, res) {
 
             part.on('end', function () {
                 writeStream.end();
+                console.log("writeStream end");
             });
         } else {
             let xml = '';
@@ -245,6 +258,7 @@ function UploadFileStreamedBasic(req, res) {
     });
 
     form.parse(req);
+    console.log("Real end");
 }
 
 module.exports = {
