@@ -147,6 +147,7 @@ function DownloadFileStreamedBasic(req, res) {
                     readStream.on('end', () => {
                         res.write('\r\n');
                         res.write(`--uuid:${SNAPSHOT_BOUNDARY}--`);
+
                         res.end();
                         deleteFile(message.zip);
                         console.log("END readStream");
@@ -174,25 +175,14 @@ function UploadFileStreamedBasic(req, res) {
     let path;
     let reference = 'something is wrong!';
 
+    form.on('file', function (name, file) {
+        path = file.path;
+    });
+
     form.onPart = function (part) {
         console.log("Part type", part.mime);
         if (part.mime === 'application/octet-stream') {
-            path = `${__dirname}/uploads/${reference}.zip`;
-            console.log("Writing to", path);
-            let writeStream = fs.createWriteStream(path, {flags: 'w'});
-
-            writeStream.on('error', function (err) {
-                console.log("FILE ERROR", path, err);
-            });
-
-            part.on('data', function (data) {
-                writeStream.write(data);
-            });
-
-            part.on('end', function () {
-                writeStream.end();
-                console.log("writeStream end");
-            });
+            form.handlePart(part);
         } else {
             let xml = '';
 
