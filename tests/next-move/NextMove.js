@@ -299,7 +299,7 @@ async function sendAllMessages() {
 function createAttachment() {
     return new Promise((resolve, reject) => {
 
-        let writeStream = fs.createWriteStream(fileName, {flags: 'w'});
+        let writeStream = fs.createWriteStream(path.join(__dirname, fileName), {flags: 'w'});
         writeStream.on('finish', function () {
             resolve();
         });
