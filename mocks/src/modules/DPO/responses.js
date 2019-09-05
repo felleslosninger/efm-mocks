@@ -147,6 +147,7 @@ function DownloadFileStreamedBasic(req, res) {
                     readStream.on('end', () => {
                         res.write('\r\n');
                         res.write(`--uuid:${SNAPSHOT_BOUNDARY}--`);
+
                         res.end();
                         deleteFile(message.zip);
                         console.log("END readStream");
@@ -174,25 +175,13 @@ function UploadFileStreamedBasic(req, res) {
     let path;
     let reference = 'something is wrong!';
 
+    form.on('file', function (name, file) {
+        path = file.path;
+    });
+
     form.onPart = function (part) {
-        console.log("Part type", part.mime);
         if (part.mime === 'application/octet-stream') {
-            path = `${__dirname}/uploads/${reference}.zip`;
-            console.log("Writing to", path);
-            let writeStream = fs.createWriteStream(path, {flags: 'w'});
-
-            writeStream.on('error', function (err) {
-                console.log("FILE ERROR", path, err);
-            });
-
-            part.on('data', function (data) {
-                writeStream.write(data);
-            });
-
-            part.on('end', function () {
-                writeStream.end();
-                console.log("writeStream end");
-            });
+            form.handlePart(part);
         } else {
             let xml = '';
 
@@ -205,7 +194,6 @@ function UploadFileStreamedBasic(req, res) {
 
                 if (regExpMatchArray && regExpMatchArray.length === 2) {
                     reference = regExpMatchArray[1];
-                    console.log("Reference", reference);
                 } else {
                     console.error("Missing Reference!");
                 }
@@ -218,7 +206,6 @@ function UploadFileStreamedBasic(req, res) {
     });
 
     form.on('end', () => {
-        console.log("Sending receipt");
         res.send(`<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.altinn.no/services/ServiceEngine/Broker/2015/06">
                                                    <soapenv:Header/>
                                                    <soapenv:Body>
@@ -254,11 +241,9 @@ function UploadFileStreamedBasic(req, res) {
             receiptId: reference,
             receiver: message.recipient
         });
-        console.log("End");
     });
 
     form.parse(req);
-    console.log("Real end");
 }
 
 module.exports = {
