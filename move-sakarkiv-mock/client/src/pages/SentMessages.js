@@ -110,12 +110,12 @@ export default class SentMessages extends React.Component {
                             data={this.processMessages(this.state.messages)}
                             columns={[
                                 {
-                                    Header: "Receiver org number",
+                                    Header: "Receiver",
                                     accessor: "receiverIdentifier",
                                     filterable:true
                                 },
                                 {
-                                    Header: "Sender org number",
+                                    Header: "Sender",
                                     accessor: "senderIdentifier",
                                     filterable:true
                                 },
@@ -130,11 +130,12 @@ export default class SentMessages extends React.Component {
                                 },
                                 {
                                     Header: "Statuses",
-                                    accessor: "statuses"
+                                    accessor: "statuses",
+                                    minWidth: 300
                                 }
                             ]}
                             defaultPageSize={10}
-                            className=" -highlight"
+                            className="-striped -highlight"
                         />
                     }
 
