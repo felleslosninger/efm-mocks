@@ -133,7 +133,7 @@ export default class IncomingMessages extends React.Component {
                             }
                         ]}
                         defaultPageSize={10}
-                        className=" -highlight"
+                        className="-striped -highlight"
                     />
 
                     <ToastContainer

@@ -10,6 +10,7 @@ const crypto = require('crypto');
 const express = require('express');
 const uuidv1 = require('uuid/v1');
 const bodyParser = require('body-parser');
+const batchSize = 100;
 
 program
     .version('0.1.0')
@@ -47,6 +48,7 @@ let runAll = !program.dpiprint && !program.dpi && !program.dpe && !program.dpo &
 
 
 let app = express();
+let sentCount = 0;
 
 app.use(bodyParser.json({limit: '100mb', extended: true}));
 
@@ -61,7 +63,7 @@ app.post("/incoming", (req, res) => {
 
             if (req.body.status === "SENDT") {
                 delete messages[req.body.messageId];
-                console.log(req.body.messageId + " " + req.body.status + " - Messages left: " + Object.keys(messages).length);
+                console.log(req.body.messageId + " " + req.body.status + " - Messages sent: " + (++sentCount));
             } else {
                 console.log(req.body.messageId + " " + req.body.status);
             }
@@ -179,9 +181,8 @@ async function sendLargeMessage(sbd) {
     })
 }
 
-function getRequests(serviceIdentifier, sbdFunction, ...sbdParameters) {
+function getRequests(requestNum, sbdFunction, ...sbdParameters) {
     let requests = [];
-    let requestNum = serviceIdentifier && serviceIdentifier.length ? parseInt(serviceIdentifier) : 1;
 
     for (let i = 0; i < requestNum; i++) {
         requests.push(sendLargeMessage(sbdFunction(...sbdParameters)))
@@ -221,7 +222,11 @@ async function sendAllMessages() {
 
         if (program.dpo || runAll) {
             try {
-                await sendMessagesForServiceIdentifier("DPO", getRequests(program.dpo, StandardBusinessDocument, 910075918, 910075918, 'arkivmelding', 'arkivmelding', 'administrasjon'));
+                let totalRequests = program.dpo && program.dpo.length ? parseInt(program.dpo) : 1;
+
+                for (let requestsLeft = totalRequests; requestsLeft > 0; requestsLeft -= batchSize) {
+                    await sendMessagesForServiceIdentifier("DPO", getRequests(Math.min(requestsLeft, batchSize), StandardBusinessDocument, 910075918, 910075918, 'arkivmelding', 'arkivmelding', 'administrasjon'));
+                }
             } catch (err) {
                 reject(err);
             }
@@ -229,7 +234,11 @@ async function sendAllMessages() {
 
         if (program.dpv || runAll) {
             try {
-                await sendMessagesForServiceIdentifier("DPV", getRequests(program.dpv, StandardBusinessDocument, 984661185, 910075918, 'arkivmelding', 'arkivmelding', 'helseSosialOgOmsorg'));
+                let totalRequests = program.dpv && program.dpv.length ? parseInt(program.dpv) : 1;
+
+                for (let requestsLeft = totalRequests; requestsLeft > 0; requestsLeft -= batchSize) {
+                    await sendMessagesForServiceIdentifier("DPV", getRequests(Math.min(requestsLeft, batchSize), StandardBusinessDocument, 984661185, 910075918, 'arkivmelding', 'arkivmelding', 'helseSosialOgOmsorg'));
+                }
             } catch (err) {
                 if (webhookId) await removeWebHook(webhookId);
                 reject(err);
@@ -238,7 +247,11 @@ async function sendAllMessages() {
 
         if (program.dpf || runAll) {
             try {
-                await sendMessagesForServiceIdentifier("DPF", getRequests(program.dpf, StandardBusinessDocument, 910075918, 910075918, 'arkivmelding', 'arkivmelding', 'planByggOgGeodata'));
+                let totalRequests = program.dpf && program.dpf.length ? parseInt(program.dpf) : 1;
+
+                for (let requestsLeft = totalRequests; requestsLeft > 0; requestsLeft -= batchSize) {
+                    await sendMessagesForServiceIdentifier("DPF", getRequests(Math.min(requestsLeft, batchSize), StandardBusinessDocument, 910075918, 910075918, 'arkivmelding', 'arkivmelding', 'planByggOgGeodata'));
+                }
             } catch (err) {
                 if (webhookId) await removeWebHook(webhookId);
                 reject(err);
@@ -247,7 +260,11 @@ async function sendAllMessages() {
 
         if (program.dpi || runAll) {
             try {
-                await sendMessagesForServiceIdentifier("DPI", getRequests(program.dpi, dpiSbd, `0192:910075918`, "06068700602", 'digital', 'digital'));
+                let totalRequests = program.dpi && program.dpi.length ? parseInt(program.dpi) : 1;
+
+                for (let requestsLeft = totalRequests; requestsLeft > 0; requestsLeft -= batchSize) {
+                    await sendMessagesForServiceIdentifier("DPI", getRequests(Math.min(requestsLeft, batchSize), dpiSbd, `0192:910075918`, "06068700602", 'digital', 'digital'));
+                }
             } catch (err) {
                 if (webhookId) await removeWebHook(webhookId);
                 reject(err);
@@ -256,7 +273,11 @@ async function sendAllMessages() {
 
         if (program.dpe || runAll) {
             try {
-                await sendMessagesForServiceIdentifier("DPE", getRequests(program.dpe, dpeInnsynSbd, 910075918, 910076787, "innsynskrav"));
+                let totalRequests = program.dpe && program.dpe.length ? parseInt(program.dpe) : 1;
+
+                for (let requestsLeft = totalRequests; requestsLeft > 0; requestsLeft -= batchSize) {
+                    await sendMessagesForServiceIdentifier("DPE", getRequests(Math.min(requestsLeft, batchSize), dpeInnsynSbd, 910075918, 910076787, "innsynskrav"));
+                }
             } catch (err) {
 
                 if (webhookId) await removeWebHook(webhookId);
@@ -266,7 +287,11 @@ async function sendAllMessages() {
 
         if (program.dpejourn || runAll) {
             try {
-                await sendMessagesForServiceIdentifier("DPE Journal", getRequests(program.dpejourn, dpeJournSbd, 910075918, 810074582));
+                let totalRequests = program.dpejourn && program.dpejourn.length ? parseInt(program.dpejourn) : 1;
+
+                for (let requestsLeft = totalRequests; requestsLeft > 0; requestsLeft -= batchSize) {
+                    await sendMessagesForServiceIdentifier("DPE Journal", getRequests(Math.min(requestsLeft, batchSize), dpeJournSbd, 910075918, 810074582));
+                }
             } catch (err) {
                 if (webhookId) await removeWebHook(webhookId);
                 reject(err);
@@ -276,7 +301,11 @@ async function sendAllMessages() {
 
         if (program.dpiprint || runAll) {
             try {
-                await sendMessagesForServiceIdentifier("DPI Print", getRequests(program.dpiprint, dpiSbdFysisk, `0192:910075918`, "06068700602"));
+                let totalRequests = program.dpiprint && program.dpiprint.length ? parseInt(program.dpiprint) : 1;
+
+                for (let requestsLeft = totalRequests; requestsLeft > 0; requestsLeft -= batchSize) {
+                    await sendMessagesForServiceIdentifier("DPI Print", getRequests(Math.min(requestsLeft, batchSize), dpiSbdFysisk, `0192:910075918`, "06068700602"));
+                }
             } catch (err) {
                 if (webhookId) await removeWebHook(webhookId);
                 reject(err);
@@ -285,7 +314,11 @@ async function sendAllMessages() {
 
         if (program.digitaldpv || runAll) {
             try {
-                await sendMessagesForServiceIdentifier("DPI Digital DPV", getRequests(program.digitaldpv, dpiSbdDigitalDpv, `0192:910075918`, "10068700602"));
+                let totalRequests = program.digitaldpv && program.digitaldpv.length ? parseInt(program.digitaldpv) : 1;
+
+                for (let requestsLeft = totalRequests; requestsLeft > 0; requestsLeft -= batchSize) {
+                    await sendMessagesForServiceIdentifier("DPI Digital DPV", getRequests(Math.min(requestsLeft, batchSize), dpiSbdDigitalDpv, `0192:910075918`, "10068700602"));
+                }
             } catch (err) {
                 if (webhookId) await removeWebHook(webhookId);
                 reject(err);
