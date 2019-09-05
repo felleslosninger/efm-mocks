@@ -1,60 +1,6 @@
 // const { statusSbd } = require("./sbd");
 
-const moment = require('moment');
-
-function receiptSBD(senderOrgNum, receiverOrgNum, messageId, conversationId) {
-    return {
-        "sbd" : {
-            "standardBusinessDocumentHeader": {
-                "headerVersion": "1.0",
-                "sender": [
-                    {
-                        "identifier": {
-                            "value": senderOrgNum,
-                            "authority": "iso6523-actorid-upis"
-                        },
-                        "contactInformation": []
-                    }
-                ],
-                "receiver": [
-                    {
-                        "identifier": {
-                            "value": receiverOrgNum,
-                            "authority": "iso6523-actorid-upis"
-                        },
-                        "contactInformation": []
-                    }
-                ],
-                "documentIdentification": {
-                    "standard": "urn:no:difi:eformidling:xsd::status",
-                    "typeVersion": "2.0",
-                    "instanceIdentifier": messageId,
-                    "type": "status",
-                    "creationDateAndTime": new moment()
-                },
-                "businessScope": {
-                    "scope": [
-                        {
-                            "type": "ConversationId",
-                            "instanceIdentifier": conversationId,
-                            "identifier": "urn:no:difi:profile:einnsyn:response:ver1.0",
-                            "scopeInformation": [
-                                {
-                                    "expectedResponseDateTime": new moment().add(2, 'hours')
-                                }
-                            ]
-                        }
-                    ]
-                }
-            },
-            "status": {
-                "status": "MOTTATT"
-            }
-        }
-    }
-};
-
-function recieveFile(req, res){
+function recieveFile(req, res) {
 
     const payload = JSON.parse(req.rawBody);
 
@@ -86,25 +32,13 @@ function recieveFile(req, res){
     let receiverMessages = global.dpeDB.get(receiverOrgnum);
     let senderMessages = global.dpeDB.get(senderOrgnum);
 
-    if (receiverMessages){
+    if (receiverMessages) {
         receiverMessages.push(dbMessage);
     } else {
-        global.dpeDB.set(receiverOrgnum, [ dbMessage ]);
-    }
-
-
-    let statusSbd = {
-        sbd: receiptSBD(senderOrgnum, receiverOrgnum, messageId, convId),
-        convId: convId,
-    };
-
-    if (senderMessages){
-        senderMessages.push(statusSbd);
-    } else {
-        global.dpeDB.set(senderOrgnum, [ statusSbd ]);
+        global.dpeDB.set(receiverOrgnum, [dbMessage]);
     }
 
     res.status(200).send();
 }
 
-module.exports = { recieveFile };
+module.exports = {recieveFile};
