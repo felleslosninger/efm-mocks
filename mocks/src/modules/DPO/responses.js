@@ -180,7 +180,6 @@ function UploadFileStreamedBasic(req, res) {
     });
 
     form.onPart = function (part) {
-        console.log("Part type", part.mime);
         if (part.mime === 'application/octet-stream') {
             form.handlePart(part);
         } else {
@@ -195,7 +194,6 @@ function UploadFileStreamedBasic(req, res) {
 
                 if (regExpMatchArray && regExpMatchArray.length === 2) {
                     reference = regExpMatchArray[1];
-                    console.log("Reference", reference);
                 } else {
                     console.error("Missing Reference!");
                 }
@@ -208,7 +206,6 @@ function UploadFileStreamedBasic(req, res) {
     });
 
     form.on('end', () => {
-        console.log("Sending receipt");
         res.send(`<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.altinn.no/services/ServiceEngine/Broker/2015/06">
                                                    <soapenv:Header/>
                                                    <soapenv:Body>
@@ -244,11 +241,9 @@ function UploadFileStreamedBasic(req, res) {
             receiptId: reference,
             receiver: message.recipient
         });
-        console.log("End");
     });
 
     form.parse(req);
-    console.log("Real end");
 }
 
 module.exports = {
