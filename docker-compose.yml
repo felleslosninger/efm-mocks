@@ -1,7 +1,6 @@
-version: '3.2'
+version: '2'
 services:
   mocks:
-    restart: unless-stopped
     build: ./mocks
     command: npm run start
     environment:
@@ -10,7 +9,6 @@ services:
       - ${MOCK_PORT}:${MOCK_PORT}
 
   sa-mock:
-    restart: unless-stopped
     build: ./move-sakarkiv-mock
     command: npm run start
     environment:
@@ -19,19 +17,16 @@ services:
       - ${SA_MOCK_PORT}:${SA_MOCK_PORT}
 
   wiremock:
-    restart: unless-stopped
     build: ./Wiremock
     ports:
       - ${WIREMOCK_PORT}:${WIREMOCK_PORT}
 
   dpimock:
-    restart: unless-stopped
     build: ./dpimock
     command:  cd ./dpimock && ./mvnw install dockerfile:build
     ports:
       - ${DPI_PORT}:${DPI_PORT}
   ip:
-    restart: unless-stopped
     build: ./ip
     ports:
       - ${IP_PORT}:9093
