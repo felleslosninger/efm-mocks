@@ -48,7 +48,7 @@ const getRawBody = (req, res, next) => {
             chunks.push(chunk);
         });
         req.on('end', function() {
-            req.rawBody = chunks.join();
+            req.rawBody = chunks.join('');
             next();
         });
 };
