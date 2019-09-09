@@ -1,7 +1,7 @@
 const {deleteFile} = require("./modules/helper");
 const {recieveFile} = require("./modules/DPE/responses");
 const {getRawBody} = require('./modules/helper');
-const {PutMessage, retrieveforsendelsestatus} = require("./modules/DPF/soapResponses");
+const {PutMessage, retrieveforsendelsestatus, retreiveforsendelsetyper} = require("./modules/DPF/soapResponses");
 const retrieveForsendelseIdByEksternRefResponse = require("./modules/DPF/retrieveForsendelseIdByEksternRef").retrieveForsendelseIdByEksternRefResponse;
 const {GetAvailableFilesBasic, InitiateBrokerServiceBasic, DownloadFileStreamedBasic, UploadFileStreamedBasic} = require("./modules/DPO/responses");
 const getBasicWSDL = require("./modules/DPO/BasicWsdl").getBasicWSDL;
@@ -92,6 +92,8 @@ const mocks = [
                             retrieveForsendelseIdByEksternRefResponse(req, res, parsed)
                         } else if (parsed.envelope.body["0"].retrieveforsendelsestatus) {
                             retrieveforsendelsestatus(req, res, parsed);
+                        } else if (parsed.envelope.body["0"].retreiveforsendelsetyper) {
+                            retreiveforsendelsetyper(req, res, parsed);
                         }
                     });
                 }

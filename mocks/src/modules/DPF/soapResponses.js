@@ -1,5 +1,19 @@
 const request = require('superagent');
 
+function retreiveforsendelsetyper(req, res, parsed) {
+    res.send(`<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope">
+   <soap:Body>
+      <ns2:retreiveForsendelseTyperResponse xmlns:ns2="http://www.ks.no/svarut/servicesV9">
+         <return>Byggesøknad</return>
+         <return>Geointegrasjon.Matrikkelføring</return>
+         <return>Geointegrasjon.Matrikkelføringsrespons</return>
+         <return>ks.signertforsendelse</return>
+         <return>nav.digisos</return>
+      </ns2:retreiveForsendelseTyperResponse>
+   </soap:Body>
+</soap:Envelope>`);
+}
+
 function retrieveforsendelsestatus(req, res, parsed){
 
     let forsendelsesId = parsed.envelope.body["0"].retrieveforsendelsestatus["0"].forsendelsesid["0"]
@@ -158,4 +172,4 @@ function hentNyeForsendelser(req, res) {
     }));
 }
 
-module.exports = { retrieveforsendelsestatus, sendforsendelsemedid, PutMessage, hentNyeForsendelser, hentForsendelsefil };
+module.exports = { retreiveforsendelsetyper, retrieveforsendelsestatus, sendforsendelsemedid, PutMessage, hentNyeForsendelser, hentForsendelsefil };
