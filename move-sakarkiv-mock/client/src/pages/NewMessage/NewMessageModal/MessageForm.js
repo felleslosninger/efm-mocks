@@ -301,7 +301,7 @@ export default class MessageForm extends React.Component {
                             !this.state.selectedOrg &&
                                 <Form formValidator={formValidator}
                                       onSubmit={this.checkBRR}
-                                      submitButtonText={"Sett avsender"}
+                                      submitButtonText={"Sett mottaker"}
                                       disabled={this.state.isCheckingBR}>
 
                                     {
@@ -348,14 +348,7 @@ export default class MessageForm extends React.Component {
                                           submitButtonText={"Send"}
                                           hideSubmitButton={true}
                                     >
-                                        <TextInput
-                                            formValidator={formValidator2}
-                                            name="reference"
-                                            isRequired={true}
-                                            label="Mottaker referanse *"
-                                            type="text"
-                                            errorMessage="Vennligst angi referanse."
-                                        />
+
                                         <TextInputWithGenerate
                                             formValidator={formValidator2}
                                             name="convId"
