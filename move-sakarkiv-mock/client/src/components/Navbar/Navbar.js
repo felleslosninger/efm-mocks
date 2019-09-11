@@ -70,7 +70,7 @@ export default class Navbar extends React.Component {
 
                         <button className="btn btn-sm btn-primary" style={ { marginRight: '10px' } }onClick={this.toggleNewNextMoveMessage}>New NextMove message</button>
 
-                        <button className="btn btn-sm btn-primary" onClick={this.toggleNewMessage}>New NoArk message</button>
+                        <button className="btn btn-sm btn-primary" onClick={this.toggleNewMessage}>New BestEdu message</button>
 
                         {/*<a className="nav-link" href="#">Sign out</a>*/}
                     </li>
@@ -90,7 +90,7 @@ export default class Navbar extends React.Component {
                 <ReactModal
                     style={modalStyle}
                     isOpen={this.state.showNewMessage}
-                    contentLabel="Noark message"
+                    contentLabel="BestEdu message"
                     onSave={this.showNewMessage}
                 >
                     <MessageForm
