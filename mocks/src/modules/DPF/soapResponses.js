@@ -18,12 +18,6 @@ function retrieveforsendelsestatus(req, res, parsed){
 
     let forsendelsesId = parsed.envelope.body["0"].retrieveforsendelsestatus["0"].forsendelsesid["0"]
 
-    let messages = global.dpfDB.get(forsendelsesId);
-
-    if (messages) {
-        console.log("stop");
-    }
-
     res.send(`<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:ser="http://www.ks.no/svarut/servicesV9">
                            <soap:Header/>
                            <soap:Body>
@@ -33,6 +27,7 @@ function retrieveforsendelsestatus(req, res, parsed){
                               </ser:retrieveForsendelseStatusResponse>
                            </soap:Body>
                         </soap:Envelope>`);
+
 }
 
 function sendforsendelsemedid() {
@@ -89,7 +84,12 @@ function hentForsendelsefil(req, res){
 }
 
 function hentNyeForsendelser(req, res) {
-    res.send([...dpfDB.values()]
+    let username = Buffer.from(req.headers.authorization.split(' ')[1], 'base64').toString().split(':')[0];
+    if (!dpfDB.get(username)) {
+        res.send([]);
+        return;
+    }
+    res.send([...dpfDB.get(username)]
         .reduce((accum, curr) => accum.concat(curr), [])
         .map((value) => {
 
