@@ -49,8 +49,6 @@ function sendForsendelseMedId(req, res, parsed) {
 
     let senderCity =  parsed.envelope.body["0"].sendforsendelsemedid["0"].forsendelse["0"].svarsendestil["0"].postadresse["0"].poststed["0"];
 
-    let messages = global.dpfDB.get(receiverOrgNum);
-
     let logMessages = global.messageLog.get('dpf');
 
     logMessages.push({
@@ -94,8 +92,8 @@ function sendForsendelseMedId(req, res, parsed) {
         };
 
 
-        if (messages){
-            messages.push(file);
+        if (global.dpfDB.get(receiverOrgNum)){
+            global.dpfDB.get(receiverOrgNum).push(file);
         } else {
             global.dpfDB.set(receiverOrgNum, [ file ]);
         }
