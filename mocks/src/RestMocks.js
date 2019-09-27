@@ -56,11 +56,10 @@ const mocks = [
                     if (!messageExists) {
                         res.status(404).send();
                     } else {
-
+                        let username = Buffer.from(req.headers.authorization.split(' ')[1], 'base64').toString().split(':')[0];
+                        let messages = [ ...dpfDB.get(username) ];
                         // Remove the message:
-                        global.dpfDB = new Map(
-                            [...global.dpfDB]
-                                .forEach(([k, v]) => v.filter(item => item.conversationId !== conversationId)));
+                        dpfDB.set(username, messages.filter(item => item.conversationId !== conversationId));
 
                         // Delete the attachements:
                         Promise.all([
