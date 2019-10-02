@@ -79,8 +79,8 @@ const getEduMessage = (file, sender, receiver, conversationId) => {
          <veVariant>A</veVariant>
          <veDokformat>RA-PDF</veDokformat>
          <fil><base64>${file}</base64></fil>
-         <veFilnavn />
-         <veMimeType />
+         <veFilnavn>test.pdf</veFilnavn>
+         <veMimeType>application/pdf</veMimeType>
       </dokument>
    </journpost>
    <noarksak xmlns="">

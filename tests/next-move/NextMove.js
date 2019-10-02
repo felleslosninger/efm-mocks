@@ -364,7 +364,7 @@ createAttachment().then(function () {
             } else {
                 console.log("Messages sent, file deleted");
                 console.log(`Attachment file size was: ${program.filesize}.`);
-                process.exit(0);
+                // process.exit(0);
             }
         })
     }).catch((err) => {
