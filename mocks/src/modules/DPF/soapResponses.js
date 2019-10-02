@@ -67,12 +67,14 @@ function retrieveCertificate(orgNum){
 }
 
 function hentForsendelsefil(req, res){
+    let username = Buffer.from(req.headers.authorization.split(' ')[1], 'base64').toString().split(':')[0];
     res.header("Content-Type", "application/zip; charset=UTF-8");
 
     const childProcess = require('child_process');
     let certPath = `${__dirname}/910075918.cer`;
     let encryptedPath = `${__dirname}/uploads/${res.req.params.forsendelsesId}-encrypted`;
-    let message = [ ...global.dpfDB.values() ][0].find(value => value.conversationId === req.params.forsendelsesId);
+    let messages = [ ...dpfDB.get(username) ];
+    let message = messages.find(value => value.conversationId === req.params.forsendelsesId);
 
     res.header("Content-Disposition", `attachment; filename=\"${message.fileName}\"`);
 
