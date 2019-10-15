@@ -1,13 +1,32 @@
 {
-  "request": {
-    "method": "GET",
-    "urlPathPattern": "/identifier/.*"
-  },
-  "response": {
-    "status": 200,
-    "headers": {
-      "Content-Type": "application/json"
+  "mappings": [
+    {
+      "priority": 1,
+      "request": {
+        "method": "GET",
+        "urlPathPattern": "/identifier/\\d+/process/.*"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "service_records/{{request.requestLine.pathSegments.1}}/{{replace request.requestLine.pathSegments.3 ':' ''}}"
+      }
     },
-    "bodyFileName": "service_records/{{request.requestLine.pathSegments.[1]}}"
-  }
+    {
+      "priority": 2,
+      "request": {
+        "method": "GET",
+        "urlPathPattern": "/identifier/\\d+"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "service_records/{{request.requestLine.pathSegments.[1]}}/{{request.requestLine.pathSegments.[1]}}"
+      }
+    }
+  ]
 }

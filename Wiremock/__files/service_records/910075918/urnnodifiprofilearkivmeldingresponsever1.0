@@ -1,0 +1,56 @@
+{
+    "infoRecord": {
+        "identifier": "910075918",
+        "organizationName": "BIRISTRAND OG TJØTTA",
+        "postadresse": {
+            "adresse": "Postboks 1337",
+            "postnummer": "1337",
+            "poststed": "OSLO",
+            "land": "Norge"
+        },
+        "entityType": {
+            "name": "ORGL"
+        }
+    },
+    "serviceRecords": [
+        {
+            "organisationNumber": "910075918",
+            "pemCertificate": "-----BEGIN CERTIFICATE-----
+                                                              MIID/DCCAuSgAwIBAgIEBg9QTTANBgkqhkiG9w0BAQsFADBeMRIwEAYDVQQKEwlE
+                                                              aWZpIHRlc3QxEjAQBgNVBAUTCTk5MTgyNTgyNzE0MDIGA1UEAxMrRElGSSB0ZXN0
+                                                              IHZpcmtzb21oZXRzc2VydGlmaWF0IGludGVybWVkaWF0ZTAeFw0xOTAyMjYxMzM1
+                                                              MTlaFw0yNDAzMjYxMzM1MTlaMD0xEjAQBgNVBAUTCTkxMDA3NTkxODEnMCUGA1UE
+                                                              AxMeRElGSSB0ZXN0IHZpcmtzb21oZXRzc2VydGlmaWF0MIIBIjANBgkqhkiG9w0B
+                                                              AQEFAAOCAQ8AMIIBCgKCAQEA+Ve5uS3xaeYi9lt2xIaADTLHa+w8LCK2NyTCFxlS
+                                                              RTLLqcK7OWKVtdPK7Fw2Nsr5Nbm33eOiIVgKjMA0EqrGbSPzyhg6Xu0gIfp6rIWm
+                                                              NCgCR8+e9C+kbC8CWAi4h1AzxsHZPldSvc83hXckhy0AC69WlbemI6FODuddACTH
+                                                              gY9zM3GcMjLt+7BZBVuQU3j1guoBfjwKQGwnyAD/F8iwxsXREANO4pzB88EJhs1q
+                                                              S5i5fTnukcFdNhq10Eu03PfAKkuXP+gwwx1eXcdgE6/MHnYddl2eaSgv370V71rj
+                                                              zp9wr3P4qtN6fXNfS4Z6/mfeUy3HFa9jHODaJYZhYTdE1wIDAQABo4HiMIHfMIGL
+                                                              BgNVHSMEgYMwgYCAFC0wPplnLfjHrg8Rj8M6O7BdJ73AoWKkYDBeMRIwEAYDVQQK
+                                                              EwlEaWZpIHRlc3QxEjAQBgNVBAUTCTk5MTgyNTgyNzE0MDIGA1UEAxMrRElGSSB0
+                                                              ZXN0IHZpcmtzb21oZXRzc2VydGlmaWF0IGludGVybWVkaWF0ZYIEK1VFqzAdBgNV
+                                                              HQ4EFgQUwWGBxxyP/BmBxrDJjdc1cJIkekswCQYDVR0TBAIwADAVBgNVHSAEDjAM
+                                                              MAoGCGCEQgEBAQFkMA4GA1UdDwEB/wQEAwIEsDANBgkqhkiG9w0BAQsFAAOCAQEA
+                                                              S137aMAbfUUbdl0Yc8x7vxJSkLM/A+d+dQH8bx+Jdx9ltkvNA5knRWGzX3FPVDhG
+                                                              sEcPel0P8S7JGfejalVj25NfrTBAYTVXoH9WwtqlLyBkjT9xKvDu+h2XsNPEvs0U
+                                                              tsyLPcnaxByxi/vBvPXs1lHq7Bicc1viIXe0DkoEkOqL9NFkWaXcCof/F1+AQ1BJ
+                                                              DuYH+kBHQI0jFvygNT2yaUiMseXu/mEuPSc+2FcKHBaiXj3SXQQwLPWEL2hmNnPJ
+                                                              gz0oBhj7LxbPyVNC4ajNR06l/ffKnesdcC2fWYGk8uXg9euDcxNdQx5XNlNab4x/
+                                                              gm/hPRxo+icjtd2W3Et69w==
+                                                              -----END CERTIFICATE-----",
+            "process": "urn:no:difi:profile:arkivmelding:response:ver1.0",
+            "documentTypes": [
+                "urn:no:difi:arkivmelding:xsd::arkivmelding_kvittering",
+                "urn:no:difi:eformidling:xsd::status",
+                "urn:no:difi:eformidling:xsd::feil"
+            ],
+            "service": {
+                "identifier": "DPO",
+                "endpointUrl": {{#eq "localhost" request.requestLine.host}} "http://localhost:8001/dpo" {{else}} "http://mocks:8001/dpo" {{/eq}},
+                "serviceCode": "4192",
+                "serviceEditionCode": "270815"
+            }
+        }
+      ]
+  }
