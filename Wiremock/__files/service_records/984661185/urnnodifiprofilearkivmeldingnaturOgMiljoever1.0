@@ -1,0 +1,31 @@
+{
+    "infoRecord": {
+        "identifier": "984661185",
+        "organizationName": "Dølemo og Ramberg",
+        "postadresse": {
+            "adresse": "Postboks 1337",
+            "postnummer": "1337",
+            "poststed": "OSLO",
+            "land": "Norge"
+        },
+        "entityType": {
+            "name": "ORGL"
+        }
+    },
+    "serviceRecords": [
+       {
+            "organisationNumber": "984661185",
+            "pemCertificate": null,
+            "process": "urn:no:difi:profile:arkivmelding:naturOgMiljoe:ver1.0",
+            "documentTypes": [
+                "urn:no:difi:arkivmelding:xsd::arkivmelding"
+            ],
+            "service": {
+                "identifier": "DPV",
+                "endpointUrl": {{#eq "localhost" request.requestLine.host}} "http://localhost:8001/dpv" {{else}} "http://mocks:8001/dpv" {{/eq}},
+                "serviceCode": "4255",
+                "serviceEditionCode": "6"
+            }
+        }
+    ]
+}
