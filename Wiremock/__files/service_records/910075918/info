@@ -1,0 +1,15 @@
+{
+    "infoRecord": {
+        "identifier": "910075918",
+        "organizationName": "BIRISTRAND OG TJØTTA",
+        "postadresse": {
+            "adresse": "Postboks 1337",
+            "postnummer": "1337",
+            "poststed": "OSLO",
+            "land": "Norge"
+        },
+        "entityType": {
+            "name": "ORGL"
+        }
+    }
+}
