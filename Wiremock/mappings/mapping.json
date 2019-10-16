@@ -27,6 +27,20 @@
         },
         "bodyFileName": "service_records/{{request.requestLine.pathSegments.[1]}}/{{request.requestLine.pathSegments.[1]}}"
       }
+    },
+    {
+      "priority": 2,
+      "request": {
+        "method": "GET",
+        "urlPathPattern": "/info/\\d+"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "service_records/{{request.requestLine.pathSegments.[1]}}/info"
+      }
     }
   ]
 }
