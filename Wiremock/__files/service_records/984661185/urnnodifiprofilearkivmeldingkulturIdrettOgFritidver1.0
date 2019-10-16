@@ -1,0 +1,55 @@
+{
+    "infoRecord": {
+        "identifier": "984661185",
+        "organizationName": "Dølemo og Ramberg",
+        "postadresse": {
+            "adresse": "Postboks 1337",
+            "postnummer": "1337",
+            "poststed": "OSLO",
+            "land": "Norge"
+        },
+        "entityType": {
+            "name": "ORGL"
+        }
+    },
+    "serviceRecords": [
+        {
+            "organisationNumber": "984661185",
+                 "pemCertificate": "-----BEGIN CERTIFICATE-----
+                                    MIID/DCCAuSgAwIBAgIEW2ArHzANBgkqhkiG9w0BAQsFADBeMRIwEAYDVQQKEwlE
+                                    aWZpIHRlc3QxEjAQBgNVBAUTCTk5MTgyNTgyNzE0MDIGA1UEAxMrRElGSSB0ZXN0
+                                    IHZpcmtzb21oZXRzc2VydGlmaWF0IGludGVybWVkaWF0ZTAeFw0xOTAyMjYxMzM1
+                                    MTlaFw0yNDAzMjYxMzM1MTlaMD0xEjAQBgNVBAUTCTk4NDY2MTE4NTEnMCUGA1UE
+                                    AxMeRElGSSB0ZXN0IHZpcmtzb21oZXRzc2VydGlmaWF0MIIBIjANBgkqhkiG9w0B
+                                    AQEFAAOCAQ8AMIIBCgKCAQEAn4d5no1iNrXEMBDDdSnzeUmtEWZfNpt2Gug+Ly5a
+                                    QqiQFGK8TRlV50szdQawXAk5qcs6Z1tOtml86+Ib8kh0ZHnqZiLoFjPWij1LZGW5
+                                    FwGE0EA9OLPLUBW/YS5pQvqR8EV0IRtpzcZjUgPUXGod4iHdDyTprM1G3Buybf2w
+                                    rbmBGV38GIsxnC32jNhbMUwriv9cSWAozAb1tqXMDCNz94IPzuQMtucG8QMo6r+U
+                                    b2Gnp0k3R6PFpOaDtr/oFEG1WuPwFvx3p8Fyh9Sgkl+9Q6tG0YLftjqJb7WfkeiR
+                                    rVpvFq8rzq6bdin6o+ovz47orP5l7/8tMaJsmxMgyb98vwIDAQABo4HiMIHfMIGL
+                                    BgNVHSMEgYMwgYCAFC0wPplnLfjHrg8Rj8M6O7BdJ73AoWKkYDBeMRIwEAYDVQQK
+                                    EwlEaWZpIHRlc3QxEjAQBgNVBAUTCTk5MTgyNTgyNzE0MDIGA1UEAxMrRElGSSB0
+                                    ZXN0IHZpcmtzb21oZXRzc2VydGlmaWF0IGludGVybWVkaWF0ZYIEK1VFqzAdBgNV
+                                    HQ4EFgQUGOquP0jIpM51Pq9mQh/IeRIdxxIwCQYDVR0TBAIwADAVBgNVHSAEDjAM
+                                    MAoGCGCEQgEBAQFkMA4GA1UdDwEB/wQEAwIEsDANBgkqhkiG9w0BAQsFAAOCAQEA
+                                    RTjNb6VghipslF0nUD/nw5BHRKSkZ0IyorBBfJfKYEYka5+Du9y++39ZVSDRwKoV
+                                    Tzw3G2EPzP+kVvnh4TV+/e8Xvwr6uOQpNhnzijRuoYulx02ev3dqAV0zYOZOma20
+                                    DkRHr5PbNVDlLvRqzEninOiBlSDhO2Ddk3Dt2eC6sA1pRTtAR5atWkl+JlnrIhXA
+                                    My3CZlFaatTaDaM3V2Tch7OLpAqkJhVS9ieuhSlP4ur7Ipio+kT4QaYiK9jEtgCl
+                                    d46Sd/etT0h7Ns1rOZI9DftG+4g/qpvMUM/hwnSVxzZbkEhe1V4LR7U3aXjt85CP
+                                    jq+j1sHM6dj2JAHHufvHWw==
+                                    -----END CERTIFICATE-----",
+            "process": "urn:no:difi:profile:arkivmelding:kulturIdrettOgFritid:ver1.0",
+            "orgnrPostkasse": "9908:987464291",
+            "documentTypes": [
+                "urn:no:difi:digital:xsd::digital"
+            ],
+            "service": {
+                "identifier": "DPI",
+                "endpointUrl": {{#eq "localhost" request.requestLine.host}} "http://localhost:8080/as4" {{else}} "http://dpimocks:8080/as4" {{/eq}},
+                "serviceCode": "4255",
+                "serviceEditionCode": "4"
+            }
+        }  
+    ]
+}
