@@ -29,16 +29,16 @@ function getRequests(ipUrl, iterations, endpoint, file, sender, receiver, messag
 function checkStatuses(convIds, ipUrl) {
 
     Promise.all(convIds.map((convId) => {
-        console.log(`${ipUrl}/conversations/${convId}?useConversationId=true`);
-        return request(`${ipUrl}/conversations/${convId}?useConversationId=true`);
+        console.log(`${ipUrl}/api/conversations?conversationId=${convId}`);
+        return request(`${ipUrl}/api/conversations?conversationId=${convId}`);
     }))
         .then((res) => {
-
+                        
             let statuses = res.map((response) =>
                 response.body.messageStatuses
                     .some((status) => status.status === 'SENDT'));
 
-            // console.log('statuses', statuses);
+             console.log('statuses', statuses);
 
             let allSent = statuses.every(status => status);
 
@@ -55,8 +55,9 @@ function checkStatuses(convIds, ipUrl) {
 
 
 function checkStatuses2(convIds, ipUrl) {
-    request(`${ipUrl}/conversations`)
+    request(`${ipUrl}/api/conversations`)
         .then((res) => {
+            console.log ('body: ', res.body.content);
             let statuses = res.body
                 .filter(message => convIds.indexOf(message.conversationId) > -1)
                 .map((response) =>
@@ -84,14 +85,15 @@ function makeRequests(requests, convIds, ipUrl){
 
     console.log("Sending messages...");
     console.log("\n");
+    
 
     Promise.all(requests)
         .then(res => {
 
             console.log("All messages sent ok.");
             console.log("Checking for sent statuses......");
-            // checkStatuses(convIds, ipUrl);
-            checkStatuses2(convIds, ipUrl);
+            //checkStatuses(convIds, ipUrl);
+            //checkStatuses2(convIds, ipUrl);
         }, err => {
             if (err.timeout) {
                 console.log("TIMEOUT!")

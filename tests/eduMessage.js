@@ -63,9 +63,9 @@ const getEduMessage = (file, sender, receiver, conversationId) => {
          <amAvskdato />
          <amFrist />
          <amForsend>D</amForsend>
-         <amAdmkort>[Ufordelt]</amAdmkort>
+         <amAdmkort></amAdmkort>
          <amAdmbet>Ufordelt/sendt tilbake til arkiv</amAdmbet>
-         <amSbhinit>[Ufordelt]</amSbhinit>
+         <amSbhinit></amSbhinit>
          <amSbhnavn>Ikke fordelt til saksbehandler</amSbhnavn>
          <amAvsavdok />
          <amBesvardok />
@@ -77,7 +77,7 @@ const getEduMessage = (file, sender, receiver, conversationId) => {
          <dbTittel>Test1</dbTittel>
          <dbStatus>F</dbStatus>
          <veVariant>A</veVariant>
-         <veDokformat>RA-PDF</veDokformat>
+         <veDokformat>pdf</veDokformat>
          <fil><base64>${file}</base64></fil>
          <veFilnavn>test.pdf</veFilnavn>
          <veMimeType>application/pdf</veMimeType>
