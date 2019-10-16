@@ -1,6 +1,7 @@
 const uid = require("uid");
 const recursiveKeySearch = require("../helper").recursiveKeySearch;
 const getResponse = require('./DPVresponse');
+const getDpvTestResponse = require('../../test/DPVTestResponse').getDpvTestResponse;
 const cache = require('../../cache');
 const getReceiptResponse = require("../../test/ReceiptResponse").getReceiptResponse;
 const moment = require("moment");
@@ -18,8 +19,10 @@ function receiveDPV(req, res) {
             tagNameProcessors: [ stripPrefix ]
         },
         (err, js) => {
-            if (js.envelope.body["0"].insertcorrespondencev2){
+            if (js.envelope.body["0"].insertcorrespondencev2) {
                 getDPVrequest(req, res, js);
+            } else if (js.envelope.body["0"].test) {
+                getDPVTest(req, res, js);
             } else {
                 getDPVreceipt(req, res, js);
             }
@@ -70,6 +73,11 @@ function getDPVreceipt(req, res, parsedBody) {
     console.log(chalk.blue('POST /dpv SOAP-action: GetCorrespondenceStatusDetailsV2 ') + ' Returning message for receipt ref:' + chalk.yellow(sendersRef));
     res.set('Content-Type', 'application/soap+xml');
     res.send(getReceiptResponse(sendersRef, queItem));
+}
+
+function getDPVTest(req, res, parsedBody) {
+    res.set('Content-Type', 'application/soap+xml');
+    res.send(getDpvTestResponse());
 }
 
 function getSoapAction(body) {
