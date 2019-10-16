@@ -1,0 +1,76 @@
+{
+    "infoRecord": {
+        "identifier": "27127000293",
+        "entityType": {
+            "name": "citizen"
+        }
+    },
+    "serviceRecords": [
+        {
+            "organisationNumber": "27127000293",
+            "pemCertificate": "-----BEGIN CERTIFICATE-----\nMIIE9DCCA9ygAwIBAgILATeICpJlVUsWQIowDQYJKoZIhvcNAQELBQAwUTELMAkGA1UEBhMCTk8xHTAbBgNVBAoMFEJ1eXBhc3MgQVMtOTgzMTYzMzI3MSMwIQYDVQQDDBpCdXlwYXNzIENsYXNzIDMgVGVzdDQgQ0EgMzAeFw0xNzAzMjgwNzA0MzVaFw0yMDAzMjgyMjU5MDBaMFoxCzAJBgNVBAYTAk5PMRgwFgYDVQQKDA9QT1NURU4gTk9SR0UgQVMxHTAbBgNVBAMMFFBPU1RFTiBOT1JHRSBBUyBURVNUMRIwEAYDVQQFEwk5ODQ2NjExODUwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQC5xfhyZbBRB0StkKdZOgbAWJxQdLAhPRZ6DiLNj2BfvXWuwi89f5Gu9N13wVNSkcxC3kVnxxXmVJT+cvxyyOi6y2He+tstA1CS7LYPTKv0Xzk6SmWGWYederMj22L0C4jwDfVIlySB/Y/PLCRDCMewjlwG152GYeslQP4mwC6LjacqgNVvcwJLYAUrMIKzbtrnS+oPb2epLU8O/frQWOoSEufEaSA/rh6jLWfblkoir8No5aDsIhTd9ILMIOIJwDHdo29mGXjpmVQRBGRBLLDhDt0uXkYZIYDg3gRpCbr4vGmUvAy4VNiZLYFhsdkfUazDOzBAn+BIPssqj/Je5cfLAgMBAAGjggHCMIIBvjAJBgNVHRMEAjAAMB8GA1UdIwQYMBaAFD+u9XgLkqNwIDVfWvr3JKBSAfBBMB0GA1UdDgQWBBTlibBg2L61AZXa+GAJtElRDIpANjAOBgNVHQ8BAf8EBAMCBLAwFgYDVR0gBA8wDTALBglghEIBGgEAAwIwgbsGA1UdHwSBszCBsDA3oDWgM4YxaHR0cDovL2NybC50ZXN0NC5idXlwYXNzLm5vL2NybC9CUENsYXNzM1Q0Q0EzLmNybDB1oHOgcYZvbGRhcDovL2xkYXAudGVzdDQuYnV5cGFzcy5uby9kYz1CdXlwYXNzLGRjPU5PLENOPUJ1eXBhc3MlMjBDbGFzcyUyMDMlMjBUZXN0NCUyMENBJTIwMz9jZXJ0aWZpY2F0ZVJldm9jYXRpb25MaXN0MIGKBggrBgEFBQcBAQR+MHwwOwYIKwYBBQUHMAGGL2h0dHA6Ly9vY3NwLnRlc3Q0LmJ1eXBhc3Mubm8vb2NzcC9CUENsYXNzM1Q0Q0EzMD0GCCsGAQUFBzAChjFodHRwOi8vY3J0LnRlc3Q0LmJ1eXBhc3Mubm8vY3J0L0JQQ2xhc3MzVDRDQTMuY2VyMA0GCSqGSIb3DQEBCwUAA4IBAQBeGZyhAOQ0HsTuVIF9r+8E0whlig1N4AufFRGfIJdTu7lulMF6IZ79hDqR4Fe+66/fjeBwCx3M9ulnjOglUcJLTmn9Fp1X/GwDs8HTP0h/uVByFnweSkbF1oDqea+/lmOnULwMaCLG+ibzvd5igG9QRWoc3xQJE0XNajj2SdlKmN8+o3TxhOdLfiDo5BoqF+XffwNtVR/QsLjaCiyM9rJXfetFRwH7aB/Slk9ygICXCdPP/kQz5T9dE5Lzi0bVe2OpiYUD6ZC38W0MDkmvEJv0v5heFxOsvcSfjZP1j8asg4EASiiiWMoQ6UI0kLtd8MJtTJRdQoxhXEiQdaz97AFj\n-----END CERTIFICATE-----\n",
+            "orgnrPostkasse": "984661185",
+            "epostAdresse": "27127000293-test@minid.norge.no",
+            "mobilnummer": "+4799999999",
+            "fysiskPost": true,
+            "kanVarsles": true,
+            "postAddress": {
+                "name": "BRITT FOS DAAE",
+                "street": "ETTERSTAD",
+                "postalCode": "0603",
+                "postalArea": "OSLO",
+                "country": "Norway",
+                "norge": true
+            },
+            "returnAddress": {
+                "name": "DIREKTORATET FOR FORVALTNING OG IKT",
+                "street": "Postboks 1382 Vika",
+                "postalCode": "0114",
+                "postalArea": "OSLO",
+                "country": "Norge",
+                "norge": true
+            },
+            "process": "urn:no:difi:profile:digitalpost:vedtak:ver1.0",
+            "documentTypes": [
+                "urn:no:difi:digitalpost:xsd:fysisk::print"
+            ],
+            "service": {
+                "identifier": "DPI",
+                "endpointUrl": "https://qaoffentlig.meldingsformidler.digipost.no/api/ebms"
+            }
+        },
+        {
+            "organisationNumber": "27127000293",
+            "epostAdresse": "",
+            "mobilnummer": "",
+            "fysiskPost": false,
+            "kanVarsles": false,
+            "postAddress": {
+                "name": "",
+                "street": "",
+                "postalCode": "",
+                "postalArea": "",
+                "country": "",
+                "norge": true
+            },
+            "returnAddress": {
+                "name": "",
+                "street": "",
+                "postalCode": "",
+                "postalArea": "",
+                "country": "",
+                "norge": true
+            },
+            "process": "urn:no:difi:profile:digitalpost:vedtak:ver1.0",
+            "documentTypes": [
+                "urn:no:difi:digitalpost:xsd:digital::digital_dpv"
+            ],
+            "service": {
+                "identifier": "DPV",
+                "endpointUrl": "https://tt02.altinn.no/ServiceEngineExternal/CorrespondenceAgencyExternal.svc",
+                "serviceCode": "4255",
+                "serviceEditionCode": "10"
+            }
+        }
+    ]
+}
