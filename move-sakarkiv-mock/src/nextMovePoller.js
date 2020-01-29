@@ -17,7 +17,7 @@ const INTERVAL = 500;
 
 function poll(){
 
-    process.env.IP_URL = process.env.IP_URL || "http://localhost:9094";
+    process.env.IP_URL = process.env.IP_URL || "http://localhost:9093";
 
     superagent.get(`${process.env.IP_URL}/api/messages/in/peek/`)
         .then((res) => {

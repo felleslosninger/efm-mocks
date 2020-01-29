@@ -1,0 +1,428 @@
+{
+    "infoRecord": {
+        "identifier": "910523902",
+        "organizationName": "SKEI I JØLSTER OG VÅGSEIDET",
+        "postadresse": {
+            "adresse": "Postboks 1337",
+            "postnummer": "1337",
+            "poststed": "OSLO",
+            "land": "Norge"
+        },
+        "entityType": {
+            "name": "ORGL"
+        }
+    },
+    "serviceRecords": [
+        {
+          "organisationNumber": "910523902",
+          "pemCertificate": "-----BEGIN CERTIFICATE-----
+                                                            MIID/DCCAuSgAwIBAgIEJjoVoDANBgkqhkiG9w0BAQsFADBeMRIwEAYDVQQKEwlE
+                                                            aWZpIHRlc3QxEjAQBgNVBAUTCTk5MTgyNTgyNzE0MDIGA1UEAxMrRElGSSB0ZXN0
+                                                            IHZpcmtzb21oZXRzc2VydGlmaWF0IGludGVybWVkaWF0ZTAeFw0xOTAyMjYxMzM1
+                                                            MTlaFw0yNDAzMjYxMzM1MTlaMD0xEjAQBgNVBAUTCTgxMDA3NDU4MjEnMCUGA1UE
+                                                            AxMeRElGSSB0ZXN0IHZpcmtzb21oZXRzc2VydGlmaWF0MIIBIjANBgkqhkiG9w0B
+                                                            AQEFAAOCAQ8AMIIBCgKCAQEAo1DYBqxdaT9ZMOQLmms0Z2MCit3fQqRDotcAZE/m
+                                                            H/SjU4bEgTuUBhwHSlVoEarh+VeYppB5l4EnOFvYV6XD0zgZblsX68uz3389LZs0
+                                                            gAhwYXl0f+y8juAkyleZ5kEMzvAYjAAMpmpHKRUmwUxXdgJ9eyvXY+iUh/RUpDt+
+                                                            P96eMFptzoCyMfY6dQRr/05+vcyey76W0LDUJEextJFU8iRTdq3AS6abidUzMXJj
+                                                            M3+2/f0FWHRC+IjnIg7CNRHO9yLP4iit6XtoH73NjAFl4wxYtFzN4CwT4Nt2Q4xE
+                                                            pMkHzpCURnlYQHgXyN/YsPsOzw0/NAz0xB2A4pmVcI0szQIDAQABo4HiMIHfMIGL
+                                                            BgNVHSMEgYMwgYCAFC0wPplnLfjHrg8Rj8M6O7BdJ73AoWKkYDBeMRIwEAYDVQQK
+                                                            EwlEaWZpIHRlc3QxEjAQBgNVBAUTCTk5MTgyNTgyNzE0MDIGA1UEAxMrRElGSSB0
+                                                            ZXN0IHZpcmtzb21oZXRzc2VydGlmaWF0IGludGVybWVkaWF0ZYIEK1VFqzAdBgNV
+                                                            HQ4EFgQU9c8AJ3MhtflQy/8MQczT0g4RVuAwCQYDVR0TBAIwADAVBgNVHSAEDjAM
+                                                            MAoGCGCEQgEBAQFkMA4GA1UdDwEB/wQEAwIEsDANBgkqhkiG9w0BAQsFAAOCAQEA
+                                                            Y0oqfxf3G3S8V6XHYpetReXye3Q+CHIgfbWBJZlJpT1QOINKK8FGKgs1U/Lxvlxn
+                                                            NFioHMOjvPhYxkWd1dPQmP7NZjwDiaXBl4JExWffae1d9fHdf3Q1Jm+tUecz9a1X
+                                                            x7gIv6sOIdL18beFJ7ZGYxWrSIjkrA9ZlfN0sXJ1ygSjh5lkTLkkxr2VMqI2yZNN
+                                                            kKMv6aM2phvU003na1hBk9fKlF9m4x/fRi+sWwrxXJrgA336nKW31N4IQJhGF1Me
+                                                            ObsvOgJQiw84yX1H/BmuvtMKco3FEo56wnAZcCc9Y8EoAnafJgNZpQ+GSqZuGhsP
+                                                            IwppBPsICAghD+uY54BECg==
+                                                            -----END CERTIFICATE-----",
+          "process": "urn:no:difi:profile:einnsyn:journalpost:ver1.0",
+          "documentTypes": [
+            "urn:no:difi:einnsyn:xsd::publisering"
+          ],
+          "service": {
+            "identifier": "DPE",
+            "endpointUrl": "data",
+            "serviceCode": "4192",
+            "serviceEditionCode": "270815"
+          }
+        },
+        {
+            "organisationNumber": "910523902",
+            "pemCertificate": "-----BEGIN CERTIFICATE-----
+                               MIID/DCCAuSgAwIBAgIEJjoVoDANBgkqhkiG9w0BAQsFADBeMRIwEAYDVQQKEwlE
+                               aWZpIHRlc3QxEjAQBgNVBAUTCTk5MTgyNTgyNzE0MDIGA1UEAxMrRElGSSB0ZXN0
+                               IHZpcmtzb21oZXRzc2VydGlmaWF0IGludGVybWVkaWF0ZTAeFw0xOTAyMjYxMzM1
+                               MTlaFw0yNDAzMjYxMzM1MTlaMD0xEjAQBgNVBAUTCTgxMDA3NDU4MjEnMCUGA1UE
+                               AxMeRElGSSB0ZXN0IHZpcmtzb21oZXRzc2VydGlmaWF0MIIBIjANBgkqhkiG9w0B
+                               AQEFAAOCAQ8AMIIBCgKCAQEAo1DYBqxdaT9ZMOQLmms0Z2MCit3fQqRDotcAZE/m
+                               H/SjU4bEgTuUBhwHSlVoEarh+VeYppB5l4EnOFvYV6XD0zgZblsX68uz3389LZs0
+                               gAhwYXl0f+y8juAkyleZ5kEMzvAYjAAMpmpHKRUmwUxXdgJ9eyvXY+iUh/RUpDt+
+                               P96eMFptzoCyMfY6dQRr/05+vcyey76W0LDUJEextJFU8iRTdq3AS6abidUzMXJj
+                               M3+2/f0FWHRC+IjnIg7CNRHO9yLP4iit6XtoH73NjAFl4wxYtFzN4CwT4Nt2Q4xE
+                               pMkHzpCURnlYQHgXyN/YsPsOzw0/NAz0xB2A4pmVcI0szQIDAQABo4HiMIHfMIGL
+                               BgNVHSMEgYMwgYCAFC0wPplnLfjHrg8Rj8M6O7BdJ73AoWKkYDBeMRIwEAYDVQQK
+                               EwlEaWZpIHRlc3QxEjAQBgNVBAUTCTk5MTgyNTgyNzE0MDIGA1UEAxMrRElGSSB0
+                               ZXN0IHZpcmtzb21oZXRzc2VydGlmaWF0IGludGVybWVkaWF0ZYIEK1VFqzAdBgNV
+                               HQ4EFgQU9c8AJ3MhtflQy/8MQczT0g4RVuAwCQYDVR0TBAIwADAVBgNVHSAEDjAM
+                               MAoGCGCEQgEBAQFkMA4GA1UdDwEB/wQEAwIEsDANBgkqhkiG9w0BAQsFAAOCAQEA
+                               Y0oqfxf3G3S8V6XHYpetReXye3Q+CHIgfbWBJZlJpT1QOINKK8FGKgs1U/Lxvlxn
+                               NFioHMOjvPhYxkWd1dPQmP7NZjwDiaXBl4JExWffae1d9fHdf3Q1Jm+tUecz9a1X
+                               x7gIv6sOIdL18beFJ7ZGYxWrSIjkrA9ZlfN0sXJ1ygSjh5lkTLkkxr2VMqI2yZNN
+                               kKMv6aM2phvU003na1hBk9fKlF9m4x/fRi+sWwrxXJrgA336nKW31N4IQJhGF1Me
+                               ObsvOgJQiw84yX1H/BmuvtMKco3FEo56wnAZcCc9Y8EoAnafJgNZpQ+GSqZuGhsP
+                               IwppBPsICAghD+uY54BECg==
+                               -----END CERTIFICATE-----",
+            "process": "urn:no:difi:profile:arkivmelding:administrasjon:ver1.0",
+            "documentTypes": [
+                "urn:no:difi:arkivmelding:xsd::arkivmelding"
+            ],
+            "service": {
+                "identifier": "DPO",
+                "endpointUrl": {{#eq "localhost" request.requestLine.host}} "http://localhost:8001/dpo" {{else}} "http://mocks:8001/dpo" {{/eq}},
+                "serviceCode": "4192",
+                "serviceEditionCode": "270815"
+            }
+        },
+        {
+            "organisationNumber": "910523902",
+            "pemCertificate": "-----BEGIN CERTIFICATE-----
+                               MIID/DCCAuSgAwIBAgIEJjoVoDANBgkqhkiG9w0BAQsFADBeMRIwEAYDVQQKEwlE
+                               aWZpIHRlc3QxEjAQBgNVBAUTCTk5MTgyNTgyNzE0MDIGA1UEAxMrRElGSSB0ZXN0
+                               IHZpcmtzb21oZXRzc2VydGlmaWF0IGludGVybWVkaWF0ZTAeFw0xOTAyMjYxMzM1
+                               MTlaFw0yNDAzMjYxMzM1MTlaMD0xEjAQBgNVBAUTCTgxMDA3NDU4MjEnMCUGA1UE
+                               AxMeRElGSSB0ZXN0IHZpcmtzb21oZXRzc2VydGlmaWF0MIIBIjANBgkqhkiG9w0B
+                               AQEFAAOCAQ8AMIIBCgKCAQEAo1DYBqxdaT9ZMOQLmms0Z2MCit3fQqRDotcAZE/m
+                               H/SjU4bEgTuUBhwHSlVoEarh+VeYppB5l4EnOFvYV6XD0zgZblsX68uz3389LZs0
+                               gAhwYXl0f+y8juAkyleZ5kEMzvAYjAAMpmpHKRUmwUxXdgJ9eyvXY+iUh/RUpDt+
+                               P96eMFptzoCyMfY6dQRr/05+vcyey76W0LDUJEextJFU8iRTdq3AS6abidUzMXJj
+                               M3+2/f0FWHRC+IjnIg7CNRHO9yLP4iit6XtoH73NjAFl4wxYtFzN4CwT4Nt2Q4xE
+                               pMkHzpCURnlYQHgXyN/YsPsOzw0/NAz0xB2A4pmVcI0szQIDAQABo4HiMIHfMIGL
+                               BgNVHSMEgYMwgYCAFC0wPplnLfjHrg8Rj8M6O7BdJ73AoWKkYDBeMRIwEAYDVQQK
+                               EwlEaWZpIHRlc3QxEjAQBgNVBAUTCTk5MTgyNTgyNzE0MDIGA1UEAxMrRElGSSB0
+                               ZXN0IHZpcmtzb21oZXRzc2VydGlmaWF0IGludGVybWVkaWF0ZYIEK1VFqzAdBgNV
+                               HQ4EFgQU9c8AJ3MhtflQy/8MQczT0g4RVuAwCQYDVR0TBAIwADAVBgNVHSAEDjAM
+                               MAoGCGCEQgEBAQFkMA4GA1UdDwEB/wQEAwIEsDANBgkqhkiG9w0BAQsFAAOCAQEA
+                               Y0oqfxf3G3S8V6XHYpetReXye3Q+CHIgfbWBJZlJpT1QOINKK8FGKgs1U/Lxvlxn
+                               NFioHMOjvPhYxkWd1dPQmP7NZjwDiaXBl4JExWffae1d9fHdf3Q1Jm+tUecz9a1X
+                               x7gIv6sOIdL18beFJ7ZGYxWrSIjkrA9ZlfN0sXJ1ygSjh5lkTLkkxr2VMqI2yZNN
+                               kKMv6aM2phvU003na1hBk9fKlF9m4x/fRi+sWwrxXJrgA336nKW31N4IQJhGF1Me
+                               ObsvOgJQiw84yX1H/BmuvtMKco3FEo56wnAZcCc9Y8EoAnafJgNZpQ+GSqZuGhsP
+                               IwppBPsICAghD+uY54BECg==
+                               -----END CERTIFICATE-----",
+            "process": "urn:no:difi:profile:arkivmelding:helseSosialOgOmsorg:ver1.0",
+            "documentTypes": [
+                "urn:no:difi:arkivmelding:xsd::arkivmelding"
+            ],
+            "service": {
+                "identifier": "DPV",
+                "endpointUrl": {{#eq "localhost" request.requestLine.host}} "http://localhost:8001/dpv" {{else}} "http://mocks:8001/dpv" {{/eq}},
+                "serviceCode": "4255",
+                "serviceEditionCode": "2"
+            }
+        },
+        {
+            "organisationNumber": "910523902",
+            "pemCertificate": "-----BEGIN CERTIFICATE-----
+                               MIID/DCCAuSgAwIBAgIEJjoVoDANBgkqhkiG9w0BAQsFADBeMRIwEAYDVQQKEwlE
+                               aWZpIHRlc3QxEjAQBgNVBAUTCTk5MTgyNTgyNzE0MDIGA1UEAxMrRElGSSB0ZXN0
+                               IHZpcmtzb21oZXRzc2VydGlmaWF0IGludGVybWVkaWF0ZTAeFw0xOTAyMjYxMzM1
+                               MTlaFw0yNDAzMjYxMzM1MTlaMD0xEjAQBgNVBAUTCTgxMDA3NDU4MjEnMCUGA1UE
+                               AxMeRElGSSB0ZXN0IHZpcmtzb21oZXRzc2VydGlmaWF0MIIBIjANBgkqhkiG9w0B
+                               AQEFAAOCAQ8AMIIBCgKCAQEAo1DYBqxdaT9ZMOQLmms0Z2MCit3fQqRDotcAZE/m
+                               H/SjU4bEgTuUBhwHSlVoEarh+VeYppB5l4EnOFvYV6XD0zgZblsX68uz3389LZs0
+                               gAhwYXl0f+y8juAkyleZ5kEMzvAYjAAMpmpHKRUmwUxXdgJ9eyvXY+iUh/RUpDt+
+                               P96eMFptzoCyMfY6dQRr/05+vcyey76W0LDUJEextJFU8iRTdq3AS6abidUzMXJj
+                               M3+2/f0FWHRC+IjnIg7CNRHO9yLP4iit6XtoH73NjAFl4wxYtFzN4CwT4Nt2Q4xE
+                               pMkHzpCURnlYQHgXyN/YsPsOzw0/NAz0xB2A4pmVcI0szQIDAQABo4HiMIHfMIGL
+                               BgNVHSMEgYMwgYCAFC0wPplnLfjHrg8Rj8M6O7BdJ73AoWKkYDBeMRIwEAYDVQQK
+                               EwlEaWZpIHRlc3QxEjAQBgNVBAUTCTk5MTgyNTgyNzE0MDIGA1UEAxMrRElGSSB0
+                               ZXN0IHZpcmtzb21oZXRzc2VydGlmaWF0IGludGVybWVkaWF0ZYIEK1VFqzAdBgNV
+                               HQ4EFgQU9c8AJ3MhtflQy/8MQczT0g4RVuAwCQYDVR0TBAIwADAVBgNVHSAEDjAM
+                               MAoGCGCEQgEBAQFkMA4GA1UdDwEB/wQEAwIEsDANBgkqhkiG9w0BAQsFAAOCAQEA
+                               Y0oqfxf3G3S8V6XHYpetReXye3Q+CHIgfbWBJZlJpT1QOINKK8FGKgs1U/Lxvlxn
+                               NFioHMOjvPhYxkWd1dPQmP7NZjwDiaXBl4JExWffae1d9fHdf3Q1Jm+tUecz9a1X
+                               x7gIv6sOIdL18beFJ7ZGYxWrSIjkrA9ZlfN0sXJ1ygSjh5lkTLkkxr2VMqI2yZNN
+                               kKMv6aM2phvU003na1hBk9fKlF9m4x/fRi+sWwrxXJrgA336nKW31N4IQJhGF1Me
+                               ObsvOgJQiw84yX1H/BmuvtMKco3FEo56wnAZcCc9Y8EoAnafJgNZpQ+GSqZuGhsP
+                               IwppBPsICAghD+uY54BECg==
+                               -----END CERTIFICATE-----",
+            "process": "urn:no:difi:profile:arkivmelding:planByggOgGeodata:ver1.0",
+            "documentTypes": [
+                "urn:no:difi:arkivmelding:xsd::arkivmelding"
+            ],
+            "service": {
+                "identifier": "DPF",
+                "endpointUrl": {{#eq "localhost" request.requestLine.host}} "http://localhost:8001/dpf" {{else}} "http://mocks:8001/dpf" {{/eq}},
+                "serviceCode": "4255",
+                "serviceEditionCode": "1"
+            }
+        },
+        {
+            "organisationNumber": "910523902",
+            "pemCertificate": "-----BEGIN CERTIFICATE-----
+                               MIID/DCCAuSgAwIBAgIEJjoVoDANBgkqhkiG9w0BAQsFADBeMRIwEAYDVQQKEwlE
+                               aWZpIHRlc3QxEjAQBgNVBAUTCTk5MTgyNTgyNzE0MDIGA1UEAxMrRElGSSB0ZXN0
+                               IHZpcmtzb21oZXRzc2VydGlmaWF0IGludGVybWVkaWF0ZTAeFw0xOTAyMjYxMzM1
+                               MTlaFw0yNDAzMjYxMzM1MTlaMD0xEjAQBgNVBAUTCTgxMDA3NDU4MjEnMCUGA1UE
+                               AxMeRElGSSB0ZXN0IHZpcmtzb21oZXRzc2VydGlmaWF0MIIBIjANBgkqhkiG9w0B
+                               AQEFAAOCAQ8AMIIBCgKCAQEAo1DYBqxdaT9ZMOQLmms0Z2MCit3fQqRDotcAZE/m
+                               H/SjU4bEgTuUBhwHSlVoEarh+VeYppB5l4EnOFvYV6XD0zgZblsX68uz3389LZs0
+                               gAhwYXl0f+y8juAkyleZ5kEMzvAYjAAMpmpHKRUmwUxXdgJ9eyvXY+iUh/RUpDt+
+                               P96eMFptzoCyMfY6dQRr/05+vcyey76W0LDUJEextJFU8iRTdq3AS6abidUzMXJj
+                               M3+2/f0FWHRC+IjnIg7CNRHO9yLP4iit6XtoH73NjAFl4wxYtFzN4CwT4Nt2Q4xE
+                               pMkHzpCURnlYQHgXyN/YsPsOzw0/NAz0xB2A4pmVcI0szQIDAQABo4HiMIHfMIGL
+                               BgNVHSMEgYMwgYCAFC0wPplnLfjHrg8Rj8M6O7BdJ73AoWKkYDBeMRIwEAYDVQQK
+                               EwlEaWZpIHRlc3QxEjAQBgNVBAUTCTk5MTgyNTgyNzE0MDIGA1UEAxMrRElGSSB0
+                               ZXN0IHZpcmtzb21oZXRzc2VydGlmaWF0IGludGVybWVkaWF0ZYIEK1VFqzAdBgNV
+                               HQ4EFgQU9c8AJ3MhtflQy/8MQczT0g4RVuAwCQYDVR0TBAIwADAVBgNVHSAEDjAM
+                               MAoGCGCEQgEBAQFkMA4GA1UdDwEB/wQEAwIEsDANBgkqhkiG9w0BAQsFAAOCAQEA
+                               Y0oqfxf3G3S8V6XHYpetReXye3Q+CHIgfbWBJZlJpT1QOINKK8FGKgs1U/Lxvlxn
+                               NFioHMOjvPhYxkWd1dPQmP7NZjwDiaXBl4JExWffae1d9fHdf3Q1Jm+tUecz9a1X
+                               x7gIv6sOIdL18beFJ7ZGYxWrSIjkrA9ZlfN0sXJ1ygSjh5lkTLkkxr2VMqI2yZNN
+                               kKMv6aM2phvU003na1hBk9fKlF9m4x/fRi+sWwrxXJrgA336nKW31N4IQJhGF1Me
+                               ObsvOgJQiw84yX1H/BmuvtMKco3FEo56wnAZcCc9Y8EoAnafJgNZpQ+GSqZuGhsP
+                               IwppBPsICAghD+uY54BECg==
+                               -----END CERTIFICATE-----",
+            "process": "urn:no:difi:profile:arkivmelding:trafikkReiserOgSamferdsel:ver1.0",
+            "documentTypes": [
+                "urn:no:difi:arkivmelding:xsd::arkivmelding"
+            ],
+            "service": {
+                "identifier": "DPV",
+                "endpointUrl": {{#eq "localhost" request.requestLine.host}} "http://localhost:8001/dpv" {{else}} "http://mocks:8001/dpv" {{/eq}},
+                "serviceCode": "4255",
+                "serviceEditionCode": "5"
+            }
+        },
+        {
+            "organisationNumber": "910523902",
+            "pemCertificate": "-----BEGIN CERTIFICATE-----
+                               MIID/DCCAuSgAwIBAgIEJjoVoDANBgkqhkiG9w0BAQsFADBeMRIwEAYDVQQKEwlE
+                               aWZpIHRlc3QxEjAQBgNVBAUTCTk5MTgyNTgyNzE0MDIGA1UEAxMrRElGSSB0ZXN0
+                               IHZpcmtzb21oZXRzc2VydGlmaWF0IGludGVybWVkaWF0ZTAeFw0xOTAyMjYxMzM1
+                               MTlaFw0yNDAzMjYxMzM1MTlaMD0xEjAQBgNVBAUTCTgxMDA3NDU4MjEnMCUGA1UE
+                               AxMeRElGSSB0ZXN0IHZpcmtzb21oZXRzc2VydGlmaWF0MIIBIjANBgkqhkiG9w0B
+                               AQEFAAOCAQ8AMIIBCgKCAQEAo1DYBqxdaT9ZMOQLmms0Z2MCit3fQqRDotcAZE/m
+                               H/SjU4bEgTuUBhwHSlVoEarh+VeYppB5l4EnOFvYV6XD0zgZblsX68uz3389LZs0
+                               gAhwYXl0f+y8juAkyleZ5kEMzvAYjAAMpmpHKRUmwUxXdgJ9eyvXY+iUh/RUpDt+
+                               P96eMFptzoCyMfY6dQRr/05+vcyey76W0LDUJEextJFU8iRTdq3AS6abidUzMXJj
+                               M3+2/f0FWHRC+IjnIg7CNRHO9yLP4iit6XtoH73NjAFl4wxYtFzN4CwT4Nt2Q4xE
+                               pMkHzpCURnlYQHgXyN/YsPsOzw0/NAz0xB2A4pmVcI0szQIDAQABo4HiMIHfMIGL
+                               BgNVHSMEgYMwgYCAFC0wPplnLfjHrg8Rj8M6O7BdJ73AoWKkYDBeMRIwEAYDVQQK
+                               EwlEaWZpIHRlc3QxEjAQBgNVBAUTCTk5MTgyNTgyNzE0MDIGA1UEAxMrRElGSSB0
+                               ZXN0IHZpcmtzb21oZXRzc2VydGlmaWF0IGludGVybWVkaWF0ZYIEK1VFqzAdBgNV
+                               HQ4EFgQU9c8AJ3MhtflQy/8MQczT0g4RVuAwCQYDVR0TBAIwADAVBgNVHSAEDjAM
+                               MAoGCGCEQgEBAQFkMA4GA1UdDwEB/wQEAwIEsDANBgkqhkiG9w0BAQsFAAOCAQEA
+                               Y0oqfxf3G3S8V6XHYpetReXye3Q+CHIgfbWBJZlJpT1QOINKK8FGKgs1U/Lxvlxn
+                               NFioHMOjvPhYxkWd1dPQmP7NZjwDiaXBl4JExWffae1d9fHdf3Q1Jm+tUecz9a1X
+                               x7gIv6sOIdL18beFJ7ZGYxWrSIjkrA9ZlfN0sXJ1ygSjh5lkTLkkxr2VMqI2yZNN
+                               kKMv6aM2phvU003na1hBk9fKlF9m4x/fRi+sWwrxXJrgA336nKW31N4IQJhGF1Me
+                               ObsvOgJQiw84yX1H/BmuvtMKco3FEo56wnAZcCc9Y8EoAnafJgNZpQ+GSqZuGhsP
+                               IwppBPsICAghD+uY54BECg==
+                               -----END CERTIFICATE-----",
+            "process": "urn:no:difi:profile:arkivmelding:naturOgMiljoe:ver1.0",
+            "documentTypes": [
+                "urn:no:difi:arkivmelding:xsd::arkivmelding"
+            ],
+            "service": {
+                "identifier": "DPV",
+                "endpointUrl": {{#eq "localhost" request.requestLine.host}} "http://localhost:8001/dpv" {{else}} "http://mocks:8001/dpv" {{/eq}},
+                "serviceCode": "4255",
+                "serviceEditionCode": "6"
+            }
+        },
+        {
+            "organisationNumber": "910523902",
+            "pemCertificate": "-----BEGIN CERTIFICATE-----
+                               MIID/DCCAuSgAwIBAgIEJjoVoDANBgkqhkiG9w0BAQsFADBeMRIwEAYDVQQKEwlE
+                               aWZpIHRlc3QxEjAQBgNVBAUTCTk5MTgyNTgyNzE0MDIGA1UEAxMrRElGSSB0ZXN0
+                               IHZpcmtzb21oZXRzc2VydGlmaWF0IGludGVybWVkaWF0ZTAeFw0xOTAyMjYxMzM1
+                               MTlaFw0yNDAzMjYxMzM1MTlaMD0xEjAQBgNVBAUTCTgxMDA3NDU4MjEnMCUGA1UE
+                               AxMeRElGSSB0ZXN0IHZpcmtzb21oZXRzc2VydGlmaWF0MIIBIjANBgkqhkiG9w0B
+                               AQEFAAOCAQ8AMIIBCgKCAQEAo1DYBqxdaT9ZMOQLmms0Z2MCit3fQqRDotcAZE/m
+                               H/SjU4bEgTuUBhwHSlVoEarh+VeYppB5l4EnOFvYV6XD0zgZblsX68uz3389LZs0
+                               gAhwYXl0f+y8juAkyleZ5kEMzvAYjAAMpmpHKRUmwUxXdgJ9eyvXY+iUh/RUpDt+
+                               P96eMFptzoCyMfY6dQRr/05+vcyey76W0LDUJEextJFU8iRTdq3AS6abidUzMXJj
+                               M3+2/f0FWHRC+IjnIg7CNRHO9yLP4iit6XtoH73NjAFl4wxYtFzN4CwT4Nt2Q4xE
+                               pMkHzpCURnlYQHgXyN/YsPsOzw0/NAz0xB2A4pmVcI0szQIDAQABo4HiMIHfMIGL
+                               BgNVHSMEgYMwgYCAFC0wPplnLfjHrg8Rj8M6O7BdJ73AoWKkYDBeMRIwEAYDVQQK
+                               EwlEaWZpIHRlc3QxEjAQBgNVBAUTCTk5MTgyNTgyNzE0MDIGA1UEAxMrRElGSSB0
+                               ZXN0IHZpcmtzb21oZXRzc2VydGlmaWF0IGludGVybWVkaWF0ZYIEK1VFqzAdBgNV
+                               HQ4EFgQU9c8AJ3MhtflQy/8MQczT0g4RVuAwCQYDVR0TBAIwADAVBgNVHSAEDjAM
+                               MAoGCGCEQgEBAQFkMA4GA1UdDwEB/wQEAwIEsDANBgkqhkiG9w0BAQsFAAOCAQEA
+                               Y0oqfxf3G3S8V6XHYpetReXye3Q+CHIgfbWBJZlJpT1QOINKK8FGKgs1U/Lxvlxn
+                               NFioHMOjvPhYxkWd1dPQmP7NZjwDiaXBl4JExWffae1d9fHdf3Q1Jm+tUecz9a1X
+                               x7gIv6sOIdL18beFJ7ZGYxWrSIjkrA9ZlfN0sXJ1ygSjh5lkTLkkxr2VMqI2yZNN
+                               kKMv6aM2phvU003na1hBk9fKlF9m4x/fRi+sWwrxXJrgA336nKW31N4IQJhGF1Me
+                               ObsvOgJQiw84yX1H/BmuvtMKco3FEo56wnAZcCc9Y8EoAnafJgNZpQ+GSqZuGhsP
+                               IwppBPsICAghD+uY54BECg==
+                               -----END CERTIFICATE-----",
+            "process": "urn:no:difi:profile:arkivmelding:naeringsutvikling:ver1.0",
+            "documentTypes": [
+                "urn:no:difi:arkivmelding:xsd::arkivmelding"
+            ],
+            "service": {
+                "identifier": "DPV",
+                "endpointUrl": {{#eq "localhost" request.requestLine.host}} "http://localhost:8001/dpv" {{else}} "http://mocks:8001/dpv" {{/eq}},
+                "serviceCode": "4255",
+                "serviceEditionCode": "7"
+            }
+        },
+        {
+            "organisationNumber": "910523902",
+            "pemCertificate": "-----BEGIN CERTIFICATE-----
+                               MIID/DCCAuSgAwIBAgIEJjoVoDANBgkqhkiG9w0BAQsFADBeMRIwEAYDVQQKEwlE
+                               aWZpIHRlc3QxEjAQBgNVBAUTCTk5MTgyNTgyNzE0MDIGA1UEAxMrRElGSSB0ZXN0
+                               IHZpcmtzb21oZXRzc2VydGlmaWF0IGludGVybWVkaWF0ZTAeFw0xOTAyMjYxMzM1
+                               MTlaFw0yNDAzMjYxMzM1MTlaMD0xEjAQBgNVBAUTCTgxMDA3NDU4MjEnMCUGA1UE
+                               AxMeRElGSSB0ZXN0IHZpcmtzb21oZXRzc2VydGlmaWF0MIIBIjANBgkqhkiG9w0B
+                               AQEFAAOCAQ8AMIIBCgKCAQEAo1DYBqxdaT9ZMOQLmms0Z2MCit3fQqRDotcAZE/m
+                               H/SjU4bEgTuUBhwHSlVoEarh+VeYppB5l4EnOFvYV6XD0zgZblsX68uz3389LZs0
+                               gAhwYXl0f+y8juAkyleZ5kEMzvAYjAAMpmpHKRUmwUxXdgJ9eyvXY+iUh/RUpDt+
+                               P96eMFptzoCyMfY6dQRr/05+vcyey76W0LDUJEextJFU8iRTdq3AS6abidUzMXJj
+                               M3+2/f0FWHRC+IjnIg7CNRHO9yLP4iit6XtoH73NjAFl4wxYtFzN4CwT4Nt2Q4xE
+                               pMkHzpCURnlYQHgXyN/YsPsOzw0/NAz0xB2A4pmVcI0szQIDAQABo4HiMIHfMIGL
+                               BgNVHSMEgYMwgYCAFC0wPplnLfjHrg8Rj8M6O7BdJ73AoWKkYDBeMRIwEAYDVQQK
+                               EwlEaWZpIHRlc3QxEjAQBgNVBAUTCTk5MTgyNTgyNzE0MDIGA1UEAxMrRElGSSB0
+                               ZXN0IHZpcmtzb21oZXRzc2VydGlmaWF0IGludGVybWVkaWF0ZYIEK1VFqzAdBgNV
+                               HQ4EFgQU9c8AJ3MhtflQy/8MQczT0g4RVuAwCQYDVR0TBAIwADAVBgNVHSAEDjAM
+                               MAoGCGCEQgEBAQFkMA4GA1UdDwEB/wQEAwIEsDANBgkqhkiG9w0BAQsFAAOCAQEA
+                               Y0oqfxf3G3S8V6XHYpetReXye3Q+CHIgfbWBJZlJpT1QOINKK8FGKgs1U/Lxvlxn
+                               NFioHMOjvPhYxkWd1dPQmP7NZjwDiaXBl4JExWffae1d9fHdf3Q1Jm+tUecz9a1X
+                               x7gIv6sOIdL18beFJ7ZGYxWrSIjkrA9ZlfN0sXJ1ygSjh5lkTLkkxr2VMqI2yZNN
+                               kKMv6aM2phvU003na1hBk9fKlF9m4x/fRi+sWwrxXJrgA336nKW31N4IQJhGF1Me
+                               ObsvOgJQiw84yX1H/BmuvtMKco3FEo56wnAZcCc9Y8EoAnafJgNZpQ+GSqZuGhsP
+                               IwppBPsICAghD+uY54BECg==
+                               -----END CERTIFICATE-----",
+            "process": "urn:no:difi:profile:arkivmelding:skatterOgAvgifter:ver1.0",
+            "documentTypes": [
+                "urn:no:difi:arkivmelding:xsd::arkivmelding"
+            ],
+            "service": {
+                "identifier": "DPV",
+                "endpointUrl": {{#eq "localhost" request.requestLine.host}} "http://localhost:8001/dpv" {{else}} "http://mocks:8001/dpv" {{/eq}},
+                "serviceCode": "4255",
+                "serviceEditionCode": "8"
+            }
+        },
+        {
+            "organisationNumber": "910523902",
+            "pemCertificate": "-----BEGIN CERTIFICATE-----
+                               MIID/DCCAuSgAwIBAgIEJjoVoDANBgkqhkiG9w0BAQsFADBeMRIwEAYDVQQKEwlE
+                               aWZpIHRlc3QxEjAQBgNVBAUTCTk5MTgyNTgyNzE0MDIGA1UEAxMrRElGSSB0ZXN0
+                               IHZpcmtzb21oZXRzc2VydGlmaWF0IGludGVybWVkaWF0ZTAeFw0xOTAyMjYxMzM1
+                               MTlaFw0yNDAzMjYxMzM1MTlaMD0xEjAQBgNVBAUTCTgxMDA3NDU4MjEnMCUGA1UE
+                               AxMeRElGSSB0ZXN0IHZpcmtzb21oZXRzc2VydGlmaWF0MIIBIjANBgkqhkiG9w0B
+                               AQEFAAOCAQ8AMIIBCgKCAQEAo1DYBqxdaT9ZMOQLmms0Z2MCit3fQqRDotcAZE/m
+                               H/SjU4bEgTuUBhwHSlVoEarh+VeYppB5l4EnOFvYV6XD0zgZblsX68uz3389LZs0
+                               gAhwYXl0f+y8juAkyleZ5kEMzvAYjAAMpmpHKRUmwUxXdgJ9eyvXY+iUh/RUpDt+
+                               P96eMFptzoCyMfY6dQRr/05+vcyey76W0LDUJEextJFU8iRTdq3AS6abidUzMXJj
+                               M3+2/f0FWHRC+IjnIg7CNRHO9yLP4iit6XtoH73NjAFl4wxYtFzN4CwT4Nt2Q4xE
+                               pMkHzpCURnlYQHgXyN/YsPsOzw0/NAz0xB2A4pmVcI0szQIDAQABo4HiMIHfMIGL
+                               BgNVHSMEgYMwgYCAFC0wPplnLfjHrg8Rj8M6O7BdJ73AoWKkYDBeMRIwEAYDVQQK
+                               EwlEaWZpIHRlc3QxEjAQBgNVBAUTCTk5MTgyNTgyNzE0MDIGA1UEAxMrRElGSSB0
+                               ZXN0IHZpcmtzb21oZXRzc2VydGlmaWF0IGludGVybWVkaWF0ZYIEK1VFqzAdBgNV
+                               HQ4EFgQU9c8AJ3MhtflQy/8MQczT0g4RVuAwCQYDVR0TBAIwADAVBgNVHSAEDjAM
+                               MAoGCGCEQgEBAQFkMA4GA1UdDwEB/wQEAwIEsDANBgkqhkiG9w0BAQsFAAOCAQEA
+                               Y0oqfxf3G3S8V6XHYpetReXye3Q+CHIgfbWBJZlJpT1QOINKK8FGKgs1U/Lxvlxn
+                               NFioHMOjvPhYxkWd1dPQmP7NZjwDiaXBl4JExWffae1d9fHdf3Q1Jm+tUecz9a1X
+                               x7gIv6sOIdL18beFJ7ZGYxWrSIjkrA9ZlfN0sXJ1ygSjh5lkTLkkxr2VMqI2yZNN
+                               kKMv6aM2phvU003na1hBk9fKlF9m4x/fRi+sWwrxXJrgA336nKW31N4IQJhGF1Me
+                               ObsvOgJQiw84yX1H/BmuvtMKco3FEo56wnAZcCc9Y8EoAnafJgNZpQ+GSqZuGhsP
+                               IwppBPsICAghD+uY54BECg==
+                               -----END CERTIFICATE-----",
+            "process": "urn:no:difi:profile:arkivmelding:tekniskeTjenester:ver1.0",
+            "documentTypes": [
+                "urn:no:difi:arkivmelding:xsd::arkivmelding"
+            ],
+            "service": {
+                "identifier": "DPV",
+                "endpointUrl": {{#eq "localhost" request.requestLine.host}} "http://localhost:8001/dpv" {{else}} "http://mocks:8001/dpv" {{/eq}},
+                "serviceCode": "4255",
+                "serviceEditionCode": "9"
+            }
+        },
+        {
+            "organisationNumber": "910523902",
+            "pemCertificate": "-----BEGIN CERTIFICATE-----
+                               MIID/DCCAuSgAwIBAgIEJjoVoDANBgkqhkiG9w0BAQsFADBeMRIwEAYDVQQKEwlE
+                               aWZpIHRlc3QxEjAQBgNVBAUTCTk5MTgyNTgyNzE0MDIGA1UEAxMrRElGSSB0ZXN0
+                               IHZpcmtzb21oZXRzc2VydGlmaWF0IGludGVybWVkaWF0ZTAeFw0xOTAyMjYxMzM1
+                               MTlaFw0yNDAzMjYxMzM1MTlaMD0xEjAQBgNVBAUTCTgxMDA3NDU4MjEnMCUGA1UE
+                               AxMeRElGSSB0ZXN0IHZpcmtzb21oZXRzc2VydGlmaWF0MIIBIjANBgkqhkiG9w0B
+                               AQEFAAOCAQ8AMIIBCgKCAQEAo1DYBqxdaT9ZMOQLmms0Z2MCit3fQqRDotcAZE/m
+                               H/SjU4bEgTuUBhwHSlVoEarh+VeYppB5l4EnOFvYV6XD0zgZblsX68uz3389LZs0
+                               gAhwYXl0f+y8juAkyleZ5kEMzvAYjAAMpmpHKRUmwUxXdgJ9eyvXY+iUh/RUpDt+
+                               P96eMFptzoCyMfY6dQRr/05+vcyey76W0LDUJEextJFU8iRTdq3AS6abidUzMXJj
+                               M3+2/f0FWHRC+IjnIg7CNRHO9yLP4iit6XtoH73NjAFl4wxYtFzN4CwT4Nt2Q4xE
+                               pMkHzpCURnlYQHgXyN/YsPsOzw0/NAz0xB2A4pmVcI0szQIDAQABo4HiMIHfMIGL
+                               BgNVHSMEgYMwgYCAFC0wPplnLfjHrg8Rj8M6O7BdJ73AoWKkYDBeMRIwEAYDVQQK
+                               EwlEaWZpIHRlc3QxEjAQBgNVBAUTCTk5MTgyNTgyNzE0MDIGA1UEAxMrRElGSSB0
+                               ZXN0IHZpcmtzb21oZXRzc2VydGlmaWF0IGludGVybWVkaWF0ZYIEK1VFqzAdBgNV
+                               HQ4EFgQU9c8AJ3MhtflQy/8MQczT0g4RVuAwCQYDVR0TBAIwADAVBgNVHSAEDjAM
+                               MAoGCGCEQgEBAQFkMA4GA1UdDwEB/wQEAwIEsDANBgkqhkiG9w0BAQsFAAOCAQEA
+                               Y0oqfxf3G3S8V6XHYpetReXye3Q+CHIgfbWBJZlJpT1QOINKK8FGKgs1U/Lxvlxn
+                               NFioHMOjvPhYxkWd1dPQmP7NZjwDiaXBl4JExWffae1d9fHdf3Q1Jm+tUecz9a1X
+                               x7gIv6sOIdL18beFJ7ZGYxWrSIjkrA9ZlfN0sXJ1ygSjh5lkTLkkxr2VMqI2yZNN
+                               kKMv6aM2phvU003na1hBk9fKlF9m4x/fRi+sWwrxXJrgA336nKW31N4IQJhGF1Me
+                               ObsvOgJQiw84yX1H/BmuvtMKco3FEo56wnAZcCc9Y8EoAnafJgNZpQ+GSqZuGhsP
+                               IwppBPsICAghD+uY54BECg==
+                               -----END CERTIFICATE-----",
+            "process": "urn:no:difi:profile:arkivmelding:response:ver1.0",
+            "documentTypes": [
+                "urn:no:difi:arkivmelding:xsd::arkivmelding_kvittering",
+                "urn:no:difi:eformidling:xsd::status",
+                "urn:no:difi:eformidling:xsd::feil"
+            ],
+            "service": {
+                "identifier": "DPO",
+                "endpointUrl": {{#eq "localhost" request.requestLine.host}} "http://localhost:8001/dpo" {{else}} "http://mocks:8001/dpo" {{/eq}},
+                "serviceCode": "4192",
+                "serviceEditionCode": "270815"
+            }
+        },
+        {
+            "organisationNumber": "910523902",
+            "pemCertificate": "-----BEGIN CERTIFICATE-----
+                               MIID/DCCAuSgAwIBAgIEJjoVoDANBgkqhkiG9w0BAQsFADBeMRIwEAYDVQQKEwlE
+                               aWZpIHRlc3QxEjAQBgNVBAUTCTk5MTgyNTgyNzE0MDIGA1UEAxMrRElGSSB0ZXN0
+                               IHZpcmtzb21oZXRzc2VydGlmaWF0IGludGVybWVkaWF0ZTAeFw0xOTAyMjYxMzM1
+                               MTlaFw0yNDAzMjYxMzM1MTlaMD0xEjAQBgNVBAUTCTgxMDA3NDU4MjEnMCUGA1UE
+                               AxMeRElGSSB0ZXN0IHZpcmtzb21oZXRzc2VydGlmaWF0MIIBIjANBgkqhkiG9w0B
+                               AQEFAAOCAQ8AMIIBCgKCAQEAo1DYBqxdaT9ZMOQLmms0Z2MCit3fQqRDotcAZE/m
+                               H/SjU4bEgTuUBhwHSlVoEarh+VeYppB5l4EnOFvYV6XD0zgZblsX68uz3389LZs0
+                               gAhwYXl0f+y8juAkyleZ5kEMzvAYjAAMpmpHKRUmwUxXdgJ9eyvXY+iUh/RUpDt+
+                               P96eMFptzoCyMfY6dQRr/05+vcyey76W0LDUJEextJFU8iRTdq3AS6abidUzMXJj
+                               M3+2/f0FWHRC+IjnIg7CNRHO9yLP4iit6XtoH73NjAFl4wxYtFzN4CwT4Nt2Q4xE
+                               pMkHzpCURnlYQHgXyN/YsPsOzw0/NAz0xB2A4pmVcI0szQIDAQABo4HiMIHfMIGL
+                               BgNVHSMEgYMwgYCAFC0wPplnLfjHrg8Rj8M6O7BdJ73AoWKkYDBeMRIwEAYDVQQK
+                               EwlEaWZpIHRlc3QxEjAQBgNVBAUTCTk5MTgyNTgyNzE0MDIGA1UEAxMrRElGSSB0
+                               ZXN0IHZpcmtzb21oZXRzc2VydGlmaWF0IGludGVybWVkaWF0ZYIEK1VFqzAdBgNV
+                               HQ4EFgQU9c8AJ3MhtflQy/8MQczT0g4RVuAwCQYDVR0TBAIwADAVBgNVHSAEDjAM
+                               MAoGCGCEQgEBAQFkMA4GA1UdDwEB/wQEAwIEsDANBgkqhkiG9w0BAQsFAAOCAQEA
+                               Y0oqfxf3G3S8V6XHYpetReXye3Q+CHIgfbWBJZlJpT1QOINKK8FGKgs1U/Lxvlxn
+                               NFioHMOjvPhYxkWd1dPQmP7NZjwDiaXBl4JExWffae1d9fHdf3Q1Jm+tUecz9a1X
+                               x7gIv6sOIdL18beFJ7ZGYxWrSIjkrA9ZlfN0sXJ1ygSjh5lkTLkkxr2VMqI2yZNN
+                               kKMv6aM2phvU003na1hBk9fKlF9m4x/fRi+sWwrxXJrgA336nKW31N4IQJhGF1Me
+                               ObsvOgJQiw84yX1H/BmuvtMKco3FEo56wnAZcCc9Y8EoAnafJgNZpQ+GSqZuGhsP
+                               IwppBPsICAghD+uY54BECg==
+                               -----END CERTIFICATE-----",
+            "process": "urn:no:difi:profile:einnsyn:response:ver1.0",
+            "documentTypes": [
+                "urn:no:difi:einnsyn:xsd::einnsyn_kvittering",
+                "urn:no:difi:eformidling:xsd::status",
+                "urn:no:difi:eformidling:xsd::feil"
+            ],
+            "service": {
+                "identifier": "DPE",
+                "endpointUrl": "data",
+                "serviceCode": "4192",
+                "serviceEditionCode": "270815"
+            }
+        }
+    ]
+}

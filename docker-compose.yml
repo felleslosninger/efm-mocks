@@ -34,4 +34,5 @@ services:
     restart: unless-stopped
     build: ./ip
     ports:
-      - ${IP_PORT}:9093
+      - ${IP_PORT}:9097
+      - 9097:9093
