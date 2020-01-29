@@ -6,6 +6,8 @@ node_modules/
 **/integrasjonspunkt*.jar
 **/integrasjonspunkt-logs/**
 
+activemq-data/**/**
+
 move-sakarkiv-mock/.idea/**/**
 
 # exclude everything
