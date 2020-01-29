@@ -2,7 +2,8 @@
 node_modules/
 .DS_Store
 
-integrasjonspunkt-2.0.10.jar
+./integrasjonspunkt*.jar
+**/integrasjonspunkt*.jar
 **/integrasjonspunkt-logs/**
 
 move-sakarkiv-mock/.idea/**/**
