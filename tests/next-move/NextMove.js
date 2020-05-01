@@ -225,7 +225,7 @@ async function sendAllMessages() {
                 let totalRequests = program.dpo && program.dpo.length ? parseInt(program.dpo) : 1;
 
                 for (let requestsLeft = totalRequests; requestsLeft > 0; requestsLeft -= batchSize) {
-                    await sendMessagesForServiceIdentifier("DPO", getRequests(Math.min(requestsLeft, batchSize), StandardBusinessDocument, 910075918, 910075918, 'arkivmelding', 'arkivmelding', 'administrasjon'));
+                    await sendMessagesForServiceIdentifier("DPO", getRequests(Math.min(requestsLeft, batchSize), StandardBusinessDocument, `0192:910075918`, `0192:910075918`, 'arkivmelding', 'arkivmelding', 'administrasjon'));
                 }
             } catch (err) {
                 reject(err);
@@ -237,7 +237,7 @@ async function sendAllMessages() {
                 let totalRequests = program.dpv && program.dpv.length ? parseInt(program.dpv) : 1;
 
                 for (let requestsLeft = totalRequests; requestsLeft > 0; requestsLeft -= batchSize) {
-                    await sendMessagesForServiceIdentifier("DPV", getRequests(Math.min(requestsLeft, batchSize), StandardBusinessDocument, 984661185, 910075918, 'arkivmelding', 'arkivmelding', 'helseSosialOgOmsorg'));
+                    await sendMessagesForServiceIdentifier("DPV", getRequests(Math.min(requestsLeft, batchSize), StandardBusinessDocument, `0192:910075918`, `0192:910075918`, 'arkivmelding', 'arkivmelding', 'helseSosialOgOmsorg'));
                 }
             } catch (err) {
                 if (webhookId) await removeWebHook(webhookId);
@@ -250,7 +250,7 @@ async function sendAllMessages() {
                 let totalRequests = program.dpf && program.dpf.length ? parseInt(program.dpf) : 1;
 
                 for (let requestsLeft = totalRequests; requestsLeft > 0; requestsLeft -= batchSize) {
-                    await sendMessagesForServiceIdentifier("DPF", getRequests(Math.min(requestsLeft, batchSize), StandardBusinessDocument, 910075918, 910075918, 'arkivmelding', 'arkivmelding', 'planByggOgGeodata'));
+                    await sendMessagesForServiceIdentifier("DPF", getRequests(Math.min(requestsLeft, batchSize), StandardBusinessDocument, `0192:910075918`, `0192:910075918`, 'arkivmelding', 'arkivmelding', 'planByggOgGeodata'));
                 }
             } catch (err) {
                 if (webhookId) await removeWebHook(webhookId);
