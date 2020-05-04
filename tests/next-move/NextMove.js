@@ -11,6 +11,7 @@ const express = require('express');
 const uuidv1 = require('uuid/v1');
 const bodyParser = require('body-parser');
 const batchSize = 100;
+const icd_prefix = `0192:`;
 
 program
     .version('0.1.0')
@@ -225,7 +226,7 @@ async function sendAllMessages() {
                 let totalRequests = program.dpo && program.dpo.length ? parseInt(program.dpo) : 1;
 
                 for (let requestsLeft = totalRequests; requestsLeft > 0; requestsLeft -= batchSize) {
-                    await sendMessagesForServiceIdentifier("DPO", getRequests(Math.min(requestsLeft, batchSize), StandardBusinessDocument, `0192:910075918`, `0192:910075918`, 'arkivmelding', 'arkivmelding', 'administrasjon'));
+                    await sendMessagesForServiceIdentifier("DPO", getRequests(Math.min(requestsLeft, batchSize), StandardBusinessDocument, icd_prefix+`910075918`, icd_prefix+`910075918`, 'arkivmelding', 'arkivmelding', 'administrasjon'));
                 }
             } catch (err) {
                 reject(err);
@@ -237,7 +238,7 @@ async function sendAllMessages() {
                 let totalRequests = program.dpv && program.dpv.length ? parseInt(program.dpv) : 1;
 
                 for (let requestsLeft = totalRequests; requestsLeft > 0; requestsLeft -= batchSize) {
-                    await sendMessagesForServiceIdentifier("DPV", getRequests(Math.min(requestsLeft, batchSize), StandardBusinessDocument, `0192:910075918`, `0192:910075918`, 'arkivmelding', 'arkivmelding', 'helseSosialOgOmsorg'));
+                    await sendMessagesForServiceIdentifier("DPV", getRequests(Math.min(requestsLeft, batchSize), StandardBusinessDocument, icd_prefix+`910075918`, icd_prefix+`910075918`, 'arkivmelding', 'arkivmelding', 'helseSosialOgOmsorg'));
                 }
             } catch (err) {
                 if (webhookId) await removeWebHook(webhookId);
@@ -250,7 +251,7 @@ async function sendAllMessages() {
                 let totalRequests = program.dpf && program.dpf.length ? parseInt(program.dpf) : 1;
 
                 for (let requestsLeft = totalRequests; requestsLeft > 0; requestsLeft -= batchSize) {
-                    await sendMessagesForServiceIdentifier("DPF", getRequests(Math.min(requestsLeft, batchSize), StandardBusinessDocument, `0192:910075918`, `0192:910075918`, 'arkivmelding', 'arkivmelding', 'planByggOgGeodata'));
+                    await sendMessagesForServiceIdentifier("DPF", getRequests(Math.min(requestsLeft, batchSize), StandardBusinessDocument, icd_prefix+`910075918`, icd_prefix+`910075918`, 'arkivmelding', 'arkivmelding', 'planByggOgGeodata'));
                 }
             } catch (err) {
                 if (webhookId) await removeWebHook(webhookId);
@@ -263,7 +264,7 @@ async function sendAllMessages() {
                 let totalRequests = program.dpi && program.dpi.length ? parseInt(program.dpi) : 1;
 
                 for (let requestsLeft = totalRequests; requestsLeft > 0; requestsLeft -= batchSize) {
-                    await sendMessagesForServiceIdentifier("DPI", getRequests(Math.min(requestsLeft, batchSize), dpiSbd, `0192:910075918`, "06068700602", 'digital', 'digital'));
+                    await sendMessagesForServiceIdentifier("DPI", getRequests(Math.min(requestsLeft, batchSize), dpiSbd, icd_prefix+`910075918`, "06068700602", 'digital', 'digital'));
                 }
             } catch (err) {
                 if (webhookId) await removeWebHook(webhookId);
@@ -276,7 +277,7 @@ async function sendAllMessages() {
                 let totalRequests = program.dpe && program.dpe.length ? parseInt(program.dpe) : 1;
 
                 for (let requestsLeft = totalRequests; requestsLeft > 0; requestsLeft -= batchSize) {
-                    await sendMessagesForServiceIdentifier("DPE", getRequests(Math.min(requestsLeft, batchSize), dpeInnsynSbd, 910075918, 910076787, "innsynskrav"));
+                    await sendMessagesForServiceIdentifier("DPE", getRequests(Math.min(requestsLeft, batchSize), dpeInnsynSbd, icd_prefix+`910075918`, icd_prefix+`910076787`, "innsynskrav"));
                 }
             } catch (err) {
 
@@ -290,7 +291,7 @@ async function sendAllMessages() {
                 let totalRequests = program.dpejourn && program.dpejourn.length ? parseInt(program.dpejourn) : 1;
 
                 for (let requestsLeft = totalRequests; requestsLeft > 0; requestsLeft -= batchSize) {
-                    await sendMessagesForServiceIdentifier("DPE Journal", getRequests(Math.min(requestsLeft, batchSize), dpeJournSbd, 910075918, 810074582));
+                    await sendMessagesForServiceIdentifier("DPE Journal", getRequests(Math.min(requestsLeft, batchSize), dpeJournSbd, icd_prefix+`910075918`, icd_prefix+`810074582`));
                 }
             } catch (err) {
                 if (webhookId) await removeWebHook(webhookId);
@@ -304,7 +305,7 @@ async function sendAllMessages() {
                 let totalRequests = program.dpiprint && program.dpiprint.length ? parseInt(program.dpiprint) : 1;
 
                 for (let requestsLeft = totalRequests; requestsLeft > 0; requestsLeft -= batchSize) {
-                    await sendMessagesForServiceIdentifier("DPI Print", getRequests(Math.min(requestsLeft, batchSize), dpiSbdFysisk, `0192:910075918`, "06068700602"));
+                    await sendMessagesForServiceIdentifier("DPI Print", getRequests(Math.min(requestsLeft, batchSize), dpiSbdFysisk, icd_prefix+`910075918`, "06068700602"));
                 }
             } catch (err) {
                 if (webhookId) await removeWebHook(webhookId);
@@ -317,7 +318,7 @@ async function sendAllMessages() {
                 let totalRequests = program.digitaldpv && program.digitaldpv.length ? parseInt(program.digitaldpv) : 1;
 
                 for (let requestsLeft = totalRequests; requestsLeft > 0; requestsLeft -= batchSize) {
-                    await sendMessagesForServiceIdentifier("DPI Digital DPV", getRequests(Math.min(requestsLeft, batchSize), dpiSbdDigitalDpv, `0192:910075918`, "10068700602"));
+                    await sendMessagesForServiceIdentifier("DPI Digital DPV", getRequests(Math.min(requestsLeft, batchSize), dpiSbdDigitalDpv, icd_prefix+`910075918`, "10068700602"));
                 }
             } catch (err) {
                 if (webhookId) await removeWebHook(webhookId);
