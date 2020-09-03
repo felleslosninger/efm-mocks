@@ -47,15 +47,27 @@ async function sendLargeMessage(sbd) {
 
             let messageId = res.body.standardBusinessDocumentHeader.documentIdentification.instanceIdentifier;
 
+            let messageType = res.body.standardBusinessDocumentHeader.documentIdentification.type;
             console.log(`Conversation created: ${process.env.IP_URL}/api/conversations/messageId/${messageId}`);
 
             let sendFileRes = await sendFile( fileName, messageId);
 
             console.log(`Attachment uploaded: ${fileName}`);
+            let uploadedFilename;
+            if(messageType==='arkivmelding')
+            {
+                uploadedFilename='arkivmelding.xml';
+                let sendArchiveRes = await sendFile(uploadedFilename, messageId);
+            }
+            if(messageType==='innsynskrav'){
+                uploadedFilename='order.xml'
+                let sendOrderRes = await sendFile(uploadedFilename, messageId);
+                let sendemailtextRes = await sendFile('emailtext', messageId);
+            }
 
-            let sendArchiveRes = await sendFile('arkivmelding.xml', messageId);
+            //let sendArchiveRes = await sendFile('arkivmelding.xml', messageId);
 
-            console.log(`arkivmelding.xml uploaded.`);
+            console.log(uploadedFilename + ` uploaded.`);
 
             let sendRes = await superagent
                 .post( `${process.env.IP_URL}/api/messages/out/${messageId}`)
