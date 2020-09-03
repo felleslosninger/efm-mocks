@@ -256,7 +256,7 @@ dpeInnsynSbd = (senderOrgNr, receiverOrgNr) => {
             "sender": [
                 {
                     "identifier": {
-                        "value": `0192:${senderOrgNr}`,
+                        "value": senderOrgNr,
                         "authority": "iso6523-actorid-upis"
                     },
                     "contactInformation": []
@@ -265,7 +265,7 @@ dpeInnsynSbd = (senderOrgNr, receiverOrgNr) => {
             "receiver": [
                 {
                     "identifier": {
-                        "value": `0192:${receiverOrgNr}`,
+                        "value": receiverOrgNr,
                         "authority": "iso6523-actorid-upis"
                     },
                     "contactInformation": []
@@ -307,7 +307,7 @@ dpeJournSbd = (senderOrgNr, receiverOrgNr) => {
             "sender": [
                 {
                     "identifier": {
-                        "value": `0192:${senderOrgNr}`,
+                        "value": senderOrgNr,
                         "authority": "iso6523-actorid-upis"
                     },
                     "contactInformation": []
@@ -316,7 +316,7 @@ dpeJournSbd = (senderOrgNr, receiverOrgNr) => {
             "receiver": [
                 {
                     "identifier": {
-                        "value": `0192:${receiverOrgNr}`,
+                        "value": receiverOrgNr,
                         "authority": "iso6523-actorid-upis"
                     },
                     "contactInformation": []
