@@ -33,6 +33,16 @@ services:
   ip:
     restart: unless-stopped
     build: ./ip
+    environment:
+      IP_PORT: 9094
     ports:
       - ${IP_PORT}:9097
       - 9097:9093
+  # ip_local:
+  #   environment:
+  #     IP_PORT: 9099
+  #   restart: unless-stopped
+  #   build: ./ip_local
+  #   ports:
+  #     - ${IP_PORT}:9093
+      #- 9097:9093
