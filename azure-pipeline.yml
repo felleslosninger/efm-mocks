@@ -1,0 +1,25 @@
+  
+resources:
+  repositories:
+    - repository: efm-eproc-pipeline
+      type: github
+      name: felleslosninger/efm-eproc-pipeline
+      endpoint: felleslosninger
+
+extends:
+  template: build-and-deploy-template.yml@efm-eproc-pipeline
+  parameters:
+    environmentRepository: git://eformidling/eformidling
+    buildDockerArtifact: false
+
+trigger:
+  batch: true
+  branches:
+    include:
+      - development
+      - release-*
+      - hotfix-*
+      - master
+
+pr: none
+
