@@ -4,5 +4,3 @@ services:
  efm-sr-proxy:
    build: .
    image: eformidling/efm-sr-proxy
-   labels:
-     kubernetesManifestFile: sr-proxy/sr-proxy.yaml

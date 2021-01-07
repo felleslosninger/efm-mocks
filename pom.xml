@@ -12,4 +12,24 @@
 		<module>dpimock</module>
 	</modules>
 
+<distributionManagement>
+    <repository>
+        <id>MavenArtifactFeed</id>
+        <url>https://pkgs.dev.azure.com/dificloud/_packaging/MavenArtifactFeed/maven/v1</url>
+    </repository>
+</distributionManagement>
+
+<repositories>
+    <repository>
+        <id>MavenArtifactFeed</id>
+        <url>https://pkgs.dev.azure.com/dificloud/_packaging/MavenArtifactFeed/maven/v1</url>
+        <releases>
+            <enabled>true</enabled>
+        </releases>
+        <snapshots>
+            <enabled>true</enabled>
+        </snapshots>
+    </repository>
+</repositories>
+
 </project>
