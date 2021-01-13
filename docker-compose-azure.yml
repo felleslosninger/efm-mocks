@@ -5,6 +5,11 @@ services:
    build: .
    image: eformidling/efm-mocks
 
+parameters:
+  - name: coverageTool
+    type: string
+    default: none
+
 extends: 
   template: build-and-deploy-template.yml@efm-eproc-pipeline
   parameters: 
