@@ -1,6 +1,18 @@
-version: '3.2'
+version: '0.1'
 
 services:
- efm-sr-proxy:
+ efm-mocks:
    build: .
-   image: eformidling/efm-sr-proxy
+   image: eformidling/efm-mocks
+
+extends: 
+  template: build-and-deploy-template.yml@efm-eproc-pipeline
+  parameters: 
+    preDockerComposePush:
+      - task: Bash@3
+        displayName: Running mocks integration tests
+        inputs:
+          targetType: inline
+          workingDirectory: .
+          script: | 
+          sh pipeline.sh
