@@ -11,6 +11,7 @@ extends:
   parameters:
     environmentRepository: git://eformidling/eformidling
     buildDockerArtifact: false
+    coverageTool: none
 
 trigger:
   batch: true
