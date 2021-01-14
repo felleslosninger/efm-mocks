@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<bestilling>
+    <id>http://data.einnsyn.no/innsynskrav/8829b5db-df47-48a6-81c2-d54b39691dfb</id>
+    <bestillingsdato>21.04.2020</bestillingsdato>
+    <til>
+        <enhet>Acos</enhet>
+        <enhetepost>post@acos.no</enhetepost>
+    </til>
+    <innsynskravepost>post@acos.no</innsynskravepost>
+    <kontaktinfo>
+        <forsendelsesmåte>e-post</forsendelsesmåte>
+        <navn> </navn>
+        <organisasjon></organisasjon>
+        <land></land>
+        <e-post>erltor@acos.no</e-post>
+    </kontaktinfo>
+    <dokumenter>
+        <dokument>
+            <saksnr>2018/4084</saksnr>
+            <dokumentnr>6</dokumentnr>
+            <journalnr>4151/21</journalnr>
+        </dokument>
+        <dokument>
+            <saksnr>2019/560</saksnr>
+            <dokumentnr>1</dokumentnr>
+            <journalnr>1948/19</journalnr>
+        </dokument>
+        <dokument>
+            <saksnr>2019/560</saksnr>
+            <dokumentnr>2</dokumentnr>
+            <journalnr>1952/19</journalnr>
+        </dokument>
+        <dokument>
+            <saksnr>2009/11224</saksnr>
+            <dokumentnr>3</dokumentnr>
+            <journalnr>29735/09</journalnr>
+        </dokument>
+    </dokumenter>
+</bestilling>

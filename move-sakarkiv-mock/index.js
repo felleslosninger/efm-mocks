@@ -15,7 +15,7 @@ process.env.PORT = process.env.PORT || 8002;
 process.env.ORG_NUM = process.env.ORG_NUM || 991825827;
 process.env.ORG_NAME = process.env.ORG_NAME || "DIREKTORATET FOR FORVALTNING OG IKT";
 process.env.EMAIL = process.env.EMAIL || "idporten@difi.no";
-process.env.IP_URL = process.env.IP_URL || "http://localhost:9094";
+process.env.IP_URL = process.env.IP_URL || "http://localhost:9093";
 
 console.log(process.env);
 
@@ -116,7 +116,7 @@ app.post('/p360/*', (req, res) => {
 
 global.dpfDB = new Map();
 
-app.get("/api/messages", (req, res) => {
+app.get(`/api/messages`, (req, res) => {
     res.send(JSON.stringify(
         [...global.dpfDB].map(
             // Removing the payload from the response because it is too big:

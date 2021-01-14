@@ -2,6 +2,12 @@
 node_modules/
 .DS_Store
 
+./integrasjonspunkt*.jar
+**/integrasjonspunkt*.jar
+**/integrasjonspunkt-logs/**
+
+activemq-data/**/**
+
 move-sakarkiv-mock/.idea/**/**
 
 # exclude everything

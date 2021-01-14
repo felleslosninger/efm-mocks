@@ -24,7 +24,7 @@ Du har nå følgende applikasjoner kjørende:
 * localhost:8080: DPI mock.
 * localhost:8001: DPO, DPV, DPF, og DPE mock.
 * localhost:8002: Sak/arkivsystem mock.
-* localhost:9094: Mottagende Integrasjonspunkt.
+* localhost:9093: Mottagende Integrasjonspunkt.
 
 På localhost:8001 finner du et lite gui der du kan se meldinger som har blitt sendt vellykket.
 

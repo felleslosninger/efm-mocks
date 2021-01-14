@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-let baseUrl = 'http://localhost:9093';
+let baseUrl =process.env.IP_URL|| 'http://localhost:9093';
 
 function downloadMessage(payload){
 

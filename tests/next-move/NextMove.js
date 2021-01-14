@@ -152,6 +152,7 @@ function sendFile(fileName, messageId) {
 
 async function sendLargeMessage(sbd) {
     let messageId = sbd.standardBusinessDocumentHeader.documentIdentification.instanceIdentifier;
+    let messageType = sbd.standardBusinessDocumentHeader.documentIdentification.type;
     messages[messageId] = true;
 
     return new Promise(async (resolve, reject) => {
@@ -168,9 +169,19 @@ async function sendLargeMessage(sbd) {
 
             console.log(messageId + ` Attachment uploaded: ${fileName}`);
 
-            let sendArchiveRes = await sendFile('arkivmelding.xml', messageId);
+            let uploadedFilename;
+            if(messageType==='arkivmelding')
+            {
+                uploadedFilename='arkivmelding.xml';
+                let sendArchiveRes = await sendFile(uploadedFilename, messageId);
+            }
+            if(messageType==='innsynskrav'){
+                uploadedFilename='order.xml'
+                let sendOrderRes = await sendFile(uploadedFilename, messageId);
+                let sendemailtextRes = await sendFile('emailtext', messageId);
+            }
 
-            console.log(messageId + ` arkivmelding.xml uploaded.`);
+            console.log(messageId + ` ` + uploadedFilename + `  uploaded.`);
 
             let sendRes = await superagent
                 .post(`${ipUrl}/${endpoint}/${messageId}`);

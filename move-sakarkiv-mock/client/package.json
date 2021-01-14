@@ -22,7 +22,7 @@
     "sweetalert": "^2.1.2",
     "uuid": "^3.3.2"
   },
-  "proxy": "http://localhost:8002",
+  "proxy": "http://gaular.intern.acos.no:8002",
   "scripts": {
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
