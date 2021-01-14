@@ -12,6 +12,7 @@ extends:
     environmentRepository: git://eformidling/eformidling
     buildDockerArtifact: false
     coverageTool: none
+    jdkVersion: 1.8
 
 trigger:
   batch: true
