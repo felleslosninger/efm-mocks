@@ -20,7 +20,7 @@ extends:
           targetType: inline
           workingDirectory: .
           script: | 
-          sh pipeline.sh    
+            sh pipeline.sh    
 
 trigger:
   batch: true
