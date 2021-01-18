@@ -13,6 +13,14 @@ extends:
     buildDockerArtifact: false
     coverageTool: none
     jdkVersion: 1.8
+    preDockerComposePush:
+      - task: Bash@3
+        displayName: Running mocks integration tests
+        inputs:
+          targetType: inline
+          workingDirectory: .
+          script: | 
+          sh pipeline.sh    
 
 trigger:
   batch: true
