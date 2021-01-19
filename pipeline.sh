@@ -17,6 +17,5 @@ cd tests/next-move && npm install && node NextMove.js
 
 #Remove and shut down
 docker rm sending_integrasjonspunkt --force
-docker-compose down
-
 cd ../..
+docker-compose down
