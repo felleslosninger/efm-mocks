@@ -1,9 +1,6 @@
 #!/bin/bash
 #Pipeline/integration tests for efm-mocks to setup the mocks and integrasjonspunkt to send messages to the mock. 
 
-#Overriding .env file to avoid DPI port (default 8080) collision.
-writeFile file: '.env', text: 'COMPOSE_PROJECT_NAME=movemocks\nDPI_PORT=8085\nMOCK_PORT=8001\nWIREMOCK_PORT=8090\nSA_MOCK_PORT=8002\nDPI_HOST=dpimock\nMOCK_HOST=mocks\nIP_PORT=9094\nIP_URL=http://ip:9093'
-archiveArtifacts '.env'
 #start mock services
 docker-compose up -d --build --force-recreate
 docker network ls
