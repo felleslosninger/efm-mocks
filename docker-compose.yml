@@ -8,7 +8,8 @@ services:
       DPI_HOST: ${DPI_HOST}
     ports:
       - ${MOCK_PORT}:${MOCK_PORT}
-
+    networks: 
+      - backend
   sa-mock:
     restart: unless-stopped
     build: ./move-sakarkiv-mock
@@ -17,21 +18,30 @@ services:
       IP_URL: ${IP_URL}
     ports:
       - ${SA_MOCK_PORT}:${SA_MOCK_PORT}
-
+    networks: 
+      - backend
   wiremock:
     restart: unless-stopped
     build: ./Wiremock
     ports:
       - ${WIREMOCK_PORT}:${WIREMOCK_PORT}
-
+    networks: 
+      - backend
   dpimock:
     restart: unless-stopped
     build: ./dpimock
     command:  cd ./dpimock && ./mvnw install dockerfile:build
     ports:
       - ${DPI_PORT}:8080
+    networks: 
+      - backend      
   ip:
     restart: unless-stopped
     build: ./ip
     ports:
       - ${IP_PORT}:9093
+    networks: 
+      - backend
+networks:
+  backend:
+    driver: "bridge"
