@@ -4,6 +4,8 @@
 
 #start mock services
 docker-compose up -d --build --force-recreate
+docker network ls
+sleep
 
 
 #start sending integrasjonspunkt
@@ -12,7 +14,7 @@ docker run -d --name sending_integrasjonspunkt --net efm-mocks_default -p 9093:9
               
 
 #Run nextmove tests
-cd tests/next-move && npm install && TEST_HOST=172.17.0.1 node NextMove.js
+cd tests/next-move && npm install && node NextMove.js
 
 
 #Remove and shut down
