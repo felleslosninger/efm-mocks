@@ -13,7 +13,7 @@ sleep 120s
 curl http://localhost:9093/manage/health              
 
 #Run nextmove tests
-cd tests/next-move && npm install && node NextMove.js webhookUrl
+cd tests/next-move && npm install && node NextMove.js webhookUrl host.docker.internal:3001/incoming
 
 
 #Remove and shut down
