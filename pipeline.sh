@@ -13,7 +13,7 @@ sleep 120s
 curl http://localhost:9093/manage/health              
 
 #Run nextmove tests
-cd tests/next-move && npm install && node NextMove.js
+cd tests/next-move && npm install && node NextMove.js webhookUrl
 
 
 #Remove and shut down

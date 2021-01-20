@@ -24,6 +24,7 @@ program
     .option('dpo [count]', 'Send the specified number of dpo messages.')
     .option('dpf [count]', 'Send the specified number of dpf messages.')
     .option('dpv [count]', 'Send the specified number of dpv messages.')
+    .option('webhookUrl [text]', 'Webhook to specify docker host url', 'host.docker.internal:3001/incoming')
     .parse(process.argv);
 
 let fileSize;
@@ -90,12 +91,17 @@ app.post("/incoming", (req, res) => {
 app.listen(3001);
 
 function registerWebHook() {
+    let endpointUrl = "http://localhost:3001/incoming";
+    host.docker.internal:3001/incoming
+    if(program.webhookUrl) {
+        endpointUrl = program.webhookUrl
+    }
     return new Promise((resolve, reject) => {
         superagent
             .post(`${ipUrl}/api/subscriptions`)
             .send({
                 "name": "MOVE mocks",
-                "pushEndpoint": "http://localhost:3001/incoming",
+                "pushEndpoint": `${endpointUrl}`,
                 "resource": "all",
                 "event": "status"
             }).then((res) => {
@@ -219,7 +225,7 @@ async function sendAllMessages() {
             process.exit(1);
         }
 
-        console.log("Webhook registerd");
+        console.log("Webhook registered");
 
         if (program.dpo || runAll) {
             try {
