@@ -8,6 +8,34 @@ const fs = require('fs');
 const uid = require("uid");
 const {deleteFile, recursiveKeySearch, deleteDirectoryRecursive} = require("../helper");
 
+function CheckIfAvailableFilesBasic(req, res) {
+    parseString(req.rawBody,
+        {
+            normalizeTags: true,
+            tagNameProcessors: [stripPrefix]
+        },
+        (err, js) => {
+            if (err) {
+                console.error(err);
+            } else {
+                let reportee = js.envelope.body[0]['checkifavailablefilesbasic'][0]['pollparameters'][0]["recipients"][0]["string"][0];
+
+                let messages = Object.values(global.dpoDB)
+                    .filter(p => p.recipient === reportee)
+                    .filter(message => message.zip);
+
+                let response = `<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+                                    <s:Body>
+                                        <CheckIfAvailableFilesBasicResponse xmlns="http://www.altinn.no/services/ServiceEngine/Broker/2015/06">
+                                            <CheckIfAvailableFilesBasicResult>${messages.length > 0 ? `true` : `false`}</CheckIfAvailableFilesBasicResult>
+                                        </CheckIfAvailableFilesBasicResponse>
+                                    </s:Body>
+                                </s:Envelope>`;
+                res.send(response);
+            }
+        });
+}
+
 function GetAvailableFilesBasic(req, res) {
     parseString(req.rawBody,
         {
@@ -249,6 +277,7 @@ function UploadFileStreamedBasic(req, res) {
 module.exports = {
     parseXml,
     GetAvailableFilesBasic,
+    CheckIfAvailableFilesBasic,
     InitiateBrokerServiceBasic,
     DownloadFileStreamedBasic,
     UploadFileStreamedBasic
