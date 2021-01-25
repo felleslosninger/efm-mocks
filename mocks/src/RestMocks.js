@@ -3,7 +3,7 @@ const {recieveFile} = require("./modules/DPE/responses");
 const {getRawBody} = require('./modules/helper');
 const {PutMessage, retrieveforsendelsestatus, retreiveforsendelsetyper} = require("./modules/DPF/soapResponses");
 const retrieveForsendelseIdByEksternRefResponse = require("./modules/DPF/retrieveForsendelseIdByEksternRef").retrieveForsendelseIdByEksternRefResponse;
-const {GetAvailableFilesBasic, InitiateBrokerServiceBasic, DownloadFileStreamedBasic, UploadFileStreamedBasic} = require("./modules/DPO/responses");
+const {GetAvailableFilesBasic, CheckIfAvailableFilesBasic, InitiateBrokerServiceBasic, DownloadFileStreamedBasic, UploadFileStreamedBasic} = require("./modules/DPO/responses");
 const getBasicWSDL = require("./modules/DPO/BasicWsdl").getBasicWSDL;
 const getBasicStreamedWsdl = require("./modules/DPO/BasicStreamedWsdl").getBasicStreamedWsdl;
 const {getBrokerServiceExternalBasicWSDL} = require("./modules/DPO/DPO");
@@ -203,6 +203,8 @@ const mocks = [
                     res.header('Content-type', 'text/xml');
                     if (req.headers.soapaction === "\"http://www.altinn.no/services/ServiceEngine/Broker/2015/06/IBrokerServiceExternalBasic/GetAvailableFilesBasic\"") {
                         GetAvailableFilesBasic(req, res);
+                    } else if (req.headers.soapaction === "\"http://www.altinn.no/services/ServiceEngine/Broker/2015/06/IBrokerServiceExternalBasic/CheckIfAvailableFilesBasic\"") {
+                        CheckIfAvailableFilesBasic(req, res);
                     } else if (req.headers.soapaction === "\"http://www.altinn.no/services/ServiceEngine/Broker/2015/06/IBrokerServiceExternalBasic/InitiateBrokerServiceBasic\"") {
                         res.send(InitiateBrokerServiceBasic(req.rawBody))
                     } else if (req.headers.soapaction === "\"http://www.altinn.no/services/ServiceEngine/Broker/2015/06/IBrokerServiceExternalBasic/ConfirmDownloadedBasic\"") {

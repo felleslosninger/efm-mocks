@@ -1,0 +1,35 @@
+  
+resources:
+  repositories:
+    - repository: efm-eproc-pipeline
+      type: github
+      name: felleslosninger/efm-eproc-pipeline
+      endpoint: felleslosninger
+
+extends:
+  template: build-and-deploy-template.yml@efm-eproc-pipeline
+  parameters:
+    environmentRepository: git://eformidling/eformidling
+    buildDockerArtifact: false
+    coverageTool: none
+    jdkVersion: 1.8
+    preDockerComposePush:
+      - task: Bash@3
+        displayName: Running mocks integration tests
+        inputs:
+          targetType: inline
+          workingDirectory: source
+          script: | 
+            sh pipeline.sh    
+
+trigger:
+  batch: true
+  branches:
+    include:
+      - development
+      - release-*
+      - hotfix-*
+      - master
+
+pr: none
+
