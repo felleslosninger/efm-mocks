@@ -33,5 +33,7 @@ services:
   ip:
     restart: unless-stopped
     build: ./ip
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
     ports:
       - ${IP_PORT}:9093
