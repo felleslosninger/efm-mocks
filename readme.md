@@ -40,7 +40,7 @@ Ved behov for overstyringer av properties kan dette gjøres i ```integrasjonspun
 
 Mocken er satt opp til å motta meldinger for følgende org nr og prosesser:
 
-| Meldingstype         | Mottaker    | Prosess                                                     | Dokumenttype                                 |
+| Kanal(/Meldingstype) | Mottaker    | Prosess                                                     | Dokumenttype                                 |
 |----------------------|-------------|-------------------------------------------------------------|----------------------------------------------|
 | DPI                  | 06068700602 | urn:no:difi:profile:digitalpost:info:ver1.0                 | urn:no:difi:digitalpost:xsd:digital::digital |
 | DPI Print            | 06068700602 | urn:no:difi:profile:digitalpost:vedtak:ver1.0               | urn:no:difi:digitalpost:xsd:fysisk::print    |
