@@ -29,7 +29,7 @@
       }
     },
     {
-      "priority": 2,
+      "priority": 1,
       "request": {
         "method": "GET",
         "urlPathPattern": "/info/\\d+"
@@ -40,6 +40,20 @@
           "Content-Type": "application/json"
         },
         "bodyFileName": "service_records/{{request.requestLine.pathSegments.[1]}}/info"
+      }
+    },
+    {
+      "priority": 1,
+      "request": {
+        "method": "GET",
+        "urlPathPattern": "/virksert/\\d+"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "text/plain"
+        },
+        "bodyFileName": "service_records/{{request.requestLine.pathSegments.[1]}}/virksert"
       }
     }
   ]

@@ -40,19 +40,21 @@ Ved behov for overstyringer av properties kan dette gjøres i ```integrasjonspun
 
 Mocken er satt opp til å motta meldinger for følgende org nr og prosesser:
 
-| Meldingstype         | Mottaker    | Prosess                                                     | Dokumenttype                                 |
-|----------------------|-------------|-------------------------------------------------------------|----------------------------------------------|
-| DPI                  | 06068700602 | urn:no:difi:profile:digitalpost:info:ver1.0                 | urn:no:difi:digitalpost:xsd:digital::digital |
-| DPI Print            | 06068700602 | urn:no:difi:profile:digitalpost:vedtak:ver1.0               | urn:no:difi:digitalpost:xsd:fysisk::print    |
-| DPI Digital DPV      | 10068700602 | urn:no:difi:profile:digitalpost:info:ver1.0	               | urn:no:difi:digitalpost:xsd:digital::digital_dpv |
-| DPE Journal          | 810074582   | urn:no:difi:profile:einnsyn:journalpost:ver1.0              | urn:no:difi:einnsyn:xsd::publisering         |
-| DPE Innsynsbegjæring | 910075918   | urn:no:difi:profile:einnsyn:innsynskrav:ver1.0              | urn:no:difi:einnsyn:xsd::innsynskrav         |
-| DPE Møte             | 810074582   | urn:no:difi:profile:einnsyn:meeting:ver1.0                  | urn:no:difi:einnsyn:xsd::publisering         |
-| DPO                  | 810074582   | urn:no:difi:profile:arkivmelding:administrasjon:ver1.0      | urn:no:difi:arkivmelding:xsd::arkivmelding   |
-| DPV                  | 910075918   | urn:no:difi:profile:arkivmelding:helseSosialOgOmsorg:ver1.0 | urn:no:difi:arkivmelding:xsd::arkivmelding   |
-| DPF                  | 910075918   | urn:no:difi:profile:arkivmelding:planByggOgGeodata:ver1.0   | urn:no:difi:arkivmelding:xsd::arkivmelding   |
-| Avtalt melding       | 910075918   | urn:no:difi:profile:avtalt:avtalt:ver1.0                    | urn:no:difi:avtalt:xsd::avtalt               |
-| Avtalt melding       | 984661185   | urn:no:difi:profile:avtalt:avtalt:ver1.0                    | urn:no:difi:avtalt:xsd::avtalt               |
+
+| Tjeneste(/Meldingstype)| Mottaker    | Prosess                                                     | Dokumenttype                                 |
+|------------------------|-------------|-------------------------------------------------------------|----------------------------------------------|
+| DPI                    | 06068700602 | urn:no:difi:profile:digitalpost:info:ver1.0                 | urn:no:difi:digitalpost:xsd:digital::digital |
+| DPI Print              | 06068700602 | urn:no:difi:profile:digitalpost:vedtak:ver1.0               | urn:no:difi:digitalpost:xsd:fysisk::print    |
+| DPI Digital DPV        | 10068700602 | urn:no:difi:profile:digitalpost:info:ver1.0	               | urn:no:difi:digitalpost:xsd:digital::digital_dpv |
+| DPE Journal            | 810074582   | urn:no:difi:profile:einnsyn:journalpost:ver1.0              | urn:no:difi:einnsyn:xsd::publisering         |
+| DPE Innsynsbegjæring   | 910075918   | urn:no:difi:profile:einnsyn:innsynskrav:ver1.0              | urn:no:difi:einnsyn:xsd::innsynskrav         |
+| DPE Møte               | 810074582   | urn:no:difi:profile:einnsyn:meeting:ver1.0                  | urn:no:difi:einnsyn:xsd::publisering         |
+| DPO                    | 810074582   | urn:no:difi:profile:arkivmelding:administrasjon:ver1.0      | urn:no:difi:arkivmelding:xsd::arkivmelding   |
+| DPV                    | 910075918   | urn:no:difi:profile:arkivmelding:helseSosialOgOmsorg:ver1.0 | urn:no:difi:arkivmelding:xsd::arkivmelding   |
+| DPF                    | 910075918   | urn:no:difi:profile:arkivmelding:planByggOgGeodata:ver1.0   | urn:no:difi:arkivmelding:xsd::arkivmelding   |
+| Avtalt melding         | 910075918   | urn:no:difi:profile:avtalt:avtalt:ver1.0                    | urn:no:difi:avtalt:xsd::avtalt               |
+| Avtalt melding         | 984661185   | urn:no:difi:profile:avtalt:avtalt:ver1.0                    | urn:no:difi:avtalt:xsd::avtalt               |
+
 
 Meldinger som mocken har mottatt kan ses på [http://localhost:8001](http://localhost:8001)
 
