@@ -40,6 +40,7 @@ Ved behov for overstyringer av properties kan dette gjøres i ```integrasjonspun
 
 Mocken er satt opp til å motta meldinger for følgende org nr og prosesser:
 
+
 | Tjeneste(/Meldingstype)| Mottaker    | Prosess                                                     | Dokumenttype                                 |
 |------------------------|-------------|-------------------------------------------------------------|----------------------------------------------|
 | DPI                    | 06068700602 | urn:no:difi:profile:digitalpost:info:ver1.0                 | urn:no:difi:digitalpost:xsd:digital::digital |
@@ -51,6 +52,9 @@ Mocken er satt opp til å motta meldinger for følgende org nr og prosesser:
 | DPO                    | 810074582   | urn:no:difi:profile:arkivmelding:administrasjon:ver1.0      | urn:no:difi:arkivmelding:xsd::arkivmelding   |
 | DPV                    | 910075918   | urn:no:difi:profile:arkivmelding:helseSosialOgOmsorg:ver1.0 | urn:no:difi:arkivmelding:xsd::arkivmelding   |
 | DPF                    | 910075918   | urn:no:difi:profile:arkivmelding:planByggOgGeodata:ver1.0   | urn:no:difi:arkivmelding:xsd::arkivmelding   |
+| Avtalt melding         | 910075918   | urn:no:difi:profile:avtalt:avtalt:ver1.0                    | urn:no:difi:avtalt:xsd::avtalt               |
+| Avtalt melding         | 984661185   | urn:no:difi:profile:avtalt:avtalt:ver1.0                    | urn:no:difi:avtalt:xsd::avtalt               |
+
 
 Meldinger som mocken har mottatt kan ses på [http://localhost:8001](http://localhost:8001)
 
