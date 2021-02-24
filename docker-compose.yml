@@ -20,6 +20,8 @@ services:
       - ${SA_MOCK_PORT}:${SA_MOCK_PORT}
     networks: 
       - backend
+    depends_on:
+      - ip
   wiremock:
     restart: unless-stopped
     build: ./Wiremock
