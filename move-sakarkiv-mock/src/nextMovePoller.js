@@ -28,7 +28,7 @@ function poll(){
                 console.log(`Received message with ID: ${messageId}.`);
                 let message = {
                     messageId : messageId,
-                    type: 'nextMove',
+                    type: res.body.standardBusinessDocumentHeader.documentIdentification.type,
                     payload: JSON.stringify(res.body),
                     sender: {
                         orgnr: res.body.standardBusinessDocumentHeader.sender[0].identifier.value,

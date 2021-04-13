@@ -25,7 +25,7 @@ export default class NewNextMoveMessage extends React.Component {
         }, () => {
 
             axios({
-                url: '/api/send/nextmove',
+                url: `${window.baseName}/api/send/nextmove`,
                 method: 'post',
                 headers: {
                     'Content-Type': 'application/json'

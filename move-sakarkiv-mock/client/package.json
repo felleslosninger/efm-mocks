@@ -23,6 +23,7 @@
     "uuid": "^3.3.2"
   },
   "proxy": "http://localhost:8002",
+  "homepage": ".",
   "scripts": {
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
