@@ -9,7 +9,7 @@ MoveMocks lar deg simulere de forskjellige meldingsformidlertjenestene.
 
 * Docker
 * Integrasjonspunkt
-* Java JDK/OpenJDK installert (JAVA_HOME må være satt)
+* Java JDK/OpenJDK 8 installert (JAVA_HOME må være satt). Kan være lurt å restarte etterpå. 
 
 
 ### Oppstart
