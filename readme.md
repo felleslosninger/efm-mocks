@@ -90,3 +90,13 @@ Dersom alt er satt opp korrekt, vil meldingene gå igjennom, og du vil få et ta
 #### Docker tips
 
 Kommando som kan brukes til å bygge prosjektet etter oppdatering ```docker-compose up --build --force-recreate```. Kjøres i roten av prosjektet.
+
+### Egen implementasjon av eFormidling 2.0 API'et
+
+Om du bruker Mocks som del av utviklingsarbeid kan det være nyttig å kjenne til API dokumentasjonen vår samt en egen side som supplement.
+- [API REST dokumentasjon](https://docs.digdir.no/eformidling_nm_restdocs.html)
+- [Supplement til REST dokumentasjon](https://docs.digdir.no/eformidling_dev.html)
+
+---
+
+Kontakt oss gjerne på [servicedesk@digdir.no](mailto:servicedesk@digdir.no) ved spørsmål. 
