@@ -1,0 +1,23 @@
+dpi:
+    client:
+        initialBufferSize: 100000
+        keystore:
+            alias: "984661185"
+            lockProvider: false
+            password: changeit
+            path: classpath:/mock.jks
+            type: jks
+        oidc:
+            enable: false
+        temporary-file-threshold: 10000000
+        timeout:
+            connect: 5000
+            read: 60000
+            write: 60000
+        uri: http://localhost/dummy
+spring:
+    servlet:
+        multipart:
+            max-file-size: 10GB
+            max-request-size: 10GB
+            fileSizeThreshold: 1MB

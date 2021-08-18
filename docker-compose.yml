@@ -31,7 +31,7 @@ services:
       - backend
   dpimock:
     restart: unless-stopped
-    build: ./dpimock
+    build: ./dpi-mock-c2
     command:  cd ./dpimock && ./mvnw install dockerfile:build
     ports:
       - ${DPI_PORT}:8080
