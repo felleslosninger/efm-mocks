@@ -2,21 +2,29 @@ package no.digdir.dpimockc2;
 
 import com.nimbusds.jose.Payload;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import net.minidev.json.JSONObject;
 import no.difi.meldingsutveksling.domain.sbdh.*;
 import no.digdir.dpi.client.domain.Message;
 import no.digdir.dpi.client.internal.UnpackJWT;
 import no.digdir.dpi.client.internal.UnpackStandardBusinessDocument;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Slf4j
+@PreAuthorize("hasAuthority('SCOPE_digitalpostinnbygger:send')")
 @RequestMapping("/api/c2")
 @RestController
 @RequiredArgsConstructor
@@ -29,8 +37,7 @@ public class Corner2Controller {
     private final CreateReceipt createReceipt;
 
     @PostMapping(path = "/send", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public void sendMessage(MultipartRequest multipartRequest) throws IOException {
-
+    public void sendMessage(@AuthenticationPrincipal Principal principal, MultipartRequest multipartRequest) throws IOException {
         MultipartFile sbdFile = Optional.ofNullable(multipartRequest.getFile("sbd"))
                 .orElseThrow(() -> new IllegalArgumentException("MultipartFile named sbd is missing!"));
 
@@ -48,6 +55,9 @@ public class Corner2Controller {
                 .flatMap(p -> Optional.ofNullable(p.getInstanceIdentifier()))
                 .orElseThrow(() -> new IllegalArgumentException("Missing conversationId"));
 
+        log.info("Received message, id={}, conversationId={}, receiver={}, sender={}",
+                messageId, conversationId, receiver, sender);
+
         outgoingMessageInfoRepository.save(new OutgoingMessage()
                 .setDashboardInfo(
                         new DashboardInfo()
@@ -57,6 +67,7 @@ public class Corner2Controller {
                                 .setConversationId(conversationId)));
 
         incomingMessageRepository.save(new IncomingMessage()
+                .setPartnerIdentification(getConsumer(principal))
                 .setDashboardInfo(
                         new DashboardInfo()
                                 .setMessageId(messageId)
@@ -83,16 +94,30 @@ public class Corner2Controller {
     }
 
     @GetMapping("/messages")
-    public List<Message> getMessages() {
-        return incomingMessageRepository.findAll()
+    public List<Message> getMessages(@AuthenticationPrincipal Principal principal) {
+        PartnerIdentification consumer = getConsumer(principal);
+        List<Message> messages = incomingMessageRepository.findAll(consumer)
                 .stream()
                 .limit(1000)
                 .map(IncomingMessage::getMessage)
                 .collect(Collectors.toList());
+        log.info("GET /messages, found {} for {}", messages.size(), consumer);
+        return messages;
     }
 
     @PostMapping("/setmessageread/{id}")
-    public void markAsRead(@PathVariable("id") String id) {
-        incomingMessageRepository.deleteById(id);
+    public void markAsRead(@AuthenticationPrincipal Principal principal, @PathVariable("id") String id) {
+        PartnerIdentification consumer = getConsumer(principal);
+        log.info("POST /setmessageread/{} for {}", id, consumer);
+        incomingMessageRepository.deleteById(consumer, id);
+    }
+
+    public PartnerIdentification getConsumer(Principal principal) {
+        JwtAuthenticationToken token = (JwtAuthenticationToken) principal;
+        JSONObject consumer = (JSONObject) token.getTokenAttributes().get("consumer");
+
+        return new PartnerIdentification()
+                .setAuthority(consumer.getAsString("authority"))
+                .setValue(consumer.getAsString("ID"));
     }
 }
