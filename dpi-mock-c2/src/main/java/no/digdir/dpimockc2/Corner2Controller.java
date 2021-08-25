@@ -35,6 +35,7 @@ public class Corner2Controller {
     private final UnpackJWT unpackJWT;
     private final UnpackStandardBusinessDocument unpackStandardBusinessDocument;
     private final CreateReceipt createReceipt;
+    private final PrincipalService principalService;
 
     @PostMapping(path = "/send", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public void sendMessage(@AuthenticationPrincipal Principal principal, MultipartRequest multipartRequest) throws IOException {
@@ -67,7 +68,7 @@ public class Corner2Controller {
                                 .setConversationId(conversationId)));
 
         incomingMessageRepository.save(new IncomingMessage()
-                .setPartnerIdentification(getConsumer(principal))
+                .setPartnerIdentification(principalService.getDatabehandler(principal))
                 .setDashboardInfo(
                         new DashboardInfo()
                                 .setMessageId(messageId)
@@ -95,29 +96,20 @@ public class Corner2Controller {
 
     @GetMapping("/messages")
     public List<Message> getMessages(@AuthenticationPrincipal Principal principal) {
-        PartnerIdentification consumer = getConsumer(principal);
-        List<Message> messages = incomingMessageRepository.findAll(consumer)
+        PartnerIdentification databehandler = principalService.getDatabehandler(principal);
+        List<Message> messages = incomingMessageRepository.findAll(databehandler)
                 .stream()
                 .limit(1000)
                 .map(IncomingMessage::getMessage)
                 .collect(Collectors.toList());
-        log.info("GET /messages, found {} for {}", messages.size(), consumer);
+        log.info("GET /messages, found {} for {}", messages.size(), databehandler);
         return messages;
     }
 
     @PostMapping("/setmessageread/{id}")
     public void markAsRead(@AuthenticationPrincipal Principal principal, @PathVariable("id") String id) {
-        PartnerIdentification consumer = getConsumer(principal);
-        log.info("POST /setmessageread/{} for {}", id, consumer);
-        incomingMessageRepository.deleteById(consumer, id);
-    }
-
-    public PartnerIdentification getConsumer(Principal principal) {
-        JwtAuthenticationToken token = (JwtAuthenticationToken) principal;
-        JSONObject consumer = (JSONObject) token.getTokenAttributes().get("consumer");
-
-        return new PartnerIdentification()
-                .setAuthority(consumer.getAsString("authority"))
-                .setValue(consumer.getAsString("ID"));
+        PartnerIdentification databehandler = principalService.getDatabehandler(principal);
+        log.info("POST /setmessageread/{} for {}", id, databehandler);
+        incomingMessageRepository.deleteById(databehandler, id);
     }
 }
