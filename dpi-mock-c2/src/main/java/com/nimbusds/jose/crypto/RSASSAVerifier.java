@@ -129,13 +129,8 @@ public class RSASSAVerifier extends RSASSAProvider implements JWSVerifier, Criti
     @Override
     public boolean verify(final JWSHeader header,
                           final byte[] signedContent,
-                          final Base64URL signature)
-            throws JOSEException {
+                          final Base64URL signature) {
 
-        if (!critPolicy.headerPasses(header)) {
-            return false;
-        }
-
-        return true;
+        return critPolicy.headerPasses(header);
     }
 }

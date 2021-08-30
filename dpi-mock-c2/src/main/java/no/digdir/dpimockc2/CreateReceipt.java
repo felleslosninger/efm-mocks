@@ -22,8 +22,9 @@ public class CreateReceipt {
     private final Clock clock;
 
     String createReceipt(StandardBusinessDocument sbd) {
+        String maskinportenToken = createMaskinportenToken.createMaskinportenTokenForReceiving();
         return createStandardBusinessDocumentJWT.createStandardBusinessDocumentJWT(
-                createReceiptStandardBusinessDocument(sbd), null, createMaskinportenToken.createMaskinportenToken());
+                createReceiptStandardBusinessDocument(sbd), null, maskinportenToken);
     }
 
     private StandardBusinessDocument createReceiptStandardBusinessDocument(StandardBusinessDocument sbd) {

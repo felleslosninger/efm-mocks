@@ -1,9 +1,7 @@
 package no.digdir.dpimockc2;
 
-import com.nimbusds.jose.Payload;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import net.minidev.json.JSONObject;
 import no.difi.meldingsutveksling.domain.sbdh.*;
 import no.digdir.dpi.client.domain.Message;
 import no.digdir.dpi.client.internal.UnpackJWT;
@@ -11,7 +9,6 @@ import no.digdir.dpi.client.internal.UnpackStandardBusinessDocument;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
@@ -90,7 +87,7 @@ public class Corner2Controller {
 
     private StandardBusinessDocument getStandardBusinessDocument(MultipartFile sbdFile) throws IOException {
         String jwt = new String(sbdFile.getBytes(), StandardCharsets.UTF_8);
-        Payload payload = unpackJWT.getPayload(jwt);
+        String payload = unpackJWT.getPayload(jwt);
         return unpackStandardBusinessDocument.unpackStandardBusinessDocument(payload);
     }
 
