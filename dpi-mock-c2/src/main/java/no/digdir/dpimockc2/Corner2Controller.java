@@ -1,5 +1,6 @@
 package no.digdir.dpimockc2;
 
+import com.nimbusds.jose.Payload;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import no.difi.meldingsutveksling.domain.sbdh.*;
@@ -87,7 +88,7 @@ public class Corner2Controller {
 
     private StandardBusinessDocument getStandardBusinessDocument(MultipartFile sbdFile) throws IOException {
         String jwt = new String(sbdFile.getBytes(), StandardCharsets.UTF_8);
-        String payload = unpackJWT.getPayload(jwt);
+        Payload payload = unpackJWT.getPayload(jwt);
         return unpackStandardBusinessDocument.unpackStandardBusinessDocument(payload);
     }
 

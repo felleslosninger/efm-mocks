@@ -3,6 +3,8 @@ dpi:
         type: web
         schema: offline
         initialBufferSize: 100000
+        certificate:
+            mode: MOVE
         keystore:
             alias: "984661185"
             lockProvider: false
