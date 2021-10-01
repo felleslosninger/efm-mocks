@@ -127,7 +127,11 @@ public class Corner2Controller {
                                                   @PathVariable("messageId") String messageId) {
         PartnerIdentification databehandler = principalService.getDatabehandler(principal);
         log.info("GET /messages/out/{}/statuses", messageId);
-        return outgoingMessageInfoRepository.get(databehandler, messageId).getStatusList();
+        List<MessageStatus> messageStatusList = outgoingMessageInfoRepository.getMessageStatusList(databehandler, messageId);
+        if (messageStatusList.isEmpty()) {
+            throw new NoContentException();
+        }
+        return messageStatusList;
     }
 
     @GetMapping("/messages/in")

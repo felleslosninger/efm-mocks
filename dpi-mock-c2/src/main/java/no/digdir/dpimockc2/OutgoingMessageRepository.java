@@ -2,6 +2,7 @@ package no.digdir.dpimockc2;
 
 import lombok.Getter;
 import no.difi.meldingsutveksling.domain.sbdh.PartnerIdentification;
+import no.digdir.dpi.client.domain.MessageStatus;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -20,10 +21,11 @@ public class OutgoingMessageRepository {
         messages.put(message.getDashboardInfo().getMessageId(), message);
     }
 
-    public OutgoingMessage get(PartnerIdentification partnerIdentification, String messageId) {
+    public List<MessageStatus> getMessageStatusList(PartnerIdentification partnerIdentification, String messageId) {
         return Optional.ofNullable(messages.get(messageId))
                 .filter(p -> p.getPartnerIdentification().equals(partnerIdentification))
-                .orElseThrow(() -> new IllegalArgumentException(String.format("Couldn't find messageId = %s", messageId)));
+                .map(OutgoingMessage::getStatusList)
+                .orElseGet(Collections::emptyList);
     }
 
     public void deleteAll() {

@@ -21,7 +21,7 @@ public class IncomingMessageRepository {
     public void deleteById(PartnerIdentification partnerIdentification, String messageId) {
         IncomingMessage incomingMessage = Optional.ofNullable(messages.get(messageId))
                 .filter(p -> p.getPartnerIdentification().equals(partnerIdentification))
-                .orElseThrow(() -> new IllegalArgumentException(String.format("Couldn't find messageId = %s", messageId)));
+                .orElseThrow(() -> new NotFoundException(String.format("Couldn't find messageId = %s", messageId)));
         messages.remove(incomingMessage.getDashboardInfo().getMessageId());
     }
 
