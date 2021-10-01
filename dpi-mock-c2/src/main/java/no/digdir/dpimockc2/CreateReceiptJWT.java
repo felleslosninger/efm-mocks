@@ -8,7 +8,6 @@ import no.digdir.dpi.client.domain.sbd.Avsender;
 import no.digdir.dpi.client.domain.sbd.Identifikator;
 import no.digdir.dpi.client.domain.sbd.Virksomhetmottaker;
 import no.digdir.dpi.client.internal.CreateInstanceIdentifier;
-import no.digdir.dpi.client.internal.CreateStandardBusinessDocumentJWT;
 import org.springframework.stereotype.Component;
 
 import java.time.Clock;
@@ -19,16 +18,10 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CreateReceiptJWT {
 
-    private final CreateStandardBusinessDocumentJWT createStandardBusinessDocumentJWT;
     private final CreateInstanceIdentifier createInstanceIdentifier;
     private final Clock clock;
 
-    String createReceiptJWT(StandardBusinessDocument sbd, ReceiptFactory receiptFactory) {
-        return createStandardBusinessDocumentJWT.createStandardBusinessDocumentJWT(
-                createReceiptStandardBusinessDocument(sbd, receiptFactory), null, null);
-    }
-
-    private StandardBusinessDocument createReceiptStandardBusinessDocument(StandardBusinessDocument sbd, ReceiptFactory receiptFactory) {
+    StandardBusinessDocument createReceiptStandardBusinessDocument(StandardBusinessDocument sbd, ReceiptFactory receiptFactory) {
         MessageType receiptType = receiptFactory.getMessageType();
 
         PartnerIdentification receiver = StandardBusinessDocumentUtils.getFirstReceiverIdentifier(sbd)

@@ -9,6 +9,7 @@ import no.digdir.dpi.client.domain.MessageStatus;
 import no.digdir.dpi.client.domain.ReceiptStatus;
 import no.digdir.dpi.client.domain.messagetypes.AvsenderHolder;
 import no.digdir.dpi.client.domain.sbd.Avsender;
+import no.digdir.dpi.client.internal.CreateStandardBusinessDocumentJWT;
 import no.digdir.dpi.client.internal.UnpackJWT;
 import no.digdir.dpi.client.internal.UnpackStandardBusinessDocument;
 import org.springframework.http.MediaType;
@@ -41,6 +42,7 @@ public class Corner2Controller {
     private final CreateReceiptJWT createReceipt;
     private final PrincipalService principalService;
     private final CreateLeveringskvittering createLeveringskvittering;
+    private final CreateStandardBusinessDocumentJWT createStandardBusinessDocumentJWT;
     private final Clock clock;
 
     @PostMapping(path = "/messages/out", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -93,11 +95,16 @@ public class Corner2Controller {
                                 .setAvsenderidentifikator(avsenderindikator)
                                 .setKanal(kanal)));
 
+        StandardBusinessDocument receiptSBD = createReceipt.createReceiptStandardBusinessDocument(sbd, createLeveringskvittering);
+
+        String receiptMessageId = StandardBusinessDocumentUtils.getMessageId(receiptSBD)
+                .orElseThrow(() -> new IllegalArgumentException("Missing messageId"));
+
         incomingMessageRepository.save(new IncomingMessage()
                 .setPartnerIdentification(databehandler)
                 .setDashboardInfo(
                         new DashboardInfo()
-                                .setMessageId(messageId)
+                                .setMessageId(receiptMessageId)
                                 .setReceiverOrgNum(sender)
                                 .setSenderOrgNum(receiver)
                                 .setConversationId(conversationId)
@@ -105,9 +112,14 @@ public class Corner2Controller {
                                 .setKanal(kanal))
                 .setMessage(
                         new Message()
-                                .setForretningsmelding(createReceipt.createReceiptJWT(sbd, createLeveringskvittering))
+                                .setForretningsmelding(createReceiptJWT(receiptSBD))
                 )
         );
+    }
+
+    String createReceiptJWT(StandardBusinessDocument receiptSBD) {
+        return createStandardBusinessDocumentJWT.createStandardBusinessDocumentJWT(
+                receiptSBD, null, null);
     }
 
     private Optional<String> getValue(Partner partner) {
