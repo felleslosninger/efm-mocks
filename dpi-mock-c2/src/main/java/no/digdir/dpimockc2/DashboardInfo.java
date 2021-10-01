@@ -10,4 +10,6 @@ public class DashboardInfo {
     private String receiverOrgNum;
     private String senderOrgNum;
     private String conversationId;
+    private String avsenderidentifikator;
+    private String kanal;
 }

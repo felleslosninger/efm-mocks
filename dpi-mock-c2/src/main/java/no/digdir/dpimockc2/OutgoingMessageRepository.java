@@ -1,12 +1,10 @@
 package no.digdir.dpimockc2;
 
 import lombok.Getter;
+import no.difi.meldingsutveksling.domain.sbdh.PartnerIdentification;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * This class holds a list of messages sent from C1 in memory so that we can expose an API that
@@ -16,10 +14,16 @@ import java.util.List;
 @Getter
 public class OutgoingMessageRepository {
 
-    private final List<OutgoingMessage> messages = Collections.synchronizedList(new ArrayList<>());
+    private final Map<String, OutgoingMessage> messages = Collections.synchronizedMap(new LinkedHashMap<>());
 
     public void save(OutgoingMessage message) {
-        messages.add(message);
+        messages.put(message.getDashboardInfo().getMessageId(), message);
+    }
+
+    public OutgoingMessage get(PartnerIdentification partnerIdentification, String messageId) {
+        return Optional.ofNullable(messages.get(messageId))
+                .filter(p -> p.getPartnerIdentification().equals(partnerIdentification))
+                .orElseThrow(() -> new IllegalArgumentException(String.format("Couldn't find messageId = %s", messageId)));
     }
 
     public void deleteAll() {
@@ -27,6 +31,6 @@ public class OutgoingMessageRepository {
     }
 
     public Collection<OutgoingMessage> findAll() {
-        return messages;
+        return messages.values();
     }
 }

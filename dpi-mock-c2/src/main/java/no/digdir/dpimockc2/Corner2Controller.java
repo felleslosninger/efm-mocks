@@ -5,6 +5,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import no.difi.meldingsutveksling.domain.sbdh.*;
 import no.digdir.dpi.client.domain.Message;
+import no.digdir.dpi.client.domain.MessageStatus;
+import no.digdir.dpi.client.domain.ReceiptStatus;
+import no.digdir.dpi.client.domain.messagetypes.AvsenderHolder;
+import no.digdir.dpi.client.domain.sbd.Avsender;
 import no.digdir.dpi.client.internal.UnpackJWT;
 import no.digdir.dpi.client.internal.UnpackStandardBusinessDocument;
 import org.springframework.http.MediaType;
@@ -17,6 +21,8 @@ import org.springframework.web.multipart.MultipartRequest;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.Principal;
+import java.time.Clock;
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -32,13 +38,17 @@ public class Corner2Controller {
     private final IncomingMessageRepository incomingMessageRepository;
     private final UnpackJWT unpackJWT;
     private final UnpackStandardBusinessDocument unpackStandardBusinessDocument;
-    private final CreateReceipt createReceipt;
+    private final CreateReceiptJWT createReceipt;
     private final PrincipalService principalService;
+    private final CreateLeveringskvittering createLeveringskvittering;
+    private final Clock clock;
 
-    @PostMapping(path = "/send", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public void sendMessage(@AuthenticationPrincipal Principal principal, MultipartRequest multipartRequest) throws IOException {
-        MultipartFile sbdFile = Optional.ofNullable(multipartRequest.getFile("sbd"))
-                .orElseThrow(() -> new IllegalArgumentException("MultipartFile named sbd is missing!"));
+    @PostMapping(path = "/messages/out", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public void sendMessage(@AuthenticationPrincipal Principal principal,
+                            MultipartRequest multipartRequest,
+                            @RequestParam(value = "kanal", required = false) String kanal) throws IOException {
+        MultipartFile sbdFile = Optional.ofNullable(multipartRequest.getFile("forretningsmelding"))
+                .orElseThrow(() -> new IllegalArgumentException("MultipartFile named forretningsmelding is missing!"));
 
         StandardBusinessDocument sbd = getStandardBusinessDocument(sbdFile);
 
@@ -54,28 +64,48 @@ public class Corner2Controller {
                 .flatMap(p -> Optional.ofNullable(p.getInstanceIdentifier()))
                 .orElseThrow(() -> new IllegalArgumentException("Missing conversationId"));
 
+        String avsenderindikator = sbd.getBusinessMessage(AvsenderHolder.class)
+                .flatMap(p -> Optional.ofNullable(p.getAvsender()))
+                .map(Avsender::getAvsenderidentifikator)
+                .orElse(null);
+
         log.info("Received message, id={}, conversationId={}, receiver={}, sender={}",
                 messageId, conversationId, receiver, sender);
 
+        PartnerIdentification databehandler = principalService.getDatabehandler(principal);
+
         outgoingMessageInfoRepository.save(new OutgoingMessage()
+                .setPartnerIdentification(databehandler)
+                .addStatus(new MessageStatus()
+                        .setStatus(ReceiptStatus.OPPRETTET)
+                        .setTimestamp(OffsetDateTime.now(clock))
+                )
+                .addStatus(new MessageStatus()
+                        .setStatus(ReceiptStatus.SENDT)
+                        .setTimestamp(OffsetDateTime.now(clock))
+                )
                 .setDashboardInfo(
                         new DashboardInfo()
                                 .setMessageId(messageId)
                                 .setReceiverOrgNum(receiver)
                                 .setSenderOrgNum(sender)
-                                .setConversationId(conversationId)));
+                                .setConversationId(conversationId)
+                                .setAvsenderidentifikator(avsenderindikator)
+                                .setKanal(kanal)));
 
         incomingMessageRepository.save(new IncomingMessage()
-                .setPartnerIdentification(principalService.getDatabehandler(principal))
+                .setPartnerIdentification(databehandler)
                 .setDashboardInfo(
                         new DashboardInfo()
                                 .setMessageId(messageId)
                                 .setReceiverOrgNum(sender)
                                 .setSenderOrgNum(receiver)
-                                .setConversationId(conversationId))
+                                .setConversationId(conversationId)
+                                .setAvsenderidentifikator(avsenderindikator)
+                                .setKanal(kanal))
                 .setMessage(
                         new Message()
-                                .setForettningsmelding(createReceipt.createReceipt(sbd))
+                                .setForretningsmelding(createReceipt.createReceiptJWT(sbd, createLeveringskvittering))
                 )
         );
     }
@@ -92,22 +122,33 @@ public class Corner2Controller {
         return unpackStandardBusinessDocument.unpackStandardBusinessDocument(payload);
     }
 
-    @GetMapping("/messages")
-    public List<Message> getMessages(@AuthenticationPrincipal Principal principal) {
+    @GetMapping("/messages/out/{messageId}/statuses")
+    public List<MessageStatus> getMessageStatuses(@AuthenticationPrincipal Principal principal,
+                                                  @PathVariable("messageId") String messageId) {
+        PartnerIdentification databehandler = principalService.getDatabehandler(principal);
+        log.info("GET /messages/out/{}/statuses", messageId);
+        return outgoingMessageInfoRepository.get(databehandler, messageId).getStatusList();
+    }
+
+    @GetMapping("/messages/in")
+    public List<Message> getMessages(@AuthenticationPrincipal Principal principal,
+                                     @RequestParam(value = "avsenderidentifikator", required = false) String avsenderidentifikator,
+                                     @RequestParam(value = "kanal", required = false) String kanal) {
         PartnerIdentification databehandler = principalService.getDatabehandler(principal);
         List<Message> messages = incomingMessageRepository.findAll(databehandler)
-                .stream()
+                .filter(p -> avsenderidentifikator == null || p.getDashboardInfo().getAvsenderidentifikator().equals(avsenderidentifikator))
+                .filter(p -> kanal == null || p.getDashboardInfo().getKanal().equalsIgnoreCase(kanal))
                 .limit(1000)
                 .map(IncomingMessage::getMessage)
                 .collect(Collectors.toList());
-        log.info("GET /messages, found {} for {}", messages.size(), databehandler);
+        log.info("GET /messages/in, found {} for {}", messages.size(), databehandler);
         return messages;
     }
 
-    @PostMapping("/setmessageread/{id}")
-    public void markAsRead(@AuthenticationPrincipal Principal principal, @PathVariable("id") String id) {
+    @PostMapping("/messages/in/{messageId}/read")
+    public void markAsRead(@AuthenticationPrincipal Principal principal, @PathVariable("messageId") String messageId) {
         PartnerIdentification databehandler = principalService.getDatabehandler(principal);
-        log.info("POST /setmessageread/{} for {}", id, databehandler);
-        incomingMessageRepository.deleteById(databehandler, id);
+        log.info("POST /messages/in/{}/read for {}", messageId, databehandler);
+        incomingMessageRepository.deleteById(databehandler, messageId);
     }
 }

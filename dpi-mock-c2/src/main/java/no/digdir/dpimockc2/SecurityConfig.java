@@ -1,6 +1,5 @@
 package no.digdir.dpimockc2;
 
-import no.difi.move.common.cert.KeystoreHelper;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,7 +23,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public JwtDecoder customDecoder(OAuth2ResourceServerProperties properties) {
         NimbusJwtDecoder jwtDecoder = NimbusJwtDecoder.withJwkSetUri(
-                properties.getJwt().getJwkSetUri())
+                        properties.getJwt().getJwkSetUri())
                 .build();
         jwtDecoder.setJwtValidator(p -> OAuth2TokenValidatorResult.success());
         return jwtDecoder;
