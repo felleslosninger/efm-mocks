@@ -1,7 +1,7 @@
 package no.digdir.dpimockc2;
 
-import no.digdir.dpi.client.domain.messagetypes.Kvittering;
-import no.digdir.dpi.client.domain.messagetypes.MessageType;
+import no.difi.meldingsutveksling.dpi.client.domain.messagetypes.Kvittering;
+import no.difi.meldingsutveksling.dpi.client.domain.messagetypes.MessageType;
 
 public interface ReceiptFactory {
 

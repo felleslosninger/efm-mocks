@@ -1,6 +1,6 @@
 package no.digdir.dpimockc2;
 
-import no.digdir.dpi.client.DpiClientConfig;
+import no.difi.meldingsutveksling.dpi.client.DpiClientConfig;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;

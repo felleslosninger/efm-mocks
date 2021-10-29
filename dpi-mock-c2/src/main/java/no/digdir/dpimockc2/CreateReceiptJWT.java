@@ -2,12 +2,12 @@ package no.digdir.dpimockc2;
 
 import lombok.RequiredArgsConstructor;
 import no.difi.meldingsutveksling.domain.sbdh.*;
-import no.digdir.dpi.client.domain.messagetypes.AvsenderHolder;
-import no.digdir.dpi.client.domain.messagetypes.MessageType;
-import no.digdir.dpi.client.domain.sbd.Avsender;
-import no.digdir.dpi.client.domain.sbd.Identifikator;
-import no.digdir.dpi.client.domain.sbd.Virksomhetmottaker;
-import no.digdir.dpi.client.internal.CreateInstanceIdentifier;
+import no.difi.meldingsutveksling.dpi.client.domain.messagetypes.AvsenderHolder;
+import no.difi.meldingsutveksling.dpi.client.domain.messagetypes.MessageType;
+import no.difi.meldingsutveksling.dpi.client.domain.sbd.Avsender;
+import no.difi.meldingsutveksling.dpi.client.domain.sbd.Identifikator;
+import no.difi.meldingsutveksling.dpi.client.domain.sbd.Virksomhetmottaker;
+import no.difi.meldingsutveksling.dpi.client.internal.CreateInstanceIdentifier;
 import org.springframework.stereotype.Component;
 
 import java.time.Clock;

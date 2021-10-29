@@ -15,13 +15,13 @@
     <description>DPI mock for corner 2</description>
     <properties>
         <java.version>1.8</java.version>
-        <efm-dpi-client.version>0.0.1-SNAPSHOT</efm-dpi-client.version>
+        <integrasjonspunkt.version>2.3.0-SNAPSHOT</integrasjonspunkt.version>
     </properties>
     <dependencies>
         <dependency>
-            <groupId>no.digdir</groupId>
-            <artifactId>efm-dpi-client</artifactId>
-            <version>${efm-dpi-client.version}</version>
+            <groupId>no.difi.meldingsutveksling</groupId>
+            <artifactId>dpi-client</artifactId>
+            <version>${integrasjonspunkt.version}</version>
         </dependency>
 
         <dependency>

@@ -1,9 +1,9 @@
 package no.digdir.dpimockc2;
 
 import lombok.RequiredArgsConstructor;
-import no.digdir.dpi.client.domain.messagetypes.Kvittering;
-import no.digdir.dpi.client.domain.messagetypes.Leveringskvittering;
-import no.digdir.dpi.client.domain.messagetypes.MessageType;
+import no.difi.meldingsutveksling.dpi.client.domain.messagetypes.Kvittering;
+import no.difi.meldingsutveksling.dpi.client.domain.messagetypes.Leveringskvittering;
+import no.difi.meldingsutveksling.dpi.client.domain.messagetypes.MessageType;
 import org.springframework.stereotype.Component;
 
 import java.time.Clock;

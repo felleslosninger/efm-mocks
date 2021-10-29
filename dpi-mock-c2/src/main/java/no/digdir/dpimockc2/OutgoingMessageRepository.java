@@ -2,7 +2,7 @@ package no.digdir.dpimockc2;
 
 import lombok.Getter;
 import no.difi.meldingsutveksling.domain.sbdh.PartnerIdentification;
-import no.digdir.dpi.client.domain.MessageStatus;
+import no.difi.meldingsutveksling.dpi.client.domain.MessageStatus;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
