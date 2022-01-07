@@ -15,7 +15,7 @@
     <description>DPI mock for corner 2</description>
     <properties>
         <java.version>1.8</java.version>
-        <integrasjonspunkt.version>2.3.0-SNAPSHOT</integrasjonspunkt.version>
+        <integrasjonspunkt.version>2.4.0-SNAPSHOT</integrasjonspunkt.version>
     </properties>
     <dependencies>
         <dependency>
