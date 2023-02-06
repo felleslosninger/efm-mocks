@@ -1,6 +1,6 @@
-## MoveMocks
+## efm-mocks
 
-MoveMocks lar deg simulere de forskjellige meldingsformidlertjenestene.
+EfmMocks lar deg simulere de forskjellige meldingsformidlertjenestene.
 
 ![alt text](images/Mock.jpg "Container diagram")
 
@@ -61,9 +61,9 @@ Meldinger som mocken har mottatt kan ses på [http://localhost:8001](http://loca
 
 #### Sende meldinger
 
-MoveMocks inneholder også testscript for å sende de forskjellige meldingstypene.
+EfmMocks inneholder også testscript for å sende de forskjellige meldingstypene.
 
-1. MoveMocks krever node.js installert. Gå til [https://nodejs.org/en/download/](https://nodejs.org/en/download/) for å laste ned og installere node js for ditt system.
+1. EfmMocks krever node.js installert. Gå til [https://nodejs.org/en/download/](https://nodejs.org/en/download/) for å laste ned og installere node js for ditt system.
 2. ```cd efm-mocks/tests npm install``` 
 3. Naviger til tester ```cd efm-mocks/tests/next-move```
 4. Kjør test: ```node NextMove.js```
@@ -79,7 +79,7 @@ Dette forutsetter at ditt integrasjonspunkt kjører med org nummeret som er angi
 
 #### jMeter
 
-MoveMocks inneholder også jMeter tester. Disse kan brukes til ytelses testing, og for å teste om alt er satt opp og fungerer.
+EfmMocks inneholder også jMeter tester. Disse kan brukes til ytelses testing, og for å teste om alt er satt opp og fungerer.
  
 1. Åpne en av testene i ```/jMeter ```
 2. I test oppsettet i menyen til venstre, gå til ```IP Stress test/Test Oppsett/Sett test variabler```, og angi IP og port til ditt Integrasjonspunkt.
