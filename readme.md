@@ -14,7 +14,7 @@ MoveMocks lar deg simulere de forskjellige meldingsformidlertjenestene.
 
 ### Oppstart
 
-1. ``` git clone https://github.com/difi/move-mocks.git ```
+1. ``` git clone https://github.com/felleslosninger/efm-mocks ```
 2. Pass på at ingenting kjører på følgende porter: 9093, 8001, 8002 og 8080, eller spesifiser porter i .env filen.
 3. Kjør ``` docker-compose up ``` i roten av prosjektet. 
 
@@ -64,8 +64,8 @@ Meldinger som mocken har mottatt kan ses på [http://localhost:8001](http://loca
 MoveMocks inneholder også testscript for å sende de forskjellige meldingstypene.
 
 1. MoveMocks krever node.js installert. Gå til [https://nodejs.org/en/download/](https://nodejs.org/en/download/) for å laste ned og installere node js for ditt system.
-2. ```cd move-mocks/tests npm install``` 
-3. Naviger til tester ```cd move-mocks/tests/next-move```
+2. ```cd efm-mocks/tests npm install``` 
+3. Naviger til tester ```cd efm-mocks/tests/next-move```
 4. Kjør test: ```node NextMove.js```
 5. For å sende spesifikke meldingstyper kan du kjøre ``` node NextMove.js dpi dpiprint dpe dpf dpv dpo ```.
 6. Kjør : ```node NextMove.js -h``` for å se alle valg.
