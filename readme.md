@@ -93,9 +93,7 @@ Kommando som kan brukes til å bygge prosjektet etter oppdatering ```docker-comp
 
 ### Egen implementasjon av eFormidling 2.0 API'et
 
-Om du bruker Mocks som del av utviklingsarbeid kan det være nyttig å kjenne til API dokumentasjonen vår samt en egen side som supplement.
-- [API REST dokumentasjon](https://docs.digdir.no/eformidling_nm_restdocs.html)
-- [Supplement til REST dokumentasjon](https://docs.digdir.no/eformidling_dev.html)
+Om du bruker Mocks som del av utviklingsarbeid kan det være nyttig å kjenne til [API dokumentasjonen vår)](https://docs.digdir.no/docs/eFormidling/Utvikling/integrasjonspunkt_eformidling2_api.html).
 
 ---
 
