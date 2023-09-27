@@ -14,17 +14,21 @@ function retreiveforsendelsetyper(req, res, parsed) {
 </soap:Envelope>`);
 }
 
-function retrieveforsendelsestatus(req, res, parsed){
+function retrieveforsendelsestatuser(req, res, parsed){
 
-    let forsendelsesId = parsed.envelope.body["0"].retrieveforsendelsestatus["0"].forsendelsesid["0"]
+    let forsendelsesId = parsed.envelope.body["0"].retrieveforsendelsestatuser["0"].forsendelseider["0"]
 
     res.send(`<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:ser="http://www.ks.no/svarut/servicesV9">
                            <soap:Header/>
                            <soap:Body>
-                              <ser:retrieveForsendelseStatusResponse>
+                              <ser:retrieveForsendelseStatuserResponse>
                                  <!--Returner LEST-->
-                                 <return>LEST</return>
-                              </ser:retrieveForsendelseStatusResponse>
+                                 <return>
+                                    <forsendelseStatus>LEST</forsendelseStatus>
+                                    <forsendelsesid>${forsendelsesId}</forsendelsesid>
+                                    <sisteStatusEndring>${new Date().toISOString()}</sisteStatusEndring>
+                                 </return>
+                              </ser:retrieveForsendelseStatuserResponse>
                            </soap:Body>
                         </soap:Envelope>`);
 
@@ -174,4 +178,4 @@ function hentNyeForsendelser(req, res) {
     }));
 }
 
-module.exports = { retreiveforsendelsetyper, retrieveforsendelsestatus, sendforsendelsemedid, PutMessage, hentNyeForsendelser, hentForsendelsefil };
+module.exports = { retreiveforsendelsetyper, retrieveforsendelsestatuser, sendforsendelsemedid, PutMessage, hentNyeForsendelser, hentForsendelsefil };
