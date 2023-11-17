@@ -1,9 +1,9 @@
 package no.digdir.dpimockc2;
 
 import lombok.RequiredArgsConstructor;
+import no.difi.meldingsutveksling.dpi.client.domain.messagetypes.DpiMessageType;
 import no.difi.meldingsutveksling.dpi.client.domain.messagetypes.Kvittering;
 import no.difi.meldingsutveksling.dpi.client.domain.messagetypes.Leveringskvittering;
-import no.difi.meldingsutveksling.dpi.client.domain.messagetypes.MessageType;
 import org.springframework.stereotype.Component;
 
 import java.time.Clock;
@@ -16,8 +16,8 @@ public class CreateLeveringskvittering implements ReceiptFactory {
     private final Clock clock;
 
     @Override
-    public MessageType getMessageType() {
-        return MessageType.LEVERINGSKVITTERING;
+    public DpiMessageType getMessageType() {
+        return DpiMessageType.LEVERINGSKVITTERING;
     }
 
     @Override

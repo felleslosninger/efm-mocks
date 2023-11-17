@@ -2,29 +2,52 @@ difi:
     move:
         feature:
             enableDPI: true
-dpi:
-    client:
-        type: web
-        schema: offline
-        initialBufferSize: 100000
-        certificate:
-            mode: MOVE
-        keystore:
-            alias: "984661185"
-            lockProvider: false
-            password: changeit
-            path: classpath:/mock.jks
-            type: jks
-        oidc:
-            enable: false
-            mock:
-                token: "eyJraWQiOiJjWmswME1rbTVIQzRnN3Z0NmNwUDVGSFpMS0pzdzhmQkFJdUZiUzRSVEQ0IiwiYWxnIjoiUlMyNTYifQ.eyJzY29wZSI6ImRpZ2l0YWxwb3N0aW5uYnlnZ2VyOnNlbmQiLCJzdXBwbGllciI6eyJhdXRob3JpdHkiOiJpc282NTIzLWFjdG9yaWQtdXBpcyIsIklEIjoiMDE5Mjo5MTAwNzU5MTgifSwiaXNzIjoiaHR0cHM6Ly92ZXIxLm1hc2tpbnBvcnRlbi5uby8iLCJjbGllbnRfYW1yIjoidmlya3NvbWhldHNzZXJ0aWZpa2F0IiwidG9rZW5fdHlwZSI6IkJlYXJlciIsImV4cCI6MTYyOTQ2NjYwMiwiZGVsZWdhdGlvbl9zb3VyY2UiOiJodHRwczovL3ZlcjEubWFza2lucG9ydGVuLm5vLyIsImlhdCI6MTYyOTQ2NjQ4MiwiY2xpZW50X2lkIjoiMTY1NzRjMmMtNjBiMS00MGQyLTk5MmQtN2Q2NWYzNjhmOTU5IiwianRpIjoiS3JqTkVoeHJKSloybWY2Y0Z1ZElha3FrNVYtVkVxX1FzZVAtQU50SnBXayIsImNvbnN1bWVyIjp7ImF1dGhvcml0eSI6ImlzbzY1MjMtYWN0b3JpZC11cGlzIiwiSUQiOiIwMTkyOjkxMDA3NTkxOCJ9fQ.chWcQc_buZEbQo7Wpol6cJCZx4q7xrrNCugCndKDCmi0XbA29FOKMDNRWvsof-92ntDFlKxP8mIry8mKY7VBG9PcUWwkhVUjRKVlJJk_fDWI19n9qJ504_a6CZVud_d_Vy8E2x5sN_GLVeI1rXL6XUBogXtBG2g6v2Mz3vYkNGhuDmLCv6uy2C2WuH0IO4c9vRZ6DWvYI60Pajn8Uf443KwUDzOHhO1eLlOAnYGfN8MM3Pk0kZNeJeOMB2nlN6JK-fp_lVnd4HXfrYAnZtq3yN-H7-R7sCyY89Phb7MVUXna7h3Rt-iVcBNwSna45a5NTUk-K4jlCWxYATC9hVWFtA"
-        temporary-file-threshold: 10000000
-        timeout:
-            connect: 5000
-            read: 60000
-            write: 60000
-        uri: http://localhost/dummy
+        serviceregistry-endpoint: "n/a"
+        fiks:
+            keystore:
+                alias: "984661185"
+                lockProvider: false
+                password: changeit
+                path: classpath:/mock.jks
+                type: jks
+        dpi:
+            c2-type: file
+            client-type: json
+            receipt-type: json
+            initialBufferSize: 100000
+            certificate:
+                recipe: "classpath:/pki/recipe-dpi-move-difiSigned.xml"
+            server:
+                keystore:
+                    alias: "984661185"
+                    lockProvider: false
+                    password: changeit
+                    path: classpath:/mock.jks
+                    type: jks
+            krr-print-url: https://test.kontaktregisteret.no/rest/v2/printSertifikat
+            print-settings:
+                return-type: SHREDDING
+                ink-type: BLACK_WHITE
+                shipping-type: ECONOMY
+            asice:
+                type: commons-asic
+            oidc:
+                enable: false
+                mock:
+                    token: "eyJraWQiOiJjWmswME1rbTVIQzRnN3Z0NmNwUDVGSFpMS0pzdzhmQkFJdUZiUzRSVEQ0IiwiYWxnIjoiUlMyNTYifQ.eyJzY29wZSI6ImRpZ2l0YWxwb3N0aW5uYnlnZ2VyOnNlbmQiLCJzdXBwbGllciI6eyJhdXRob3JpdHkiOiJpc282NTIzLWFjdG9yaWQtdXBpcyIsIklEIjoiMDE5Mjo5MTAwNzU5MTgifSwiaXNzIjoiaHR0cHM6Ly92ZXIxLm1hc2tpbnBvcnRlbi5uby8iLCJjbGllbnRfYW1yIjoidmlya3NvbWhldHNzZXJ0aWZpa2F0IiwidG9rZW5fdHlwZSI6IkJlYXJlciIsImV4cCI6MTYyOTQ2NjYwMiwiZGVsZWdhdGlvbl9zb3VyY2UiOiJodHRwczovL3ZlcjEubWFza2lucG9ydGVuLm5vLyIsImlhdCI6MTYyOTQ2NjQ4MiwiY2xpZW50X2lkIjoiMTY1NzRjMmMtNjBiMS00MGQyLTk5MmQtN2Q2NWYzNjhmOTU5IiwianRpIjoiS3JqTkVoeHJKSloybWY2Y0Z1ZElha3FrNVYtVkVxX1FzZVAtQU50SnBXayIsImNvbnN1bWVyIjp7ImF1dGhvcml0eSI6ImlzbzY1MjMtYWN0b3JpZC11cGlzIiwiSUQiOiIwMTkyOjkxMDA3NTkxOCJ9fQ.chWcQc_buZEbQo7Wpol6cJCZx4q7xrrNCugCndKDCmi0XbA29FOKMDNRWvsof-92ntDFlKxP8mIry8mKY7VBG9PcUWwkhVUjRKVlJJk_fDWI19n9qJ504_a6CZVud_d_Vy8E2x5sN_GLVeI1rXL6XUBogXtBG2g6v2Mz3vYkNGhuDmLCv6uy2C2WuH0IO4c9vRZ6DWvYI60Pajn8Uf443KwUDzOHhO1eLlOAnYGfN8MM3Pk0kZNeJeOMB2nlN6JK-fp_lVnd4HXfrYAnZtq3yN-H7-R7sCyY89Phb7MVUXna7h3Rt-iVcBNwSna45a5NTUk-K4jlCWxYATC9hVWFtA"
+            temporary-file-threshold: 10000000
+            default-ttl-hours: 24
+            timeout:
+                connect: 5000
+                read: 60000
+                write: 60000
+            uri: http://localhost/dummy
+            mpc-id: "kanal"
+            mpc-concurrency: 1
+            upload-size-limit: "3MB"
+            language: "NO"
+            priority: "NORMAL"
+            poll-without-avsenderidentifikator: "true"
 spring:
     security:
         oauth2:

@@ -3,7 +3,10 @@ package no.digdir.dpimockc2;
 import com.nimbusds.jose.Payload;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import no.difi.meldingsutveksling.domain.sbdh.*;
+import no.difi.meldingsutveksling.domain.sbdh.Partner;
+import no.difi.meldingsutveksling.domain.sbdh.PartnerIdentification;
+import no.difi.meldingsutveksling.domain.sbdh.ScopeType;
+import no.difi.meldingsutveksling.domain.sbdh.StandardBusinessDocument;
 import no.difi.meldingsutveksling.dpi.client.domain.Message;
 import no.difi.meldingsutveksling.dpi.client.domain.MessageStatus;
 import no.difi.meldingsutveksling.dpi.client.domain.ReceiptStatus;
@@ -54,15 +57,18 @@ public class Corner2Controller {
 
         StandardBusinessDocument sbd = getStandardBusinessDocument(sbdFile);
 
-        String messageId = StandardBusinessDocumentUtils.getMessageId(sbd)
-                .orElseThrow(() -> new IllegalArgumentException("Missing messageId"));
-        String receiver = StandardBusinessDocumentUtils.getFirstReceiver(sbd)
+        String messageId = sbd.getMessageId();
+        String receiver = sbd.getStandardBusinessDocumentHeader()
+                .getReceiver().stream()
+                .findFirst()
                 .flatMap(this::getValue)
                 .orElseThrow(() -> new IllegalArgumentException("Missing receiver"));
-        String sender = StandardBusinessDocumentUtils.getFirstSender(sbd)
+        String sender = sbd.getStandardBusinessDocumentHeader()
+                .getSender().stream()
+                .findFirst()
                 .flatMap(this::getValue)
                 .orElseThrow(() -> new IllegalArgumentException("Missing sender"));
-        String conversationId = StandardBusinessDocumentUtils.getScope(sbd, ScopeType.CONVERSATION_ID)
+        String conversationId = sbd.getScope(ScopeType.CONVERSATION_ID)
                 .flatMap(p -> Optional.ofNullable(p.getInstanceIdentifier()))
                 .orElseThrow(() -> new IllegalArgumentException("Missing conversationId"));
 
@@ -97,8 +103,7 @@ public class Corner2Controller {
 
         StandardBusinessDocument receiptSBD = createReceipt.createReceiptStandardBusinessDocument(sbd, createLeveringskvittering);
 
-        String receiptMessageId = StandardBusinessDocumentUtils.getMessageId(receiptSBD)
-                .orElseThrow(() -> new IllegalArgumentException("Missing messageId"));
+        String receiptMessageId = receiptSBD.getMessageId();
 
         incomingMessageRepository.save(new IncomingMessage()
                 .setPartnerIdentification(databehandler)
