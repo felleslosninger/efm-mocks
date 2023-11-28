@@ -11,6 +11,12 @@ difi:
                 path: classpath:/mock.jks
                 type: jks
         dpi:
+            keystore:
+                alias: "984661185"
+                lockProvider: false
+                password: changeit
+                path: classpath:/mock.jks
+                type: jks
             c2-type: file
             client-type: json
             receipt-type: json

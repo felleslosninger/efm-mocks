@@ -4,7 +4,7 @@ import no.difi.meldingsutveksling.dpi.client.DpiClientTestConfig;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest(classes = DpiClientTestConfig.class)
+@SpringBootTest
 class DpiMockC2ApplicationTests {
 
     @Test
