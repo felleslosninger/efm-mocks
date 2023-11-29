@@ -201,7 +201,7 @@ export default class MessageForm extends React.Component {
             };
 
             axios({
-                url: '/api/send',
+                url: `${window.baseName}/api/send`,
                 method: 'post',
                 headers: {
                     'Content-Type': 'application/json'

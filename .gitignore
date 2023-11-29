@@ -16,3 +16,4 @@ move-sakarkiv-mock/upload/*
 !move-sakarkiv-mock/upload/.gitkeep
 
 tests/node_modules
+tests/next-move/test.pdf

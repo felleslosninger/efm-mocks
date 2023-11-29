@@ -1,10 +1,10 @@
-  
 resources:
   repositories:
     - repository: efm-eproc-pipeline
       type: github
       name: felleslosninger/efm-eproc-pipeline
       endpoint: felleslosninger
+      ref: development
 
 extends:
   template: build-and-deploy-template.yml@efm-eproc-pipeline
@@ -21,15 +21,12 @@ extends:
           workingDirectory: source
           script: | 
             sh pipeline.sh    
+    jiraVersionPrefix: Mocks
 
 trigger:
   batch: true
   branches:
     include:
-      - development
-      - release-*
-      - hotfix-*
-      - master
+      - '*'
 
 pr: none
-
