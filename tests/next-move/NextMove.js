@@ -3,7 +3,7 @@ const {StandardBusinessDocument, dpiSbd, dpeInnsynSbd, dpiSbdFysisk, dpiSbdDigit
 const path = require('path');
 const fs = require('fs');
 const request = require('request');
-const ipUrl = 'http://localhost:9093';
+const ipUrl = 'http://localhost:9094';
 const endpoint = 'api/messages/out';
 const program = require('commander');
 const crypto = require('crypto');
