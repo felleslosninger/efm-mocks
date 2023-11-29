@@ -113,8 +113,8 @@ export default class IncomingMessages extends React.Component {
                                 filterable:true
                             },
                             {
-                                Header: "Conversation ID",
-                                accessor: "conversationId",
+                                Header: "Message ID",
+                                accessor: "messageId",
                                 filterable:true
                             },
                             {

@@ -1,7 +1,7 @@
 const {deleteFile} = require("./modules/helper");
 const {recieveFile} = require("./modules/DPE/responses");
 const {getRawBody} = require('./modules/helper');
-const {PutMessage, retrieveforsendelsestatus, retreiveforsendelsetyper} = require("./modules/DPF/soapResponses");
+const {PutMessage, retrieveforsendelsestatuser, retreiveforsendelsetyper} = require("./modules/DPF/soapResponses");
 const retrieveForsendelseIdByEksternRefResponse = require("./modules/DPF/retrieveForsendelseIdByEksternRef").retrieveForsendelseIdByEksternRefResponse;
 const {GetAvailableFilesBasic, CheckIfAvailableFilesBasic, InitiateBrokerServiceBasic, DownloadFileStreamedBasic, UploadFileStreamedBasic} = require("./modules/DPO/responses");
 const getBasicWSDL = require("./modules/DPO/BasicWsdl").getBasicWSDL;
@@ -14,6 +14,15 @@ const hentForsendelsefil = require("./modules/DPF/soapResponses").hentForsendels
 const hentNyeForsendelser = require("./modules/DPF/soapResponses").hentNyeForsendelser;
 const sendForsendelseMedId = require("./modules/DPF/sendForsendelseMedId").sendForsendelseMedId;
 const parseXml = require("./modules/DPO/responses").parseXml;
+
+function xmlBodyFromMultipart(req) {
+    let split = req.rawBody.split("\r\n");
+    if (split.length > 1) {
+        return split[3];
+    } else {
+        return split[0];
+    }
+}
 
 const mocks = [
     {
@@ -83,14 +92,19 @@ const mocks = [
                 middleware: getRawBody,
                 responseFunction: (req, res) => {
                     res.set('Content-type', 'application/soap+xml');
-                    parseXml(req.rawBody, (err, parsed) => {
+                    console.log("raw: " + req.rawBody);
+                    let xml = xmlBodyFromMultipart(req);
+                    parseXml(xml, (err, parsed) => {
+                        if (err) {
+                            console.log(err);
+                        }
                         if (parsed.envelope.body[0]["sendforsendelsemedid"]) {
                             sendForsendelseMedId(req, res, parsed);
                         } else if (parsed.envelope.body["0"].retrieveforsendelseidbyeksternref) {
                             console.log("Checking for FIKS messages");
-                            retrieveForsendelseIdByEksternRefResponse(req, res, parsed)
-                        } else if (parsed.envelope.body["0"].retrieveforsendelsestatus) {
-                            retrieveforsendelsestatus(req, res, parsed);
+                            retrieveForsendelseIdByEksternRefResponse(req, res, parsed);
+                        } else if (parsed.envelope.body["0"].retrieveforsendelsestatuser) {
+                            retrieveforsendelsestatuser(req, res, parsed);
                         } else if (parsed.envelope.body["0"].retreiveforsendelsetyper) {
                             retreiveforsendelsetyper(req, res, parsed);
                         }

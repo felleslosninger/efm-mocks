@@ -44,7 +44,7 @@ export default class DPE extends React.Component {
 
 
     poll = () => {
-        axios.get('/api/dpe/messages').then((res) => {
+        axios.get(`${window.baseName}/api/dpe/messages`).then((res) => {
 
             if (res.data.length !== this.state.messages.length) {
                 this.setState({
@@ -62,7 +62,7 @@ export default class DPE extends React.Component {
 
     componentDidMount() {
 
-        axios.get('/api/messages').then((res) => {
+        axios.get(`${window.baseName}/api/messages`).then((res) => {
             let db = new Map(res.data);
             this.setState({
                 messages: Array.from(db.values())

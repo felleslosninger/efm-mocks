@@ -9,7 +9,7 @@ MoveMocks lar deg simulere de forskjellige meldingsformidlertjenestene.
 
 * Docker
 * Integrasjonspunkt
-* Java JDK/OpenJDK installert (JAVA_HOME må være satt)
+* Java JDK/OpenJDK 8 installert (JAVA_HOME må være satt). Kan være lurt å restarte etterpå. 
 
 
 ### Oppstart
@@ -34,11 +34,12 @@ På localhost:8001 finner du et lite gui der du kan se meldinger som har blitt s
 Start integrasjonspunktet med *mock* profil. Eksempel på oppstartkommando: ```java -Dspring.profiles.active=mock -jar integrasjonspunkt[versjon].jar```
 Ved behov for overstyringer av properties kan dette gjøres i ```integrasjonspunkt-local.properties```. Propperties verdiene integrasjonspunktet kjører med i *mock* profil finner du [her](https://github.com/difi/move-integrasjonspunkt/blob/development/integrasjonspunkt/src/main/resources/config/application-mock.properties)
 
-[*Generell informasjon om hvordan sette opp et integrasjonspunkt*](https://difi.github.io/felleslosninger/eformidling_download_ip.html)
+[*Generell informasjon om hvordan sette opp et integrasjonspunkt*](https://docs.digdir.no/docs/eFormidling/installasjon/)
 
 #### Sende meldinger
 
 Mocken er satt opp til å motta meldinger for følgende org nr og prosesser:
+
 
 | Tjeneste(/Meldingstype)| Mottaker    | Prosess                                                     | Dokumenttype                                 |
 |------------------------|-------------|-------------------------------------------------------------|----------------------------------------------|
@@ -51,6 +52,9 @@ Mocken er satt opp til å motta meldinger for følgende org nr og prosesser:
 | DPO                    | 810074582   | urn:no:difi:profile:arkivmelding:administrasjon:ver1.0      | urn:no:difi:arkivmelding:xsd::arkivmelding   |
 | DPV                    | 910075918   | urn:no:difi:profile:arkivmelding:helseSosialOgOmsorg:ver1.0 | urn:no:difi:arkivmelding:xsd::arkivmelding   |
 | DPF                    | 910075918   | urn:no:difi:profile:arkivmelding:planByggOgGeodata:ver1.0   | urn:no:difi:arkivmelding:xsd::arkivmelding   |
+| Avtalt melding         | 910075918   | urn:no:difi:profile:avtalt:avtalt:ver1.0                    | urn:no:difi:avtalt:xsd::avtalt               |
+| Avtalt melding         | 984661185   | urn:no:difi:profile:avtalt:avtalt:ver1.0                    | urn:no:difi:avtalt:xsd::avtalt               |
+
 
 Meldinger som mocken har mottatt kan ses på [http://localhost:8001](http://localhost:8001)
 
@@ -86,3 +90,13 @@ Dersom alt er satt opp korrekt, vil meldingene gå igjennom, og du vil få et ta
 #### Docker tips
 
 Kommando som kan brukes til å bygge prosjektet etter oppdatering ```docker-compose up --build --force-recreate```. Kjøres i roten av prosjektet.
+
+### Egen implementasjon av eFormidling 2.0 API'et
+
+Om du bruker Mocks som del av utviklingsarbeid kan det være nyttig å kjenne til API dokumentasjonen vår samt en egen side som supplement.
+- [API REST dokumentasjon](https://docs.digdir.no/eformidling_nm_restdocs.html)
+- [Supplement til REST dokumentasjon](https://docs.digdir.no/eformidling_dev.html)
+
+---
+
+Kontakt oss gjerne på [servicedesk@digdir.no](mailto:servicedesk@digdir.no) ved spørsmål. 
