@@ -15,7 +15,7 @@ MoveMocks lar deg simulere de forskjellige meldingsformidlertjenestene.
 ### Oppstart
 
 1. ``` git clone https://github.com/difi/move-mocks.git ```
-2. Pass på at ingenting kjører på følgende porter: 9093, 8001, 8002 og 8080, eller spesifiser porter i .env filen.
+2. Pass på at ingenting kjører på følgende porter: 9094, 8001, 8002 og 8080, eller spesifiser porter i .env filen.
 3. Kjør ``` docker-compose up ``` i roten av prosjektet. 
 
 Du har nå følgende applikasjoner kjørende:
