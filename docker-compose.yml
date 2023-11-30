@@ -42,6 +42,7 @@ services:
     build: ./ip
     environment:
       SPRING_PROFILES_ACTIVE: dev
+      JAVA_OPTS: -Xmx2g
     ports:
       - ${IP_PORT}:9093
     networks: 

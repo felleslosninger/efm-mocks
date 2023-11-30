@@ -1,7 +1,8 @@
-FROM java:8-jre
+FROM openjdk:8-jre-alpine
 
 ENV VERSION 2.23.2
 
+RUN apk --no-cache add curl
 RUN mkdir /opt/wiremock
 WORKDIR /opt/wiremock
 COPY ./__files /opt/wiremock/__files

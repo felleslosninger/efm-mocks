@@ -1,15 +1,23 @@
 // const dpfDB = require("./dpfDB").dpfDB;
 const makeid = require("../helper").makeid;
+const formidable = require('formidable');
 var fs = require("fs");
 const AdmZip = require('adm-zip');
 
 function sendForsendelseMedId(req, res, parsed) {
 
+    const form = new formidable.IncomingForm();
+
+    // TODO: fix, doesn't work
+    let path = '';
+    form.on('file', function (name, file) {
+        path = file.path;
+    });
+    form.parse(req);
+
     let orgName = parsed.envelope.body["0"].sendforsendelsemedid["0"].forsendelse["0"].svarsendestil["0"].digitaladresse["0"].orgnr[0];
 
     let conversatoinId = parsed.envelope.body["0"].sendforsendelsemedid["0"].forsendelsesid["0"];
-
-    let payload = parsed.envelope.body["0"].sendforsendelsemedid["0"].forsendelse["0"].dokumenter["0"].data["0"];
 
     let fileName = parsed.envelope.body["0"].sendforsendelsemedid["0"].forsendelse["0"].dokumenter["0"].filnavn["0"];
 
@@ -26,8 +34,6 @@ function sendForsendelseMedId(req, res, parsed) {
 
     let filePath = `${__dirname}/uploads/${fileName}`;
     let zipFilePath = `${__dirname}/uploads/${conversatoinId}.zip`;
-
-    let buff = new Buffer(payload, 'base64');
 
     let receiverCountry = parsed.envelope.body["0"].sendforsendelsemedid["0"].forsendelse["0"].mottaker["0"].postadresse["0"].land["0"];
 
@@ -57,7 +63,7 @@ function sendForsendelseMedId(req, res, parsed) {
         receiverOrgNum: receiverOrgNum
     });
 
-    fs.writeFile(filePath, buff, (err) => {
+    fs.writeFile(filePath, path, (err) => {
         if(err) {
             return console.log(err);
         }

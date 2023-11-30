@@ -1,4 +1,4 @@
-FROM difi/integrasjonspunkt:development
+FROM difi/integrasjonspunkt:latest
 
 COPY integrasjonspunkt-local.properties /opt/integrasjonspunkt
 COPY bootstrap.properties /opt/integrasjonspunkt
