@@ -17,7 +17,7 @@
     "uuid": "^3.3.2",
     "ws.js": "^2.0.23",
     "xml": "^1.0.1",
-    "xml2js": "^0.4.19"
+    "xml2js": "^0.5.0"
   },
   "scripts": {
     "client": "cd client && npm run start",
