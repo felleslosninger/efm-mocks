@@ -9,7 +9,7 @@
     "chalk": "^2.4.2",
     "express": "^4.17.1",
     "express-xml-bodyparser": "^0.3.0",
-    "extract-zip": "^1.6.7",
+    "extract-zip": "^2.0.1",
     "file-type": "^16.5.4",
     "https": "^1.0.0",
     "moment": "^2.24.0",
@@ -31,7 +31,7 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
-    "mocha": "^5.2.0"
+    "mocha": "^10.2.0"
   },
   "scripts": {
     "dev": "nodemon --inspect index.js",
