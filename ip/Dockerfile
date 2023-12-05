@@ -1,8 +1,7 @@
 FROM digdir/integrasjonspunkt:latest
 
 COPY integrasjonspunkt-local.properties /opt/integrasjonspunkt
-COPY bootstrap.properties /opt/integrasjonspunkt
-COPY mock-truststore.jks /opt/integrasjonspunkt
-COPY kontaktinfo-client.pem /opt/integrasjonspunkt
-COPY mock.jks /opt/integrasjonspunkt
+COPY application.properties /opt/integrasjonspunkt
+COPY eformidling-root-intermediate.jks /opt/integrasjonspunkt
+COPY altinn-810074582.jks /opt/integrasjonspunkt
 
