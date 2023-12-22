@@ -1,4 +1,4 @@
-FROM node:10
+FROM node:16.16.0
 
 # Create app directory
 WORKDIR /usr/src/app
@@ -9,10 +9,10 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 # Install server dependencies:
-RUN npm install
+RUN npm install --force
 
 # Copy frontend code:
-COPY ./client /usr/src/app/client
+COPY ./client/package*.json /usr/src/app/client/
 
 ENV NODE_ENV=production
 
@@ -20,7 +20,7 @@ ENV NODE_ENV=production
 # RUN npm install --only=production
 
 # Install frondend dependencies:
-RUN cd client && rm -rf node_modules/ && npm i && rm -rf build/ && npm run build && cd ..
+RUN cd client && npm install --force
 
 # Bundle app source
 COPY . .

@@ -1,6 +1,6 @@
-## MoveMocks
+## efm-mocks
 
-MoveMocks lar deg simulere de forskjellige meldingsformidlertjenestene.
+EfmMocks lar deg simulere de forskjellige meldingsformidlertjenestene.
 
 ![alt text](images/Mock.jpg "Container diagram")
 
@@ -14,8 +14,8 @@ MoveMocks lar deg simulere de forskjellige meldingsformidlertjenestene.
 
 ### Oppstart
 
-1. ``` git clone https://github.com/difi/move-mocks.git ```
-2. Pass på at ingenting kjører på følgende porter: 9093, 8001, 8002 og 8080, eller spesifiser porter i .env filen.
+1. ``` git clone https://github.com/felleslosninger/efm-mocks ```
+2. Pass på at ingenting kjører på følgende porter: 9094, 8001, 8002 og 8080, eller spesifiser porter i .env filen.
 3. Kjør ``` docker-compose up ``` i roten av prosjektet. 
 
 Du har nå følgende applikasjoner kjørende:
@@ -61,11 +61,11 @@ Meldinger som mocken har mottatt kan ses på [http://localhost:8001](http://loca
 
 #### Sende meldinger
 
-MoveMocks inneholder også testscript for å sende de forskjellige meldingstypene.
+EfmMocks inneholder også testscript for å sende de forskjellige meldingstypene.
 
-1. MoveMocks krever node.js installert. Gå til [https://nodejs.org/en/download/](https://nodejs.org/en/download/) for å laste ned og installere node js for ditt system.
-2. ```cd move-mocks/tests npm install``` 
-3. Naviger til tester ```cd move-mocks/tests/next-move```
+1. EfmMocks krever node.js installert. Gå til [https://nodejs.org/en/download/](https://nodejs.org/en/download/) for å laste ned og installere node js for ditt system.
+2. ```cd efm-mocks/tests npm install``` 
+3. Naviger til tester ```cd efm-mocks/tests/next-move```
 4. Kjør test: ```node NextMove.js```
 5. For å sende spesifikke meldingstyper kan du kjøre ``` node NextMove.js dpi dpiprint dpe dpf dpv dpo ```.
 6. Kjør : ```node NextMove.js -h``` for å se alle valg.
@@ -79,7 +79,7 @@ Dette forutsetter at ditt integrasjonspunkt kjører med org nummeret som er angi
 
 #### jMeter
 
-MoveMocks inneholder også jMeter tester. Disse kan brukes til ytelses testing, og for å teste om alt er satt opp og fungerer.
+EfmMocks inneholder også jMeter tester. Disse kan brukes til ytelses testing, og for å teste om alt er satt opp og fungerer.
  
 1. Åpne en av testene i ```/jMeter ```
 2. I test oppsettet i menyen til venstre, gå til ```IP Stress test/Test Oppsett/Sett test variabler```, og angi IP og port til ditt Integrasjonspunkt.
@@ -93,9 +93,7 @@ Kommando som kan brukes til å bygge prosjektet etter oppdatering ```docker-comp
 
 ### Egen implementasjon av eFormidling 2.0 API'et
 
-Om du bruker Mocks som del av utviklingsarbeid kan det være nyttig å kjenne til API dokumentasjonen vår samt en egen side som supplement.
-- [API REST dokumentasjon](https://docs.digdir.no/eformidling_nm_restdocs.html)
-- [Supplement til REST dokumentasjon](https://docs.digdir.no/eformidling_dev.html)
+Om du bruker Mocks som del av utviklingsarbeid kan det være nyttig å kjenne til [API dokumentasjonen vår)](https://docs.digdir.no/docs/eFormidling/Utvikling/integrasjonspunkt_eformidling2_api.html).
 
 ---
 

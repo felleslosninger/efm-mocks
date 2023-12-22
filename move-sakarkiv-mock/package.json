@@ -4,20 +4,20 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "axios": "0.21.1",
-    "body-parser": "^1.19.0",
-    "express": "^4.17.1",
-    "js2xmlparser": "^4.0.0",
-    "morgan": "^1.9.1",
+    "axios": "1.6.2",
+    "body-parser": "^1.20.2",
+    "express": "^4.18.2",
+    "js2xmlparser": "^5.0.0",
+    "morgan": "^1.10.0",
     "npm-run-all": "^4.1.5",
     "request": "^2.88.0",
-    "soap": "^0.36.0",
-    "sqlite3": "^4.0.8",
-    "superagent": "^5.1.0",
-    "uuid": "^3.3.2",
+    "soap": "^1.0.0",
+    "sqlite3": "^5.1.6",
+    "superagent": "^8.1.2",
+    "uuid": "^9.0.1",
     "ws.js": "^2.0.23",
     "xml": "^1.0.1",
-    "xml2js": "^0.4.19"
+    "xml2js": "^0.6.2"
   },
   "scripts": {
     "client": "cd client && npm run start",
@@ -26,8 +26,8 @@
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
   },
   "devDependencies": {
-    "concurrently": "^3.6.1",
-    "nodemon": "^1.19.1"
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.0.2"
   },
   "author": "",
   "license": "ISC"
